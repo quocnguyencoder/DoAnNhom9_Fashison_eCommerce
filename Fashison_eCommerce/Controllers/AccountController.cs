@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using Fashison_eCommerce.Models;
@@ -26,7 +28,7 @@ namespace Fashison_eCommerce.Controllers
         }
 
         [HttpPost]
-        public ActionResult Verify(User user)
+        public ActionResult Verify(User user)//xac nhan dang nhap
         {
             //mydb.openConnection();
             //hash password..................................
@@ -100,6 +102,35 @@ namespace Fashison_eCommerce.Controllers
             }
             return View();
             
+        }
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult VerifyEmail()
+        {
+            string email = Request["email"];
+            ViewBag.email = email;
+            // Cau hinh thong tin gmail
+            var mail = new SmtpClient("smtp.gmail.com", 25)
+            {
+                Credentials = new NetworkCredential("quocnguyenyeutu@gmail.com", "01885722611"),
+                EnableSsl = true
+            };
+            // tao gmail
+            var message = new MailMessage();
+            message.From = new MailAddress("quocnguyenyeutu@gmail.com");
+            message.ReplyToList.Add("quocnguyenyeutu@gmail.com");
+            message.To.Add(new MailAddress(email));
+            message.Subject = "Confirm your email";
+            message.Body = "Please confirm your password";
+
+            // gui gmail    
+            mail.Send(message);
+            return View("TestView");
         }
     }
 }
