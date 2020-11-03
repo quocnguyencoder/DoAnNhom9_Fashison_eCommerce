@@ -11,7 +11,8 @@ namespace Fashison_eCommerce.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +21,10 @@ namespace Fashison_eCommerce.Models
             this.Pro_Pictures = new HashSet<Pro_Pictures>();
         }
     
+        [Required(ErrorMessage ="Empty field")]
         public string Product_ID { get; set; }
+
+        [Required(ErrorMessage = "Empty field")]
         public string Name { get; set; }
         public float Price { get; set; }
         public int Amount { get; set; }
