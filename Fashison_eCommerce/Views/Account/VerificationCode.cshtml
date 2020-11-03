@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VerificationCode</title>
+    <script>
+        function submit() {
+            var vc = document.getElementById("code").value;
+            var vcode = vc.toString();
+            var code = (@ViewBag.code).toString();
+
+            if (vcode === code)
+            {
+                document.getElementById("codeform").submit();
+            }
+            else
+            {
+                alert("Wrong code");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <form id="codeform" action="/Account/ChangePasswordPage" method="post">
+            <div>
+                <button onclick="location.href='/Account/ForgotPassword'" type="button">
+                    Go back
+                </button>
+                <div>Account recovery</div>
+                <div>
+                    An email with 6-digit verification code was just sent to @ViewBag.email
+                </div>
+                <div>
+                    <input type="text" id="code" name="code" placeholder="Enter your code" autocomplete="off" />
+                </div>
+            </div>
+        </form>
+        <button onclick="submit()">Next</button>
+    </div>
+
+</body>
+</html>
