@@ -7,17 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using Fashison_eCommerce.Models;
 
+
 namespace Fashison_eCommerce.Controllers
 {
     public class AccountController : Controller
     {
         MY_DB mydb = new MY_DB();
         // GET: Account
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
 
         [HttpGet]
         public ActionResult Index()
@@ -25,6 +21,27 @@ namespace Fashison_eCommerce.Controllers
             return View();
         }
 
+        public ActionResult Login()
+        {
+            return View("Validator");
+        }
+
+        [HttpPost]
+        public ActionResult Validator(User user)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    return RedirectToAction("index");
+                }
+                return View(user);
+            }
+            catch
+            {
+                return View();
+            }
+        }
         [HttpPost]
         public ActionResult Verify(User user)
         {
@@ -65,14 +82,13 @@ namespace Fashison_eCommerce.Controllers
             // lay id cua user tu email
             string uid = null;
             using (var _context = new DA_QLTMDTEntities())
-            {              
+            {
                 try
                 {
                     var id = (from u in _context.Users where u.Email == user.Email select u).FirstOrDefault();
                     uid = id.ToString();
                 }
                 catch { }
-
                 //uid = "1";
                 if (uid == null)
                 {
@@ -80,26 +96,25 @@ namespace Fashison_eCommerce.Controllers
                     try
                     {
                         mydb.openConnection();
-                        SqlCommand command = new SqlCommand("INSERT INTO Users (Name,Email,Password) Values( '"+user.Name+"', '"+ user.Email + "','" + user.Password + "')", mydb.getConnection);
+                        SqlCommand command = new SqlCommand("INSERT INTO Users (Name,Email,Password) Values( '" + user.Name + "', '" + user.Email + "','" + user.Password + "')", mydb.getConnection);
                         command.ExecuteNonQuery();
                         mydb.closeConnection();
                         Response.Write("<script>alert('Data inserted successfully')</script>");
                         return View("LoginSuccess");
                     }
-                    catch 
+                    catch
                     {
-                        
+                        return View();
                     }
 
                 }
                 else
                 {
-                   // Response.Write("<script>alert('Data inserted successfully')</script>");
+                    // Response.Write("<script>alert('Data inserted successfully')</script>");
                     return View("Error");
                 }
+
             }
-            return View();
-            
         }
     }
 }
