@@ -269,6 +269,7 @@
     <Content Include="Views\Shared\TestView.cshtml" />
     <Content Include="Views\Account\VerificationCode.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
