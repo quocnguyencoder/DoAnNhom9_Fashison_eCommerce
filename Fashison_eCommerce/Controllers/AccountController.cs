@@ -39,99 +39,95 @@ namespace Fashison_eCommerce.Controllers
             return View();
         }
 
+        [HttpGet] // di toi trang login
         public ActionResult Login()
         {
-            return View("Validator");
+            return View();
         }
 
-        [HttpPost]
-        public ActionResult Validator(User user)
+        [HttpPost]// thuc hien dang nhap
+        public ActionResult VerifyLogin(User user)
         {
-            try
-            {
+            
+                // kiem tra du lieu nhap
                 if (ModelState.IsValid)
                 {
-                    return RedirectToAction("index");
-                }
-                return View(user);
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        [HttpPost]
-        public ActionResult Verify(User user)
-        {
-            //mydb.openConnection();
-            //hash password..................................
-            //SqlCommand command = new SqlCommand("SELECT id FROM Login WHERE username='" + account.Email + "'and password='" + account.Password + "'", mydb.getConnection);
-            string uid = null;
-            using (var _context = new DA_QLTMDTEntities())
-            {
-                // query id tu email va password de kiem tra dang nhap
-                try
-                {
-                    var id = (from u in _context.Users where u.Email == user.Email && u.Password == user.Password select u).FirstOrDefault();
-                    uid = id.ToString();
-                }
-                catch { }
-            }
+                    // truy van csdl 
+                    string uid = null;
+                    using (var _context = new DA_QLTMDTEntities())
+                    {
+                        // query id tu email va password de kiem tra dang nhap
+                        try
+                        {
+                            var id = (from u in _context.Users where u.Email == user.Email && u.Password == user.Password select u).FirstOrDefault();
+                            uid = id.ToString();
+                        }
+                        catch { }
+                    }
 
-            if (uid != null)
-            {
-                mydb.closeConnection();
-                return View("LoginSuccess");
-            }
-            else
-            {
-                mydb.closeConnection();
-                return View("Error");
-            }
+                    if (uid != null)
+                    {
+                        mydb.closeConnection();
+                        return View("LoginSuccess");
+                    }
+                    else
+                    {
+                        mydb.closeConnection();
+                        return View("Error");
+                    }
+                }
+                return View("Login");   
         }
-        [HttpGet]
+        
+        [HttpGet] // di toi trang dang ki
         public ActionResult Register()
         {
             return View();
         }
-        [HttpPost]
+        [HttpPost] // thuc hien dang ki
         public ActionResult RegisterUser(User user)
         {
             // lay id cua user tu email
             string uid = null;
-            using (var _context = new DA_QLTMDTEntities())
+            // kiem tra du lieu nhap
+            if (ModelState.IsValid)
             {
-                try
+                using (var _context = new DA_QLTMDTEntities())
                 {
-                    var id = (from u in _context.Users where u.Email == user.Email select u).FirstOrDefault();
-                    uid = id.ToString();
-                }
-                catch { }
-                if (uid == null)
-                {
-                    //Response.Write("<script>alert('Data inserted successfully')</script>");
                     try
                     {
-                        mydb.openConnection();
-                        SqlCommand command = new SqlCommand("INSERT INTO Users (Name,Email,Password) Values( '" + user.Name + "', '" + user.Email + "','" + user.Password + "')", mydb.getConnection);
-                        command.ExecuteNonQuery();
-                        mydb.closeConnection();
-                        Response.Write("<script>alert('Data inserted successfully')</script>");
-                        return View("LoginSuccess");
+                        var id = (from u in _context.Users where u.Email == user.Email select u).FirstOrDefault();
+                        uid = id.ToString();
                     }
-                    catch
+                    catch { }
+                    if (uid == null)
                     {
-                        return View();
+                        //Response.Write("<script>alert('Data inserted successfully')</script>");
+                        try
+                        {
+                            mydb.openConnection();
+                            SqlCommand command = new SqlCommand("INSERT INTO Users (Name,Email,Password) Values( '" + user.Name + "', '" + user.Email + "','" + user.Password + "')", mydb.getConnection);
+                            command.ExecuteNonQuery();
+                            mydb.closeConnection();
+                            Response.Write("<script>alert('Data inserted successfully')</script>");
+                            return View("LoginSuccess");
+                        }
+                        catch
+                        {
+                            return View();
+                        }
+
+                    }
+                    else
+                    {
+                        // Response.Write("<script>alert('Data inserted successfully')</script>");
+                        return View("Error");
                     }
 
                 }
-                else
-                {
-                    // Response.Write("<script>alert('Data inserted successfully')</script>");
-                    return View("Error");
-                }
-
             }
+            return View("Register");
+
         }
 
         [HttpGet]
@@ -139,68 +135,76 @@ namespace Fashison_eCommerce.Controllers
         {
             return View();
         }
-        string user_id;
         [HttpPost]  
         public ActionResult VerifyByEmail()// gui email co kem ma xac nhan cho user
         {
             string user_email = Request["email"];
-            ViewBag.email = user_email;
-            string web_email = "laptrinhwebnhom9@gmail.com";
-            // Cau hinh thong tin gmail
-            var mail = new SmtpClient("smtp.gmail.com", 25)
-            {
-                Credentials = new NetworkCredential(web_email, "123asd456qwe"),
-                EnableSsl = true
-            };
-            // tao gmail
-            var message = new MailMessage();
-            message.From = new MailAddress(web_email);
-            message.ReplyToList.Add(web_email);
-            message.To.Add(new MailAddress(user_email));
-
-            // Create a random 6-digits number for verification code
-            Random random = new Random();
-            int code = random.Next(100000,999999);
-            ViewBag.code = code;
-
-            message.Subject = "Your verification code";
-            message.Body = code+" is your LTWeb verification code.";
-
-            // gui gmail    
-            mail.Send(message);
-            // save user id
-            user_id = GetUserIDbyEmail(user_email);
-            return View("VerificationCode");
-        }
-        [HttpPost]
-        public ActionResult ChangePasswordPage()
-        {
-            return View("ChangePassword");
-        }
-        [HttpPost]
-        public ActionResult ChangePassword()
-        {
+            string user_id = GetUserIDbyEmail(user_email);
             if(user_id != null)
             {
-                string password = Request["password"];
-                try
+                Session["user_email"] = user_email;
+                Response.Write("<script>alert('Email "+ user_id + "')</script>");
+                ViewBag.email = user_email;
+                string web_email = "laptrinhwebnhom9@gmail.com";
+                // Cau hinh thong tin gmail
+                var mail = new SmtpClient("smtp.gmail.com", 25)
                 {
-                    mydb.openConnection();
-                    SqlCommand command = new SqlCommand("Update Users Set Password = '"+password+"' where id = "+user_id, mydb.getConnection);
-                    command.ExecuteNonQuery();
-                    mydb.closeConnection();
-                    Response.Write("<script>alert('Password changed')</script>");
-                }
-                catch
-                {
+                    Credentials = new NetworkCredential(web_email, "123asd456qwe"),
+                    EnableSsl = true
+                };
+                // tao gmail
+                var message = new MailMessage();
+                message.From = new MailAddress(web_email);
+                message.ReplyToList.Add(web_email);
+                message.To.Add(new MailAddress(user_email));
 
-                }
+                // Create a random 6-digits number for verification code
+                Random random = new Random();
+                int code = random.Next(100000, 999999);
+                ViewBag.code = code;
+
+                message.Subject = "Your verification code";
+                message.Body = code + " is your LTWeb verification code.";
+
+                // gui gmail    
+                mail.Send(message);
+                // save user id
+
+                return View("VerificationCode");
             }
             else
             {
                 Response.Write("<script>alert('Email not found')</script>");
+                return View("ForgotPassword");
             }
-            return View("Login");
+        }
+
+        [HttpPost] // di toi trang doi mat khau
+        public ActionResult ChangePasswordPage()
+        {
+            return View("ChangePassword");
+        }
+        [HttpPost] // thuc hien doi mat khau nguoi dung
+        public ActionResult ChangePassword()
+        {
+
+            string password = Request["password"];
+            try
+            {
+                mydb.openConnection();
+                SqlCommand command = new SqlCommand("Update Users Set Password = '"+password+"' where email = '"+Session["user_email"]+"'", mydb.getConnection);
+                command.ExecuteNonQuery();
+                mydb.closeConnection();
+                Response.Write("<script>alert('Password changed')</script>");
+            }
+            catch
+            {
+                Response.Write("<script>alert('Password not changed')</script>");
+                   
+            }
+            Session.Clear();
+            return RedirectToAction("Account", "Login");
+
         }
     }
 }

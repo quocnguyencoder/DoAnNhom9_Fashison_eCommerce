@@ -20,8 +20,8 @@ namespace Fashison_eCommerce.Models
         {
             this.Pro_Pictures = new HashSet<Pro_Pictures>();
         }
-    
-        [Required(ErrorMessage ="Empty field")]
+
+        [Required(ErrorMessage = "Empty field")]
         public string Product_ID { get; set; }
 
         [Required(ErrorMessage = "Empty field")]

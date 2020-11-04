@@ -257,26 +257,22 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\LoginSuccess.cshtml" />
     <Content Include="Views\Account\Error.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\MainPage\Index.cshtml" />
     <Content Include="Views\Account\RegisterUser.cshtml" />
-
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Shared\TestView.cshtml" />
     <Content Include="Views\Account\VerificationCode.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Account\Validator.cshtml" />
-
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

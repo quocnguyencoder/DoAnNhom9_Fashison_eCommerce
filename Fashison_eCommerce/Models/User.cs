@@ -20,29 +20,22 @@ namespace Fashison_eCommerce.Models
         {
             this.Stores = new HashSet<Store>();
         }
-
+    
         public int Id { get; set; }
-
         [EmailAddress]
         [Required]
         public string Email { get; set; }
-
         [Required]
-        [MinLength(6, ErrorMessage="Password must have more 6 characters")]
+        [MinLength(6, ErrorMessage = "Password must have more than 6 characters")]
         public string Password { get; set; }
-
+       
         public string Name { get; set; }
-
         public string Address { get; set; }
-
         public string Gender { get; set; }
-
         public string Phone { get; set; }
-
-        public System.DateTime Birthday { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }
-
     }
 }
