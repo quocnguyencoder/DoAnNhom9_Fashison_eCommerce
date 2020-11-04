@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Fashison_eCommerce.Models;
 
 
@@ -13,6 +16,21 @@ namespace Fashison_eCommerce.Controllers
     public class AccountController : Controller
     {
         MY_DB mydb = new MY_DB();
+        public string GetUserIDbyEmail(string email)
+        {
+            string uid=default;
+            using (var _context = new DA_QLTMDTEntities())
+            {
+                // query id tu email va password de kiem tra dang nhap
+                try
+                {
+                    var id = (from u in _context.Users where u.Email == email select u).FirstOrDefault();
+                    uid = id.ToString();
+                }
+                catch { }
+            }
+            return uid;
+        }
         // GET: Account
 
         [HttpGet]
@@ -89,7 +107,6 @@ namespace Fashison_eCommerce.Controllers
                     uid = id.ToString();
                 }
                 catch { }
-                //uid = "1";
                 if (uid == null)
                 {
                     //Response.Write("<script>alert('Data inserted successfully')</script>");
@@ -115,6 +132,75 @@ namespace Fashison_eCommerce.Controllers
                 }
 
             }
+        }
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+        string user_id;
+        [HttpPost]  
+        public ActionResult VerifyByEmail()// gui email co kem ma xac nhan cho user
+        {
+            string user_email = Request["email"];
+            ViewBag.email = user_email;
+            string web_email = "laptrinhwebnhom9@gmail.com";
+            // Cau hinh thong tin gmail
+            var mail = new SmtpClient("smtp.gmail.com", 25)
+            {
+                Credentials = new NetworkCredential(web_email, "123asd456qwe"),
+                EnableSsl = true
+            };
+            // tao gmail
+            var message = new MailMessage();
+            message.From = new MailAddress(web_email);
+            message.ReplyToList.Add(web_email);
+            message.To.Add(new MailAddress(user_email));
+
+            // Create a random 6-digits number for verification code
+            Random random = new Random();
+            int code = random.Next(100000,999999);
+            ViewBag.code = code;
+
+            message.Subject = "Your verification code";
+            message.Body = code+" is your LTWeb verification code.";
+
+            // gui gmail    
+            mail.Send(message);
+            // save user id
+            user_id = GetUserIDbyEmail(user_email);
+            return View("VerificationCode");
+        }
+        [HttpPost]
+        public ActionResult ChangePasswordPage()
+        {
+            return View("ChangePassword");
+        }
+        [HttpPost]
+        public ActionResult ChangePassword()
+        {
+            if(user_id != null)
+            {
+                string password = Request["password"];
+                try
+                {
+                    mydb.openConnection();
+                    SqlCommand command = new SqlCommand("Update Users Set Password = '"+password+"' where id = "+user_id, mydb.getConnection);
+                    command.ExecuteNonQuery();
+                    mydb.closeConnection();
+                    Response.Write("<script>alert('Password changed')</script>");
+                }
+                catch
+                {
+
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Email not found')</script>");
+            }
+            return View("Login");
         }
     }
 }
