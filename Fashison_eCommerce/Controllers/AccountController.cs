@@ -68,7 +68,7 @@ namespace Fashison_eCommerce.Controllers
                     if (uid != null)
                     {
                         mydb.closeConnection();
-                        return View("LoginSuccess");
+                        return RedirectToAction("User", "Index");
                     }
                     else
                     {

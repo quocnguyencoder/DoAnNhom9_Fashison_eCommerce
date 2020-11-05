@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace Fashison_eCommerce.Controllers
 {
-    public class MainPageController : Controller
+    public class UserController : Controller
     {
-        // GET: MainPage
+        // GET: User
         public ActionResult Index()
         {
             return View();
