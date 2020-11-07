@@ -68,7 +68,7 @@ namespace Fashison_eCommerce.Controllers
                     if (uid != null)
                     {
                         mydb.closeConnection();
-                        return View("LoginSuccess");
+                        return RedirectToAction("Index", "User");
                     }
                     else
                     {
@@ -203,7 +203,7 @@ namespace Fashison_eCommerce.Controllers
                    
             }
             Session.Clear();
-            return RedirectToAction("Account", "Login");
+            return RedirectToAction("Login", "Account");
 
         }
     }
