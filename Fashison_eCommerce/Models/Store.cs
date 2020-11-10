@@ -20,7 +20,7 @@ namespace Fashison_eCommerce.Models
             this.Products = new HashSet<Product>();
         }
     
-        public string Store_ID { get; set; }
+        public int Store_ID { get; set; }
         public string Address { get; set; }
         public Nullable<int> UserID { get; set; }
     

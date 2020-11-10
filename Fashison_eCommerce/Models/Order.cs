@@ -12,18 +12,10 @@ namespace Fashison_eCommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Order
     {
-        public int Product_ID { get; set; }
-        public string Name { get; set; }
-        public float Price { get; set; }
-        public int Amount { get; set; }
-        public int TypeID { get; set; }
-        public int Store_ID { get; set; }
-        public string Pictures { get; set; }
-        public string Decription { get; set; }
-    
-        public virtual Store Store { get; set; }
-        public virtual Product_Type Product_Type { get; set; }
+        public int Recipt_ID { get; set; }
+        public Nullable<float> Cost { get; set; }
+        public string Status { get; set; }
     }
 }

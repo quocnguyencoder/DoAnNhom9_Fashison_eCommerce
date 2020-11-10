@@ -20,7 +20,7 @@ namespace Fashison_eCommerce.Models
             this.Cart_Item = new HashSet<Cart_Item>();
         }
     
-        public string Cart_ID { get; set; }
+        public int Cart_ID { get; set; }
         public Nullable<float> Total_Cost { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

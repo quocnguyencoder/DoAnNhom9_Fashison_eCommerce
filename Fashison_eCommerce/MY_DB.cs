@@ -9,7 +9,7 @@ namespace Fashison_eCommerce
 {
     public class MY_DB
     {
-        SqlConnection con = new SqlConnection(@"Data Source=QUOCNGUYEN-LAPT;Initial Catalog=DA_QLTMDT;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        SqlConnection con = new SqlConnection(@"Data Source=SQL5097.site4now.net;Initial Catalog=DB_A6A231_DAQLTMDT;User Id=DB_A6A231_DAQLTMDT_admin;Password=nhom9123");
 
         //get the connection
         public SqlConnection getConnection

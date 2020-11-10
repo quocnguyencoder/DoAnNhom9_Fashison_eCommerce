@@ -19,7 +19,7 @@ namespace Fashison_eCommerce.Controllers
         public string GetUserIDbyEmail(string email)
         {
             string uid=default;
-            using (var _context = new DA_QLTMDTEntities())
+            using (var _context = new DB_A6A231_DAQLTMDTEntities())
             {
                 // query id tu email va password de kiem tra dang nhap
                 try
@@ -54,7 +54,7 @@ namespace Fashison_eCommerce.Controllers
                 {
                     // truy van csdl 
                     string uid = null;
-                    using (var _context = new DA_QLTMDTEntities())
+                    using (var _context = new DB_A6A231_DAQLTMDTEntities())
                     {
                         // query id tu email va password de kiem tra dang nhap
                         try
@@ -92,7 +92,7 @@ namespace Fashison_eCommerce.Controllers
             // kiem tra du lieu nhap
             if (ModelState.IsValid)
             {
-                using (var _context = new DA_QLTMDTEntities())
+                using (var _context = new DB_A6A231_DAQLTMDTEntities())
                 {
                     try
                     {
@@ -106,7 +106,7 @@ namespace Fashison_eCommerce.Controllers
                         try
                         {
                             mydb.openConnection();
-                            SqlCommand command = new SqlCommand("INSERT INTO Users (Name,Email,Password) Values( '" + user.Name + "', '" + user.Email + "','" + user.Password + "')", mydb.getConnection);
+                            SqlCommand command = new SqlCommand("INSERT INTO Users (Username,Email,Password) Values( '" + user.Username + "', '" + user.Email + "','" + user.Password + "')", mydb.getConnection);
                             command.ExecuteNonQuery();
                             mydb.closeConnection();
                             Response.Write("<script>alert('Data inserted successfully')</script>");

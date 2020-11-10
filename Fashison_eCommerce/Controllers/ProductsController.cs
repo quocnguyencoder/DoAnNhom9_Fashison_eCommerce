@@ -12,7 +12,7 @@ namespace Fashison_eCommerce.Controllers
 {
     public class ProductsController : Controller
     {
-        private DA_QLTMDTEntities db = new DA_QLTMDTEntities();
+        private DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
 
         // GET: Products
         public ActionResult Index()

@@ -12,10 +12,12 @@ namespace Fashison_eCommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class C_Order_
+    public partial class sysdiagram
     {
-        public string Recipt_ID { get; set; }
-        public Nullable<float> Cost { get; set; }
-        public string Status { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

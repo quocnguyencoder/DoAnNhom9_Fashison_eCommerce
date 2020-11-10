@@ -14,10 +14,10 @@ namespace Fashison_eCommerce.Models
     
     public partial class Cart_Item
     {
-        public string ItemID { get; set; }
+        public int ItemID { get; set; }
         public Nullable<int> Quantity { get; set; }
         public float Cost { get; set; }
-        public string Cart_ID { get; set; }
+        public Nullable<int> Cart_ID { get; set; }
     
         public virtual Cart Cart { get; set; }
     }

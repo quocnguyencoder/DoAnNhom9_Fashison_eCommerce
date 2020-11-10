@@ -136,44 +136,50 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Brand.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cart.cs">
-      <DependentUpon>TrangTMDT_DB.tt</DependentUpon>
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_Item.cs">
-      <DependentUpon>TrangTMDT_DB.tt</DependentUpon>
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\C_Order_.cs">
-      <DependentUpon>TrangTMDT_DB.tt</DependentUpon>
+    <Compile Include="Models\DA_TrangTMDTModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DA_TrangTMDTModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DA_TrangTMDTModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DA_TrangTMDTModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
-      <DependentUpon>TrangTMDT_DB.tt</DependentUpon>
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product_Type.cs">
-      <DependentUpon>TrangTMDT_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Pro_Pictures.cs">
-      <DependentUpon>TrangTMDT_DB.tt</DependentUpon>
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Store.cs">
-      <DependentUpon>TrangTMDT_DB.tt</DependentUpon>
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TrangTMDT_DB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TrangTMDT_DB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TrangTMDT_DB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TrangTMDT_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TrangTMDT_DB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TrangTMDT_DB.edmx</DependentUpon>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>TrangTMDT_DB.tt</DependentUpon>
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usertype_quyen.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MY_DB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,15 +197,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\TrangTMDT_DB.Context.tt">
+    <Content Include="Models\DA_TrangTMDTModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TrangTMDT_DB.Context.cs</LastGenOutput>
-      <DependentUpon>TrangTMDT_DB.edmx</DependentUpon>
+      <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
+      <LastGenOutput>DA_TrangTMDTModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\TrangTMDT_DB.tt">
+    <Content Include="Models\DA_TrangTMDTModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TrangTMDT_DB.edmx</DependentUpon>
-      <LastGenOutput>TrangTMDT_DB.cs</LastGenOutput>
+      <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
+      <LastGenOutput>DA_TrangTMDTModel.cs</LastGenOutput>
     </Content>
     <Content Include="Styles_css\Admin_styles\assets\ajax\ajax-treeview-nodes.html" />
     <Content Include="Styles_css\Admin_styles\assets\ajax\ui-elements-lightbox-ajax.html" />
@@ -1773,12 +1779,12 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\PT_Sans-Web-Regular.ttf" />
-    <EntityDeploy Include="Models\TrangTMDT_DB.edmx">
+    <EntityDeploy Include="Models\DA_TrangTMDTModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TrangTMDT_DB.Designer.cs</LastGenOutput>
+      <LastGenOutput>DA_TrangTMDTModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\TrangTMDT_DB.edmx.diagram">
-      <DependentUpon>TrangTMDT_DB.edmx</DependentUpon>
+    <Content Include="Models\DA_TrangTMDTModel.edmx.diagram">
+      <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
