@@ -13,10 +13,10 @@ namespace Fashison_eCommerce.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DA_QLTMDTEntities : DbContext
+    public partial class DB_A6A231_DAQLTMDTEntities : DbContext
     {
-        public DA_QLTMDTEntities()
-            : base("name=DA_QLTMDTEntities")
+        public DB_A6A231_DAQLTMDTEntities()
+            : base("name=DB_A6A231_DAQLTMDTEntities")
         {
         }
     
@@ -25,13 +25,15 @@ namespace Fashison_eCommerce.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C_Order_> C_Order_ { get; set; }
+        public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Cart_Item> Cart_Item { get; set; }
-        public virtual DbSet<Pro_Pictures> Pro_Pictures { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Product_Type> Product_Type { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<usertype_quyen> usertype_quyen { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Quoc\HCMute\NAM 3 20-21\HKI\Lập trình web\Project cuối kì\Fashison_eCommerce\Fashison_eCommerce\Models\TrangTMDT_DB.edmx'. 
+﻿// T4 code generation is enabled for model 'G:\Quoc\HCMute\NAM 3 20-21\HKI\Lập trình web\Project cuối kì\Fashison_eCommerce\Fashison_eCommerce\Models\TrangTMDTModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
