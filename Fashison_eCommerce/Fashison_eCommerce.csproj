@@ -133,6 +133,7 @@
     <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="Areas\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -4141,6 +4142,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Shop\" />
     <Folder Include="Data\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
   </ItemGroup>
