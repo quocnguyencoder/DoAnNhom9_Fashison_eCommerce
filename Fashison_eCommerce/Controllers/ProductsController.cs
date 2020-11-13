@@ -20,7 +20,7 @@ namespace Fashison_eCommerce.Controllers
             var products = db.Products.Include(p => p.Store).Include(p => p.Product_Type);
             return View(products.ToList());
         }
-
+        //Test git
         // GET: Products/Details/5
         public ActionResult Details(string id)
         {
