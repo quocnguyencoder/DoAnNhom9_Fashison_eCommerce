@@ -9,7 +9,7 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
     public class ShopController : Controller
     {
         // GET: Admin/Shop
-        public ActionResult Index()
+        public ActionResult InfoShop()
         {
             return View();
         }
