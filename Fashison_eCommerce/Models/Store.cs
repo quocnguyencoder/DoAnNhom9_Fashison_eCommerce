@@ -23,6 +23,10 @@ namespace Fashison_eCommerce.Models
         public int Store_ID { get; set; }
         public string Address { get; set; }
         public Nullable<int> UserID { get; set; }
+        public string ShopName { get; set; }
+        public string Decription { get; set; }
+        public string Pictures { get; set; }
+        public string Coverpics { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }

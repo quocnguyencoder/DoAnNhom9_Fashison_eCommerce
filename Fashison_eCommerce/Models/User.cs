@@ -18,7 +18,6 @@ namespace Fashison_eCommerce.Models
         public User()
         {
             this.Stores = new HashSet<Store>();
-            this.usertype_quyen = new HashSet<usertype_quyen>();
         }
     
         public int Id { get; set; }
@@ -33,7 +32,5 @@ namespace Fashison_eCommerce.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<usertype_quyen> usertype_quyen { get; set; }
     }
 }
