@@ -61,6 +61,7 @@ namespace Fashison_eCommerce.Controllers
                         {
                             var id = (from u in _context.Users where u.Email == user.Email && u.Password == user.Password select u).FirstOrDefault();
                             uid = id.ToString();
+                            Session["user"] = id;
                         }
                         catch { }
                     }

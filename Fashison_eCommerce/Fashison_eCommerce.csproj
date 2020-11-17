@@ -52,6 +52,12 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -130,12 +136,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductOfStoreController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Authorize.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AuthorizeController.cs" />
     <Compile Include="Models\Brand.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -163,10 +174,16 @@
     <Compile Include="Models\Order.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Permission.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product_Type.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Store.cs">
@@ -178,9 +195,6 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\usertype_quyen.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="MY_DB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -189,6 +203,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fa-brands-400.svg" />
     <Content Include="fonts\fa-regular-400.svg" />
@@ -2271,6 +2286,16 @@
     <Content Include="Styles_css\Admin_styles\assets\vendor\style-switcher\less\variables.less" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\ProductStore\Create.cshtml" />
+    <Content Include="Views\ProductStore\Delete.cshtml" />
+    <Content Include="Views\ProductStore\Details.cshtml" />
+    <Content Include="Views\ProductStore\Edit.cshtml" />
+    <Content Include="Views\ProductStore\Index.cshtml" />
+    <Content Include="Views\ProductOfStore\Create.cshtml" />
+    <Content Include="Views\ProductOfStore\Delete.cshtml" />
+    <Content Include="Views\ProductOfStore\Details.cshtml" />
+    <Content Include="Views\ProductOfStore\Edit.cshtml" />
+    <Content Include="Views\ProductOfStore\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

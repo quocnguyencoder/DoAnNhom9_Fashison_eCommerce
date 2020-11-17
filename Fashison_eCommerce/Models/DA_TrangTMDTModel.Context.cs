@@ -34,6 +34,8 @@ namespace Fashison_eCommerce.Models
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<usertype_quyen> usertype_quyen { get; set; }
+        public virtual DbSet<Authorize> Authorizes { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
     }
 }

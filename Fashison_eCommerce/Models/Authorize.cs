@@ -12,18 +12,13 @@ namespace Fashison_eCommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Brand
+    public partial class Authorize
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Brand()
-        {
-            this.Products = new HashSet<Product>();
-        }
+        public int RoleID { get; set; }
+        public string PermissionID { get; set; }
+        public string Note { get; set; }
     
-        public int BrandID { get; set; }
-        public string BrandName { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual Permission Permission { get; set; }
+        public virtual Role Role { get; set; }
     }
 }
