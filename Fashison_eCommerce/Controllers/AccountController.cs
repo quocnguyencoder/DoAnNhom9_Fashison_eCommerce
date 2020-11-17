@@ -41,11 +41,12 @@ namespace Fashison_eCommerce.Controllers
                 using (var _context = new DB_A6A231_DAQLTMDTEntities())
                 {
                     // query id tu email va password de kiem tra dang nhap
-                   
                     var obj = (from u in _context.Users where u.Email == user.Email && u.Password == user.Password select u).FirstOrDefault();
                     if(obj != null)
                     {
-                        string username = obj.Username.ToString();
+                        Session["userID"] = obj.Id.ToString();
+                        Session["username"] = obj.Username.ToString();
+                        //string username = obj.Username.ToString();
                         return RedirectToAction("Index", "User");
                     }
                     else
@@ -56,6 +57,12 @@ namespace Fashison_eCommerce.Controllers
                 }
             }
             return View("Error");   
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "User");
         }
         
         [HttpGet] // di toi trang dang ki
@@ -78,6 +85,7 @@ namespace Fashison_eCommerce.Controllers
                         {
                             try
                             {
+                                // goi stored proc de them user vao csdl
                                 var sqlParams = new SqlParameter[]
                                 {
                                 new SqlParameter("@username", user.Username),
@@ -173,6 +181,7 @@ namespace Fashison_eCommerce.Controllers
             {
                 try
                 {
+                    // goi stored proc de doi mat khau user
                     var sqlParams = new SqlParameter[]
                     {
                         new SqlParameter("@pass", password),
