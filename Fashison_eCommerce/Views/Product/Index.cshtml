@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <div align="center">
-    <a href="@Url.Action(" Create"," Product ")"> Add New Product </a> <br /> <br />
+    <a href="@Url.Action("Create","Product")"> Add New Product </a> <br /> <br />
     <table cellpadding="2" class="table" cellspacing="2" border="1">
         <tr class="btn-primary">
             <th> Product_Id </th>
@@ -19,6 +19,7 @@
             <th> Pictures </th>
             <th> Decription </th>
             <th> BrandID </th>
+            <th> Action </th>
         </tr>
         @foreach (var Prod in ViewBag.listProducts)
         {
@@ -33,7 +34,7 @@
                 <td>@Prod.Decription </td>
                 <td>@Prod.BrandID </td>
                 <td>
-                    <a onclick="return confirm('Do you want to Delete?')" href="@Url.Action(" Delete "," Product ",new {id= Prod.Product_ID})">Delete</a> || <a href="@Url.Action(" Edit "," Product ",new { id = Prod.Product_ID })">Edit</a>
+                    <a onclick="return confirm('Do you want to Delete?')" href="@Url.Action("Delete","Product",new {id= Prod.Product_ID})">Delete</a> || <a href="@Url.Action("Edit","Product",new { id = Prod.Product_ID })">Edit</a>
                 </td>
             </tr>
         }

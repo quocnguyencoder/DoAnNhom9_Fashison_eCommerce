@@ -1,15 +1,19 @@
 ﻿
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @model Fashison_eCommerce.ViewModel.ProductViewModel
-<h2> Create </h2>
+<h2> Edit </h2>
 <div align="center">
-    @using (Html.BeginForm("Create", "Product", FormMethod.Post))
+    @using (Html.BeginForm("Edit", "Product", FormMethod.Post))
     {
     <table class="table">
+        <tr>
+            <td>@Html.LabelFor(model => model.product.Product_ID) </td>
+            <td>@Html.TextBoxFor(model => model.product.Product_ID) </td>
+        </tr>
         <tr>
             <td>@Html.LabelFor(model => model.product.Name) </td>
             <td>@Html.TextBoxFor(model => model.product.Name) </td>
