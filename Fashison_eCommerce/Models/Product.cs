@@ -11,19 +11,29 @@ namespace Fashison_eCommerce.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Product
     {
+        [Display(Name = "Product_ID")]
         public int Product_ID { get; set; }
+        [Display(Name = "Name")]
         public string Name { get; set; }
+        [Display(Name = "Price")]
         public float Price { get; set; }
+        [Display(Name = "Amount")]
         public int Amount { get; set; }
+        [Display(Name = "TypeID")]
         public int TypeID { get; set; }
+        [Display(Name = "Store_ID")]
         public int Store_ID { get; set; }
+        [Display(Name = "Pictures")]
         public string Pictures { get; set; }
+        [Display(Name = "Decription")]
         public string Decription { get; set; }
+        [Display(Name = "BrandID")]
         public Nullable<int> BrandID { get; set; }
-    
+        
         public virtual Store Store { get; set; }
         public virtual Product_Type Product_Type { get; set; }
         public virtual Brand Brand { get; set; }
