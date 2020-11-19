@@ -25,6 +25,7 @@
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Authorize__RoleI__5165187F" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Users__RoleID__52593CB8" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

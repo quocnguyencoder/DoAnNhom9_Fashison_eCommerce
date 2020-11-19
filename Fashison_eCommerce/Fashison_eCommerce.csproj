@@ -136,6 +136,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductOfStoreController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -1848,6 +1849,8 @@
     <Content Include="Styles_css\User_styles\themes\images\ico\apple-touch-icon-57-precomposed.png" />
     <Content Include="Styles_css\User_styles\themes\images\ico\apple-touch-icon-72-precomposed.png" />
     <Content Include="Styles_css\User_styles\themes\images\ico\favicon.ico" />
+    <Content Include="Styles_css\User_styles\themes\images\ico\shop.png" />
+    <Content Include="Styles_css\User_styles\themes\images\ico\user-removebg.png" />
     <Content Include="Styles_css\User_styles\themes\images\lightbox\Close.png" />
     <Content Include="Styles_css\User_styles\themes\images\lightbox\lightbox-blank.gif" />
     <Content Include="Styles_css\User_styles\themes\images\lightbox\lightbox-btn-close.gif" />
@@ -2296,6 +2299,11 @@
     <Content Include="Views\ProductOfStore\Details.cshtml" />
     <Content Include="Views\ProductOfStore\Edit.cshtml" />
     <Content Include="Views\ProductOfStore\Index.cshtml" />
+    <Content Include="Views\Carts\Create.cshtml" />
+    <Content Include="Views\Carts\Delete.cshtml" />
+    <Content Include="Views\Carts\Details.cshtml" />
+    <Content Include="Views\Carts\Edit.cshtml" />
+    <Content Include="Views\Carts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

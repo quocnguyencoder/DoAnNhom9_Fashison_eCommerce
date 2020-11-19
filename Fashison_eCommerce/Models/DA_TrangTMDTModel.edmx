@@ -27,6 +27,7 @@
           </Key>
           <Property Name="Cart_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Total_Cost" Type="real" />
+          <Property Name="UserID" Type="int" />
         </EntityType>
         <EntityType Name="Cart_Item">
           <Key>
@@ -153,6 +154,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Cart__UserID__5535A963">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Cart_Item__Cart___35BCFE0A">
           <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
           <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
@@ -238,6 +251,10 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Authorize" EntitySet="Authorize" />
           </AssociationSet>
+          <AssociationSet Name="FK__Cart__UserID__5535A963" Association="Self.FK__Cart__UserID__5535A963">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
           <AssociationSet Name="FK__Cart_Item__Cart___35BCFE0A" Association="Self.FK__Cart_Item__Cart___35BCFE0A">
             <End Role="Cart" EntitySet="Cart" />
             <End Role="Cart_Item" EntitySet="Cart_Item" />
@@ -278,6 +295,8 @@
           <Property Name="Cart_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Total_Cost" Type="Single" />
           <NavigationProperty Name="Cart_Item" Relationship="Self.FK__Cart_Item__Cart___35BCFE0A" FromRole="Cart" ToRole="Cart_Item" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" FromRole="Cart" ToRole="User" />
         </EntityType>
         <EntityType Name="Cart_Item">
           <Key>
@@ -362,6 +381,7 @@
           <NavigationProperty Name="Stores" Relationship="Self.FK__Store__UserID__29572725" FromRole="Users" ToRole="Store" />
           <Property Name="RoleID" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="DB_A6A231_DAQLTMDTModel.FK__Users__RoleID__52593CB8" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Carts" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" FromRole="User" ToRole="Cart" />
         </EntityType>
         <Association Name="FK__Cart_Item__Cart___35BCFE0A">
           <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
@@ -456,6 +476,10 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK__Cart__UserID__5535A963" Association="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Authorize">
           <Key>
@@ -533,6 +557,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Cart__UserID__5535A963">
+          <End Type="DB_A6A231_DAQLTMDTModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -550,6 +586,7 @@
           <EntitySetMapping Name="Carts">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
                 <ScalarProperty Name="Total_Cost" ColumnName="Total_Cost" />
               </MappingFragment>
