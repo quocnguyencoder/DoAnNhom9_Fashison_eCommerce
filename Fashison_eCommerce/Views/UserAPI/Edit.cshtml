@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Fashison_eCommerce.ViewModel.UserViewModel
+<h2> Edit </h2>
+<div align="center">
+    @using (Html.BeginForm("Edit", "UserAPI", FormMethod.Post))
+    {
+    <table class="table">
+        <tr>
+            <td>@Html.LabelFor(model => model.user.Id) </td>
+            <td>@Html.TextBoxFor(model => model.user.Id) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.user.Username) </td>
+            <td>@Html.TextBoxFor(model => model.user.Username) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.user.Email)</td>
+            <td>@Html.TextBoxFor(model => model.user.Email) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.user.Password) </td>
+            <td>@Html.TextBoxFor(model => model.user.Password) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.user.Name) </td>
+            <td>@Html.TextBoxFor(model => model.user.Name) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.user.Address) </td>
+            <td>@Html.TextBoxFor(model => model.user.Address) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.user.Gender) </td>
+            <td>@Html.TextBoxFor(model => model.user.Gender) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.user.Phone) </td>
+            <td>@Html.TextBoxFor(model => model.user.Phone) </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Save" /></td>
+        </tr>
+    </table>
+    }
+</div>

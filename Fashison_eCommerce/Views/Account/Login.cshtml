@@ -1,11 +1,20 @@
 ﻿@model Fashison_eCommerce.Models.User
 
 @{
-    ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
-    @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
 
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="~/Styles_css/Login_styles/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+</head>
+<body>
     <!-- title -->
     <h1>
         <span>F</span>ashion
@@ -89,3 +98,5 @@
 
         </form>
     </div>
+</body>
+</html>

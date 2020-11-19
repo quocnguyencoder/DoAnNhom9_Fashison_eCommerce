@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div align="center">
+    <a href="@Url.Action("Create","UserAPI")"> Add New User </a> <br /> <br />
+    <table cellpadding="2" class="table" cellspacing="2" border="1">
+        <tr class="btn-primary">
+            <th> User ID </th>
+            <th> Username </th>
+            <th> Email </th>
+            <th> Password </th>
+            <th> Name </th>
+            <th> Address </th>
+            <th> Gender </th>
+            <th> Phone </th>
+        </tr>
+        @foreach (var User in ViewBag.listUsers)
+        {
+            <tr class="btn-success">
+                <td>@User.Id </td>
+                <td>@User.Username </td>
+                <td>@User.Email </td>
+                <td>@User.Password </td>
+                <td>@User.Name</td>
+                <td>@User.Address </td>
+                <td>@User.Gender </td>
+                <td>@User.Phone </td>
+                <td>
+                    <a onclick="return confirm('Do you want to Delete?')" href="@Url.Action("Delete","UserAPI",new {id= User.Id})">Delete</a> || <a href="@Url.Action("Edit","UserAPI",new { id = User.Id })">Edit</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div> 
