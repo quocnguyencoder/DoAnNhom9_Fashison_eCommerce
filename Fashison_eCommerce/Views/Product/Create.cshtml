@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Fashison_eCommerce.ViewModel.ProductViewModel
+<h2> Create </h2>
+<div align="center">
+    @using (Html.BeginForm("Create", "Product", FormMethod.Post))
+    {
+    <table class="table">
+        <tr>
+            <td>@Html.LabelFor(model => model.product.Name) </td>
+            <td>@Html.TextBoxFor(model => model.product.Name) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.product.Price) </td>
+            <td>@Html.TextBoxFor(model => model.product.Price) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.product.Pictures)</td>
+            <td>@Html.TextBoxFor(model => model.product.Pictures) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.product.Amount) </td>
+            <td>@Html.TextBoxFor(model => model.product.Amount) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.product.TypeID) </td>
+            <td>@Html.TextBoxFor(model => model.product.TypeID) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.product.Store_ID) </td>
+            <td>@Html.TextBoxFor(model => model.product.Store_ID) </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.product.Decription) </td>
+            <td>@Html.TextBoxFor(model => model.product.Decription) </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Save" /></td>
+        </tr>
+    </table>
+    }
+</div>
+

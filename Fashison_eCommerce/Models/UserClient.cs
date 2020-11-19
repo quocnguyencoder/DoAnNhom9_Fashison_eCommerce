@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 
 namespace Fashison_eCommerce.Models
 {
+
     public class UserClient
     {
         private string Base_URL = "https://localhost:44320/api/";
@@ -67,7 +68,7 @@ namespace Fashison_eCommerce.Models
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PutAsJsonAsync("Users/" + user.Username, user).Result;
+                HttpResponseMessage response = client.PutAsJsonAsync("Users/" + user.Id, user).Result;
                 return response.IsSuccessStatusCode;
             }
             catch

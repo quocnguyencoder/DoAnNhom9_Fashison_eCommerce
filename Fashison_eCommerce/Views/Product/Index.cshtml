@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div align="center">
+    <a href="@Url.Action("Create","Product")"> Add New Product </a> <br /> <br />
+    <table cellpadding="2" class="table" cellspacing="2" border="1">
+        <tr class="btn-primary">
+            <th> Product_Id </th>
+            <th> Name </th>
+            <th> Price </th>
+            <th> Amount </th>
+            <th> TypeID </th>
+            <th> Store_ID </th>
+            <th> Pictures </th>
+            <th> Decription </th>
+            <th> BrandID </th>
+            <th> Action </th>
+        </tr>
+        @foreach (var Prod in ViewBag.listProducts)
+        {
+            <tr class="btn-success">
+                <td>@Prod.Product_ID </td>
+                <td>@Prod.Name </td>
+                <td>@Prod.Price </td>
+                <td>@Prod.Amount </td>
+                <td>@Prod.TypeID </td>
+                <td>@Prod.Store_ID </td>
+                <td>@Prod.Pictures </td>
+                <td>@Prod.Decription </td>
+                <td>@Prod.BrandID </td>
+                <td>
+                    <a onclick="return confirm('Do you want to Delete?')" href="@Url.Action("Delete","Product",new {id= Prod.Product_ID})">Delete</a> || <a href="@Url.Action("Edit","Product",new { id = Prod.Product_ID })">Edit</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div> 
