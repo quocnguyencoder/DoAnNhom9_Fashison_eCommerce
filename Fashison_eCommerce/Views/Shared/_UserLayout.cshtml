@@ -29,7 +29,14 @@
         <div class="container">
             <div id="welcomeLine" class="row">
                 <div class="span6">
-                    <a href="#" target="_blank">Seller page</a>
+                    @if (Session["userID"] != null)
+                    {
+                        <a href="Seller/Acount/Dashboard" target="_blank">Seller page</a>
+                    }
+                    else
+                    {
+                        <a href="Seller/Acount/Login" target="_blank">Seller page</a>
+                    }
                     <a href="#" target="_blank">Download app</a>
                 </div>
                 <div class="span6">

@@ -145,6 +145,7 @@
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Buyer\BuyerAreaRegistration.cs" />
+    <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -2140,6 +2141,8 @@
     <Content Include="Areas\Seller\Views\Products\Details.cshtml" />
     <Content Include="Areas\Seller\Views\Products\Edit.cshtml" />
     <Content Include="Areas\Seller\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Acount\Login.cshtml" />
+    <Content Include="Areas\Seller\Views\Acount\Dashboard.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
