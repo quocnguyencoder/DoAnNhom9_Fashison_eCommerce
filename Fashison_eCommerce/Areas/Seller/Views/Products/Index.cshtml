@@ -1,0 +1,102 @@
+﻿@*@model IEnumerable<Fashison_eCommerce.Models.Product>*@
+@model PagedList.IPagedList<Fashison_eCommerce.Models.Product>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <label>Tên sản phẩm</label>
+    <input type="text" name="Name" placeholder="Nhập vào" />
+    <br />
+    <label>Loại</label>
+    @Html.DropDownList("TypeID", null, "Select one", htmlAttributes: new { @class = "form-control" })
+    <label>Kho hàng</label>
+    <input type="text" name="MinAmount" />
+    <label>-</label>
+    <input type="text" name="MaxAmount" />
+    <input type="submit" value="Tìm"/>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+           Price
+        </th>
+        <th>
+            Amount
+        </th>
+        <th>
+            Pictures
+        </th>
+        <th>
+           Decription
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Type Name
+        </th>
+        <th>
+            Brand Name
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pictures)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Decription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Type.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand.BrandName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Product_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Product_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Product_ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 text-right ">
+    Trang: @(Model.PageCount< Model.PageNumber ? 0:Model.PageNumber)/@Model.PageCount
+
+</div>
+
+<div class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
+
