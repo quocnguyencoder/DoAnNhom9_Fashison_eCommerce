@@ -11,35 +11,30 @@ namespace Fashison_eCommerce.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
             this.Stores = new HashSet<Store>();
+            this.Carts = new HashSet<Cart>();
         }
-        
-        [Display(Name = "Id")]
+    
         public int Id { get; set; }
-        [Display(Name = "Username")]
         public string Username { get; set; }
-        [Display(Name = "Email")]
         public string Email { get; set; }
-        [Display(Name = "Password")]
         public string Password { get; set; }
-        [Display(Name = "Name")]
         public string Name { get; set; }
-        [Display(Name = "Address")]
         public string Address { get; set; }
-        [Display(Name = "Gender")]
         public string Gender { get; set; }
-        [Display(Name = "Phone")]
         public string Phone { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
+        public Nullable<int> RoleID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }
