@@ -139,6 +139,8 @@
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Buyer\BuyerAreaRegistration.cs" />
+    <Compile Include="Areas\Seller\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Seller\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="Models\Order.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderClient.cs" />
     <Compile Include="Models\Product.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -198,6 +201,7 @@
     </Compile>
     <Compile Include="Models\UserClient.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
@@ -2116,14 +2120,20 @@
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.map" />
     <Content Include="Areas\Admin\Views\Shop\InfoShop.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
-    <Content Include="Areas\Seller\Views\web.config" />
     <Content Include="Areas\Buyer\Views\web.config" />
     <Content Include="Areas\Buyer\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shared\_Header.cshtml" />
     <Content Include="Areas\Buyer\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Areas\Seller\Views\web.config" />
+    <Content Include="Areas\Seller\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Header.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Areas\Seller\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2367,9 +2377,8 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Buyer\Controllers\" />
     <Folder Include="Areas\Buyer\Data\" />
-    <Folder Include="Areas\Seller\Controllers\" />
     <Folder Include="Areas\Seller\Data\" />
-    <Folder Include="Areas\Seller\Views\Shared\" />
+    <Folder Include="Areas\Seller\Views\Orders\" />
     <Folder Include="Data\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
   </ItemGroup>
@@ -2392,6 +2401,10 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
