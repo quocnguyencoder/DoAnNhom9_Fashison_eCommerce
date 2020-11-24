@@ -1,7 +1,9 @@
-﻿@model Fashison_eCommerce.Models.User
+﻿
+
+@model Fashison_eCommerce.Models.User
 
 @{
-    Layout = null;
+Layout = null;
 }
 @Html.AntiForgeryToken()
 
@@ -10,7 +12,6 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
     <link href="~/Styles_css/Login_styles/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
 </head>
@@ -22,7 +23,7 @@
     <!-- //title -->
     <!-- content -->
     <div class="sub-main-w3">
-        <form action="/Account/VerifyLogin" method="post">
+        <form action="/Seller/Acount/VerifyLogin" method="post">
             <div class="form-style-agile">
                 <label>
                     Email
@@ -59,42 +60,9 @@
             <!-- //checkbox -->
             <input type="submit" value="Log In">
             <!-- social icons -->
-            <div class="footer-social">
-                <h2>Or</h2>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-facebook-f icon_facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-twitter icon_twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-dribbble icon_dribbble"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-google-plus-g icon_g_plus"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            
             <!-- //social icons -->
-            <div class="wthree-text">
-                <ul>
-                    <li>
-
-                    </li>
-                    <li>
-                        <a href="/Account/Register"> register now </a>
-                    </li>
-                </ul>
-            </div>
+            
 
         </form>
     </div>

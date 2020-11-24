@@ -182,5 +182,26 @@ namespace Fashison_eCommerce.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AccountChangePassword", emailParameter, passwordParameter);
         }
+    
+        public virtual ObjectResult<FindProduct_Result> FindProduct(string name, string type, string qualityMin, string qualityMax)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(string));
+    
+            var qualityMinParameter = qualityMin != null ?
+                new ObjectParameter("QualityMin", qualityMin) :
+                new ObjectParameter("QualityMin", typeof(string));
+    
+            var qualityMaxParameter = qualityMax != null ?
+                new ObjectParameter("QualityMax", qualityMax) :
+                new ObjectParameter("QualityMax", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProduct_Result>("FindProduct", nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
+        }
     }
 }

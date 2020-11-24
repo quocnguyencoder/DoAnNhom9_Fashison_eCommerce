@@ -10,9 +10,8 @@
 namespace Fashison_eCommerce.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Product
+    public partial class FindProduct_Result
     {
         public int Product_ID { get; set; }
         public string Name { get; set; }
@@ -23,10 +22,5 @@ namespace Fashison_eCommerce.Models
         public string Pictures { get; set; }
         public string Decription { get; set; }
         public Nullable<int> BrandID { get; set; }
-    
-        public virtual Store Store { get; set; }
-        public virtual Product_Type Product_Type { get; set; }
-        public virtual Brand Brand { get; set; }
-        public virtual Cart_Item Cart_Item { get; set; }
     }
 }

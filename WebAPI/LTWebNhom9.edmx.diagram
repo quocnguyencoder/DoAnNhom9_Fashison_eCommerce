@@ -25,6 +25,8 @@
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Product__TypeID__2E1BDC42" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Users__RoleID__52593CB8" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Store__UserID__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK_Cart_Item_Product" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

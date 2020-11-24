@@ -122,6 +122,23 @@
                         </div>
                         <div class="item">
                             <ul class="thumbnails">
+                                @foreach (var Prod in ViewBag.listProducts)
+                                {
+                                    <li class="span3">
+                                        <div class="thumbnail">
+                                            <i class="tag"></i>
+                                            <a href="product_details.html"><img src="~/Product_Images/@Prod.Pictures" alt=""></a>
+                                            <div class="caption">
+                                                <h5>@Prod.Name</h5>
+                                                <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$@Prod.Price</span></h4>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="item">
+                            <ul class="thumbnails">
                                 <li class="span3">
                                     <div class="thumbnail">
                                         <i class="tag"></i>
@@ -250,6 +267,22 @@
         </div>
         <h4>Latest Products </h4>
         <ul class="thumbnails">
+            @foreach (var Prod in ViewBag.listProducts)
+            {
+                <li class="span3">
+                    <div class="thumbnail">
+                        <a href="product_details.html"><img src="~/Product_Images/@Prod.Pictures" alt="" /></a>
+                        <div class="caption">
+                            <h5>@Prod.Name</h5>
+                            <p>
+                                @Prod.Decription
+                            </p>
+
+                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$@Prod.Price</a></h4>
+                        </div>
+                    </div>
+                </li>
+            }
             <li class="span3">
                 <div class="thumbnail">
                     <a href="product_details.html"><img src="~/Styles_css/User_styles/themes/images/products/6.jpg" alt="" /></a>

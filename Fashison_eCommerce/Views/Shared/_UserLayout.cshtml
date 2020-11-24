@@ -29,7 +29,14 @@
         <div class="container">
             <div id="welcomeLine" class="row">
                 <div class="span6">
-                    <a href="#" target="_blank">Seller page</a>
+                    @if (Session["userID"] != null)
+                    {
+                        <a href="Seller/Acount/Dashboard" target="_blank">Seller page</a>
+                    }
+                    else
+                    {
+                        <a href="Seller/Acount/Login" target="_blank">Seller page</a>
+                    }
                     <a href="#" target="_blank">Download app</a>
                 </div>
                 <div class="span6">
@@ -81,9 +88,9 @@
                         <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
                     </form>
                     <ul id="topMenu" class="nav pull-right">
-                        <li class=""><a href="special_offer.html">Specials Offer</a></li>
+                        @*<li class=""><a href="special_offer.html">Specials Offer</a></li>
                         <li class=""><a href="normal.html">Delivery</a></li>
-                        <li class=""><a href="contact.html">Contact</a></li>
+                        <li class=""><a href="contact.html">Contact</a></li>*@
                         @*<li class="">
                             <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
                             <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false">
@@ -124,8 +131,8 @@
             
             if (controllerName == "User" && actionName == "UserProfile")
             {
-                <h1> @controllerName </h1>
-                <h1> @actionName </h1>
+                @*<h1> @controllerName </h1>
+                <h1> @actionName </h1>*@
             }
             else
             {
