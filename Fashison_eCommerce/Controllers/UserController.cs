@@ -12,6 +12,9 @@ namespace Fashison_eCommerce.Controllers
         // GET: User
         public ActionResult Index()
         {
+            ProductClient CC = new ProductClient();
+            ViewBag.listProducts = CC.findAll();
+
             return View();
         }
         public ActionResult UserProfile()

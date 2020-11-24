@@ -27,5 +27,6 @@ namespace WebAPI
         public virtual Brand Brand { get; set; }
         public virtual Store Store { get; set; }
         public virtual Product_Type Product_Type { get; set; }
+        public virtual Cart_Item Cart_Item { get; set; }
     }
 }

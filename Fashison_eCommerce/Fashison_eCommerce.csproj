@@ -1907,6 +1907,15 @@
       <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
       <LastGenOutput>DA_TrangTMDTModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Product_Images\1.png" />
+    <Content Include="Product_Images\AoKhoacNu.png" />
+    <Content Include="Product_Images\AoSomiNu.png" />
+    <Content Include="Product_Images\AoTayPhong.png" />
+    <Content Include="Product_Images\AoThunNamHanQuoc.png" />
+    <Content Include="Product_Images\DoTheThaoNam.png" />
+    <Content Include="Product_Images\QuanJean.png" />
+    <Content Include="Product_Images\QuanKaki.png" />
+    <Content Include="Product_Images\QuanTayAu.png" />
     <Content Include="Styles_css\Login_styles\images\login-bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

@@ -22,8 +22,10 @@ namespace WebAPI
     
         public int Cart_ID { get; set; }
         public Nullable<float> Total_Cost { get; set; }
+        public Nullable<int> UserID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart_Item> Cart_Item { get; set; }
+        public virtual User User { get; set; }
     }
 }
