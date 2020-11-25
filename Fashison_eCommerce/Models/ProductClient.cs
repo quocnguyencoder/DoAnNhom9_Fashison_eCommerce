@@ -12,8 +12,8 @@ namespace Fashison_eCommerce.Models
         private string Base_URL = "https://localhost:44320/api/";
         public IEnumerable<Product> findAll()
         {
-            try
-            {
+            //try
+            //{
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -21,11 +21,11 @@ namespace Fashison_eCommerce.Models
                 if (respone.IsSuccessStatusCode)
                     return respone.Content.ReadAsAsync<IEnumerable<Product>>().Result;
                 return null;
-            }
-            catch
-            {
-                return null;
-            }
+            //}
+            //catch
+            //{
+            //    return null;
+            //}
         }
         public Product find(int id)
         {

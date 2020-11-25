@@ -129,12 +129,7 @@
 
             var actionName = this.ViewContext.RouteData.Values["action"].ToString();
             
-            if (controllerName == "User" && actionName == "UserProfile")
-            {
-                @*<h1> @controllerName </h1>
-                <h1> @actionName </h1>*@
-            }
-            else
+            if (controllerName == "User" && actionName == "Index")
             {
                 <div id="myCarousel" class="carousel slide">
                     <div class="carousel-inner">
@@ -199,6 +194,7 @@
                     <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
                 </div>
             }
+            
         }
 
     </div>

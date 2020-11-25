@@ -7,19 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Fashison_eCommerce.Models
+namespace WebAPI
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Cart_Item
+    public partial class User_Cart
     {
-        public int ItemID { get; set; }
-        public int Cart_ID { get; set; }
+        public string Pictures { get; set; }
+        public string Name { get; set; }
+        public string Decription { get; set; }
+        public float Price { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public float Cost { get; set; }
-    
-        public virtual Cart Cart { get; set; }
-        public virtual Product Product { get; set; }
+        public int ItemID { get; set; }
     }
 }
