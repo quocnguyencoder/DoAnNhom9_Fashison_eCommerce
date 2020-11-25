@@ -29,13 +29,11 @@
           <Property Name="Total_Cost" Type="real" />
           <Property Name="UserID" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Cart_Item">
           <Key>
-            <PropertyRef Name="Cost" />
+            <PropertyRef Name="ItemID" />
           </Key>
-          <Property Name="ItemID" Type="int" />
+          <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Quantity" Type="int" />
           <Property Name="Cost" Type="real" Nullable="false" />
           <Property Name="Cart_ID" Type="int" />
@@ -60,13 +58,13 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             <PropertyRef Name="Product_ID" />
           </Key>
           <Property Name="Product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="real" Nullable="false" />
           <Property Name="Amount" Type="int" Nullable="false" />
           <Property Name="TypeID" Type="int" Nullable="false" />
           <Property Name="Store_ID" Type="int" Nullable="false" />
-          <Property Name="Pictures" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Decription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Pictures" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Decription" Type="nchar" MaxLength="1000" Nullable="false" />
           <Property Name="BrandID" Type="int" />
         </EntityType>
         <EntityType Name="Product_Type">
@@ -75,16 +73,6 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
           </Key>
           <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="20" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Rating">
-          <Key>
-            <PropertyRef Name="ProductID" />
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="Rate" Type="int" />
-          <Property Name="Comment" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -178,7 +166,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cart_Item__Cart___0F624AF8">
+        <Association Name="FK__Cart_Item__Cart___35BCFE0A">
           <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
           <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -187,18 +175,6 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             </Principal>
             <Dependent Role="Cart_Item">
               <PropertyRef Name="Cart_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Cart_Item__ItemI__0E6E26BF">
-          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Cart_Item">
-              <PropertyRef Name="ItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -226,18 +202,6 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Rating__ProductI__6FE99F9F">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Rating">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Store__UserID__29572725">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Store" Type="Self.Store" Multiplicity="*" />
@@ -259,6 +223,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             </Principal>
             <Dependent Role="Users">
               <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Item_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Cart_Item">
+              <PropertyRef Name="ItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -306,41 +282,19 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="User_Cart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="user_id" Type="int" Mode="In" />
-          <ReturnType>
-            <CollectionType>
-              <RowType>
-                <Property Name="Pictures" Type="nvarchar" MaxLength="100" Nullable="false" />
-                <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-                <Property Name="Decription" Type="nvarchar" MaxLength="1000" Nullable="false" />
-                <Property Name="Price" Type="real" Nullable="false" />
-                <Property Name="Quantity" Type="int" />
-              </RowType>
-            </CollectionType>
-          </ReturnType>
-        </Function>
         <EntityContainer Name="DB_A6A231_DAQLTMDTModelStoreContainer">
           <EntitySet Name="Authorize" EntityType="Self.Authorize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product_Type" EntityType="Self.Product_Type" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Cart_Item].[ItemID] AS [ItemID], 
-    [Cart_Item].[Quantity] AS [Quantity], 
-    [Cart_Item].[Cost] AS [Cost], 
-    [Cart_Item].[Cart_ID] AS [Cart_ID]
-    FROM [dbo].[Cart_Item] AS [Cart_Item]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK" Association="Self.FK">
             <End Role="Brand" EntitySet="Brand" />
             <End Role="Product" EntitySet="Product" />
@@ -357,12 +311,8 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             <End Role="Users" EntitySet="Users" />
             <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__Cart___0F624AF8" Association="Self.FK__Cart_Item__Cart___0F624AF8">
+          <AssociationSet Name="FK__Cart_Item__Cart___35BCFE0A" Association="Self.FK__Cart_Item__Cart___35BCFE0A">
             <End Role="Cart" EntitySet="Cart" />
-            <End Role="Cart_Item" EntitySet="Cart_Item" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__ItemI__0E6E26BF" Association="Self.FK__Cart_Item__ItemI__0E6E26BF">
-            <End Role="Product" EntitySet="Product" />
             <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
           <AssociationSet Name="FK__Product__Store_I__2F10007B" Association="Self.FK__Product__Store_I__2F10007B">
@@ -373,10 +323,6 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             <End Role="Product_Type" EntitySet="Product_Type" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="FK__Rating__ProductI__6FE99F9F" Association="Self.FK__Rating__ProductI__6FE99F9F">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Rating" EntitySet="Rating" />
-          </AssociationSet>
           <AssociationSet Name="FK__Store__UserID__29572725" Association="Self.FK__Store__UserID__29572725">
             <End Role="Users" EntitySet="Users" />
             <End Role="Store" EntitySet="Store" />
@@ -384,6 +330,10 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
           <AssociationSet Name="FK__Users__RoleID__52593CB8" Association="Self.FK__Users__RoleID__52593CB8">
             <End Role="Role" EntitySet="Role" />
             <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Item_Product" Association="Self.FK_Cart_Item_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -415,9 +365,20 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
           </Key>
           <Property Name="Cart_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Total_Cost" Type="Single" />
+          <NavigationProperty Name="Cart_Item" Relationship="Self.FK__Cart_Item__Cart___35BCFE0A" FromRole="Cart" ToRole="Cart_Item" />
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" FromRole="Cart" ToRole="User" />
-          <NavigationProperty Name="Cart_Item" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___0F624AF8" FromRole="Cart" ToRole="Cart_Item" />
+        </EntityType>
+        <EntityType Name="Cart_Item">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Cost" Type="Single" Nullable="false" />
+          <Property Name="Cart_ID" Type="Int32" />
+          <NavigationProperty Name="Cart" Relationship="Self.FK__Cart_Item__Cart___35BCFE0A" FromRole="Cart_Item" ToRole="Cart" />
+          <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK_Cart_Item_Product" FromRole="Cart_Item" ToRole="Product" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -440,19 +401,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             <PropertyRef Name="Product_ID" />
           </Key>
           <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Single" Nullable="false" />
           <Property Name="Amount" Type="Int32" Nullable="false" />
           <Property Name="TypeID" Type="Int32" Nullable="false" />
           <Property Name="Store_ID" Type="Int32" Nullable="false" />
-          <Property Name="Pictures" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pictures" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="BrandID" Type="Int32" />
           <NavigationProperty Name="Brand" Relationship="Self.FK" FromRole="Product" ToRole="Brand" />
           <NavigationProperty Name="Store" Relationship="Self.FK__Product__Store_I__2F10007B" FromRole="Product" ToRole="Store" />
           <NavigationProperty Name="Product_Type" Relationship="Self.FK__Product__TypeID__2E1BDC42" FromRole="Product" ToRole="Product_Type" />
-          <NavigationProperty Name="Ratings" Relationship="DB_A6A231_DAQLTMDTModel.FK__Rating__ProductI__6FE99F9F" FromRole="Product" ToRole="Rating" />
-          <NavigationProperty Name="Cart_Item" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF" FromRole="Product" ToRole="Cart_Item" />
+          <NavigationProperty Name="Cart_Item" Relationship="DB_A6A231_DAQLTMDTModel.FK_Cart_Item_Product" FromRole="Product" ToRole="Cart_Item" />
         </EntityType>
         <EntityType Name="Product_Type">
           <Key>
@@ -549,6 +509,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Cart_Item__Cart___35BCFE0A">
+          <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+          <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cart">
+              <PropertyRef Name="Cart_ID" />
+            </Principal>
+            <Dependent Role="Cart_Item">
+              <PropertyRef Name="Cart_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Product__Store_I__2F10007B">
           <End Role="Store" Type="Self.Store" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -601,6 +573,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
           <EntitySet Name="Authorizes" EntityType="Self.Authorize" />
           <EntitySet Name="Brands" EntityType="Self.Brand" />
           <EntitySet Name="Carts" EntityType="Self.Cart" />
+          <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -620,6 +593,10 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
           <AssociationSet Name="FK" Association="Self.FK">
             <End Role="Brand" EntitySet="Brands" />
             <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart_Item__Cart___35BCFE0A" Association="Self.FK__Cart_Item__Cart___35BCFE0A">
+            <End Role="Cart" EntitySet="Carts" />
+            <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
           <AssociationSet Name="FK__Product__Store_I__2F10007B" Association="Self.FK__Product__Store_I__2F10007B">
             <End Role="Store" EntitySet="Stores" />
@@ -684,20 +661,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             <End Role="User" EntitySet="Users" />
             <End Role="Cart" EntitySet="Carts" />
           </AssociationSet>
-          <EntitySet Name="Ratings" EntityType="DB_A6A231_DAQLTMDTModel.Rating" />
-          <AssociationSet Name="FK__Rating__ProductI__6FE99F9F" Association="DB_A6A231_DAQLTMDTModel.FK__Rating__ProductI__6FE99F9F">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Rating" EntitySet="Ratings" />
-          </AssociationSet>
-          <FunctionImport Name="User_Cart" IsComposable="true" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.User_Cart_Result)">
-          <Parameter Name="user_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <EntitySet Name="Cart_Item" EntityType="DB_A6A231_DAQLTMDTModel.Cart_Item" />
-          <AssociationSet Name="FK__Cart_Item__Cart___0F624AF8" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___0F624AF8">
-            <End Role="Cart" EntitySet="Carts" />
-            <End Role="Cart_Item" EntitySet="Cart_Item" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__ItemI__0E6E26BF" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF">
+          <AssociationSet Name="FK_Cart_Item_Product" Association="DB_A6A231_DAQLTMDTModel.FK_Cart_Item_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
@@ -725,62 +689,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Rating">
-          <Key>
-            <PropertyRef Name="ProductID" />
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="Rate" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK__Rating__ProductI__6FE99F9F" FromRole="Rating" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK__Rating__ProductI__6FE99F9F">
+        <Association Name="FK_Cart_Item_Product">
           <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Rating" Role="Rating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Rating">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="User_Cart_Result">
-          <Property Type="String" Name="Pictures" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
-          <Property Type="Single" Name="Price" Nullable="false" />
-          <Property Type="Int32" Name="Quantity" Nullable="true" />
-        </ComplexType>
-        <EntityType Name="Cart_Item">
-          <Key>
-            <PropertyRef Name="Cost" />
-          </Key>
-          <Property Name="ItemID" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Cost" Type="Single" Nullable="false" />
-          <Property Name="Cart_ID" Type="Int32" />
-          <NavigationProperty Name="Cart" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___0F624AF8" FromRole="Cart_Item" ToRole="Cart" />
-          <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF" FromRole="Cart_Item" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK__Cart_Item__Cart___0F624AF8">
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart" Role="Cart" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cart">
-              <PropertyRef Name="Cart_ID" />
-            </Principal>
-            <Dependent Role="Cart_Item">
-              <PropertyRef Name="Cart_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Cart_Item__ItemI__0E6E26BF">
-          <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="*" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Product_ID" />
@@ -819,6 +730,16 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
                 <ScalarProperty Name="Total_Cost" ColumnName="Total_Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cart_Item">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart_Item">
+              <MappingFragment StoreEntitySet="Cart_Item">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -937,37 +858,6 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Cart_Item' does not have a 
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="Sp_User_Login" FunctionName="DB_A6A231_DAQLTMDTModel.Store.Sp_User_Login" />
-          <EntitySetMapping Name="Ratings">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Rating">
-              <MappingFragment StoreEntitySet="Rating">
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="User_Cart" FunctionName="DB_A6A231_DAQLTMDTModel.Store.User_Cart">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.User_Cart_Result">
-                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Decription" ColumnName="Decription" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="Cart_Item">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart_Item">
-              <MappingFragment StoreEntitySet="Cart_Item">
-                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

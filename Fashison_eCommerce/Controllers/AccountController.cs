@@ -27,10 +27,6 @@ namespace Fashison_eCommerce.Controllers
         [HttpGet] // di toi trang login
         public ActionResult Login()
         {
-            if (Session["userID"] != null)
-            {
-                return RedirectToAction("Index", "User");
-            }
             return View();
         }
 
@@ -56,11 +52,11 @@ namespace Fashison_eCommerce.Controllers
                     else
                     {
                         Response.Write("<script>alert('Invalid Email or Password')</script>");
-                        return View("Login");
+                        return View("Error");
                     }
                 }
             }
-            return View("Login");   
+            return View("Error");   
         }
 
         public ActionResult Logout()
