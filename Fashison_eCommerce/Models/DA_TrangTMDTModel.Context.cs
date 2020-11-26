@@ -27,7 +27,6 @@ namespace Fashison_eCommerce.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -38,6 +37,7 @@ namespace Fashison_eCommerce.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Product_Type> Product_Type { get; set; }
         public virtual DbSet<Main_Type> Main_Type { get; set; }
+        public virtual DbSet<Brand> Brands { get; set; }
     
         public virtual int sp_AccountResgister(string username, string password, string email)
         {

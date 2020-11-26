@@ -31,9 +31,9 @@ namespace Fashison_eCommerce.Models
         public Nullable<int> BrandID { get; set; }
     
         public virtual Store Store { get; set; }
-        public virtual Brand Brand { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart_Item> Cart_Item { get; set; }
         public virtual Product_Type Product_Type { get; set; }
+        public virtual Brand Brand { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
 {
     public class ProductDetailController : Controller
     {
+        public int idProd;
         // GET: Buyer/ProductDetail
         public ActionResult Index()
         {
@@ -45,20 +46,26 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             ViewBag.subType = db.Product_Type.Where(x => x.MaintypeID == 1).ToList();
             return PartialView(ViewBag.subType);
         }   
+
+
         public ActionResult Details(int id)
         {
             //if (id == null)
             //{
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             //}
+            idProd = id;
             ProductClient CC = new ProductClient();
             ViewBag.detail = CC.find(id);
+            int brandID = Convert.ToInt32(CC.find(id).BrandID);
+
+            ViewBag.brand = db.Brands.Where(x => x.BrandID == brandID).FirstOrDefault();
 
             if (ViewBag.detail == null)
             {
                 return HttpNotFound();
             }
-            return View(ViewBag.detail);
+            return View();
         }
     }
 }
