@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Fashison_eCommerce.Models;
+using WebAPI;
 
 namespace Fashison_eCommerce.ViewModel
 {

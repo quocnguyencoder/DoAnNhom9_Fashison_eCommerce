@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web;
 using System.Net.Http.Headers;
+using System.Web;
 
 namespace Fashison_eCommerce.Models
 {
-
     public class OrderClient
     {
         private string Base_URL = "https://localhost:44320/api/";

@@ -6,8 +6,8 @@ using WebAPI;
 
 namespace Fashison_eCommerce.ViewModel
 {
-    public class OrderViewModel
+    public class BrandViewModel
     {
-        public Order order { get; set; }
+        public Brand brand { get; set; }
     }
 }
