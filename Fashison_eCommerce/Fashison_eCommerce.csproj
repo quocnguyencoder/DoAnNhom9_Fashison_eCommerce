@@ -139,6 +139,7 @@
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Buyer\BuyerAreaRegistration.cs" />
+    <Compile Include="Areas\Buyer\Controllers\ProductDetailController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -171,6 +172,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Main_Type.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Order.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -179,6 +183,9 @@
     </Compile>
     <Compile Include="Models\ProductClient.cs" />
     <Compile Include="Models\Product_Type.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
@@ -2124,6 +2131,11 @@
     <Content Include="Areas\Buyer\Views\web.config" />
     <Content Include="Areas\Buyer\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Buyer\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\Index.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\product.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shared\ProductType.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shared\_LeftMenu.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shared\subtype.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2365,7 +2377,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Buyer\Controllers\" />
     <Folder Include="Areas\Buyer\Data\" />
     <Folder Include="Areas\Seller\Controllers\" />
     <Folder Include="Areas\Seller\Data\" />

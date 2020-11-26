@@ -10,16 +10,11 @@
 namespace Fashison_eCommerce.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Cart_Item
+    public partial class sp_GetCartItem_Result
     {
-        public int ItemID { get; set; }
-        public int Cart_ID { get; set; }
+        public string Name { get; set; }
+        public string Pictures { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public float Cost { get; set; }
-    
-        public virtual Cart Cart { get; set; }
-        public virtual Product Product { get; set; }
     }
 }
