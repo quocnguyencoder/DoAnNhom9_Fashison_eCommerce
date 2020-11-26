@@ -1,10 +1,10 @@
 ﻿
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Details";
     Layout = "~/Areas/Buyer/Views/Shared/_Layout.cshtml";
-
 }
+
 <div id="mainBody">
     <div class="container">
         <div class="row">
@@ -21,14 +21,14 @@
                     @*@foreach (var prod in ViewBag.listProducts)*@
 
                     <div id="gallery" class="span3">
-                        <a href="~/Styles_css/Image/@ViewBag.listProducts.Pictures" title="@ViewBag.listProducts.Name">
-                            <img src="~/Styles_css/Image/@ViewBag.listProducts.Pictures" style="width:100%" alt="@ViewBag.listProducts.Name" />
+                        <a href="~/Styles_css/Image/@ViewBag.detail.Pictures" title="@ViewBag.detail.Name">
+                            <img src="~/Styles_css/Image/@ViewBag.detail.Pictures" style="width:100%" alt="@ViewBag.detail.Name" />
                         </a>
                         <div id="differentview" class="moreOptopm carousel slide">
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <a href="~/Styles_css/Image/@ViewBag.listProducts.Pictures"> <img style="width:29%" src="~/Styles_css/Image/@ViewBag.listProducts.Pictures" alt="" /></a>
-                                    <a href="~/Styles_css/Image/@ViewBag.listProducts.Pictures"> <img style="width:29%" src="~/Styles_css/Image/@ViewBag.listProducts.Pictures" alt="" /></a>
+                                    <a href="~/Styles_css/Image/@ViewBag.detail.Pictures"> <img style="width:29%" src="~/Styles_css/Image/@ViewBag.detail.Pictures" alt="" /></a>
+                                    <a href="~/Styles_css/Image/@ViewBag.detail.Pictures"> <img style="width:29%" src="~/Styles_css/Image/@ViewBag.detail.Pictures" alt="" /></a>
                                     <a href="~/Styles_css/User_styles/themes/images/products/large/f3.jpg"> <img style="width:29%" src="~/Styles_css/User_styles/themes/images/products/large/f3.jpg" alt="" /></a>
                                 </div>
                                 <div class="item">
@@ -55,12 +55,12 @@
                         </div>
                     </div>
                     <div class="span6">
-                        <h3> @ViewBag.listProducts.Name  </h3>
-                        <small>@ViewBag.listProducts.Decription</small>
+                        <h3> @ViewBag.detail.Name  </h3>
+                        <small>@ViewBag.detail.Decription</small>
                         <hr class="soft" />
                         <form class="form-horizontal qtyFrm">
                             <div class="control-group">
-                                <label class="control-label"><span>@ViewBag.listProducts.Price</span></label>
+                                <label class="control-label"><span>@ViewBag.detail.Price</span></label>
                                 <div class="controls">
                                     <input type="number" class="span1" placeholder="Qty." />
                                     <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
@@ -69,8 +69,8 @@
                         </form>
 
                         <hr class="soft" />
-                        <h4>@ViewBag.listProducts.Amount items in stock</h4>
-                        <form class="form-horizontal qtyFrm pull-right">
+                        <h4>@ViewBag.detail.Amount items in stock</h4>
+                        @*<form class="form-horizontal qtyFrm pull-right">
                             <div class="control-group">
                                 <label class="control-label"><span>Color</span></label>
                                 <div class="controls">
@@ -82,7 +82,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </form>
+                        </form>*@
                         <hr class="soft clr" />
                         <p>
                             14 Megapixels. 18.0 x Optical Zoom. 3.0-inch LCD Screen. Full HD photos and 1280 x 720p HD movie capture. ISO sensitivity ISO6400 at reduced resolution.

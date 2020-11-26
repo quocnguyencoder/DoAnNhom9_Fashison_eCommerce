@@ -1914,6 +1914,15 @@
       <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
       <LastGenOutput>DA_TrangTMDTModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Styles_css\Image\1.png" />
+    <Content Include="Styles_css\Image\AoKhoacNu.png" />
+    <Content Include="Styles_css\Image\AoSomiNu.png" />
+    <Content Include="Styles_css\Image\AoTayPhong.png" />
+    <Content Include="Styles_css\Image\AoThunNamHanQuoc.png" />
+    <Content Include="Styles_css\Image\DoTheThaoNam.png" />
+    <Content Include="Styles_css\Image\QuanJean.png" />
+    <Content Include="Styles_css\Image\QuanKaki.png" />
+    <Content Include="Styles_css\Image\QuanTayAu.png" />
     <Content Include="Styles_css\Login_styles\images\login-bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2136,6 +2145,7 @@
     <Content Include="Areas\Buyer\Views\Shared\ProductType.cshtml" />
     <Content Include="Areas\Buyer\Views\Shared\_LeftMenu.cshtml" />
     <Content Include="Areas\Buyer\Views\Shared\subtype.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\Details.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

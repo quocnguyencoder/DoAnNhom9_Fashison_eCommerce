@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Fashison_eCommerce.Models;
@@ -43,6 +44,21 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         {
             ViewBag.subType = db.Product_Type.Where(x => x.MaintypeID == 1).ToList();
             return PartialView(ViewBag.subType);
+        }   
+        public ActionResult Details(int id)
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            ProductClient CC = new ProductClient();
+            ViewBag.detail = CC.find(id);
+
+            if (ViewBag.detail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ViewBag.detail);
         }
     }
 }
