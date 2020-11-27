@@ -58,13 +58,21 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             ProductClient CC = new ProductClient();
             ViewBag.detail = CC.find(id);
             int brandID = Convert.ToInt32(CC.find(id).BrandID);
-
             ViewBag.brand = db.Brands.Where(x => x.BrandID == brandID).FirstOrDefault();
+
+            int storeID = Convert.ToInt32(ViewBag.detail.Store_ID);
+            Getstore(storeID);
 
             if (ViewBag.detail == null)
             {
                 return HttpNotFound();
             }
+            return View();
+        }
+
+        public ActionResult Getstore(int id)
+        {
+            ViewBag.store = db.Stores.Where(x => x.Store_ID == id).FirstOrDefault();
             return View();
         }
     }

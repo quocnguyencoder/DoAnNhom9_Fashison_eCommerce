@@ -1923,6 +1923,7 @@
     <Content Include="Styles_css\Image\QuanJean.png" />
     <Content Include="Styles_css\Image\QuanKaki.png" />
     <Content Include="Styles_css\Image\QuanTayAu.png" />
+    <Content Include="Styles_css\Image\shop.png" />
     <Content Include="Styles_css\Login_styles\images\login-bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
