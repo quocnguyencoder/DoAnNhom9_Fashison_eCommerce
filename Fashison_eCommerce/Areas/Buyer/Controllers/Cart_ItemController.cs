@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Fashison_eCommerce.Models;
+using Fashison_eCommerce.ViewModel;
+
+namespace Fashison_eCommerce.Areas.Buyer.Controllers
+{
+    public class Cart_ItemController : Controller
+    {
+        // GET: Buyer/Cart_Item
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult AddToCart()
+        {
+            Cart_Item cart_Item = new Cart_Item();
+            cart_Item.Cart_ID = 4;
+            cart_Item.ItemID = Convert.ToInt32(Request["ItemID"]);
+            cart_Item.Quantity = 1;
+            cart_Item.Cost = float.Parse(Request["Price"]);
+            Cart_ItemViewModel cim = new Cart_ItemViewModel();
+            cim.cart_Item = cart_Item;
+
+            Cart_ItemClient CIC = new Cart_ItemClient();
+            CIC.Create(cim.cart_Item);
+            return RedirectToAction("Index","User");
+        }
+
+    }
+}

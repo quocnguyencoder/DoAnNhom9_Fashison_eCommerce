@@ -4,10 +4,16 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
+@model Fashison_eCommerce.ViewModel.Cart_ItemViewModel
 <div class="row">
     <!-- Sidebar ================================================== -->
     <div id="sidebar" class="span3">
-        <div class="well well-small"><a id="myCart" href="Buyer/UserCart"><img src="~/Styles_css/User_styles/themes/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
+        <div class="well well-small">
+            <a id="myCart" href="Buyer/UserCart">
+                <img src="~/Styles_css/User_styles/themes/images/ico-cart.png" alt="cart">
+                @{Html.RenderAction("CountCartItem", "UserCart");}  <span class="badge badge-warning pull-right">$155.00</span>
+            </a>
+        </div>
         <ul id="sideManu" class="nav nav-tabs nav-stacked">
             <li class="subMenu open">
                 <a> ELECTRONICS [230]</a>
@@ -130,7 +136,10 @@
                                             <a href="product_details.html"><img src="~/Product_Images/@Prod.Pictures" alt=""></a>
                                             <div class="caption">
                                                 <h5>@Prod.Name</h5>
-                                                <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$@Prod.Price</span></h4>
+                                                <h4>
+                                                    <a class="btn">VIEW</a>
+                                                    <span class="pull-right">$@Prod.Price</span>
+                                                </h4>
                                             </div>
                                         </div>
                                     </li>
@@ -267,6 +276,7 @@
         </div>
         <h4>Latest Products </h4>
         <ul class="thumbnails">
+
             @foreach (var Prod in ViewBag.listProducts)
             {
                 <li class="span3">
@@ -277,8 +287,7 @@
                             <p>
                                 @Prod.Decription
                             </p>
-
-                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$@Prod.Price</a></h4>
+                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="Buyer/Cart_Item/AddToCart?ItemID=@Prod.Product_ID&Price=@Prod.Price">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$@Prod.Price</a></h4>
                         </div>
                     </div>
                 </li>
@@ -357,6 +366,6 @@
                 </div>
             </li>
         </ul>
-</div>
     </div>
+</div>
 

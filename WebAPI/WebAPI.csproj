@@ -175,6 +175,7 @@
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\Cart_ItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />

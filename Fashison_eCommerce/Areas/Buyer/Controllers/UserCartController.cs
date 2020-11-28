@@ -17,5 +17,19 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             ViewBag.Cart = UC.LoadCart(Convert.ToInt32(Session["userID"]));
             return View("Cart");
         }
+        public ActionResult CountCartItem()
+        {
+            if(Session["userID"] == null)
+            {
+                ViewBag.Count = 0;
+            }
+            else
+            {
+                UserCartClient UC = new UserCartClient();
+                var list = UC.LoadCart(Convert.ToInt32(Session["userID"]));
+                ViewBag.Count = list.Count();
+            } 
+            return PartialView();
+        }
     }
 }
