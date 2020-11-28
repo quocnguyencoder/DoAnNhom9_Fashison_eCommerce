@@ -8,121 +8,53 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Fashison_eCommerce.Models;
+using Fashison_eCommerce.ViewModel;
 
 namespace Fashison_eCommerce.Areas.Admin.Controllers
 {
     public class UsersController : Controller
-    {
-        private DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
-
-        // GET: Admin/Users
-        public async Task<ActionResult> Index()
+    {// GET: UserAPI
+        public ActionResult Index()
         {
-            return View(await db.Users.ToListAsync());
-        }
+            UserClient CC = new UserClient();
+            ViewBag.listUsers = CC.findAll();
 
-        // GET: Admin/Users/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // GET: Admin/Users/Create
-        public ActionResult Create()
-        {
             return View();
         }
 
-        // POST: Admin/Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View("Create");
+        }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Username,Email,Password,Name,Address,Gender,Phone,Birthday")] User user)
+        public ActionResult Create(UserViewModel cvm)
         {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            return View(user);
-        }
-
-        // GET: Admin/Users/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: Admin/Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Username,Email,Password,Name,Address,Gender,Phone,Birthday")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(user);
-        }
-
-        // GET: Admin/Users/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: Admin/Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            User user = await db.Users.FindAsync(id);
-            db.Users.Remove(user);
-            await db.SaveChangesAsync();
+            UserClient CC = new UserClient();
+            CC.Create(cvm.user);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        public ActionResult Delete(int id)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            UserClient CC = new UserClient();
+            CC.Delete(id);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            UserClient CC = new UserClient();
+            UserViewModel CVM = new UserViewModel();
+            CVM.user = CC.find(id);
+            return View("Edit", CVM);
+        }
+        [HttpPost]
+        public ActionResult Edit(UserViewModel CVM)
+        {
+            UserClient CC = new UserClient();
+            CC.Edit(CVM.user);
+            return RedirectToAction("Index");
         }
     }
 }
