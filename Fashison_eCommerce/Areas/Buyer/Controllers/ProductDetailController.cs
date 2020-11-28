@@ -37,16 +37,9 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         public PartialViewResult ProductType()
         {
             ViewBag.listType = db.Main_Type.ToList();
+            GetSubtype();
             return PartialView(ViewBag.listType);   
         }
-
-        [ChildActionOnly]
-        public ActionResult SubType()
-        {
-            ViewBag.subType = db.Product_Type.Where(x => x.MaintypeID == 1).ToList();
-            return PartialView(ViewBag.subType);
-        }   
-
 
         public ActionResult Details(int id)
         {
@@ -63,6 +56,8 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             int storeID = Convert.ToInt32(ViewBag.detail.Store_ID);
             Getstore(storeID);
 
+            GetSubtype();
+
             if (ViewBag.detail == null)
             {
                 return HttpNotFound();
@@ -73,6 +68,12 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         public ActionResult Getstore(int id)
         {
             ViewBag.store = db.Stores.Where(x => x.Store_ID == id).FirstOrDefault();
+            return View();
+        }
+
+        public ActionResult GetSubtype()
+        {
+            ViewBag.subType = db.Product_Type.ToList();
             return View();
         }
     }

@@ -9,43 +9,14 @@
             <a> @type.Name</a>
 
             <ul>
-                @{ if (type.ID == 1)
+                
+                @foreach (var sub in ViewBag.subType)
+                {
+                    if (sub.MaintypeID == type.ID)
                     {
                         @*<li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li>*@
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Áo sơ mi</a></li>
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Áo khoác & Áo vest</a></li>
-                        <li><a href="products.html"><i class="icon-chevron-right"></i>Áo thun</a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Áo len</a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Quần tây</a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Quần Jean</a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Quần kaki </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Đồ thể thao </a></li>
-                    }
-                    else if (type.ID == 2)
-                    {
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Áo thun & Áo kiểu </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Đầm </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Chân váy </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Quần Jean & Quần tây </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Jumpsuit </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Áo Croptop </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Áo khoác & Áo len </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Đồ mặc nhà </a></li>
-                    }
-                    else if (type.ID == 3)
-                    {
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Mũ/ Nón </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Tất/ Găng tay </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cà vạt </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Giày dép </a></li>
-                    }
-                    else if (type.ID == 4)
-                    {
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Mắt kính </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Mũ </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Giày cao gót </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Giày thể thao </a></li>
-                        <li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Sandal </a></li>
+                        <li><a href="products.html"><i class="icon-chevron-right"></i>@sub.Name</a></li>
+                        
                     }
                 }
             </ul>
