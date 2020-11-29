@@ -1,0 +1,46 @@
+﻿<div>
+    <h3>Đơn hàng</h3>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Giá</th>
+                        <th>Trạng thái đơn hàng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @*<tfoot>
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Giá</th>
+                            <th>Trạng thái đơn hàng</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>*@
+                @*<tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Username)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Password)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>*@
+            </table>
+        </div>
+    </div>
+</div>

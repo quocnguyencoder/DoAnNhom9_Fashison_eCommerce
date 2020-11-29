@@ -219,6 +219,7 @@
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Seller\Views\Shared\tabcontrol.css" />
     <Content Include="Assets\Admin\css\sb-admin-2.css" />
     <Content Include="Assets\Admin\css\sb-admin-2.min.css" />
     <Content Include="Assets\Admin\img\undraw_posting_photo.svg" />
@@ -1902,6 +1903,8 @@
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Assets\Tabcontrol\tabcontrol.css" />
+    <Content Include="Assets\Tabcontrol\tabcontrol.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -2159,6 +2162,16 @@
     <Content Include="Areas\Seller\Views\Orders\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Header.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabAll.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabConfirm.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabReceive.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabDeliver.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabDelivered.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabCancel.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2403,7 +2416,6 @@
     <Folder Include="Areas\Buyer\Controllers\" />
     <Folder Include="Areas\Buyer\Data\" />
     <Folder Include="Areas\Seller\Data\" />
-    <Folder Include="Areas\Seller\Views\Shared\" />
     <Folder Include="Data\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
   </ItemGroup>

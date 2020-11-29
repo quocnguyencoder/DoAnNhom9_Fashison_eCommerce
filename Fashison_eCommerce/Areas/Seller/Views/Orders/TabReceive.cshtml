@@ -1,0 +1,113 @@
+﻿<header>
+    <style>
+        /* Style the tab */
+        .subtab {
+            overflow: hidden;
+        }
+
+        /* Style the buttons inside the tab */
+        .subtab button {
+            background-color: inherit;
+            float: left;
+            border: 1px solid #ccc;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        /* Create an active/current tablink class */
+        .subtab button.active {
+            border-bottom: none;
+            color: #AA3E27;
+            font-weight: bold;
+        }
+
+        /* Style the tab content */
+        .subtabcontent {
+            display: none;
+            padding: 4px 10px;
+            border: none;
+        }
+    </style>
+</header>
+
+<div class="subtab">
+    <button class="tablinks" onclick="openSubTab(event, 'tatca')">Tất cả</button>
+    <button class="tablinks" onclick="openSubTab(event, 'chuaxuly')">Chưa xử lý</button>
+    <button class="tablinks" onclick="openSubTab(event, 'daxuly')">Đã xử lý</button>
+</div>
+
+<div id="tatca" class="subtabcontent">
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Giá</th>
+                        <th>Trạng thái đơn hàng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @*<tfoot>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Giá</th>
+                        <th>Trạng thái đơn hàng</th>
+                        <th></th>
+                    </tr>
+                </tfoot>*@
+                @*<tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Username)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Password)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+                </tbody>*@
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="chuaxuly" class="subtabcontent">
+    <h3>Paris</h3>
+    <p>Paris is the capital of France.</p>
+</div>
+
+<div id="daxuly" class="subtabcontent">
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+</div>
+
+<script>
+function openSubTab(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("subtabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("subtablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
