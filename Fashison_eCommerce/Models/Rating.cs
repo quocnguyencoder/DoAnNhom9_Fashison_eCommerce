@@ -12,14 +12,13 @@ namespace Fashison_eCommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cart_Item
+    public partial class Rating
     {
-        public int ItemID { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public float Cost { get; set; }
-        public Nullable<int> Cart_ID { get; set; }
+        public int ProductID { get; set; }
+        public int UserID { get; set; }
+        public Nullable<int> Rate { get; set; }
+        public string Comment { get; set; }
     
-        public virtual Cart Cart { get; set; }
         public virtual Product Product { get; set; }
     }
 }

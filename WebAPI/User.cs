@@ -18,6 +18,7 @@ namespace WebAPI
         public User()
         {
             this.Stores = new HashSet<Store>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int Id { get; set; }
@@ -30,9 +31,12 @@ namespace WebAPI
         public string Phone { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public Nullable<int> RoleID { get; set; }
+        public string Avatar { get; set; }
     
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

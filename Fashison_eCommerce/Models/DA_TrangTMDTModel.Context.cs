@@ -28,14 +28,17 @@ namespace Fashison_eCommerce.Models
         }
     
         public virtual DbSet<Brand> Brands { get; set; }
-        public virtual DbSet<Cart> Carts { get; set; }
-        public virtual DbSet<Cart_Item> Cart_Item { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Product_Type> Product_Type { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Authorize> Authorizes { get; set; }
+        public virtual DbSet<Main_Type> Main_Type { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
     
         public virtual int sp_AccountResgister(string username, string password, string email)
         {
@@ -183,7 +186,37 @@ namespace Fashison_eCommerce.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AccountChangePassword", emailParameter, passwordParameter);
         }
     
-        public virtual ObjectResult<FindProduct_Result> FindProduct(string name, string type, string qualityMin, string qualityMax)
+        public virtual ObjectResult<FindProduct_Result> FindProduct(string name, Nullable<int> type, Nullable<int> qualityMin, Nullable<int> qualityMax)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            var qualityMinParameter = qualityMin.HasValue ?
+                new ObjectParameter("QualityMin", qualityMin) :
+                new ObjectParameter("QualityMin", typeof(int));
+    
+            var qualityMaxParameter = qualityMax.HasValue ?
+                new ObjectParameter("QualityMax", qualityMax) :
+                new ObjectParameter("QualityMax", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProduct_Result>("FindProduct", nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
+        }
+    
+        public virtual ObjectResult<getProducts_Result> getProducts(Nullable<int> userID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getProducts_Result>("getProducts", userIDParameter);
+        }
+    
+        public virtual ObjectResult<FindProducts_Result> FindProducts(string name, string type, Nullable<int> qualityMin, Nullable<int> qualityMax)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("Name", name) :
@@ -193,15 +226,15 @@ namespace Fashison_eCommerce.Models
                 new ObjectParameter("Type", type) :
                 new ObjectParameter("Type", typeof(string));
     
-            var qualityMinParameter = qualityMin != null ?
+            var qualityMinParameter = qualityMin.HasValue ?
                 new ObjectParameter("QualityMin", qualityMin) :
-                new ObjectParameter("QualityMin", typeof(string));
+                new ObjectParameter("QualityMin", typeof(int));
     
-            var qualityMaxParameter = qualityMax != null ?
+            var qualityMaxParameter = qualityMax.HasValue ?
                 new ObjectParameter("QualityMax", qualityMax) :
-                new ObjectParameter("QualityMax", typeof(string));
+                new ObjectParameter("QualityMax", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProduct_Result>("FindProduct", nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProducts_Result>("FindProducts", nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
         }
     }
 }

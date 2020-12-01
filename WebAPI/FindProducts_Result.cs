@@ -10,15 +10,17 @@
 namespace WebAPI
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Cart_Item
+    public partial class FindProducts_Result
     {
-        public int ItemID { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public float Cost { get; set; }
-        public Nullable<int> Cart_ID { get; set; }
-    
-        public virtual Cart Cart { get; set; }
+        public int Product_ID { get; set; }
+        public string Name { get; set; }
+        public float Price { get; set; }
+        public int Amount { get; set; }
+        public int TypeID { get; set; }
+        public int Store_ID { get; set; }
+        public string Pictures { get; set; }
+        public string Decription { get; set; }
+        public Nullable<int> BrandID { get; set; }
     }
 }

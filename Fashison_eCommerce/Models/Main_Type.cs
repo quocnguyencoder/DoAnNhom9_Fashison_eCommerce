@@ -12,20 +12,18 @@ namespace Fashison_eCommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cart
+    public partial class Main_Type
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cart()
+        public Main_Type()
         {
-            this.Cart_Item = new HashSet<Cart_Item>();
+            this.Product_Type = new HashSet<Product_Type>();
         }
     
-        public int Cart_ID { get; set; }
-        public Nullable<float> Total_Cost { get; set; }
-        public Nullable<int> UserID { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart_Item> Cart_Item { get; set; }
-        public virtual User User { get; set; }
+        public virtual ICollection<Product_Type> Product_Type { get; set; }
     }
 }

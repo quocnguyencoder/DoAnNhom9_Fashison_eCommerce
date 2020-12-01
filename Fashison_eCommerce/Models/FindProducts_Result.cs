@@ -10,16 +10,9 @@
 namespace Fashison_eCommerce.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Product
+    public partial class FindProducts_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
-        {
-            this.Ratings = new HashSet<Rating>();
-        }
-    
         public int Product_ID { get; set; }
         public string Name { get; set; }
         public float Price { get; set; }
@@ -29,11 +22,5 @@ namespace Fashison_eCommerce.Models
         public string Pictures { get; set; }
         public string Decription { get; set; }
         public Nullable<int> BrandID { get; set; }
-    
-        public virtual Store Store { get; set; }
-        public virtual Product_Type Product_Type { get; set; }
-        public virtual Brand Brand { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

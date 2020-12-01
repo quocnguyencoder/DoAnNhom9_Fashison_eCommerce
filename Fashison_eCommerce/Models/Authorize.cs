@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebAPI
+namespace Fashison_eCommerce.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Order
+    public partial class Authorize
     {
-        public int Recipt_ID { get; set; }
-        public Nullable<float> Cost { get; set; }
-        public string Status { get; set; }
-        public Nullable<int> User_ID { get; set; }
+        public int RoleID { get; set; }
+        public string PermissionID { get; set; }
+        public string Note { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual Permission Permission { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

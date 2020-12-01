@@ -22,8 +22,10 @@ namespace Fashison_eCommerce.Models
     
         public int TypeID { get; set; }
         public string Name { get; set; }
+        public Nullable<int> MaintypeID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+        public virtual Main_Type Main_Type { get; set; }
     }
 }
