@@ -11,13 +11,18 @@ namespace WebAPI
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Cart_Item
     {
+        [Key]
+        [Column(Order = 0)]
         public int ItemID { get; set; }
+        [Key]
+        [Column(Order = 1)]
+        public int Cart_ID { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public float Cost { get; set; }
-        public Nullable<int> Cart_ID { get; set; }
     
         public virtual Cart Cart { get; set; }
         public virtual Product Product { get; set; }

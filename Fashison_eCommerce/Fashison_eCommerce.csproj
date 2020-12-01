@@ -145,23 +145,28 @@
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Buyer\BuyerAreaRegistration.cs" />
+    <Compile Include="Areas\Buyer\Controllers\Cart_ItemController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\MainPageController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
+    <Compile Include="Models\Cart.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cart_Item.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cart_ItemClient.cs" />
+    <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Brand.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Cart.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Cart_Item.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DA_TrangTMDTModel.Context.cs">
@@ -180,9 +185,6 @@
       <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\FindProduct_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Order.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
@@ -207,9 +209,12 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserCartClient.cs" />
     <Compile Include="Models\UserClient.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="ViewModel\Cart_ItemViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
+    <Compile Include="ViewModel\UserCartViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1896,6 +1901,9 @@
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Assets\Buyer\JavaScript.js" />
+    <Content Include="Assets\Buyer\loading.gif" />
+    <Content Include="Assets\Buyer\text_loading.gif" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -2152,6 +2160,12 @@
     <Content Include="Areas\Seller\Views\Products\Index.cshtml" />
     <Content Include="Areas\Seller\Views\Acount\Login.cshtml" />
     <Content Include="Areas\Seller\Views\Acount\Dashboard.cshtml" />
+    <Content Include="Areas\Buyer\Views\UserCart\Cart.cshtml" />
+    <Content Include="Areas\Buyer\Views\UserCart\CountCartItem.cshtml" />
+    <Content Include="Areas\Buyer\Views\MainPage\Index.cshtml" />
+    <Content Include="Areas\Buyer\Views\MainPage\UserProfile.cshtml" />
+    <Content Include="Areas\Buyer\Views\MainPage\LoadProducts.cshtml" />
+    <Content Include="Areas\Buyer\Views\UserCart\LoadCart.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2389,12 +2403,13 @@
     <Content Include="Views\UserAPI\Index.cshtml" />
     <Content Include="Views\UserAPI\Create.cshtml" />
     <Content Include="Views\UserAPI\Edit.cshtml" />
+    <Content Include="Views\Shared\CountCartItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Buyer\Controllers\" />
     <Folder Include="Areas\Buyer\Data\" />
+    <Folder Include="Areas\Buyer\Views\Cart_Item\" />
     <Folder Include="Areas\Seller\Data\" />
     <Folder Include="Areas\Seller\Views\Shared\" />
     <Folder Include="Data\" />

@@ -22,7 +22,10 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Styles_css/User_styles/themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Styles_css/User_styles/themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="~/Styles_css/User_styles/themes/images/ico/apple-touch-icon-57-precomposed.png">
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
     <style type="text/css" id="enject"></style>
+
+    <script src="~/Assets/Buyer/JavaScript.js"></script>
 </head>
 <body>
     <div id="header">
@@ -31,11 +34,11 @@
                 <div class="span6">
                     @if (Session["userID"] != null)
                     {
-                        <a href="Seller/Acount/Dashboard" target="_blank">Seller page</a>
+                        <a href="/Seller/Acount/Dashboard" target="_blank">Seller page</a>
                     }
                     else
                     {
-                        <a href="Seller/Acount/Login" target="_blank">Seller page</a>
+                        <a href="/Seller/Acount/Login" target="_blank">Seller page</a>
                     }
                     <a href="#" target="_blank">Download app</a>
                 </div>
@@ -74,7 +77,7 @@
                     <span class="icon-bar"></span>
                 </a>
                 <div class="navbar-inner">
-                    <a class="brand" href="/User/Index"><img src="~/Styles_css/User_styles/themes/images/new-logo.png" alt="Esshop" /></a>
+                    <a class="brand" href="/"><img src="~/Styles_css/User_styles/themes/images/new-logo.png" alt="Esshop" /></a>
                     <form class="form-inline navbar-search" method="post" action="products.html">
                         <input id="srchFld" class="srchTxt" type="text" />
                         <select class="srchTxt">
@@ -129,12 +132,7 @@
 
             var actionName = this.ViewContext.RouteData.Values["action"].ToString();
             
-            if (controllerName == "User" && actionName == "UserProfile")
-            {
-                @*<h1> @controllerName </h1>
-                <h1> @actionName </h1>*@
-            }
-            else
+            if (controllerName == "MainPage" && actionName == "Index")
             {
                 <div id="myCarousel" class="carousel slide">
                     <div class="carousel-inner">
@@ -199,6 +197,7 @@
                     <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
                 </div>
             }
+            
         }
 
     </div>

@@ -1,0 +1,56 @@
+﻿@{
+    float totalPrice = 0;
+    foreach (var cartItem in ViewBag.Cart)
+    {
+        var total = cartItem.Price * cartItem.Quantity;
+        <tr>
+            <td> <img width="60" src="~/Product_Images/@cartItem.Pictures" alt="" /></td>
+            <td>@cartItem.Name<br />@cartItem.Decription</td>
+            <td>
+                <div class="input-append">
+                    <input class="span1" id ="@cartItem.ItemID" style="max-width:34px" placeholder="@cartItem.Quantity" value="@cartItem.Quantity" @*id="appendedInputButtons"*@ size="16" type="text">
+                    <button class="btn" type="button"><i class="icon-minus"></i></button>
+                    <button class="btn increase_btn" type="button" data-item_id="@cartItem.ItemID" ><i class="icon-plus"></i></button>
+                    <button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>
+                </div>
+            </td>
+            <td>@cartItem.Price</td>
+            <td>@total</td>
+        </tr>
+        totalPrice += total;
+    }
+}
+<tr>
+    <td colspan="4" style="text-align:right"><strong>TOTAL </strong></td>
+    <td class="label label-important" style="display:block"> <strong> @totalPrice </strong></td>
+</tr>
+<script language="javascript">
+    // gan event cho cac button add to cart
+    var cartItem = {
+        init: function () {
+            console.log("init");
+            cartItem.increaseQuantity();
+        },
+        increaseQuantity: function () {
+            $('.increase_btn').off('click').on('click', function (e) {
+                console.log("click");
+                e.preventDefault();
+                var id = $(this).data('item_id');
+                var quantity = parseInt(document.getElementById(String(id)).value) + 1;
+                console.log(id);
+                console.log(quantity);
+                // them san pham vao gio hang
+                $.ajax({
+                    url: "/Buyer/Cart_Item/UpdateCart",
+                    type: 'POST',
+                    data: { ProductID: id, Quantity: quantity },
+                    success: function (msg) {
+                        alert("Upadated!");
+                    }
+                });
+            });
+        }
+    }
+    cartItem.init();
+
+</script>

@@ -47,7 +47,7 @@ namespace Fashison_eCommerce.Controllers
                         Session["userID"] = obj.Id.ToString();
                         Session["username"] = obj.Username.ToString();
                         //string username = obj.Username.ToString();
-                        return RedirectToAction("Index", "User");
+                        return RedirectToAction("Index", "MainPage", new { Area = "Buyer" });
                     }
                     else
                     {
@@ -62,7 +62,7 @@ namespace Fashison_eCommerce.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
-            return RedirectToAction("Index", "User");
+            return RedirectToAction("Index", "MainPage", new { Area = "Buyer" });
         }
         
         [HttpGet] // di toi trang dang ki
