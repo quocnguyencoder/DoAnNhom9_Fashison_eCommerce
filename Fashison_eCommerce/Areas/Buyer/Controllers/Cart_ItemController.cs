@@ -45,5 +45,12 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             CIC.Edit(cim.cart_Item);
             return Content("");
         }
+        [HttpPost]
+        public ActionResult DeleteCartItem(int ProductID)
+        {
+            Cart_ItemClient CIC = new Cart_ItemClient();
+            CIC.Delete(ProductID,4);
+            return Content("");
+        }
     }
 }

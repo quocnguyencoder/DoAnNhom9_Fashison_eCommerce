@@ -35,5 +35,21 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             } 
             return PartialView();
         }
+        public ActionResult CartInfo()
+        {
+            return PartialView();
+        }
+        public ActionResult TotalCost()
+        {
+            UserCartClient UC = new UserCartClient();
+            var userCarts = UC.LoadCart(Convert.ToInt32(Session["userID"]));
+            float total = 0;
+            foreach (var item in userCarts)
+            {
+                total += item.Price * item.Quantity;
+            }
+            ViewBag.Total = total;
+            return PartialView();
+        }
     }
 }
