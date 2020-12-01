@@ -9,6 +9,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Fashison_eCommerce.Models;
+//using Fashison_eCommerce.Models;
 using PagedList;
 
 namespace Fashison_eCommerce.Areas.Seller.Controllers
@@ -31,24 +32,27 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
 
             //int pageSize = 2;
             //int pageNumber = (page ?? 1);
-            using (var context = new DB_A6A231_DAQLTMDTEntities())
-            {
-                var id = new SqlParameter("@userID", Session["userID"]);
-                var result = context.Database
-                   .SqlQuery<Product>("getProducts @userID", id)
-                   .ToList();
-                List<Product> product = new List<Product>();
-                for (int i = 0; i < result.Count; i++)
-                {
-                    product.Add(db.Products.Find(result[i].Product_ID));
-                }
+            //using (var context = new DB_A6A231_DAQLTMDTEntities())
+            //{
+            //    var id = new SqlParameter("@userID", Session["userID"]);
+            //    var result = context.Database
+            //       .SqlQuery<Product>("getProducts @userID", id)
+            //       .ToList();
+            //    List<Product> product = new List<Product>();
+            //    for (int i = 0; i < result.Count; i++)
+            //    {
+            //        product.Add(db.Products.Find(result[i].Product_ID));
+            //    }
 
 
-                return View(product);
-            }
+            //    return View(product);
+            //}
+         
+            ProductClient CC = new ProductClient();
+            ViewBag.listProducts = CC.findAll();
 
+            return View();
 
-            
 
         }
         

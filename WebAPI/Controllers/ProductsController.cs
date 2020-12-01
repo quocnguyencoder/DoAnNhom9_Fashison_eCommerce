@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebAPI;
@@ -17,23 +21,41 @@ namespace WebAPI.Controllers
         private DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
 
         // GET: api/Products
-        public IQueryable<Product> GetProducts()
+        public IEnumerable<Product> GetProducts()
         {
-            return db.Products;
+            //try
+            //{
+                
+    
+            var session =HttpContext.Current.Session;
+            
+            int ID = Convert.ToInt32(session["userID"]);
+                var id = new SqlParameter("@userID",ID);
+                var result = db.Database.SqlQuery<Product>("exec getProducts @userID",id).ToList<Product>();
+            return result;
+                //return new HttpResponseMessage(HttpStatusCode.OK)
+                //{
+                //    Content = new StringContent(JArray.FromObject(result).ToString(), Encoding.UTF8, "application/json")
+                //};
+           // }
+            //catch (Exception)
+            //{
+            //    return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            //}
         }
 
         // GET: api/Products/5
-        [ResponseType(typeof(Product))]
-        public IHttpActionResult GetProduct(int id)
-        {
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Product))]
+        //public IHttpActionResult GetProduct(int id)
+        //{
+        //    Product product = db.Products.Find(id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(product);
-        }
+        //    return Ok(product);
+        //}
 
         // PUT: api/Products/5
         [ResponseType(typeof(void))]
