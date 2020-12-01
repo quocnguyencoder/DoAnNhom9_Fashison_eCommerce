@@ -12,10 +12,14 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
     {
         // GET: Buyer/UserCart
         public ActionResult Index()
+        {           
+            return View("Cart");
+        }
+        public ActionResult LoadCart()
         {
             UserCartClient UC = new UserCartClient();
             ViewBag.Cart = UC.LoadCart(Convert.ToInt32(Session["userID"]));
-            return View("Cart");
+            return PartialView();
         }
         public ActionResult CountCartItem()
         {

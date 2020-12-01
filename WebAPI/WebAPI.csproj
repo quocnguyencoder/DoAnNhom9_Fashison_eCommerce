@@ -198,9 +198,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LTWebNhom9.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Order.cs">
-      <DependentUpon>LTWebNhom9.tt</DependentUpon>
-    </Compile>
     <Compile Include="Permission.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
@@ -230,6 +227,9 @@
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="User_Cart.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_Cart_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -24,9 +24,9 @@ namespace WebAPI.Controllers
 
         // GET: api/Cart_Item/5
         [ResponseType(typeof(Cart_Item))]
-        public IHttpActionResult GetCart_Item(int id)
+        public IHttpActionResult GetCart_Item(int ItemID,int CartID)
         {
-            Cart_Item cart_Item = db.Cart_Item.Find(id);
+            Cart_Item cart_Item = db.Cart_Item.Find(ItemID,CartID);
             if (cart_Item == null)
             {
                 return NotFound();
@@ -37,14 +37,14 @@ namespace WebAPI.Controllers
 
         // PUT: api/Cart_Item/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCart_Item(int id, Cart_Item cart_Item)
+        public IHttpActionResult PutCart_Item(int ItemID, int CartID, Cart_Item cart_Item)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != cart_Item.ItemID)
+            if (ItemID != cart_Item.ItemID && CartID != cart_Item.Cart_ID)
             {
                 return BadRequest();
             }
@@ -57,14 +57,14 @@ namespace WebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!Cart_ItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                //if (!Cart_ItemExists(id))
+                //{
+                //    return NotFound();
+                //}
+                //else
+                //{
+                //    throw;
+                //}
             }
 
             return StatusCode(HttpStatusCode.NoContent);

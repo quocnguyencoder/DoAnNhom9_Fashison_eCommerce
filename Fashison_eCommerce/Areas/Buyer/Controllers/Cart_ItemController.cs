@@ -16,20 +16,34 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             return View();
         }
 
-        public ActionResult AddToCart()
+
+        [HttpPost]
+        public ActionResult AddToCart(int ProductID)
         {
             Cart_Item cart_Item = new Cart_Item();
             cart_Item.Cart_ID = 4;
-            cart_Item.ItemID = Convert.ToInt32(Request["ItemID"]);
+            cart_Item.ItemID = ProductID;
             cart_Item.Quantity = 1;
-            cart_Item.Cost = float.Parse(Request["Price"]);
             Cart_ItemViewModel cim = new Cart_ItemViewModel();
             cim.cart_Item = cart_Item;
 
             Cart_ItemClient CIC = new Cart_ItemClient();
             CIC.Create(cim.cart_Item);
-            return RedirectToAction("Index","User");
+            return Content("");
         }
+        [HttpPost]
+        public ActionResult UpdateCart(int ProductID,int Quantity)
+        {
+            Cart_Item cart_Item = new Cart_Item();
+            cart_Item.Cart_ID = 4;
+            cart_Item.ItemID = ProductID;
+            cart_Item.Quantity = Quantity;
+            Cart_ItemViewModel cim = new Cart_ItemViewModel();
+            cim.cart_Item = cart_Item;
 
+            Cart_ItemClient CIC = new Cart_ItemClient();
+            CIC.Edit(cim.cart_Item);
+            return Content("");
+        }
     }
 }

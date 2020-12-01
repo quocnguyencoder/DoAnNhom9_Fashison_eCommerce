@@ -9,7 +9,7 @@
         <li><a href="index.html">Home</a> <span class="divider">/</span></li>
         <li class="active"> SHOPPING CART</li>
     </ul>
-    <h3>  SHOPPING CART [ <small>@ViewBag.Cart.Count Item(s) </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>
+    <h3>  SHOPPING CART [ <small>@*@ViewBag.Cart.Count*@ Item(s) </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>
     <hr class="soft" />
 
     <table class="table table-bordered">
@@ -23,48 +23,14 @@
             </tr>
         </thead>
         <tbody>
-
-            @{
-                float totalPrice = 0;
-                foreach (var cartItem in ViewBag.Cart)
-                {
-                    var total = cartItem.Price * cartItem.Quantity;
-                    <tr>
-                        <td> <img width="60" src="~/Product_Images/@cartItem.Pictures" alt="" /></td>
-                        <td>@cartItem.Name<br />@cartItem.Decription</td>
-                        <td>
-                            <div class="input-append">
-                                <input class="span1" style="max-width:34px" placeholder="@cartItem.Quantity" id="appendedInputButtons" size="16" type="text">
-                                <button class="btn" type="button"><i class="icon-minus"></i></button>
-                                <button class="btn" type="button"><i class="icon-plus"></i></button>
-                                <button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>
-                            </div>
-                        </td>
-                        <td>@cartItem.Price</td>
-                        <td>@total</td>
-                    </tr>
-                    totalPrice += total;
-                }
-            }
-
-
-            @*<tr>
-            <td colspan="5" style="text-align:right">Total Price:	</td>
-            <td> $228.00</td>
-        </tr>
-        <tr>
-            <td colspan="5" style="text-align:right">Total Discount:	</td>
-            <td> $50.00</td>
-        </tr>*@
-            <tr>
-                <td colspan="4" style="text-align:right"><strong>TOTAL </strong></td>
-                <td class="label label-important" style="display:block"> <strong> @totalPrice </strong></td>
-            </tr>
+            @{Html.RenderAction("LoadCart", "UserCart");}
         </tbody>
     </table>
     
     <a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
     <a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
+    <input type="text" value="12" id="texxt">
 
 </div>
+
 

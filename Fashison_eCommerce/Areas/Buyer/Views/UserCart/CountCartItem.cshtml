@@ -1,1 +1,8 @@
-﻿@ViewBag.Count
+﻿@if (ViewBag.Count != 0)
+{
+    <p>@ViewBag.Count Items in your cart </p><span class="badge badge-warning pull-right">$155.00</span>
+}
+else
+{
+    <p> Your cart is empty </p>
+}

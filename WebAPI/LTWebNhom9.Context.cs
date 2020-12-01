@@ -29,7 +29,6 @@ namespace WebAPI
     
         public virtual DbSet<Authorize> Authorizes { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Product_Type> Product_Type { get; set; }

@@ -28,7 +28,6 @@ namespace Fashison_eCommerce.Models
         }
     
         public virtual DbSet<Brand> Brands { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Product_Type> Product_Type { get; set; }
         public virtual DbSet<Store> Stores { get; set; }

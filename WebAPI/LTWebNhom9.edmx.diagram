@@ -7,7 +7,6 @@
       <Diagram DiagramId="37658ccd58a04747846a5ad9fba5b5f7" Name="Diagram1">
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Authorize" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Brand" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Permission" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Product" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Product_Type" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
@@ -24,10 +23,10 @@
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Store__UserID__29572725" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Cart" Width="1.5" PointX="5.25" PointY="12.5" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Cart_Item" Width="1.5" PointX="10.625" PointY="8.625" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Cart_Item" Width="1.5" PointX="9.75" PointY="9.125" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___0F624AF8" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

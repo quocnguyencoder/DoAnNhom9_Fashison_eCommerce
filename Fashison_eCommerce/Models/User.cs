@@ -31,6 +31,7 @@ namespace Fashison_eCommerce.Models
         public string Phone { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public Nullable<int> RoleID { get; set; }
+        public string Avatar { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }
