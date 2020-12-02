@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "ProductType";
+}
+
+@foreach (var type in ViewBag.listType)
+    {
+        <li class="subMenu open">
+            <a> @type.Name</a>
+
+            <ul>
+                
+                @foreach (var sub in ViewBag.subType)
+                {
+                    if (sub.MaintypeID == type.ID)
+                    {
+                        @*<li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li>*@
+                        <li><a href="products.html"><i class="icon-chevron-right"></i>@sub.Name</a></li>
+                        
+                    }
+                }
+            </ul>
+        </li>
+                }
+

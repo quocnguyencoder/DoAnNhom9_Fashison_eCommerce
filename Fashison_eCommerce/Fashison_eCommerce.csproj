@@ -147,6 +147,7 @@
     <Compile Include="Areas\Buyer\BuyerAreaRegistration.cs" />
     <Compile Include="Areas\Buyer\Controllers\Cart_ItemController.cs" />
     <Compile Include="Areas\Buyer\Controllers\MainPageController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\ProductDetailController.cs" />
     <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
@@ -161,6 +162,9 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_ItemClient.cs" />
+    <Compile Include="Models\Main_Type.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -2166,6 +2170,12 @@
     <Content Include="Areas\Buyer\Views\MainPage\UserProfile.cshtml" />
     <Content Include="Areas\Buyer\Views\MainPage\LoadProducts.cshtml" />
     <Content Include="Areas\Buyer\Views\UserCart\LoadCart.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\Details.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\Index.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\product.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shared\_LeftMenu.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shared\ProductType.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shared\_Layout1.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

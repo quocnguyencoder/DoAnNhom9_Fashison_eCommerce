@@ -29,6 +29,13 @@
           <Property Name="Cart_ID" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" />
         </EntityType>
+        <EntityType Name="Main_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Product_ID" />
@@ -161,6 +168,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Product_T__Maint__2180FB33">
+          <End Role="Main_Type" Type="Self.Main_Type" Multiplicity="0..1" />
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product_Type">
+              <PropertyRef Name="MaintypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Store__UserID__29572725">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Store" Type="Self.Store" Multiplicity="*" />
@@ -221,6 +240,7 @@
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Main_Type" EntityType="Self.Main_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product_Type" EntityType="Self.Product_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
@@ -249,6 +269,10 @@
           <AssociationSet Name="FK__Product__TypeID__2E1BDC42" Association="Self.FK__Product__TypeID__2E1BDC42">
             <End Role="Product_Type" EntitySet="Product_Type" />
             <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product_T__Maint__2180FB33" Association="Self.FK__Product_T__Maint__2180FB33">
+            <End Role="Main_Type" EntitySet="Main_Type" />
+            <End Role="Product_Type" EntitySet="Product_Type" />
           </AssociationSet>
           <AssociationSet Name="FK__Store__UserID__29572725" Association="Self.FK__Store__UserID__29572725">
             <End Role="Users" EntitySet="Users" />
@@ -293,6 +317,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Product__TypeID__2E1BDC42" FromRole="Product_Type" ToRole="Product" />
           <Property Name="MaintypeID" Type="Int32" />
+          <NavigationProperty Name="Main_Type" Relationship="DB_A6A231_DAQLTMDTModel.FK__Product_T__Maint__2180FB33" FromRole="Product_Type" ToRole="Main_Type" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
@@ -458,6 +483,11 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
+          <EntitySet Name="Main_Type" EntityType="DB_A6A231_DAQLTMDTModel.Main_Type" />
+          <AssociationSet Name="FK__Product_T__Maint__2180FB33" Association="DB_A6A231_DAQLTMDTModel.FK__Product_T__Maint__2180FB33">
+            <End Role="Main_Type" EntitySet="Main_Type" />
+            <End Role="Product_Type" EntitySet="Product_Type" />
+          </AssociationSet>
           </EntityContainer>
         <Association Name="FK">
           <End Type="DB_A6A231_DAQLTMDTModel.Brand" Role="Brand" Multiplicity="0..1" />
@@ -547,6 +577,26 @@
             </Principal>
             <Dependent Role="Cart_Item">
               <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Main_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product_Type" Relationship="DB_A6A231_DAQLTMDTModel.FK__Product_T__Maint__2180FB33" FromRole="Main_Type" ToRole="Product_Type" />
+        </EntityType>
+        <Association Name="FK__Product_T__Maint__2180FB33">
+          <End Type="DB_A6A231_DAQLTMDTModel.Main_Type" Role="Main_Type" Multiplicity="0..1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Product_Type" Role="Product_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product_Type">
+              <PropertyRef Name="MaintypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -671,6 +721,14 @@
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_Type">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Main_Type">
+              <MappingFragment StoreEntitySet="Main_Type">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

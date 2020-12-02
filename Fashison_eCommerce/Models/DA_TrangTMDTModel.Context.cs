@@ -35,6 +35,7 @@ namespace Fashison_eCommerce.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Cart_Item> Cart_Item { get; set; }
+        public virtual DbSet<Main_Type> Main_Type { get; set; }
     
         public virtual int sp_AccountResgister(string username, string password, string email)
         {

@@ -12,20 +12,18 @@ namespace Fashison_eCommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product_Type
+    public partial class Main_Type
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product_Type()
+        public Main_Type()
         {
-            this.Products = new HashSet<Product>();
+            this.Product_Type = new HashSet<Product_Type>();
         }
     
-        public int TypeID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
-        public Nullable<int> MaintypeID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
-        public virtual Main_Type Main_Type { get; set; }
+        public virtual ICollection<Product_Type> Product_Type { get; set; }
     }
 }
