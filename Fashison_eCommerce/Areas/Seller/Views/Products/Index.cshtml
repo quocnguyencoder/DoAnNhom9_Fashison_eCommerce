@@ -19,7 +19,7 @@
     <br />
     <label>Loại</label>
     @Html.DropDownList("MaintypeID", null, "Select one")
-   
+
     @Html.DropDownList("TypeID", null, "Select one")
     <label>Kho hàng</label>
     <input type="number" value="0" min="0" id="MinAmount" />
@@ -28,21 +28,22 @@
     <button id="search">Tìm</button>
 
 </div>
-       
- 
- <p>
-     @Html.ActionLink("Create New", "Create")
- </p>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 
 
 @*}*@
 @Html.Partial("~/Areas/Seller/Views/Products/Search.cshtml", Model);
 <script>
+
     $(document).ready(function () {
         $("#search").click(function (e) {
             e.preventDefault();
             debugger
-            
+
             var name = $("#Name").val();
             var type = $("#TypeID").val();
             var min = $("#MinAmount").val();
@@ -59,11 +60,11 @@
                 });
         });
         $("#MaintypeID").change(function () {
-            
+
             $.get("/Products/GetTypeList", { MaintypeID: $("#MaintypeID").val() }, function (data) {
                 $("#TypeID").empty();
                 $.each(data, function (index, row) {
-                    $("#TypeID").append("<option value='" + row.TypeID + "'>" + row.Name+"</option>")
+                    $("#TypeID").append("<option value='" + row.TypeID + "'>" + row.Name + "</option>")
                 });
             });
 
