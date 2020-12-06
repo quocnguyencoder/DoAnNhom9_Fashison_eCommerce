@@ -12,13 +12,17 @@ namespace WebAPI
     using System;
     using System.Collections.Generic;
     
-    public partial class Cart_Item
+    public partial class Order_Items
     {
-        public int ItemID { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public int Cart_ID { get; set; }
+        public string Order_ID { get; set; }
+        public int Item_ID { get; set; }
+        public Nullable<double> price { get; set; }
+        public Nullable<int> quantity { get; set; }
+        public Nullable<double> discount { get; set; }
+        public Nullable<double> total { get; set; }
+        public string status { get; set; }
     
+        public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
-        public virtual Cart Cart { get; set; }
     }
 }

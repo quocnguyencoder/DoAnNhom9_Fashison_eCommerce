@@ -2166,6 +2166,8 @@
     <Content Include="Areas\Buyer\Views\MainPage\UserProfile.cshtml" />
     <Content Include="Areas\Buyer\Views\MainPage\LoadProducts.cshtml" />
     <Content Include="Areas\Buyer\Views\UserCart\LoadCart.cshtml" />
+    <Content Include="Areas\Buyer\Views\UserCart\TotalCost.cshtml" />
+    <Content Include="Areas\Buyer\Views\UserCart\CartInfo.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

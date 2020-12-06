@@ -26,8 +26,8 @@
             <PropertyRef Name="Cart_ID" />
           </Key>
           <Property Name="ItemID" Type="int" Nullable="false" />
-          <Property Name="Cart_ID" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" />
+          <Property Name="Cart_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -113,7 +113,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cart_Item__Cart___0F624AF8">
+        <Association Name="FK__Cart_Item__Cart___47A6A41B">
           <End Role="Cart" Type="Self.Cart" Multiplicity="1" />
           <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -125,7 +125,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cart_Item__ItemI__0E6E26BF">
+        <Association Name="FK__Cart_Item__ItemI__46B27FE2">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -234,11 +234,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__Cart___0F624AF8" Association="Self.FK__Cart_Item__Cart___0F624AF8">
+          <AssociationSet Name="FK__Cart_Item__Cart___47A6A41B" Association="Self.FK__Cart_Item__Cart___47A6A41B">
             <End Role="Cart" EntitySet="Cart" />
             <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__ItemI__0E6E26BF" Association="Self.FK__Cart_Item__ItemI__0E6E26BF">
+          <AssociationSet Name="FK__Cart_Item__ItemI__46B27FE2" Association="Self.FK__Cart_Item__ItemI__46B27FE2">
             <End Role="Product" EntitySet="Product" />
             <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>

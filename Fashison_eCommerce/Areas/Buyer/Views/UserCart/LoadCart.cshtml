@@ -1,56 +1,129 @@
-﻿@{
-    float totalPrice = 0;
-    foreach (var cartItem in ViewBag.Cart)
-    {
-        var total = cartItem.Price * cartItem.Quantity;
+﻿<table class="table table-bordered">
+    <thead>
         <tr>
-            <td> <img width="60" src="~/Product_Images/@cartItem.Pictures" alt="" /></td>
-            <td>@cartItem.Name<br />@cartItem.Decription</td>
-            <td>
-                <div class="input-append">
-                    <input class="span1" id ="@cartItem.ItemID" style="max-width:34px" placeholder="@cartItem.Quantity" value="@cartItem.Quantity" @*id="appendedInputButtons"*@ size="16" type="text">
-                    <button class="btn" type="button"><i class="icon-minus"></i></button>
-                    <button class="btn increase_btn" type="button" data-item_id="@cartItem.ItemID" ><i class="icon-plus"></i></button>
-                    <button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>
-                </div>
-            </td>
-            <td>@cartItem.Price</td>
-            <td>@total</td>
+            <th>Product</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
         </tr>
-        totalPrice += total;
-    }
-}
-<tr>
-    <td colspan="4" style="text-align:right"><strong>TOTAL </strong></td>
-    <td class="label label-important" style="display:block"> <strong> @totalPrice </strong></td>
-</tr>
-<script language="javascript">
-    // gan event cho cac button add to cart
-    var cartItem = {
-        init: function () {
-            console.log("init");
-            cartItem.increaseQuantity();
-        },
-        increaseQuantity: function () {
-            $('.increase_btn').off('click').on('click', function (e) {
-                console.log("click");
-                e.preventDefault();
-                var id = $(this).data('item_id');
-                var quantity = parseInt(document.getElementById(String(id)).value) + 1;
-                console.log(id);
-                console.log(quantity);
-                // them san pham vao gio hang
-                $.ajax({
-                    url: "/Buyer/Cart_Item/UpdateCart",
-                    type: 'POST',
-                    data: { ProductID: id, Quantity: quantity },
-                    success: function (msg) {
-                        alert("Upadated!");
-                    }
-                });
-            });
+    </thead>
+    <tbody>
+        @{
+            //float totalPrice = 0;
+            foreach (var cartItem in ViewBag.Cart)
+            {
+                var total = cartItem.Price * cartItem.Quantity;
+                <tr>
+                    <td> <img width="60" src="~/Product_Images/@cartItem.Pictures" alt="" /></td>
+                    <td>@cartItem.Name<br />@cartItem.Decription</td>
+                    <td>
+                        <div class="input-append">
+                            <input class="span1" id="@cartItem.ItemID" style="max-width:34px" placeholder="@cartItem.Quantity" value="@cartItem.Quantity" @*id="appendedInputButtons"*@ size="16" type="text">
+                            <button class="btn decrease_btn" type="button" data-item_id="@cartItem.ItemID"><i class="icon-minus"></i></button>
+                            <button class="btn increase_btn" type="button" data-item_id="@cartItem.ItemID"><i class="icon-plus"></i></button>
+                            <button class="btn btn-danger delete_btn" type="button" data-item_id="@cartItem.ItemID"><i class="icon-remove icon-white"></i></button>
+                        </div>
+                    </td>
+                    <td id="Price_@cartItem.ItemID">@cartItem.Price</td>
+                    <td id="Total_@cartItem.ItemID">@total</td>
+                </tr>
+                //totalPrice += total;
+            }
         }
-    }
-    cartItem.init();
+        <tr>
+            <td colspan="4" style="text-align:right"><strong>TOTAL </strong></td>
+            <td class="label label-important" style="display:block"> <strong> <p class="total"> @{Html.RenderAction("TotalCost", "UserCart");}</p> </strong></td>
+        </tr>
+    </tbody>
+</table>
+    <script language="javascript">
+        // gan event cho cac button add to cart
+        var cartItem = {
+            init: function () {
+                console.log("init");
+                cartItem.increaseQuantity();
+                cartItem.decreaseQuantity();
+                cartItem.deleteItem();
+            },
+            increaseQuantity: function () {
+                $('.increase_btn').off('click').on('click', function (e) {
+                    console.log("click");
+                    e.preventDefault();
+                    var id = $(this).data('item_id');
+                    var quantity = parseInt(document.getElementById(String(id)).value) + 1;
+                    console.log(id);
+                    console.log(quantity);
+                    // them san pham vao gio hang
+                    $.ajax({
+                        url: "/Buyer/Cart_Item/UpdateCart",
+                        type: 'POST',
+                        data: { ProductID: id, Quantity: quantity },
+                        success: function (msg) {
+                            document.getElementById(String(id)).value = quantity;
+                            console.log(parseInt(document.getElementById("Price_".concat(String(id))).value));
+                            document.getElementById("Total_".concat(String(id))).textContent = parseInt(document.getElementById("Price_".concat(String(id))).textContent) * quantity;
+                        }
+                    });
+                    $.ajax({
+                        // update total cart
+                        url: "/Buyer/UserCart/TotalCost",
+                        success: function (result) {
+                            $(".total").html(result);
+                        }
+                    });
+                });
+            },
+            decreaseQuantity: function () {
+                $('.decrease_btn').off('click').on('click', function (e) {
+                    console.log("click");
+                    e.preventDefault();
+                    var id = $(this).data('item_id');
+                    var quantity = parseInt(document.getElementById(String(id)).value) - 1;
+                    console.log(id);
+                    console.log(quantity);
+                    // them san pham vao gio hang
+                    $.ajax({
+                        url: "/Buyer/Cart_Item/UpdateCart",
+                        type: 'POST',
+                        data: { ProductID: id, Quantity: quantity },
+                        success: function (msg) {
+                            document.getElementById(String(id)).value = quantity;
+                            document.getElementById("Total_".concat(String(id))).textContent = parseInt(document.getElementById("Price_".concat(String(id))).textContent) * quantity;
+                        }
+                    });
+                    $.ajax({
+                        // update total cart
+                        url: "/Buyer/UserCart/TotalCost",
+                        success: function (result) {
+                            $(".total").html(result);
+                        }
+                    });
+                });
+            },
+            deleteItem: function () {
+                $('.delete_btn').off('click').on('click', function (e) {
+                    e.preventDefault();
+                    var id = $(this).data('item_id');
+                    // them san pham vao gio hang
+                    $.ajax({
+                        url: "/Buyer/Cart_Item/DeleteCartItem",
+                        type: 'POST',
+                        data: { ProductID: id },
+                        success: function (msg) {
+                            alert('Item dropped!')
+                        }
+                    });
+                    $.ajax({
+                        // update total cart
+                        url: "/Buyer/UserCart/LoadCart",
+                        success: function (result) {
+                            $(".user_cart").html(result);
+                        }
+                    });
+                });
+            },
+        }
+        cartItem.init();
 
-</script>
+    </script>

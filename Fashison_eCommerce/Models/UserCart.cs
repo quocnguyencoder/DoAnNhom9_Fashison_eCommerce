@@ -13,5 +13,6 @@ namespace Fashison_eCommerce.Models
         public float Price { get; set; }
         public int Quantity { get; set; }
         public int ItemID { get; set; }
+        public int Store_ID { get; set; }
     }
 }

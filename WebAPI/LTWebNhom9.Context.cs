@@ -36,8 +36,13 @@ namespace WebAPI
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Main_Type> Main_Type { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Cart_Item> Cart_Item { get; set; }
+        public virtual DbSet<Order_Items> Order_Items { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
     
         public virtual int sp_AccountChangePassword(string email, string password)
         {
@@ -185,14 +190,14 @@ namespace WebAPI
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("Sp_User_Login", userNameParameter, passwordParameter);
         }
     
-        [DbFunction("DB_A6A231_DAQLTMDTEntities", "User_Cart")]
-        public virtual IQueryable<User_Cart> User_Cart(Nullable<int> user_id)
+        [DbFunction("DB_A6A231_DAQLTMDTEntities", "Load_User_Cart")]
+        public virtual IQueryable<Load_User_Cart> Load_User_Cart(Nullable<int> user_id)
         {
             var user_idParameter = user_id.HasValue ?
                 new ObjectParameter("user_id", user_id) :
                 new ObjectParameter("user_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<User_Cart>("[DB_A6A231_DAQLTMDTEntities].[User_Cart](@user_id)", user_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Load_User_Cart>("[DB_A6A231_DAQLTMDTEntities].[Load_User_Cart](@user_id)", user_idParameter);
         }
     }
 }

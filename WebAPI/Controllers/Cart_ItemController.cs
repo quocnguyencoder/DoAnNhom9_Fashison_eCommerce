@@ -102,9 +102,9 @@ namespace WebAPI.Controllers
 
         // DELETE: api/Cart_Item/5
         [ResponseType(typeof(Cart_Item))]
-        public IHttpActionResult DeleteCart_Item(int id)
+        public IHttpActionResult DeleteCart_Item(int ItemID, int CartID)
         {
-            Cart_Item cart_Item = db.Cart_Item.Find(id);
+            Cart_Item cart_Item = db.Cart_Item.Find(ItemID,CartID);
             if (cart_Item == null)
             {
                 return NotFound();

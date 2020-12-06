@@ -58,14 +58,14 @@ namespace Fashison_eCommerce.Models
                 return false;
             }
         }
-        public bool Delete(int id)
+        public bool Delete(int ItemID, int CartID)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.DeleteAsync("Users/" + id).Result;
+                HttpResponseMessage response = client.DeleteAsync("Cart_Item?ItemID=" + ItemID + "&CartID=" + CartID).Result;
                 return response.IsSuccessStatusCode;
             }
             catch

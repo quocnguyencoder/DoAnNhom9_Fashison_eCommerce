@@ -21,7 +21,7 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         public ActionResult AddToCart(int ProductID)
         {
             Cart_Item cart_Item = new Cart_Item();
-            cart_Item.Cart_ID = 4;
+            cart_Item.Cart_ID = Convert.ToInt32(Session["userID"]);
             cart_Item.ItemID = ProductID;
             cart_Item.Quantity = 1;
             Cart_ItemViewModel cim = new Cart_ItemViewModel();
@@ -35,7 +35,7 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         public ActionResult UpdateCart(int ProductID,int Quantity)
         {
             Cart_Item cart_Item = new Cart_Item();
-            cart_Item.Cart_ID = 4;
+            cart_Item.Cart_ID = Convert.ToInt32(Session["userID"]);
             cart_Item.ItemID = ProductID;
             cart_Item.Quantity = Quantity;
             Cart_ItemViewModel cim = new Cart_ItemViewModel();
@@ -43,6 +43,13 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
 
             Cart_ItemClient CIC = new Cart_ItemClient();
             CIC.Edit(cim.cart_Item);
+            return Content("");
+        }
+        [HttpPost]
+        public ActionResult DeleteCartItem(int ProductID)
+        {
+            Cart_ItemClient CIC = new Cart_ItemClient();
+            CIC.Delete(ProductID, Convert.ToInt32(Session["userID"]));
             return Content("");
         }
     }
