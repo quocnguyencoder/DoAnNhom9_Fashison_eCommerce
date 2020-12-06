@@ -12,20 +12,22 @@ namespace WebAPI
     using System;
     using System.Collections.Generic;
     
-    public partial class Product_Type
+    public partial class Address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product_Type()
+        public Address()
         {
-            this.Products = new HashSet<Product>();
+            this.Orders = new HashSet<Order>();
         }
     
-        public int TypeID { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> MaintypeID { get; set; }
+        public int Address_ID { get; set; }
+        public Nullable<int> User_ID { get; set; }
+        public string full_name { get; set; }
+        public string address1 { get; set; }
+        public string phone { get; set; }
     
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
-        public virtual Main_Type Main_Type { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -17,9 +17,9 @@ namespace WebAPI.Controllers
         private DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
 
         // GET: api/Cart
-        public IQueryable<User_Cart> GetCarts(int id)
+        public IQueryable<Load_User_Cart> GetCarts(int id)
         {
-            return db.User_Cart(id);
+            return db.Load_User_Cart(id);
         }
 
         

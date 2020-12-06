@@ -17,7 +17,9 @@ namespace WebAPI
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
+            this.Ratings = new HashSet<Rating>();
             this.Cart_Item = new HashSet<Cart_Item>();
+            this.Order_Items = new HashSet<Order_Items>();
         }
     
         public int Product_ID { get; set; }
@@ -34,6 +36,10 @@ namespace WebAPI
         public virtual Store Store { get; set; }
         public virtual Product_Type Product_Type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Ratings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart_Item> Cart_Item { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order_Items> Order_Items { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace WebAPI
         public string Decription { get; set; }
         public float Price { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public int ItemID { get; set; }
+        public Nullable<int> ItemID { get; set; }
+        public int Store_ID { get; set; }
     }
 }

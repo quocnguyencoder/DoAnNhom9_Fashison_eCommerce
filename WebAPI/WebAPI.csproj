@@ -130,6 +130,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -183,6 +186,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Load_User_Cart.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Load_User_Cart_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="LTWebNhom9.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -198,6 +207,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LTWebNhom9.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Main_Type.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order_Items.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="Permission.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
@@ -208,6 +226,9 @@
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rating.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
@@ -229,7 +250,25 @@
     <Compile Include="User_Cart.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
+    <Compile Include="User_Cart_Res.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="User_Cart_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_Cart_Result1.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_Cart_Result2.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_Cart_Result3.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_Cart_Result4.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User_Cart_Result5.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
   </ItemGroup>
