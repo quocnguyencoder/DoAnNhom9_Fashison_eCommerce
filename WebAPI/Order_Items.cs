@@ -20,9 +20,9 @@ namespace WebAPI
         public Nullable<int> quantity { get; set; }
         public Nullable<double> discount { get; set; }
         public Nullable<double> total { get; set; }
-        public string status { get; set; }
+        public Nullable<int> status { get; set; }
     
-        public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

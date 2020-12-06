@@ -18,7 +18,7 @@ namespace WebAPI
         public Nullable<int> Quantity { get; set; }
         public int Cart_ID { get; set; }
     
-        public virtual Product Product { get; set; }
         public virtual Cart Cart { get; set; }
+        public virtual Product Product { get; set; }
     }
 }
