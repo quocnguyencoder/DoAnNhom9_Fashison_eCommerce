@@ -39,10 +39,10 @@ namespace WebAPI
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Main_Type> Main_Type { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<Cart_Item> Cart_Item { get; set; }
-        public virtual DbSet<Order_Items> Order_Items { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<Cart_Item> Cart_Item { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Order_Items> Order_Items { get; set; }
     
         public virtual int sp_AccountChangePassword(string email, string password)
         {

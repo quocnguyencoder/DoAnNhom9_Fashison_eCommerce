@@ -26,9 +26,10 @@ namespace WebAPI
         public Nullable<double> delivery { get; set; }
         public string payment { get; set; }
         public Nullable<System.DateTime> created_date { get; set; }
-        public string status { get; set; }
+        public Nullable<int> status { get; set; }
         public string decription { get; set; }
         public Nullable<int> Address_ID { get; set; }
+        public Nullable<double> Total_Order { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual Store Store { get; set; }

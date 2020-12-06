@@ -65,7 +65,7 @@
           <Property Name="quantity" Type="int" />
           <Property Name="discount" Type="float" />
           <Property Name="total" Type="float" />
-          <Property Name="status" Type="nvarchar" MaxLength="30" />
+          <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -77,9 +77,10 @@
           <Property Name="delivery" Type="float" />
           <Property Name="payment" Type="nvarchar" MaxLength="30" />
           <Property Name="created_date" Type="datetime" />
-          <Property Name="status" Type="nvarchar" MaxLength="30" />
+          <Property Name="status" Type="int" />
           <Property Name="decription" Type="nvarchar" MaxLength="100" />
           <Property Name="Address_ID" Type="int" />
+          <Property Name="Total_Order" Type="float" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -644,8 +645,8 @@
           <NavigationProperty Name="Stores" Relationship="Self.FK__Store__UserID__29572725" FromRole="Users" ToRole="Store" />
           <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Addresses" Relationship="DB_A6A231_DAQLTMDTModel.FK__Address__User_ID__31B762FC" FromRole="User" ToRole="Address" />
-          <NavigationProperty Name="Orders" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Carts" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" FromRole="User" ToRole="Cart" />
+          <NavigationProperty Name="Orders" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7" FromRole="User" ToRole="Order" />
         </EntityType>
         <Association Name="FK__Authorize__Permi__534D60F1">
           <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
@@ -827,10 +828,27 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Rating" EntitySet="Ratings" />
           </AssociationSet>
+          <FunctionImport Name="Load_User_Cart" IsComposable="true" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.Load_User_Cart)">
+          <Parameter Name="user_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Carts" EntityType="DB_A6A231_DAQLTMDTModel.Cart" />
+          <AssociationSet Name="FK__Cart__UserID__5535A963" Association="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <EntitySet Name="Cart_Item" EntityType="DB_A6A231_DAQLTMDTModel.Cart_Item" />
           <EntitySet Name="Orders" EntityType="DB_A6A231_DAQLTMDTModel.Order" />
           <AssociationSet Name="FK__Orders__Address___55009F39" Association="DB_A6A231_DAQLTMDTModel.FK__Orders__Address___55009F39">
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart_Item__Cart___47A6A41B" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___47A6A41B">
+            <End Role="Cart" EntitySet="Carts" />
+            <End Role="Cart_Item" EntitySet="Cart_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart_Item__ItemI__46B27FE2" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__46B27FE2">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
           <AssociationSet Name="FK__Orders__Store_ID__540C7B00" Association="DB_A6A231_DAQLTMDTModel.FK__Orders__Store_ID__540C7B00">
             <End Role="Store" EntitySet="Stores" />
@@ -840,31 +858,14 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <EntitySet Name="Cart_Item" EntityType="DB_A6A231_DAQLTMDTModel.Cart_Item" />
           <EntitySet Name="Order_Items" EntityType="DB_A6A231_DAQLTMDTModel.Order_Items" />
-          <AssociationSet Name="FK__Order_Ite__Order__56E8E7AB" Association="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="Order_Items" EntitySet="Order_Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__ItemI__46B27FE2" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__46B27FE2">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Cart_Item" EntitySet="Cart_Item" />
-          </AssociationSet>
           <AssociationSet Name="FK__Order_Ite__Item___57DD0BE4" Association="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Item___57DD0BE4">
             <End Role="Product" EntitySet="Products" />
             <End Role="Order_Items" EntitySet="Order_Items" />
           </AssociationSet>
-          <FunctionImport Name="Load_User_Cart" IsComposable="true" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.Load_User_Cart)">
-          <Parameter Name="user_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <EntitySet Name="Carts" EntityType="DB_A6A231_DAQLTMDTModel.Cart" />
-          <AssociationSet Name="FK__Cart__UserID__5535A963" Association="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Cart" EntitySet="Carts" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__Cart___47A6A41B" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___47A6A41B">
-            <End Role="Cart" EntitySet="Carts" />
-            <End Role="Cart_Item" EntitySet="Cart_Item" />
+          <AssociationSet Name="FK__Order_Ite__Order__56E8E7AB" Association="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -971,122 +972,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-          </Key>
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="User_ID" Type="Int32" />
-          <Property Name="Store_ID" Type="Int32" />
-          <Property Name="delivery" Type="Double" />
-          <Property Name="payment" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address_ID" Type="Int32" />
-          <NavigationProperty Name="Address" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__Address___55009F39" FromRole="Order" ToRole="Address" />
-          <NavigationProperty Name="Store" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__Store_ID__540C7B00" FromRole="Order" ToRole="Store" />
-          <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7" FromRole="Order" ToRole="User" />
-          <NavigationProperty Name="Order_Items" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB" FromRole="Order" ToRole="Order_Items" />
-        </EntityType>
-        <Association Name="FK__Orders__Address___55009F39">
-          <End Type="DB_A6A231_DAQLTMDTModel.Address" Role="Address" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="Address_ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="Address_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__Store_ID__540C7B00">
-          <End Type="DB_A6A231_DAQLTMDTModel.Store" Role="Store" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="Store_ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="Store_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__User_ID__531856C7">
-          <End Type="DB_A6A231_DAQLTMDTModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="User_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Cart_Item">
-          <Key>
-            <PropertyRef Name="ItemID" />
-            <PropertyRef Name="Cart_ID" />
-          </Key>
-          <Property Name="ItemID" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Cart_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__46B27FE2" FromRole="Cart_Item" ToRole="Product" />
-          <NavigationProperty Name="Cart" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___47A6A41B" FromRole="Cart_Item" ToRole="Cart" />
-        </EntityType>
-        <EntityType Name="Order_Items">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-            <PropertyRef Name="Item_ID" />
-          </Key>
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="Item_ID" Type="Int32" Nullable="false" />
-          <Property Name="price" Type="Double" />
-          <Property Name="quantity" Type="Int32" />
-          <Property Name="discount" Type="Double" />
-          <Property Name="total" Type="Double" />
-          <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Order" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB" FromRole="Order_Items" ToRole="Order" />
-          <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Item___57DD0BE4" FromRole="Order_Items" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK__Order_Ite__Order__56E8E7AB">
-          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Order_Items" Role="Order_Items" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="Order_ID" />
-            </Principal>
-            <Dependent Role="Order_Items">
-              <PropertyRef Name="Order_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Cart_Item__ItemI__46B27FE2">
-          <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Cart_Item">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Order_Ite__Item___57DD0BE4">
-          <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Order_Items" Role="Order_Items" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Order_Items">
-              <PropertyRef Name="Item_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="User_Cart_Res">
           <Property Type="String" Name="Pictures" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
@@ -1171,6 +1056,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Cart_Item">
+          <Key>
+            <PropertyRef Name="ItemID" />
+            <PropertyRef Name="Cart_ID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Cart_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cart" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___47A6A41B" FromRole="Cart_Item" ToRole="Cart" />
+          <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__46B27FE2" FromRole="Cart_Item" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="User_ID" Type="Int32" />
+          <Property Name="Store_ID" Type="Int32" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="payment" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address_ID" Type="Int32" />
+          <Property Name="Total_Order" Type="Double" />
+          <NavigationProperty Name="Address" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__Address___55009F39" FromRole="Order" ToRole="Address" />
+          <NavigationProperty Name="Store" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__Store_ID__540C7B00" FromRole="Order" ToRole="Store" />
+          <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="Order_Items" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB" FromRole="Order" ToRole="Order_Items" />
+        </EntityType>
+        <Association Name="FK__Orders__Address___55009F39">
+          <End Type="DB_A6A231_DAQLTMDTModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Cart_Item__Cart___47A6A41B">
           <End Type="DB_A6A231_DAQLTMDTModel.Cart" Role="Cart" Multiplicity="1" />
           <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="*" />
@@ -1180,6 +1107,81 @@
             </Principal>
             <Dependent Role="Cart_Item">
               <PropertyRef Name="Cart_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart_Item__ItemI__46B27FE2">
+          <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Cart_Item">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Store_ID__540C7B00">
+          <End Type="DB_A6A231_DAQLTMDTModel.Store" Role="Store" Multiplicity="0..1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="Store_ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Store_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__User_ID__531856C7">
+          <End Type="DB_A6A231_DAQLTMDTModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Order_Items">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+            <PropertyRef Name="Item_ID" />
+          </Key>
+          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Item_ID" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Double" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="discount" Type="Double" />
+          <Property Name="total" Type="Double" />
+          <Property Name="status" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Item___57DD0BE4" FromRole="Order_Items" ToRole="Product" />
+          <NavigationProperty Name="Order" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB" FromRole="Order_Items" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK__Order_Ite__Item___57DD0BE4">
+          <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Order_Items" Role="Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="Item_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__Order__56E8E7AB">
+          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Order_Items" Role="Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Order_ID" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="Order_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1343,43 +1345,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
-                <ScalarProperty Name="decription" ColumnName="decription" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="payment" ColumnName="payment" />
-                <ScalarProperty Name="delivery" ColumnName="delivery" />
-                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
-                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cart_Item">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart_Item">
-              <MappingFragment StoreEntitySet="Cart_Item">
-                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Order_Items">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Items">
-              <MappingFragment StoreEntitySet="Order_Items">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="discount" ColumnName="discount" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Load_User_Cart" FunctionName="DB_A6A231_DAQLTMDTModel.Store.Load_User_Cart">
           <ResultMapping>
               <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Load_User_Cart">
@@ -1398,6 +1363,44 @@
               <MappingFragment StoreEntitySet="Cart">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cart_Item">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart_Item">
+              <MappingFragment StoreEntitySet="Cart_Item">
+                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Items">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Items">
+              <MappingFragment StoreEntitySet="Order_Items">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
