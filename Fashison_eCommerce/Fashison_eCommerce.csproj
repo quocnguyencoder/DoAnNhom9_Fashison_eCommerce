@@ -149,6 +149,7 @@
     <Compile Include="Areas\Buyer\Controllers\MainPageController.cs" />
     <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
+    <Compile Include="Areas\Seller\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -161,6 +162,18 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_ItemClient.cs" />
+    <Compile Include="Models\Order_All.cs" />
+    <Compile Include="Models\Order_AllClient.cs" />
+    <Compile Include="Models\Order_Cancel.cs" />
+    <Compile Include="Models\Order_CancelClient.cs" />
+    <Compile Include="Models\Order_Confirm.cs" />
+    <Compile Include="Models\Order_ConfirmClient.cs" />
+    <Compile Include="Models\Order_Delivering.cs" />
+    <Compile Include="Models\Order_DeliveringClient.cs" />
+    <Compile Include="Models\Order_Receive.cs" />
+    <Compile Include="Models\Order_ReceiveClient.cs" />
+    <Compile Include="Models\Order_DeliveredClient.cs" />
+    <Compile Include="Models\Order_Delivered.cs" />
     <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -213,11 +226,13 @@
     <Compile Include="Models\UserClient.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="ViewModel\Cart_ItemViewModel.cs" />
+    <Compile Include="ViewModel\Order_AllViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="ViewModel\UserCartViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Seller\Views\Shared\tabcontrol.css" />
     <Content Include="Assets\Admin\css\sb-admin-2.css" />
     <Content Include="Assets\Admin\css\sb-admin-2.min.css" />
     <Content Include="Assets\Admin\img\undraw_posting_photo.svg" />
@@ -2168,6 +2183,19 @@
     <Content Include="Areas\Buyer\Views\UserCart\LoadCart.cshtml" />
     <Content Include="Areas\Buyer\Views\UserCart\TotalCost.cshtml" />
     <Content Include="Areas\Buyer\Views\UserCart\CartInfo.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Header.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\Create.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabAll.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabCancel.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabConfirm.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabDeliver.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabDelivered.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabReceive.cshtml" />
+    <Content Include="Areas\Seller\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2413,7 +2441,6 @@
     <Folder Include="Areas\Buyer\Data\" />
     <Folder Include="Areas\Buyer\Views\Cart_Item\" />
     <Folder Include="Areas\Seller\Data\" />
-    <Folder Include="Areas\Seller\Views\Shared\" />
     <Folder Include="Data\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
   </ItemGroup>

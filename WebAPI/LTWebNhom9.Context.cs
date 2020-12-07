@@ -43,6 +43,15 @@ namespace WebAPI
         public virtual DbSet<Cart_Item> Cart_Item { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Order_Items> Order_Items { get; set; }
+        public virtual DbSet<Order_All> Order_All { get; set; }
+        public virtual DbSet<view_Product> view_Product { get; set; }
+        public virtual DbSet<view_Products> view_Products { get; set; }
+        public virtual DbSet<view_Shop> view_Shop { get; set; }
+        public virtual DbSet<Order_Cancel> Order_Cancel { get; set; }
+        public virtual DbSet<Order_Confirm> Order_Confirm { get; set; }
+        public virtual DbSet<Order_Delivered> Order_Delivered { get; set; }
+        public virtual DbSet<Order_Delivering> Order_Delivering { get; set; }
+        public virtual DbSet<Order_Receive> Order_Receive { get; set; }
     
         public virtual int sp_AccountChangePassword(string email, string password)
         {
@@ -198,6 +207,45 @@ namespace WebAPI
                 new ObjectParameter("user_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Load_User_Cart>("[DB_A6A231_DAQLTMDTEntities].[Load_User_Cart](@user_id)", user_idParameter);
+        }
+    
+        public virtual ObjectResult<FindProducts_Result> FindProducts(string name, string type, Nullable<int> qualityMin, Nullable<int> qualityMax)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(string));
+    
+            var qualityMinParameter = qualityMin.HasValue ?
+                new ObjectParameter("QualityMin", qualityMin) :
+                new ObjectParameter("QualityMin", typeof(int));
+    
+            var qualityMaxParameter = qualityMax.HasValue ?
+                new ObjectParameter("QualityMax", qualityMax) :
+                new ObjectParameter("QualityMax", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProducts_Result>("FindProducts", nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
+        }
+    
+        public virtual ObjectResult<getProducts_Result> getProducts(Nullable<int> userID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getProducts_Result>("getProducts", userIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetCartItem_Result> sp_GetCartItem(Nullable<int> cartID)
+        {
+            var cartIDParameter = cartID.HasValue ?
+                new ObjectParameter("CartID", cartID) :
+                new ObjectParameter("CartID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCartItem_Result>("sp_GetCartItem", cartIDParameter);
         }
     }
 }
