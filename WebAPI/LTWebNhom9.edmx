@@ -25,8 +25,7 @@
           <Key>
             <PropertyRef Name="Cart_ID" />
           </Key>
-          <Property Name="Cart_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Total_Cost" Type="real" />
+          <Property Name="Cart_ID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Cart_Item">
@@ -35,8 +34,15 @@
             <PropertyRef Name="Cart_ID" />
           </Key>
           <Property Name="ItemID" Type="int" Nullable="false" />
-          <Property Name="Cart_ID" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" />
+          <Property Name="Cart_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Main_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -112,6 +118,29 @@
           <Property Name="RoleID" Type="int" />
           <Property Name="Avatar" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="view_Products">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="TypeID" />
+            <PropertyRef Name="Store_ID" />
+            <PropertyRef Name="Pictures" />
+            <PropertyRef Name="Decription" />
+          </Key>
+          <Property Name="Product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="real" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="Store_ID" Type="int" Nullable="false" />
+          <Property Name="Pictures" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Decription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="BrandID" Type="int" />
+        </EntityType>
         <Association Name="FK">
           <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -160,7 +189,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cart_Item__Cart___0F624AF8">
+        <Association Name="FK__Cart_Item__Cart___47A6A41B">
           <End Role="Cart" Type="Self.Cart" Multiplicity="1" />
           <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -172,7 +201,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cart_Item__ItemI__0E6E26BF">
+        <Association Name="FK__Cart_Item__ItemI__46B27FE2">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -205,6 +234,18 @@
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product_T__Maint__2180FB33">
+          <End Role="Main_Type" Type="Self.Main_Type" Multiplicity="0..1" />
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product_Type">
+              <PropertyRef Name="MaintypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -276,26 +317,12 @@
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="User_Cart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="user_id" Type="int" Mode="In" />
-          <ReturnType>
-            <CollectionType>
-              <RowType>
-                <Property Name="Pictures" Type="nvarchar" MaxLength="100" Nullable="false" />
-                <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-                <Property Name="Decription" Type="nvarchar" MaxLength="1000" Nullable="false" />
-                <Property Name="Price" Type="real" Nullable="false" />
-                <Property Name="Quantity" Type="int" />
-                <Property Name="ItemID" Type="int" Nullable="false" />
-              </RowType>
-            </CollectionType>
-          </ReturnType>
-        </Function>
         <EntityContainer Name="DB_A6A231_DAQLTMDTModelStoreContainer">
           <EntitySet Name="Authorize" EntityType="Self.Authorize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Main_Type" EntityType="Self.Main_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product_Type" EntityType="Self.Product_Type" Schema="dbo" store:Type="Tables" />
@@ -303,6 +330,19 @@
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="view_Products" EntityType="Self.view_Products" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_Products].[Product_ID] AS [Product_ID], 
+    [view_Products].[Name] AS [Name], 
+    [view_Products].[Price] AS [Price], 
+    [view_Products].[Amount] AS [Amount], 
+    [view_Products].[TypeID] AS [TypeID], 
+    [view_Products].[Store_ID] AS [Store_ID], 
+    [view_Products].[Pictures] AS [Pictures], 
+    [view_Products].[Decription] AS [Decription], 
+    [view_Products].[BrandID] AS [BrandID]
+    FROM [dbo].[view_Products] AS [view_Products]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK" Association="Self.FK">
             <End Role="Brand" EntitySet="Brand" />
             <End Role="Product" EntitySet="Product" />
@@ -319,11 +359,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__Cart___0F624AF8" Association="Self.FK__Cart_Item__Cart___0F624AF8">
+          <AssociationSet Name="FK__Cart_Item__Cart___47A6A41B" Association="Self.FK__Cart_Item__Cart___47A6A41B">
             <End Role="Cart" EntitySet="Cart" />
             <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__ItemI__0E6E26BF" Association="Self.FK__Cart_Item__ItemI__0E6E26BF">
+          <AssociationSet Name="FK__Cart_Item__ItemI__46B27FE2" Association="Self.FK__Cart_Item__ItemI__46B27FE2">
             <End Role="Product" EntitySet="Product" />
             <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
@@ -334,6 +374,10 @@
           <AssociationSet Name="FK__Product__TypeID__2E1BDC42" Association="Self.FK__Product__TypeID__2E1BDC42">
             <End Role="Product_Type" EntitySet="Product_Type" />
             <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product_T__Maint__2180FB33" Association="Self.FK__Product_T__Maint__2180FB33">
+            <End Role="Main_Type" EntitySet="Main_Type" />
+            <End Role="Product_Type" EntitySet="Product_Type" />
           </AssociationSet>
           <AssociationSet Name="FK__Store__UserID__29572725" Association="Self.FK__Store__UserID__29572725">
             <End Role="Users" EntitySet="Users" />
@@ -401,6 +445,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Product__TypeID__2E1BDC42" FromRole="Product_Type" ToRole="Product" />
           <Property Name="MaintypeID" Type="Int32" />
+          <NavigationProperty Name="Main_Type" Relationship="DB_A6A231_DAQLTMDTModel.FK__Product_T__Maint__2180FB33" FromRole="Product_Type" ToRole="Main_Type" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -451,8 +496,8 @@
           <Property Name="RoleID" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleID__52593CB8" FromRole="Users" ToRole="Role" />
           <NavigationProperty Name="Stores" Relationship="Self.FK__Store__UserID__29572725" FromRole="Users" ToRole="Store" />
-          <NavigationProperty Name="Carts" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" FromRole="User" ToRole="Cart" />
           <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Carts" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" FromRole="User" ToRole="Cart" />
         </EntityType>
         <Association Name="FK__Authorize__Permi__534D60F1">
           <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
@@ -619,23 +664,29 @@
             <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="User_Cart" IsComposable="true" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.User_Cart)">
+          <Parameter Name="user_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Cart_Item" EntityType="DB_A6A231_DAQLTMDTModel.Cart_Item" />
+          <AssociationSet Name="FK__Cart_Item__ItemI__0E6E26BF" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart_Item" EntitySet="Cart_Item" />
+          </AssociationSet>
+          <EntitySet Name="Main_Type" EntityType="DB_A6A231_DAQLTMDTModel.Main_Type" />
+          <AssociationSet Name="FK__Product_T__Maint__2180FB33" Association="DB_A6A231_DAQLTMDTModel.FK__Product_T__Maint__2180FB33">
+            <End Role="Main_Type" EntitySet="Main_Type" />
+            <End Role="Product_Type" EntitySet="Product_Type" />
+          </AssociationSet>
           <EntitySet Name="Carts" EntityType="DB_A6A231_DAQLTMDTModel.Cart" />
           <AssociationSet Name="FK__Cart__UserID__5535A963" Association="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963">
             <End Role="User" EntitySet="Users" />
             <End Role="Cart" EntitySet="Carts" />
           </AssociationSet>
-          <FunctionImport Name="User_Cart" IsComposable="true" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.User_Cart)">
-          <Parameter Name="user_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <EntitySet Name="Cart_Item" EntityType="DB_A6A231_DAQLTMDTModel.Cart_Item" />
-          <AssociationSet Name="FK__Cart_Item__Cart___0F624AF8" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___0F624AF8">
+          <AssociationSet Name="FK__Cart_Item__Cart___47A6A41B" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___47A6A41B">
             <End Role="Cart" EntitySet="Carts" />
             <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__ItemI__0E6E26BF" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Cart_Item" EntitySet="Cart_Item" />
-          </AssociationSet>
+          <EntitySet Name="view_Products" EntityType="DB_A6A231_DAQLTMDTModel.view_Products" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -648,28 +699,6 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="Cart">
-          <Key>
-            <PropertyRef Name="Cart_ID" />
-          </Key>
-          <Property Name="Cart_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Total_Cost" Type="Single" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" FromRole="Cart" ToRole="User" />
-          <NavigationProperty Name="Cart_Item" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___0F624AF8" FromRole="Cart" ToRole="Cart_Item" />
-        </EntityType>
-        <Association Name="FK__Cart__UserID__5535A963">
-          <End Type="DB_A6A231_DAQLTMDTModel.User" Role="User" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart" Role="Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Cart">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="User_Cart_Result">
           <Property Type="String" Name="Pictures" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
@@ -694,21 +723,9 @@
           <Property Name="ItemID" Type="Int32" Nullable="false" />
           <Property Name="Cart_ID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="Cart" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___0F624AF8" FromRole="Cart_Item" ToRole="Cart" />
           <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF" FromRole="Cart_Item" ToRole="Product" />
+          <NavigationProperty Name="Cart" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___47A6A41B" FromRole="Cart_Item" ToRole="Cart" />
         </EntityType>
-        <Association Name="FK__Cart_Item__Cart___0F624AF8">
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart" Role="Cart" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cart">
-              <PropertyRef Name="Cart_ID" />
-            </Principal>
-            <Dependent Role="Cart_Item">
-              <PropertyRef Name="Cart_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Cart_Item__ItemI__0E6E26BF">
           <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="1" />
           <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="*" />
@@ -721,6 +738,80 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Main_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product_Type" Relationship="DB_A6A231_DAQLTMDTModel.FK__Product_T__Maint__2180FB33" FromRole="Main_Type" ToRole="Product_Type" />
+        </EntityType>
+        <Association Name="FK__Product_T__Maint__2180FB33">
+          <End Type="DB_A6A231_DAQLTMDTModel.Main_Type" Role="Main_Type" Multiplicity="0..1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Product_Type" Role="Product_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product_Type">
+              <PropertyRef Name="MaintypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Cart_ID" />
+          </Key>
+          <Property Name="Cart_ID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" FromRole="Cart" ToRole="User" />
+          <NavigationProperty Name="Cart_Item" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___47A6A41B" FromRole="Cart" ToRole="Cart_Item" />
+        </EntityType>
+        <Association Name="FK__Cart__UserID__5535A963">
+          <End Type="DB_A6A231_DAQLTMDTModel.User" Role="User" Multiplicity="1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart_Item__Cart___47A6A41B">
+          <End Type="DB_A6A231_DAQLTMDTModel.Cart" Role="Cart" Multiplicity="1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cart">
+              <PropertyRef Name="Cart_ID" />
+            </Principal>
+            <Dependent Role="Cart_Item">
+              <PropertyRef Name="Cart_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="view_Products">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="TypeID" />
+            <PropertyRef Name="Store_ID" />
+            <PropertyRef Name="Pictures" />
+            <PropertyRef Name="Decription" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Single" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Store_ID" Type="Int32" Nullable="false" />
+          <Property Name="Pictures" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Decription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="BrandID" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -852,33 +943,43 @@
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="Sp_User_Login" FunctionName="DB_A6A231_DAQLTMDTModel.Store.Sp_User_Login" />
-          <EntitySetMapping Name="Carts">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart">
-              <MappingFragment StoreEntitySet="Cart">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Total_Cost" ColumnName="Total_Cost" />
-                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="User_Cart" FunctionName="DB_A6A231_DAQLTMDTModel.Store.User_Cart">
-          <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.User_Cart">
-                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Decription" ColumnName="Decription" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="Cart_Item">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart_Item">
               <MappingFragment StoreEntitySet="Cart_Item">
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_Type">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Main_Type">
+              <MappingFragment StoreEntitySet="Main_Type">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_Products">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.view_Products">
+              <MappingFragment StoreEntitySet="view_Products">
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -180,6 +180,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\view_ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,6 +198,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LTWebNhom9.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Main_Type.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Permission.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
@@ -230,6 +234,9 @@
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="User_Cart_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_Products.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
   </ItemGroup>

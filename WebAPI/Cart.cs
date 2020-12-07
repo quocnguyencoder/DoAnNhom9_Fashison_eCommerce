@@ -21,7 +21,6 @@ namespace WebAPI
         }
     
         public int Cart_ID { get; set; }
-        public Nullable<float> Total_Cost { get; set; }
         public int UserID { get; set; }
     
         public virtual User User { get; set; }

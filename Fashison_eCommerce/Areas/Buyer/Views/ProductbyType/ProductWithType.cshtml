@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
-    var Prod = ViewBag.Products;
 }
 
 @model Fashison_eCommerce.ViewModel.Cart_ItemViewModel
@@ -76,6 +75,22 @@
                         </div>
                         <div class="item">
                             <ul class="thumbnails">
+                                @*@foreach (var Prod in ViewBag.listProducts)
+                                    {
+                                        <li class="span3">
+                                            <div class="thumbnail">
+                                                <i class="tag"></i>
+                                                <a href="product_details.html"><img src="~/Product_Images/@Prod.Pictures" alt=""></a>
+                                                <div class="caption">
+                                                    <h5>@Prod.Name</h5>
+                                                    <h4>
+                                                        <a class="btn">VIEW</a>
+                                                        <span class="pull-right">$@Prod.Price</span>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }*@
                             </ul>
                         </div>
 
@@ -86,27 +101,21 @@
             </div>
         </div>
         <h4>Latest Products </h4>
-        <div class="loader" data-action="/Buyer/ProductDetail/ProductByType">
-            <ul class="thumbnails">    
-                @*@foreach (var Prod in ViewBag.Products)
-                    {*@
+        <div class="loader" data-action="/Buyer/MainPage/LoadProducts">
+            <ul class="thumbnails">
+                @{
+                    for (int i = 0; i < 9; i++)
+                    {
                         <li class="span3">
                             <div class="thumbnail">
-                                <a href="/Buyer/ProductDetail/Details?id=@Prod.Product_ID"><img src="~/Product_Images/@Prod.Pictures" alt="" /></a>
+                                <a> <img src="~/Assets/Buyer/loading.gif" alt="Loading" /></a>
                                 <div class="caption">
-                                    <h5>@Prod.Name</h5>
-                                    <p>
-                                        @Prod.Decription
-                                    </p>
-                                    <h4 style="text-align:center">
-                                        <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a>
-                                        <a class="btn AddToCart" href="#" data-product_id="@Prod.Product_ID">Add to <i class="icon-shopping-cart"></i></a>
-                                        <a class="btn btn-primary" href="#">$@Prod.Price</a>
-                                    </h4>
+                                    <img src="~/Assets/Buyer/text_loading.gif" />
                                 </div>
                             </div>
                         </li>
-                    @*}*@
+                    }
+                }
             </ul>
         </div>
     </div>
@@ -115,7 +124,7 @@
 <script language="javascript">
     $.ajax({
         // load cac san pham
-        url: "/Buyer/MainPage/LoadProducts",
+        url: "/Buyer/ProductDetail/GetByType",
         success: function (result) {
             $(".loader").html(result);
 
@@ -153,6 +162,16 @@
             user.init();
         }
     });
+
+</script>
+<script language="javascript">
+    $.ajax({
+        //Load san pham theo loai tren sidebar
+        url: "/Buyer/ProductDetail/LoadProduct",
+        success: function (result) {
+            $(".loader").html(result);
+
+    })
 
 </script>
 

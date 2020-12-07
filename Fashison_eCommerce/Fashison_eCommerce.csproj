@@ -147,6 +147,7 @@
     <Compile Include="Areas\Buyer\BuyerAreaRegistration.cs" />
     <Compile Include="Areas\Buyer\Controllers\Cart_ItemController.cs" />
     <Compile Include="Areas\Buyer\Controllers\MainPageController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\ProductbyTypeController.cs" />
     <Compile Include="Areas\Buyer\Controllers\ProductDetailController.cs" />
     <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
@@ -216,6 +217,8 @@
     <Compile Include="Models\UserCartClient.cs" />
     <Compile Include="Models\UserClient.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\view_Product.cs" />
+    <Compile Include="Models\view_ProductClient.cs" />
     <Compile Include="ViewModel\Cart_ItemViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="ViewModel\UserCartViewModel.cs" />
@@ -2173,9 +2176,9 @@
     <Content Include="Areas\Buyer\Views\ProductDetail\Details.cshtml" />
     <Content Include="Areas\Buyer\Views\ProductDetail\Index.cshtml" />
     <Content Include="Areas\Buyer\Views\ProductDetail\product.cshtml" />
-    <Content Include="Areas\Buyer\Views\Shared\_LeftMenu.cshtml" />
     <Content Include="Areas\Buyer\Views\Shared\ProductType.cshtml" />
-    <Content Include="Areas\Buyer\Views\Shared\_Layout1.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\ProductWithType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\LoadProduct.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2420,6 +2423,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Buyer\Data\" />
     <Folder Include="Areas\Buyer\Views\Cart_Item\" />
+    <Folder Include="Areas\Buyer\Views\ProductbyType\" />
     <Folder Include="Areas\Seller\Data\" />
     <Folder Include="Areas\Seller\Views\Shared\" />
     <Folder Include="Data\" />

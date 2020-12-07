@@ -37,7 +37,7 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
 
 
             // chi tiet san pham
-            ProductClient CC = new ProductClient();
+            view_ProductClient CC = new view_ProductClient();
             ViewBag.detail = CC.find(id);
 
             // thong tin nhan hieu san pham
