@@ -18,8 +18,8 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         }
         public ActionResult LoadProducts()
         {
-            ProductClient CC = new ProductClient();
-            ViewBag.listProducts = CC.findAll();
+            view_ProductClient vPC = new view_ProductClient();
+            ViewBag.listProducts = vPC.findAll();
             return PartialView();
         }
         public ActionResult UserProfile()

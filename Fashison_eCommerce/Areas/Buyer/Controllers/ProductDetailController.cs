@@ -23,9 +23,11 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         [ChildActionOnly]
         public PartialViewResult ProductType()
         {
-            ViewBag.listType = db.Main_Type.ToList();
+            TypeClient TC = new TypeClient();
+            ViewBag.listType = TC.findAll();
+            //ViewBag.listType = db.Main_Type;
             GetSubtype();
-            return PartialView(ViewBag.listType);   
+            return PartialView();   
         }
 
         public ActionResult Details(int id)

@@ -40,6 +40,7 @@ namespace WebAPI
         public virtual DbSet<Main_Type> Main_Type { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<view_Products> view_Products { get; set; }
+        public virtual DbSet<view_MainType> view_MainType { get; set; }
     
         public virtual int sp_AccountChangePassword(string email, string password)
         {

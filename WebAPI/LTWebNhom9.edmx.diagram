@@ -29,6 +29,7 @@
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___47A6A41B" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Products" Width="1.5" PointX="12.5" PointY="3.625" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_MainType" Width="1.5" PointX="5.375" PointY="0.875" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

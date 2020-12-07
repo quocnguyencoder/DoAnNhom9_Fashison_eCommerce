@@ -163,9 +163,11 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_ItemClient.cs" />
+    <Compile Include="Models\MainTypeModel.cs" />
     <Compile Include="Models\Main_Type.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TypeClient.cs" />
     <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -2177,8 +2179,8 @@
     <Content Include="Areas\Buyer\Views\ProductDetail\Index.cshtml" />
     <Content Include="Areas\Buyer\Views\ProductDetail\product.cshtml" />
     <Content Include="Areas\Buyer\Views\Shared\ProductType.cshtml" />
-    <Content Include="Areas\Buyer\Views\ProductDetail\ProductWithType.cshtml" />
-    <Content Include="Areas\Buyer\Views\ProductDetail\LoadProduct.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductbyType\ProductWithType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductbyType\LoadProduct.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2423,7 +2425,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Buyer\Data\" />
     <Folder Include="Areas\Buyer\Views\Cart_Item\" />
-    <Folder Include="Areas\Buyer\Views\ProductbyType\" />
     <Folder Include="Areas\Seller\Data\" />
     <Folder Include="Areas\Seller\Views\Shared\" />
     <Folder Include="Data\" />

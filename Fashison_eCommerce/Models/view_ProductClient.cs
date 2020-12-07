@@ -10,7 +10,7 @@ namespace Fashison_eCommerce.Models
     public class view_ProductClient
     {
         private string Base_URL = "https://localhost:44320/api/";
-        public IEnumerable<Product> findAll()
+        public IEnumerable<view_Product> findAll()
         {
             try
             {
@@ -19,7 +19,7 @@ namespace Fashison_eCommerce.Models
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage respone = client.GetAsync("Products").Result;
                 if (respone.IsSuccessStatusCode)
-                    return respone.Content.ReadAsAsync<IEnumerable<Product>>().Result;
+                    return respone.Content.ReadAsAsync<IEnumerable<view_Product>>().Result;
                 return null;
             }
             catch
@@ -28,7 +28,7 @@ namespace Fashison_eCommerce.Models
             }
         }
 
-        public Product find(int id)
+        public view_Product find(int id)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Fashison_eCommerce.Models
                 HttpResponseMessage response = client.GetAsync("view_Products/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<Product>().Result;
+                    return response.Content.ReadAsAsync<view_Product>().Result;
                 return null;
             }
             catch
@@ -47,17 +47,17 @@ namespace Fashison_eCommerce.Models
             }
         }
 
-        public Product findByType(int typeid)
+        public view_Product findByType(int typeid)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("view_Products/" + typeid).Result;
+                HttpResponseMessage response = client.GetAsync("view_Products" + typeid).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<Product>().Result;
+                    return response.Content.ReadAsAsync<view_Product>().Result;
                 return null;
             }
             catch

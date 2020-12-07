@@ -119,6 +119,15 @@
           <Property Name="Avatar" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="view_MainType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="view_Products">
           <Key>
@@ -330,6 +339,12 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Products' does not hav
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="view_MainType" EntityType="Self.view_MainType" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_MainType].[ID] AS [ID], 
+    [view_MainType].[Name] AS [Name]
+    FROM [dbo].[view_MainType] AS [view_MainType]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="view_Products" EntityType="Self.view_Products" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [view_Products].[Product_ID] AS [Product_ID], 
@@ -687,6 +702,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Products' does not hav
             <End Role="Cart_Item" EntitySet="Cart_Item" />
           </AssociationSet>
           <EntitySet Name="view_Products" EntityType="DB_A6A231_DAQLTMDTModel.view_Products" />
+          <EntitySet Name="view_MainType" EntityType="DB_A6A231_DAQLTMDTModel.view_MainType" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -811,6 +827,13 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Products' does not hav
           <Property Name="Pictures" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Decription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="BrandID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="view_MainType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -980,6 +1003,14 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Products' does not hav
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_MainType">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.view_MainType">
+              <MappingFragment StoreEntitySet="view_MainType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
