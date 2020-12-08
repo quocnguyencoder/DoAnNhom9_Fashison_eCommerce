@@ -47,17 +47,17 @@ namespace Fashison_eCommerce.Models
             }
         }
 
-        public view_Product findByType(int typeid)
+        public IEnumerable<view_Product> findByType(int typeID)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("view_Products" + typeid).Result;
+                HttpResponseMessage response = client.GetAsync("view_Products/Type/" + typeID).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<view_Product>().Result;
+                    return response.Content.ReadAsAsync<IEnumerable<view_Product>>().Result;
                 return null;
             }
             catch

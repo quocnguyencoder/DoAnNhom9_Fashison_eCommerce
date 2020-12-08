@@ -12,8 +12,32 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
     public class ProductDetailController : Controller
     {
         // GET: Buyer/ProductDetail
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
+            if (id == default)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            // chi tiet san pham
+            view_ProductClient CC = new view_ProductClient();
+            ViewBag.detail = CC.find(id);
+
+            // thong tin nhan hieu san pham
+            int brandID = Convert.ToInt32(CC.find(id).BrandID);
+            ViewBag.brand = db.Brands.Where(x => x.BrandID == brandID).FirstOrDefault();
+
+            // Lay thong tin cua hang
+            int storeID = Convert.ToInt32(ViewBag.detail.Store_ID);
+            Getstore(storeID);
+
+            GetSubtype();
+
+            if (ViewBag.detail == null)
+            {
+                return HttpNotFound();
+            }
             return View();
         }
 
@@ -25,7 +49,6 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         {
             TypeClient TC = new TypeClient();
             ViewBag.listType = TC.findAll();
-            //ViewBag.listType = db.Main_Type;
             GetSubtype();
             return PartialView();   
         }
@@ -72,5 +95,13 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             ViewBag.subType = db.Product_Type.ToList();
             return View();
         }
+
+        public ActionResult ProductByType(int typeid)
+        {
+            view_ProductClient CC = new view_ProductClient();
+            ViewBag.ProductsByType = CC.findByType(typeid);
+            return PartialView("LoadRelatedPro");
+        }
+
     }
 }

@@ -8,6 +8,6 @@ namespace Fashison_eCommerce.ViewModel
 {
     public class view_ProductViewModel
     {
-        public view_Product product { get; set; }
+        public view_Product view_product { get; set; }
     }
 }

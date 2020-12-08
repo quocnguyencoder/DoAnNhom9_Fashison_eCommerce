@@ -225,6 +225,7 @@
     <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="ViewModel\UserCartViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
+    <Compile Include="ViewModel\view_ProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Admin\css\sb-admin-2.css" />
@@ -2181,6 +2182,7 @@
     <Content Include="Areas\Buyer\Views\Shared\ProductType.cshtml" />
     <Content Include="Areas\Buyer\Views\ProductbyType\ProductWithType.cshtml" />
     <Content Include="Areas\Buyer\Views\ProductbyType\LoadProduct.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\LoadRelatedPro.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2445,6 +2447,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebAPI\WebAPI.csproj">
+      <Project>{2561CF4D-03CA-4A2A-82EE-AB11C21EB30B}</Project>
+      <Name>WebAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
