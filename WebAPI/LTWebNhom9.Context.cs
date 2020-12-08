@@ -43,6 +43,10 @@ namespace WebAPI
         public virtual DbSet<Cart_Item> Cart_Item { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Order_Items> Order_Items { get; set; }
+        public virtual DbSet<Buyer_LoadAllProduct> Buyer_LoadAllProduct { get; set; }
+        public virtual DbSet<Buyer_LoadProduct> Buyer_LoadProduct { get; set; }
+        public virtual DbSet<view_Buyer_Order_Items> view_Buyer_Order_Items { get; set; }
+        public virtual DbSet<view_Buyer_Orders> view_Buyer_Orders { get; set; }
     
         public virtual int sp_AccountChangePassword(string email, string password)
         {
@@ -198,6 +202,15 @@ namespace WebAPI
                 new ObjectParameter("user_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Load_User_Cart>("[DB_A6A231_DAQLTMDTEntities].[Load_User_Cart](@user_id)", user_idParameter);
+        }
+    
+        public virtual ObjectResult<get_ProductByID_Result> get_ProductByID(Nullable<int> product_ID)
+        {
+            var product_IDParameter = product_ID.HasValue ?
+                new ObjectParameter("product_ID", product_ID) :
+                new ObjectParameter("product_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_ProductByID_Result>("get_ProductByID", product_IDParameter);
         }
     }
 }

@@ -145,6 +145,7 @@
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Buyer\BuyerAreaRegistration.cs" />
+    <Compile Include="Areas\Buyer\Controllers\CartCheckoutController.cs" />
     <Compile Include="Areas\Buyer\Controllers\Cart_ItemController.cs" />
     <Compile Include="Areas\Buyer\Controllers\MainPageController.cs" />
     <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
@@ -154,6 +155,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
+    <Compile Include="Models\BuyerOrderItems.cs" />
+    <Compile Include="Models\BuyerOrderItemsClient.cs" />
+    <Compile Include="Models\BuyerOrders.cs" />
+    <Compile Include="Models\BuyerOrdersClient.cs" />
     <Compile Include="Models\Cart.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -212,6 +217,9 @@
     <Compile Include="Models\UserCartClient.cs" />
     <Compile Include="Models\UserClient.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\View_Product.cs" />
+    <Compile Include="ViewModel\BuyerOrderItemsViewModel.cs" />
+    <Compile Include="ViewModel\BuyerOrdersViewModel.cs" />
     <Compile Include="ViewModel\Cart_ItemViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="ViewModel\UserCartViewModel.cs" />
@@ -1901,6 +1909,7 @@
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Assets\Buyer\CustomStyles.css" />
     <Content Include="Assets\Buyer\JavaScript.js" />
     <Content Include="Assets\Buyer\loading.gif" />
     <Content Include="Assets\Buyer\text_loading.gif" />
@@ -1936,6 +1945,8 @@
     <Content Include="Product_Images\QuanJean.png" />
     <Content Include="Product_Images\QuanKaki.png" />
     <Content Include="Product_Images\QuanTayAu.png" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Styles_css\Login_styles\images\login-bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2168,6 +2179,7 @@
     <Content Include="Areas\Buyer\Views\UserCart\LoadCart.cshtml" />
     <Content Include="Areas\Buyer\Views\UserCart\TotalCost.cshtml" />
     <Content Include="Areas\Buyer\Views\UserCart\CartInfo.cshtml" />
+    <Content Include="Areas\Buyer\Views\CartCheckout\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
