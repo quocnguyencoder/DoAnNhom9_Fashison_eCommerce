@@ -43,6 +43,16 @@
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Buyer_LoadProduct" Width="1.5" PointX="12.375" PointY="11.75" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Order_Items" Width="1.5" PointX="0.75" PointY="14.75" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Orders" Width="1.5" PointX="2.75" PointY="14.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_All" Width="1.5" PointX="14.375" PointY="7.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Cancel" Width="1.5" PointX="14.375" PointY="11.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Confirm" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Delivered" Width="1.5" PointX="5.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Delivering" Width="1.5" PointX="7.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Receive" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_MainType" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Product" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Products" Width="1.5" PointX="11.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Shop" Width="1.5" PointX="13.375" PointY="15.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

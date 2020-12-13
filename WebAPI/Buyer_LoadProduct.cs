@@ -11,8 +11,7 @@ namespace WebAPI
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Buyer_LoadProduct
     {
         public int Product_ID { get; set; }
