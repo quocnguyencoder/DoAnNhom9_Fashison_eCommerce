@@ -43,20 +43,10 @@ namespace WebAPI
         public virtual DbSet<Cart_Item> Cart_Item { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Order_Items> Order_Items { get; set; }
-        public virtual DbSet<Order_All> Order_All { get; set; }
-        public virtual DbSet<view_Product> view_Product { get; set; }
-        public virtual DbSet<view_Products> view_Products { get; set; }
-        public virtual DbSet<view_Shop> view_Shop { get; set; }
-        public virtual DbSet<Order_Cancel> Order_Cancel { get; set; }
-        public virtual DbSet<Order_Confirm> Order_Confirm { get; set; }
-        public virtual DbSet<Order_Delivered> Order_Delivered { get; set; }
-        public virtual DbSet<Order_Delivering> Order_Delivering { get; set; }
-        public virtual DbSet<Order_Receive> Order_Receive { get; set; }
         public virtual DbSet<Buyer_LoadAllProduct> Buyer_LoadAllProduct { get; set; }
         public virtual DbSet<Buyer_LoadProduct> Buyer_LoadProduct { get; set; }
         public virtual DbSet<view_Buyer_Order_Items> view_Buyer_Order_Items { get; set; }
         public virtual DbSet<view_Buyer_Orders> view_Buyer_Orders { get; set; }
-        public virtual DbSet<view_MainType> view_MainType { get; set; }
     
         public virtual int sp_AccountChangePassword(string email, string password)
         {
@@ -214,62 +204,6 @@ namespace WebAPI
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Load_User_Cart>("[DB_A6A231_DAQLTMDTEntities].[Load_User_Cart](@user_id)", user_idParameter);
         }
     
-        public virtual ObjectResult<FindProducts_Result> FindProducts(Nullable<int> store_ID, string name, Nullable<int> type, Nullable<int> qualityMin, Nullable<int> qualityMax)
-        {
-            var store_IDParameter = store_ID.HasValue ?
-                new ObjectParameter("Store_ID", store_ID) :
-                new ObjectParameter("Store_ID", typeof(int));
-    
-            var nameParameter = name != null ?
-                new ObjectParameter("Name", name) :
-                new ObjectParameter("Name", typeof(string));
-    
-            var typeParameter = type.HasValue ?
-                new ObjectParameter("Type", type) :
-                new ObjectParameter("Type", typeof(int));
-    
-            var qualityMinParameter = qualityMin.HasValue ?
-                new ObjectParameter("QualityMin", qualityMin) :
-                new ObjectParameter("QualityMin", typeof(int));
-    
-            var qualityMaxParameter = qualityMax.HasValue ?
-                new ObjectParameter("QualityMax", qualityMax) :
-                new ObjectParameter("QualityMax", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProducts_Result>("FindProducts", store_IDParameter, nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
-        }
-    
-        public virtual ObjectResult<getProducts_Result> getProducts(Nullable<int> storeID)
-        {
-            var storeIDParameter = storeID.HasValue ?
-                new ObjectParameter("StoreID", storeID) :
-                new ObjectParameter("StoreID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getProducts_Result>("getProducts", storeIDParameter);
-        }
-    
-        public virtual ObjectResult<sp_GetCartItem_Result> sp_GetCartItem(Nullable<int> cartID)
-        {
-            var cartIDParameter = cartID.HasValue ?
-                new ObjectParameter("CartID", cartID) :
-                new ObjectParameter("CartID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCartItem_Result>("sp_GetCartItem", cartIDParameter);
-        }
-    
-        public virtual int ChangeStatus(string id, Nullable<int> status)
-        {
-            var idParameter = id != null ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(string));
-    
-            var statusParameter = status.HasValue ?
-                new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ChangeStatus", idParameter, statusParameter);
-        }
-    
         public virtual ObjectResult<get_ProductByID_Result> get_ProductByID(Nullable<int> product_ID)
         {
             var product_IDParameter = product_ID.HasValue ?
@@ -277,33 +211,6 @@ namespace WebAPI
                 new ObjectParameter("product_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_ProductByID_Result>("get_ProductByID", product_IDParameter);
-        }
-    
-        public virtual ObjectResult<getOrders_Of_User_Result> getOrders_Of_User(Nullable<int> userid)
-        {
-            var useridParameter = userid.HasValue ?
-                new ObjectParameter("userid", userid) :
-                new ObjectParameter("userid", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getOrders_Of_User_Result>("getOrders_Of_User", useridParameter);
-        }
-    
-        public virtual ObjectResult<sp_getOrderDetail_Result> sp_getOrderDetail(string order_id)
-        {
-            var order_idParameter = order_id != null ?
-                new ObjectParameter("order_id", order_id) :
-                new ObjectParameter("order_id", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getOrderDetail_Result>("sp_getOrderDetail", order_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_loadUserCart_Result> sp_loadUserCart(Nullable<int> user_id)
-        {
-            var user_idParameter = user_id.HasValue ?
-                new ObjectParameter("user_id", user_id) :
-                new ObjectParameter("user_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_loadUserCart_Result>("sp_loadUserCart", user_idParameter);
         }
     }
 }

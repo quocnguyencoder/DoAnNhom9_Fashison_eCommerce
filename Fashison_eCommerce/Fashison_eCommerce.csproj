@@ -61,9 +61,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Linq.Dynamic.1.0.8\lib\net40\System.Linq.Dynamic.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -148,17 +145,20 @@
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Buyer\BuyerAreaRegistration.cs" />
+    <Compile Include="Areas\Buyer\Controllers\CartCheckoutController.cs" />
     <Compile Include="Areas\Buyer\Controllers\Cart_ItemController.cs" />
     <Compile Include="Areas\Buyer\Controllers\MainPageController.cs" />
     <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
-    <Compile Include="Areas\Seller\Controllers\BrandsController.cs" />
-    <Compile Include="Areas\Seller\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
+    <Compile Include="Models\BuyerOrderItems.cs" />
+    <Compile Include="Models\BuyerOrderItemsClient.cs" />
+    <Compile Include="Models\BuyerOrders.cs" />
+    <Compile Include="Models\BuyerOrdersClient.cs" />
     <Compile Include="Models\Cart.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -166,20 +166,6 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_ItemClient.cs" />
-    <Compile Include="Models\OrderClient.cs" />
-    <Compile Include="Models\Orders.cs" />
-    <Compile Include="Models\Order_All.cs" />
-    <Compile Include="Models\Order_AllClient.cs" />
-    <Compile Include="Models\Order_Cancel.cs" />
-    <Compile Include="Models\Order_CancelClient.cs" />
-    <Compile Include="Models\Order_Confirm.cs" />
-    <Compile Include="Models\Order_ConfirmClient.cs" />
-    <Compile Include="Models\Order_Delivering.cs" />
-    <Compile Include="Models\Order_DeliveringClient.cs" />
-    <Compile Include="Models\Order_Receive.cs" />
-    <Compile Include="Models\Order_ReceiveClient.cs" />
-    <Compile Include="Models\Order_DeliveredClient.cs" />
-    <Compile Include="Models\Order_Delivered.cs" />
     <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -231,9 +217,10 @@
     <Compile Include="Models\UserCartClient.cs" />
     <Compile Include="Models\UserClient.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\View_Product.cs" />
+    <Compile Include="ViewModel\BuyerOrderItemsViewModel.cs" />
+    <Compile Include="ViewModel\BuyerOrdersViewModel.cs" />
     <Compile Include="ViewModel\Cart_ItemViewModel.cs" />
-    <Compile Include="ViewModel\OrderViewModel.cs" />
-    <Compile Include="ViewModel\Order_AllViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="ViewModel\UserCartViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
@@ -1922,11 +1909,10 @@
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Assets\Buyer\CustomStyles.css" />
     <Content Include="Assets\Buyer\JavaScript.js" />
     <Content Include="Assets\Buyer\loading.gif" />
     <Content Include="Assets\Buyer\text_loading.gif" />
-    <Content Include="Assets\Seller\index.js" />
-    <Content Include="Assets\Seller\OrderController.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1959,6 +1945,8 @@
     <Content Include="Product_Images\QuanJean.png" />
     <Content Include="Product_Images\QuanKaki.png" />
     <Content Include="Product_Images\QuanTayAu.png" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Styles_css\Login_styles\images\login-bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2191,24 +2179,7 @@
     <Content Include="Areas\Buyer\Views\UserCart\LoadCart.cshtml" />
     <Content Include="Areas\Buyer\Views\UserCart\TotalCost.cshtml" />
     <Content Include="Areas\Buyer\Views\UserCart\CartInfo.cshtml" />
-    <Content Include="Areas\Seller\Views\Shared\_Footer.cshtml" />
-    <Content Include="Areas\Seller\Views\Shared\_Header.cshtml" />
-    <Content Include="Areas\Seller\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Seller\Views\Shared\_Sidebar.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\Create.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\Index.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\TabAll.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\TabCancel.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\TabDeliver.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\TabDelivered.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\TabReceive.cshtml" />
-    <Content Include="Areas\Seller\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\Detail.cshtml" />
-    <Content Include="Areas\Seller\Views\Brands\Create.cshtml" />
-    <Content Include="Areas\Seller\Views\Brands\Delete.cshtml" />
-    <Content Include="Areas\Seller\Views\Brands\Details.cshtml" />
-    <Content Include="Areas\Seller\Views\Brands\Edit.cshtml" />
-    <Content Include="Areas\Seller\Views\Brands\Index.cshtml" />
+    <Content Include="Areas\Buyer\Views\CartCheckout\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2454,6 +2425,7 @@
     <Folder Include="Areas\Buyer\Data\" />
     <Folder Include="Areas\Buyer\Views\Cart_Item\" />
     <Folder Include="Areas\Seller\Data\" />
+    <Folder Include="Areas\Seller\Views\Shared\" />
     <Folder Include="Data\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
   </ItemGroup>
