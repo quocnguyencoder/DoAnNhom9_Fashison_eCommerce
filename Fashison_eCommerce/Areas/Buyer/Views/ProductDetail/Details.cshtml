@@ -65,27 +65,16 @@
                         <hr class="soft" />
                         <h4>@prod.Amount items in stock</h4>
 
-                        <hr class="soft clr" />
-                        <p>
-                            14 Megapixels. 18.0 x Optical Zoom. 3.0-inch LCD Screen. Full HD photos and 1280 x 720p HD movie capture. ISO sensitivity ISO6400 at reduced resolution.
-                            Tracking Auto Focus. Motion Panorama Mode. Face Detection technology with Blink detection and Smile and shoot mode. 4 x AA batteries not included. WxDxH 110.2 ×81.4x73.4mm.
-                            Weight 0.341kg (excluding battery and memory card). Weight 0.437kg (including battery and memory card).
-
-                        </p>
-                        <a class="btn btn-small pull-right" href="#detail">More Details</a>
-                        <br class="clr" />
-                        <a href="#" name="detail"></a>
-                        <hr class="soft" />
                     </div>
                     <hr class="soft">
                     <div class="span9" style="background-color: antiquewhite ">
                         <div class="row">
                             <div class="span3" href="/User/Index">
-                                <div class="brand" style="padding: 20px 0px 30px 30px"><img src="~/Styles_css/Image/shop.png" alt="Esshop">  </div>
+                                <div class="brand" style="padding: 20px 0px 30px 30px"><img src="~/Styles_css/Image/@ViewBag.Pictures" alt="Esshop">  </div>
                             </div>
                             <div class="span3" style="margin-top: 40px">
                                 <h5> @ViewBag.store.ShopName </h5>
-                                <a href="/">More Info</a>
+                                <a> @ViewBag.store.Address</a>
                             </div>
                         </div>
                     </div>
@@ -118,6 +107,11 @@
                                 <!-- related product ========================================= -->
                                 <div class="tab-content">
                                     @{ Html.RenderAction("ProductByType", "ProductDetail", new { typeid = prod.TypeID });}
+                                    @*<ul class="PhanTrang">
+                                        <li>1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                    </ul>*@
                                 </div>
                                 <!-- ========================================= -->
                                 <br class="clr">

@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
         // GET: api/view_Products
         public IQueryable<view_Products> Getview_Products()
         {
-            return db.view_Products;
+            return db.view_Products.OrderByDescending(x=> x.Name);
         }
 
         // GET: api/view_Products/5
