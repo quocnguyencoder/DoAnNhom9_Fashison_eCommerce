@@ -100,7 +100,7 @@
           <Property Name="Amount" Type="int" Nullable="false" />
           <Property Name="TypeID" Type="int" Nullable="false" />
           <Property Name="Store_ID" Type="int" Nullable="false" />
-          <Property Name="Pictures" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Pictures" Type="nvarchar" MaxLength="100" />
           <Property Name="Decription" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="BrandID" Type="int" />
         </EntityType>
@@ -461,9 +461,16 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Buyer_Orders' does not
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ChangeStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="nchar" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="get_ProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="product_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getOrders_Of_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
         <Function Name="Load_User_Cart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_id" Type="int" Mode="In" />
@@ -506,6 +513,12 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Buyer_Orders' does not
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_getOrderDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="order_id" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="sp_getUserAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -513,6 +526,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Buyer_Orders' does not
         <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_loadUserCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_id" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -706,7 +722,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Buyer_Orders' does not
           <Property Name="Amount" Type="Int32" Nullable="false" />
           <Property Name="TypeID" Type="Int32" Nullable="false" />
           <Property Name="Store_ID" Type="Int32" Nullable="false" />
-          <Property Name="Pictures" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pictures" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BrandID" Type="Int32" />
           <NavigationProperty Name="Brand" Relationship="Self.FK" FromRole="Product" ToRole="Brand" />
@@ -1005,7 +1021,23 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Buyer_Orders' does not
           <EntitySet Name="view_Buyer_Order_Items" EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Order_Items" />
           <EntitySet Name="view_Buyer_Orders" EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Orders" />
           <FunctionImport Name="get_ProductByID" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.get_ProductByID_Result)">
-            <Parameter Name="product_ID" Mode="In" Type="Int32" />
+          <Parameter Name="product_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ChangeStatus">
+            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getOrders_Of_User" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.getOrders_Of_User_Result)">
+          <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_loadUserCart" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_loadUserCart_Result)">
+          <Parameter Name="user_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getOrderDetail" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_getOrderDetail_Result)">
+          <Parameter Name="order_id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getUserAddress" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_getUserAddress_Result)">
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -1344,6 +1376,87 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Buyer_Orders' does not
           <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
           <Property Type="Int32" Name="BrandID" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="getOrders_Of_User_Result">
+          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
+          <Property Type="Int32" Name="User_ID" Nullable="true" />
+          <Property Type="Int32" Name="Store_ID" Nullable="true" />
+          <Property Type="Double" Name="delivery" Nullable="true" />
+          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="decription" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Address_ID" Nullable="true" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_getOrderDetail_Result">
+          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
+          <Property Type="Int32" Name="Store_ID" Nullable="true" />
+          <Property Type="String" Name="ShopName" Nullable="true" MaxLength="20" />
+          <Property Type="Double" Name="delivery" Nullable="true" />
+          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="Int32" Name="Address_ID" Nullable="true" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
+          <Property Type="Int32" Name="Item_ID" Nullable="false" />
+          <Property Type="Double" Name="price" Nullable="true" />
+          <Property Type="Int32" Name="quantity" Nullable="true" />
+          <Property Type="Double" Name="discount" Nullable="true" />
+          <Property Type="Double" Name="total" Nullable="true" />
+          <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_loadUserCart_Result">
+          <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
+          <Property Type="Single" Name="Price" Nullable="false" />
+          <Property Type="Int32" Name="Store_ID" Nullable="false" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Int32" Name="ItemID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_getOrderDetail1_Result">
+          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
+          <Property Type="Int32" Name="Store_ID" Nullable="true" />
+          <Property Type="String" Name="ShopName" Nullable="true" MaxLength="20" />
+          <Property Type="Double" Name="delivery" Nullable="true" />
+          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="Int32" Name="Address_ID" Nullable="true" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
+          <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Item_ID" Nullable="false" />
+          <Property Type="Double" Name="price" Nullable="true" />
+          <Property Type="Int32" Name="quantity" Nullable="true" />
+          <Property Type="Double" Name="discount" Nullable="true" />
+          <Property Type="Double" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_getOrderDetail_Result1">
+          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
+          <Property Type="Int32" Name="Store_ID" Nullable="true" />
+          <Property Type="String" Name="ShopName" Nullable="true" MaxLength="20" />
+          <Property Type="Double" Name="delivery" Nullable="true" />
+          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="Int32" Name="Address_ID" Nullable="true" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
+          <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Item_ID" Nullable="false" />
+          <Property Type="Double" Name="price" Nullable="true" />
+          <Property Type="Int32" Name="quantity" Nullable="true" />
+          <Property Type="Double" Name="discount" Nullable="true" />
+          <Property Type="Double" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_getUserAddress_Result">
+          <Property Type="Int32" Name="Address_ID" Nullable="false" />
+          <Property Type="Int32" Name="User_ID" Nullable="true" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="default_address" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1635,6 +1748,70 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Buyer_Orders' does not
                 <ScalarProperty Name="Pictures" ColumnName="Pictures" />
                 <ScalarProperty Name="Decription" ColumnName="Decription" />
                 <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ChangeStatus" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ChangeStatus" />
+          <FunctionImportMapping FunctionImportName="getOrders_Of_User" FunctionName="DB_A6A231_DAQLTMDTModel.Store.getOrders_Of_User">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.getOrders_Of_User_Result">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_loadUserCart" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_loadUserCart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_loadUserCart_Result">
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getOrderDetail" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_getOrderDetail">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_getOrderDetail_Result">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getUserAddress" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_getUserAddress">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_getUserAddress_Result">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="default_address" ColumnName="default_address" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -10,18 +10,14 @@
 namespace WebAPI
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Buyer_LoadProduct
+    public partial class sp_getUserAddress_Result
     {
-        public int Product_ID { get; set; }
-        public string Name { get; set; }
-        public float Price { get; set; }
-        public int Amount { get; set; }
-        public int TypeID { get; set; }
-        public int Store_ID { get; set; }
-        public string Pictures { get; set; }
-        public string Decription { get; set; }
-        public Nullable<int> BrandID { get; set; }
+        public int Address_ID { get; set; }
+        public Nullable<int> User_ID { get; set; }
+        public string full_name { get; set; }
+        public string address { get; set; }
+        public string phone { get; set; }
+        public Nullable<int> default_address { get; set; }
     }
 }

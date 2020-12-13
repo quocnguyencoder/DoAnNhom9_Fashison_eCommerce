@@ -27,6 +27,8 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             }
             ViewBag.Shops = shop_IDs;
             ViewBag.Items = cart_Items;
+            BuyerAddressClient buyerAddressClient = new BuyerAddressClient();
+            ViewBag.Address = buyerAddressClient.find(Convert.ToInt32(Session["userID"]));
             return View();
         }
 
@@ -67,6 +69,12 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             return outOfOrder;
         }
 
+        public ActionResult GetUserAddress()
+        {
+            BuyerAddressClient buyerAddressClient = new BuyerAddressClient();
+            ViewBag.Address = buyerAddressClient.find(Convert.ToInt32(Session["userID"]));
+            return PartialView();
+        } 
 
         [HttpPost]
         public ActionResult Checkout(int address_ID, string shop_List, string delivery_List)

@@ -23,16 +23,9 @@ namespace WebAPI.Controllers
         }
 
         // GET: api/Buyer_Orders/5
-        [ResponseType(typeof(view_Buyer_Orders))]
-        public IHttpActionResult Getview_Buyer_Orders(string id)
+        public IHttpActionResult Getview_Buyer_Orders(int id)
         {
-            view_Buyer_Orders view_Buyer_Orders = db.view_Buyer_Orders.Find(id);
-            if (view_Buyer_Orders == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(view_Buyer_Orders);
+            return Ok(db.getOrders_Of_User(id));
         }
 
         // PUT: api/Buyer_Orders/5

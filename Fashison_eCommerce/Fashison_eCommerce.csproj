@@ -155,6 +155,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
+    <Compile Include="Models\BuyerAddress.cs" />
+    <Compile Include="Models\BuyerAddressClient.cs" />
+    <Compile Include="Models\BuyerOrderDetail.cs" />
     <Compile Include="Models\BuyerOrderItems.cs" />
     <Compile Include="Models\BuyerOrderItemsClient.cs" />
     <Compile Include="Models\BuyerOrders.cs" />
@@ -218,6 +221,8 @@
     <Compile Include="Models\UserClient.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\View_Product.cs" />
+    <Compile Include="ViewModel\BuyerAddressViewModel.cs" />
+    <Compile Include="ViewModel\BuyerOrderDetailViewModel.cs" />
     <Compile Include="ViewModel\BuyerOrderItemsViewModel.cs" />
     <Compile Include="ViewModel\BuyerOrdersViewModel.cs" />
     <Compile Include="ViewModel\Cart_ItemViewModel.cs" />
@@ -2180,6 +2185,7 @@
     <Content Include="Areas\Buyer\Views\UserCart\TotalCost.cshtml" />
     <Content Include="Areas\Buyer\Views\UserCart\CartInfo.cshtml" />
     <Content Include="Areas\Buyer\Views\CartCheckout\Index.cshtml" />
+    <Content Include="Areas\Buyer\Views\CartCheckout\GetUserAddress.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2418,6 +2424,8 @@
     <Content Include="Views\UserAPI\Create.cshtml" />
     <Content Include="Views\UserAPI\Edit.cshtml" />
     <Content Include="Views\Shared\CountCartItem.cshtml" />
+    <Content Include="Views\User\Purchase.cshtml" />
+    <Content Include="Views\User\PurchaseDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

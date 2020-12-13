@@ -212,5 +212,54 @@ namespace WebAPI
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_ProductByID_Result>("get_ProductByID", product_IDParameter);
         }
+    
+        public virtual int ChangeStatus(string id, Nullable<int> status)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ChangeStatus", idParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<getOrders_Of_User_Result> getOrders_Of_User(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getOrders_Of_User_Result>("getOrders_Of_User", useridParameter);
+        }
+    
+        public virtual ObjectResult<sp_loadUserCart_Result> sp_loadUserCart(Nullable<int> user_id)
+        {
+            var user_idParameter = user_id.HasValue ?
+                new ObjectParameter("user_id", user_id) :
+                new ObjectParameter("user_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_loadUserCart_Result>("sp_loadUserCart", user_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_getOrderDetail_Result> sp_getOrderDetail(string order_id)
+        {
+            var order_idParameter = order_id != null ?
+                new ObjectParameter("order_id", order_id) :
+                new ObjectParameter("order_id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getOrderDetail_Result>("sp_getOrderDetail", order_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_getUserAddress_Result> sp_getUserAddress(Nullable<int> user_id)
+        {
+            var user_idParameter = user_id.HasValue ?
+                new ObjectParameter("user_id", user_id) :
+                new ObjectParameter("user_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getUserAddress_Result>("sp_getUserAddress", user_idParameter);
+        }
     }
 }
