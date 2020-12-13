@@ -40,71 +40,24 @@
         -webkit-animation: fadeEffect 1s;
         animation: fadeEffect 1s;
     }
-
-    #datepicker{
-    width:180px; 
-    margin: 0 20px 20px 20px;
-    }
-
-    #datepicker > span:hover {
-        cursor: pointer;
-    }
-    
-    @* @-webkit-keyframes fadeEffect {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
-
-    @keyframes fadeEffect {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    } *@
-
-    /* style div content */
-    .order-list{
-        position: relative;
-        margin: 0 auto;
-        width: 1104px;
-    }
     </style>
+    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+ 
+    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
 </header>
-
+@section jsFooter{
+    <script src="~/Assets/Seller/OrderController.js"></script>
+}
 <div class="content-wrapper">
     <div class="tab">
         <button class="tablinks" onclick="openTabcontrol(event, 'all')">Tất cả</button>
-        <button class="tablinks" onclick="openTabcontrol(event, 'confirm')">Chờ xác nhận</button>
         <button class="tablinks" onclick="openTabcontrol(event, 'receive')">Chờ lấy hàng</button>
         <button class="tablinks" onclick="openTabcontrol(event, 'deliver')">Đang giao</button>
         <button class="tablinks" onclick="openTabcontrol(event, 'delivered')">Đã giao</button>
         <button class="tablinks" onclick="openTabcontrol(event, 'cancel')">Đơn hủy</button>
     </div>
-    <div>
-        <div class="row" style="margin-top: 10px;">
-            <!-- Topbar Search -->
-            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method = "post" action = "./Search">
-                <div class="input-group">
-                    <input name="search" />
-                </div>
-                <input type="submit" value="Search"/>
-            </form>
-            <div class="order-export">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                            <label>Ngày bắt đầu: </label>
-                            <input type="datetime-local" id="datepicker" name="datepicker">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="all" class="tabcontent">
         @RenderPage("TabAll.cshtml")
-    </div>
-
-    <div id="confirm" class="tabcontent">
-        @RenderPage("TabConfirm.cshtml")
     </div>
 
     <div id="receive" class="tabcontent">
@@ -138,11 +91,5 @@
             document.getElementById(tabControl).style.display = "block";
             evt.currentTarget.className += " active";
         }
-        $(document).ready(function () {
-            $('#datepicker').datepicker();
-        });
     </script>
-    <!-- Script -->
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </div>

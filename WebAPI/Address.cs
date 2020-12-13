@@ -25,6 +25,7 @@ namespace WebAPI
         public string full_name { get; set; }
         public string address1 { get; set; }
         public string phone { get; set; }
+        public Nullable<int> default_address { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

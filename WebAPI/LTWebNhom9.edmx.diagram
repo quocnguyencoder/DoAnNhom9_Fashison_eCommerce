@@ -48,6 +48,11 @@
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Delivered" Width="1.5" PointX="15.375" PointY="4.75" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Delivering" Width="1.5" PointX="5.375" PointY="15.75" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Receive" Width="1.5" PointX="7.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Buyer_LoadAllProduct" Width="1.5" PointX="15.375" PointY="8.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Buyer_LoadProduct" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Order_Items" Width="1.5" PointX="11.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Orders" Width="1.5" PointX="15.375" PointY="12.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_MainType" Width="1.5" PointX="13.375" PointY="16.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

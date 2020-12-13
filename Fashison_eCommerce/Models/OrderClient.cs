@@ -7,19 +7,19 @@ using System.Web;
 
 namespace Fashison_eCommerce.Models
 {
-    public class Order_AllClient
+    public class OrderClient
     {
         private string Base_URL = "https://localhost:44320/api/";
-        public IEnumerable<Order_All> findAll()
+        public IEnumerable<Orders> findAll()
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage respone = client.GetAsync("Order_All").Result;
+                HttpResponseMessage respone = client.GetAsync("Orders").Result;
                 if (respone.IsSuccessStatusCode)
-                    return respone.Content.ReadAsAsync<IEnumerable<Order_All>>().Result;
+                    return respone.Content.ReadAsAsync<IEnumerable<Orders>>().Result;
                 return null;
             }
             catch
@@ -27,17 +27,17 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
-        public Order_All find(string id)
+        public Orders find(string id)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("Order_All/" + id).Result;
+                HttpResponseMessage response = client.GetAsync("Orders/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<Order_All>().Result;
+                    return response.Content.ReadAsAsync<Orders>().Result;
                 return null;
             }
             catch
@@ -45,14 +45,14 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
-        public bool Create(Order_All Order_All)
+        public bool Create(Orders Order)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync("Order_All", Order_All).Result;
+                HttpResponseMessage response = client.PostAsJsonAsync("Orders", Order).Result;
                 return response.IsSuccessStatusCode;
             }
             catch
@@ -60,14 +60,14 @@ namespace Fashison_eCommerce.Models
                 return false;
             }
         }
-        public bool Edit(Order_All Order_All)
+        public bool Edit(Orders Order)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PutAsJsonAsync("Order_All/" + Order_All.Order_ID, Order_All).Result;
+                HttpResponseMessage response = client.PutAsJsonAsync("Orders/" + Order.Order_ID, Order).Result;
                 return response.IsSuccessStatusCode;
             }
             catch
@@ -82,7 +82,7 @@ namespace Fashison_eCommerce.Models
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.DeleteAsync("Order_All/" + id).Result;
+                HttpResponseMessage response = client.DeleteAsync("Orders/" + id).Result;
                 return response.IsSuccessStatusCode;
             }
             catch

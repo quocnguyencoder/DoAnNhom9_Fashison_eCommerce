@@ -1,7 +1,10 @@
 ﻿using Fashison_eCommerce.Models;
+using Fashison_eCommerce.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 
@@ -32,10 +35,19 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
 
             return View();
         }
-
-        public ActionResult Search(String search)
+        public ActionResult Detail(string id)
         {
+            Order_AllClient OA = new Order_AllClient();
+            ViewBag.OrderDetail = OA.find(id);
             return View();
+        }
+        public ActionResult ChangeStatus(string id, int status)
+        {
+            HttpClient hc = new HttpClient();
+            hc.BaseAddress = new Uri("https://localhost:44320/api/");
+            HttpResponseMessage respond = hc.PostAsync("ChangeStatus?id=" + id + "&status=" + status,null).Result;
+
+            return Content(id);
         }
     }
 }
