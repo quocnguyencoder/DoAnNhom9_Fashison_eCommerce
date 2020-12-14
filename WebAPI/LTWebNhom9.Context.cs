@@ -43,6 +43,10 @@ namespace WebAPI
         public virtual DbSet<Cart_Item> Cart_Item { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Order_Items> Order_Items { get; set; }
+        public virtual DbSet<Buyer_LoadAllProduct> Buyer_LoadAllProduct { get; set; }
+        public virtual DbSet<Buyer_LoadProduct> Buyer_LoadProduct { get; set; }
+        public virtual DbSet<view_Buyer_Order_Items> view_Buyer_Order_Items { get; set; }
+        public virtual DbSet<view_Buyer_Orders> view_Buyer_Orders { get; set; }
     
         public virtual int sp_AccountChangePassword(string email, string password)
         {
@@ -198,6 +202,64 @@ namespace WebAPI
                 new ObjectParameter("user_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Load_User_Cart>("[DB_A6A231_DAQLTMDTEntities].[Load_User_Cart](@user_id)", user_idParameter);
+        }
+    
+        public virtual ObjectResult<get_ProductByID_Result> get_ProductByID(Nullable<int> product_ID)
+        {
+            var product_IDParameter = product_ID.HasValue ?
+                new ObjectParameter("product_ID", product_ID) :
+                new ObjectParameter("product_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_ProductByID_Result>("get_ProductByID", product_IDParameter);
+        }
+    
+        public virtual int ChangeStatus(string id, Nullable<int> status)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ChangeStatus", idParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<getOrders_Of_User_Result> getOrders_Of_User(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getOrders_Of_User_Result>("getOrders_Of_User", useridParameter);
+        }
+    
+        public virtual ObjectResult<sp_loadUserCart_Result> sp_loadUserCart(Nullable<int> user_id)
+        {
+            var user_idParameter = user_id.HasValue ?
+                new ObjectParameter("user_id", user_id) :
+                new ObjectParameter("user_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_loadUserCart_Result>("sp_loadUserCart", user_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_getOrderDetail_Result> sp_getOrderDetail(string order_id)
+        {
+            var order_idParameter = order_id != null ?
+                new ObjectParameter("order_id", order_id) :
+                new ObjectParameter("order_id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getOrderDetail_Result>("sp_getOrderDetail", order_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_getUserAddress_Result> sp_getUserAddress(Nullable<int> user_id)
+        {
+            var user_idParameter = user_id.HasValue ?
+                new ObjectParameter("user_id", user_id) :
+                new ObjectParameter("user_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getUserAddress_Result>("sp_getUserAddress", user_idParameter);
         }
     }
 }

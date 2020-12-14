@@ -11,7 +11,7 @@ namespace WebAPI
 {
     using System;
     
-    public partial class User_Cart_Result4
+    public partial class sp_loadUserCart_Result
     {
         public string Pictures { get; set; }
         public string Name { get; set; }
@@ -19,6 +19,6 @@ namespace WebAPI
         public float Price { get; set; }
         public int Store_ID { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public Nullable<int> ItemID { get; set; }
+        public int ItemID { get; set; }
     }
 }

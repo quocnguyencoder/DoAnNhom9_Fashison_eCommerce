@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "PurchaseDetail";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using System.Linq;
+<div id="sidebar" class="span3">
+    <div class="well well-small">
+        <img src="#" alt="ava" />
+        username <br />
+        <p>edit profile</p>
+    </div>
+    <ul id="sideManu" class="nav nav-tabs nav-stacked">
+        <li class="subMenu open">
+            <a> My account </a>
+            <ul>
+                <li><a class="active" href="#"><i class="icon-chevron-right"></i>Profile </a></li>
+                <li><a href="#"><i class="icon-chevron-right"></i>Address</a></li>
+                <li><a href="#"><i class="icon-chevron-right"></i>Change password</a></li>
+            </ul>
+        </li>
+        <li class="subMenu">
+            <a> Purchase </a>
+        </li>
+        <li class="subMenu">
+            <a>Notice</a>
+        </li>
+    </ul>
+</div>
+@{ var detailinfo = (ViewBag.DetailList)[0];}
+<div style=" float: right; background-color: white; height: 100%; max-height: 900px; max-width: 850px; width: 100%;">
+    <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
+        <h4 style="margin-left: 5px;">Detail of order #@detailinfo.Order_ID - @detailinfo.status</h4>
+    </div>
+
+    <div style="height: 100%; max-height: 800px; max-width: 300px; display: contents;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+                    foreach (var product in ViewBag.DetailList)
+                    {
+                        <tr>
+                            <td> <img style="height: auto; width:auto" src="~/Product_Images/@product.Pictures" alt="product img" /> @product.Name <br /> Provide by <a href="#">@product.ShopName</a> </td>
+                            <td style=" vertical-align:middle"> @String.Format(info, "{0:C2}", product.price)</td>
+                            <td style=" vertical-align:middle"> @product.quantity </td>
+                            <td style="vertical-align:middle"> @product.total</td>
+                        </tr>
+                    }
+                }
+                <tr>
+                    <td colspan="2"></td>
+                    <td > Total cost: </td>
+                    <td style="text-align:right;">@String.Format(info, "{0:C2}", detailinfo.total)</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td> Total delivery:</td>
+                    <td style="text-align:right;"> @String.Format(info, "{0:C2}", detailinfo.delivery)</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td> TOTAL: </td>
+                    <td style="text-align:right;color:orangered;font-size:x-large">@String.Format(info, "{0:C2}", detailinfo.Total_Order)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

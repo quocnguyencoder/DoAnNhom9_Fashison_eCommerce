@@ -3,16 +3,16 @@
     {
         <li class="span3">
             <div class="thumbnail">
-                <a href="product_details.html"><img src="~/Product_Images/@Prod.Pictures" alt="" /></a>
+                <a href="product_details.html"><img style="max-height: unset; max-width: 215px"src="~/Product_Images/@Prod.Pictures" alt="" /></a>
                 <div class="caption">
                     <h5>@Prod.Name</h5>
-                    <p>
+                    <p style="max-width: 242px">
                         @Prod.Decription
                     </p>
                     <h4 style="text-align:center">
                         <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a>
                         <a class="btn AddToCart" href="#" data-product_id="@Prod.Product_ID">Add to <i class="icon-shopping-cart"></i></a>
-                        <a class="btn btn-primary" href="#">$@Prod.Price</a>
+                        <a class="btn btn-primary" href="#">@Prod.Price đ</a>
                     </h4>
                 </div>
             </div>

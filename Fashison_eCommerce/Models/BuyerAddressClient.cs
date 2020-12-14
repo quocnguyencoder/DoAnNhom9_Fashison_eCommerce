@@ -8,37 +8,20 @@ using System.Threading.Tasks;
 
 namespace Fashison_eCommerce.Models
 {
-    public class ProductClient
+    public class BuyerAddressClient
     {
         private string Base_URL = "https://localhost:44320/api/";
-        public IEnumerable<Product> findAll()
+        public IEnumerable<BuyerAddress> find(int id)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage respone = client.GetAsync("Buyer_LoadProduct").Result;
-                if (respone.IsSuccessStatusCode)
-                    return respone.Content.ReadAsAsync<IEnumerable<Product>>().Result;
-                return null;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-        public IEnumerable<View_Product> find(int id)
-        {
-            try
-            {
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri(Base_URL);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/" + id).Result;
+                HttpResponseMessage response = client.GetAsync("Addresses/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<IEnumerable < View_Product >>().Result;
+                    return response.Content.ReadAsAsync<IEnumerable<BuyerAddress>>().Result;
                 return null;
             }
             catch
@@ -46,14 +29,14 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
-        public bool Create(Product product)
+        public bool Create(BuyerAddress address)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync("Buyer_LoadProduct", product).Result;
+                HttpResponseMessage response = client.PostAsJsonAsync("Addresses", address).Result;
                 return response.IsSuccessStatusCode;
             }
             catch
@@ -61,14 +44,14 @@ namespace Fashison_eCommerce.Models
                 return false;
             }
         }
-        public bool Edit(Product product)
+        public bool Edit(BuyerAddress address)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PutAsJsonAsync("Buyer_LoadProduct/" + product.Product_ID, product).Result;
+                HttpResponseMessage response = client.PutAsJsonAsync("Addresses/" + address.User_ID, address).Result;
                 return response.IsSuccessStatusCode;
             }
             catch
@@ -83,7 +66,7 @@ namespace Fashison_eCommerce.Models
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.DeleteAsync("Buyer_LoadProduct/" + id).Result;
+                HttpResponseMessage response = client.DeleteAsync("Addresses/" + id).Result;
                 return response.IsSuccessStatusCode;
             }
             catch

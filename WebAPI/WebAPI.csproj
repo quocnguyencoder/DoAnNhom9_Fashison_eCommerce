@@ -171,25 +171,39 @@
     <Compile Include="Brand.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
+    <Compile Include="Buyer_LoadAllProduct.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Buyer_LoadProduct.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="Cart.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Cart_Item.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AddressesController.cs" />
+    <Compile Include="Controllers\Buyer_LoadProductController.cs" />
+    <Compile Include="Controllers\Buyer_OrdersController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\Cart_ItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\Order_ItemsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="getOrders_Of_User_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="get_ProductByID_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Load_User_Cart.cs">
-      <DependentUpon>LTWebNhom9.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Load_User_Cart_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="LTWebNhom9.Context.cs">
@@ -232,10 +246,19 @@
     <Compile Include="Role.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_getOrderDetail_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_getUserAddress_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_loadUserCart_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Store.cs">
@@ -250,25 +273,13 @@
     <Compile Include="User_Cart.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
-    <Compile Include="User_Cart_Res.cs">
-      <DependentUpon>LTWebNhom9.tt</DependentUpon>
-    </Compile>
     <Compile Include="User_Cart_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
-    <Compile Include="User_Cart_Result1.cs">
+    <Compile Include="view_Buyer_Orders.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
-    <Compile Include="User_Cart_Result2.cs">
-      <DependentUpon>LTWebNhom9.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User_Cart_Result3.cs">
-      <DependentUpon>LTWebNhom9.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User_Cart_Result4.cs">
-      <DependentUpon>LTWebNhom9.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User_Cart_Result5.cs">
+    <Compile Include="view_Buyer_Order_Items.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -1,0 +1,39 @@
+﻿#Address {
+    min-height: 20px !important;
+    max-width: 1200px;
+    min-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 75%;
+    padding: 10px;
+    display: block;
+    background-color: white;
+}
+.product_List {
+    min-height: 20px !important;
+    max-width: 1200px;
+    min-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 75%;
+    padding: 10px;
+    display: block;
+    background-color: white;
+}
+.Total {
+    min-height: 200px !important;
+    max-width: 1200px;
+    min-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 75%;
+    padding: 10px;
+    display: block;
+    background-color: white;
+}
