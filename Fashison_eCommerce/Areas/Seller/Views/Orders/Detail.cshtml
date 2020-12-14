@@ -2,197 +2,163 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Seller/Views/Shared/_Layout.cshtml";
 }
-@*@model Fashison_eCommerce.ViewModel.Order_AllViewModel*@
+<header>
+    <style>
+        .heading {
+            font-size: 19px;
+            font-weight: 300;
+            margin: 20px 0px 0px;
+            display: flex;
+        }
 
+        .created-date {
+            display: flex;
+            align-items: flex-end;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            margin: 20px;
+        }
+
+        .sub-content {
+            display: flex;
+            flex-direction: column;
+            height: 80%;
+            background-color: white;
+        }
+
+        tfoot {
+            vertical-align: middle;
+            border-color: inherit;
+        }
+
+        #Table-OrderDetail {
+            margin: 20px;
+            background-color: white;
+        }
+
+        .borderless td, .borderless th {
+            border: none;
+        }
+    </style>
+</header>
 <div class="container-fluid">
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Mã đơn hàng # @ViewBag.OrderDetail.Order_ID</h1>
-    <div class="row">
-
-        <div class="col-lg-6">
-
-            <!-- Circle Buttons -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Circle Buttons</h6>
-                </div>
-                <div class="card-body">
-                    <p>
-                        Use Font Awesome Icons (included with this theme package) along with the circle
-                        buttons as shown in the examples below!
-                    </p>
-                    <!-- Circle Buttons (Default) -->
-                    <div class="mb-2">
-                        <code>.btn-circle</code>
-                    </div>
-                    <a href="#" class="btn btn-primary btn-circle">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="btn btn-success btn-circle">
-                        <i class="fas fa-check"></i>
-                    </a>
-                    <a href="#" class="btn btn-info btn-circle">
-                        <i class="fas fa-info-circle"></i>
-                    </a>
-                    <a href="#" class="btn btn-warning btn-circle">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </a>
-                    <a href="#" class="btn btn-danger btn-circle">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                    <!-- Circle Buttons (Small) -->
-                    <div class="mt-4 mb-2">
-                        <code>.btn-circle .btn-sm</code>
-                    </div>
-                    <a href="#" class="btn btn-primary btn-circle btn-sm">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="btn btn-success btn-circle btn-sm">
-                        <i class="fas fa-check"></i>
-                    </a>
-                    <a href="#" class="btn btn-info btn-circle btn-sm">
-                        <i class="fas fa-info-circle"></i>
-                    </a>
-                    <a href="#" class="btn btn-warning btn-circle btn-sm">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </a>
-                    <a href="#" class="btn btn-danger btn-circle btn-sm">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                    <!-- Circle Buttons (Large) -->
-                    <div class="mt-4 mb-2">
-                        <code>.btn-circle .btn-lg</code>
-                    </div>
-                    <a href="#" class="btn btn-primary btn-circle btn-lg">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="btn btn-success btn-circle btn-lg">
-                        <i class="fas fa-check"></i>
-                    </a>
-                    <a href="#" class="btn btn-info btn-circle btn-lg">
-                        <i class="fas fa-info-circle"></i>
-                    </a>
-                    <a href="#" class="btn btn-warning btn-circle btn-lg">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </a>
-                    <a href="#" class="btn btn-danger btn-circle btn-lg">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Brand Buttons -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Brand Buttons</h6>
-                </div>
-                <div class="card-body">
-                    <p>
-                        Google and Facebook buttons are available featuring each company's respective
-                        brand color. They are used on the user login and registration pages.
-                    </p>
-                    <p>
-                        You can create more custom buttons by adding a new color variable in the
-                        <code>_variables.scss</code> file and then using the Bootstrap button variant
-                        mixin to create a new style, as demonstrated in the <code>_buttons.scss</code>
-                        file.
-                    </p>
-                    <a href="#" class="btn btn-google btn-block">
-                        <i class="fab fa-google fa-fw"></i>
-                        .btn-google
-                    </a>
-                    <a href="#" class="btn btn-facebook btn-block">
-                        <i class="fab fa-facebook-f fa-fw"></i> .btn-facebook
-                    </a>
-
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-lg-6">
-
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Split Buttons with Icon</h6>
-                </div>
-                <div class="card-body">
-                    <p>
-                        Works with any button colors, just use the <code>.btn-icon-split</code> class and
-                        the markup in the examples below. The examples below also use the
-                        <code>.text-white-50</code> helper class on the icons for additional styling,
-                        but it is not required.
-                    </p>
-                    <a href="#" class="btn btn-primary btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-flag"></i>
-                        </span>
-                        <span class="text">Split Button Primary</span>
-                    </a>
-                    <div class="my-2"></div>
-                    <a href="#" class="btn btn-success btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-check"></i>
-                        </span>
-                        <span class="text">Split Button Success</span>
-                    </a>
-                    <div class="my-2"></div>
-                    <a href="#" class="btn btn-info btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-info-circle"></i>
-                        </span>
-                        <span class="text">Split Button Info</span>
-                    </a>
-                    <div class="my-2"></div>
-                    <a href="#" class="btn btn-warning btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
-                        <span class="text">Split Button Warning</span>
-                    </a>
-                    <div class="my-2"></div>
-                    <a href="#" class="btn btn-danger btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-trash"></i>
-                        </span>
-                        <span class="text">Split Button Danger</span>
-                    </a>
-                    <div class="my-2"></div>
-                    <a href="#" class="btn btn-secondary btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-arrow-right"></i>
-                        </span>
-                        <span class="text">Split Button Secondary</span>
-                    </a>
-                    <div class="my-2"></div>
-                    <a href="#" class="btn btn-light btn-icon-split">
-                        <span class="icon text-gray-600">
-                            <i class="fas fa-arrow-right"></i>
-                        </span>
-                        <span class="text">Split Button Light</span>
-                    </a>
-                    <div class="mb-4"></div>
-                    <p>Also works with small and large button classes!</p>
-                    <a href="#" class="btn btn-primary btn-icon-split btn-sm">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-flag"></i>
-                        </span>
-                        <span class="text">Split Button Small</span>
-                    </a>
-                    <div class="my-2"></div>
-                    <a href="#" class="btn btn-primary btn-icon-split btn-lg">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-flag"></i>
-                        </span>
-                        <span class="text">Split Button Large</span>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-
+    <div class="heading">
+        <span>Chi tiết đơn hàng</span>
+        <span> #373968775 - <b>Trạng thái</b></span>
     </div>
-
+    <div class="created-date">
+        <span>Ngày đặt hàng <i>26/02/2000</i></span>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card h-100">
+                <div class="card-header">THÔNG TIN NGƯỜI NHẬN</div>
+                <div class="card-body">
+                    <h5 class="card-title">Chung Thiên Nhi</h5>
+                    <p class="font-weight-light">Địa chỉ: 34/7 đường 16, Linh chiểu, Thủ Đức, TPHCM</p>
+                    <p class="font-weight-lighter font-italic">Điện thoại: 0582010199</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card h-100">
+                <div class="card-header">GIAO HÀNG</div>
+                <div class="card-body">
+                    <p class="font-weight-light">Ngày giao hàng</p>
+                    <p class="font-weight-lighter">Miễn phí vận chuyển</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card h-100">
+                <div class="card-header">THANH TOÁN</div>
+                <div class="card-body">
+                    <p class="font-weight-light">Thanh toán tiền mặt khi nhận hàng</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive-lg " id="Table-OrderDetail">
+        <table class="table" id="Table-Detail" style="width: 100%;">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Sản phẩm</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Giảm giá</th>
+                    <th scope="col">Tạm tính</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="d-flex justify-content-left">
+                            <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/7fbfac7cefa943cb8da9ab0d00c90e66_9366/Ao_phong_dang_lung_Mau_xanh_da_troi_FM2492_21_model.jpg" style="width: 100px">
+                            <div class="d-flex flex-column bd-highlight mb-3">
+                                <div style="margin-top: 20px">
+                                    Áo phông dáng lửng
+                                </div>
+                                <div>
+                                    Order_ID
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>450.0000 đ</td>
+                    <td>1</td>
+                    <td>50.000 đ</td>
+                    <td>400.000 đ</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="d-flex justify-content-left">
+                            <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/7fbfac7cefa943cb8da9ab0d00c90e66_9366/Ao_phong_dang_lung_Mau_xanh_da_troi_FM2492_21_model.jpg" style="width: 100px">
+                            <div class="d-flex flex-column bd-highlight mb-3">
+                                <div style="margin-top: 20px">
+                                    Áo phông dáng lửng
+                                </div>
+                                <div>
+                                    Order_ID
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>450.0000 đ</td>
+                    <td>1</td>
+                    <td>50.000 đ</td>
+                    <td>400.000 đ</td>
+                </tr>
+            </tbody>
+            <tfoot class="footer borderless">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Tạm tính</td>
+                    <td>87.000 đ</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Phí vận chuyển</td>
+                    <td>0 đ</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Tổng cộng</td>
+                    <td style="color: red; font-size: larger;">87.000 đ</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div>
+        <a class="view-list-order" href="#">Quay lại danh sách đơn hàng</a>
+    </div>
 </div>
 <!-- /.container-fluid -->

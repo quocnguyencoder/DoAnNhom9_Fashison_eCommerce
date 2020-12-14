@@ -23,16 +23,9 @@ namespace WebAPI.Controllers
         }
 
         // GET: api/Order_Items/5
-        [ResponseType(typeof(Order_Items))]
         public IHttpActionResult GetOrder_Items(string id)
         {
-            Order_Items order_Items = db.Order_Items.Find(id);
-            if (order_Items == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(order_Items);
+            return Ok(db.sp_getOrderDetail(id));
         }
 
         // PUT: api/Order_Items/5

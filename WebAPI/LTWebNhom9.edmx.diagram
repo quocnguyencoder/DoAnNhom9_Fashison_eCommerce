@@ -39,6 +39,7 @@
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Items" Width="1.5" PointX="12.75" PointY="3.75" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Item___57DD0BE4" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB" />
+<<<<<<< HEAD
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Buyer_LoadAllProduct" Width="1.5" PointX="12.375" PointY="7.75" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Buyer_LoadProduct" Width="1.5" PointX="12.375" PointY="11.75" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Order_Items" Width="1.5" PointX="0.75" PointY="14.75" />
@@ -53,6 +54,22 @@
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Product" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Products" Width="1.5" PointX="11.375" PointY="15.75" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Shop" Width="1.5" PointX="13.375" PointY="15.75" />
+=======
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; parent of de954c3... Merge remote-tracking branch 'origin/Quoc-BuyProduct' into Nhi_OrdersTracking
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

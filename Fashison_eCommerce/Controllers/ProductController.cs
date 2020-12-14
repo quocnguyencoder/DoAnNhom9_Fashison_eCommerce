@@ -37,6 +37,14 @@ namespace Fashison_eCommerce.Controllers
             CC.Delete(id);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            ProductClient CC = new ProductClient();
+            ProductViewModel CVM = new ProductViewModel();
+            CVM.product = CC.find(id);
+            return View("Edit", CVM);
+        }
         [HttpPost]
         public ActionResult Edit(ProductViewModel CVM)
         {
