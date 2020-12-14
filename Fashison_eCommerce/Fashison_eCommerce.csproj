@@ -156,10 +156,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\PagedData.cs" />
+    <Compile Include="Helper\Pagination.cs" />
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Authorize.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Brand.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cart.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cart_Item.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DA_TrangTMDTModel.Context.cs">
@@ -177,6 +188,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_Items.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Find.cs" />
     <Compile Include="Models\FindProducts_Result.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -187,9 +205,6 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Main_Type.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Order.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Permission.cs">
@@ -217,6 +232,7 @@
     <Compile Include="Models\Store.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StoreClient.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -226,6 +242,7 @@
     <Compile Include="Models\UserClient.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
+    <Compile Include="ViewModel\StoreViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -241,7 +258,11 @@
     <Content Include="Assets\Admin\js\demo\chart-bar-demo.js" />
     <Content Include="Assets\Admin\js\demo\chart-pie-demo.js" />
     <Content Include="Assets\Admin\js\demo\datatables-demo.js" />
-    <Content Include="Assets\Admin\js\Displayimg.js" />
+    <Content Include="Assets\Seller\css\displayimg.css" />
+    <Content Include="Assets\Seller\css\FilterForm.css" />
+    <Content Include="Assets\Seller\css\Imagefile.css" />
+    <Content Include="Assets\Seller\css\Store.css" />
+    <Content Include="Assets\Seller\js\Displayimg.js" />
     <Content Include="Assets\Admin\js\sb-admin-2.js" />
     <Content Include="Assets\Admin\js\sb-admin-2.min.js" />
     <Content Include="Assets\Admin\vendor\bootstrap\js\bootstrap.bundle.js" />
@@ -1913,6 +1934,9 @@
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Assets\Seller\css\Products.css" />
+    <Content Include="Assets\Seller\js\Filter.js" />
+    <Content Include="Assets\Seller\js\Paging.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1936,6 +1960,8 @@
       <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
       <LastGenOutput>DA_TrangTMDTModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Styles_css\Login_styles\images\login-bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2154,8 +2180,6 @@
     <Content Include="Areas\Buyer\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Buyer\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Seller\Views\Products\Create.cshtml" />
-    <Content Include="Areas\Seller\Views\Products\Delete.cshtml" />
-    <Content Include="Areas\Seller\Views\Products\Details.cshtml" />
     <Content Include="Areas\Seller\Views\Products\Edit.cshtml" />
     <Content Include="Areas\Seller\Views\Products\Index.cshtml" />
     <Content Include="Areas\Seller\Views\Acount\Login.cshtml" />

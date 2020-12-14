@@ -9,6 +9,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Fashison_eCommerce.Models;
+using Fashison_eCommerce.ViewModel;
 //using Fashison_eCommerce.Models;
 using PagedList;
 
@@ -18,71 +19,64 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
     {
         private DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
 
+        public const int PageSize = 4;
         // GET: Seller/Products
-        public ActionResult Index()
+        public ActionResult Index(int?page)
         {
 
             ViewBag.MaintypeID = new SelectList(db.Main_Type, "ID", "Name");
             ViewBag.TypeID = new SelectList(db.Product_Type, "TypeID", "Name");
-            //if (Name==null&&TypeID==null&& MinAmount==null && MaxAmount==null)
-            //{
+            
 
-            //if (page == null) page = 1;
-
-
-            //int pageSize = 2;
-            //int pageNumber = (page ?? 1);
-            //using (var context = new DB_A6A231_DAQLTMDTEntities())
-            //{
-            //    var id = new SqlParameter("@userID", Session["userID"]);
-            //    var result = context.Database
-            //       .SqlQuery<Product>("getProducts @userID", id)
-            //       .ToList();
-            //    List<Product> product = new List<Product>();
-            //    for (int i = 0; i < result.Count; i++)
-            //    {
-            //        product.Add(db.Products.Find(result[i].Product_ID));
-            //    }
-
-
-            //    return View(product);
-            //}
-         
+            int pageNumber = (page ?? 1);
             ProductClient CC = new ProductClient();
-            ViewBag.listProducts = CC.findAll();
-
+            int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
+            ViewBag.listProducts = CC.findAll(Storeid);
+           
+            ViewBag.CurrentPage = pageNumber;
+            
             return View();
 
 
         }
-        
-        public ActionResult Search(string Name, string TypeID, int MinAmount, int MaxAmount)
-        {
+        //public PartialViewResult Getpaging(int? page)
+        //{
             
-            using (var context = new DB_A6A231_DAQLTMDTEntities())
-            {
-                var name = new SqlParameter("@Name", Name);
-                var type = new SqlParameter("@Type", TypeID);
-                var min = new SqlParameter("@QualityMin", MinAmount);
-                var max = new SqlParameter("@QualityMax", MaxAmount);
-                var result = context.Database
-                .SqlQuery<Product>("FindProducts @Name,@Type,@QualityMin,@QualityMax", name, type, min, max)
-                .ToList();
-                List<Product> product = new List<Product>();
-                for (int i = 0; i < result.Count; i++)
-                {
-                    product.Add(db.Products.Find(result[i].Product_ID));
-                }
-                //if (page == null) page = 1;
+        //    ProductClient CC = new ProductClient();
+        //    int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
+           
+        //    int pageNumber = (page ?? 1);
+        //    ViewBag.listProducts = CC.findAll(Storeid).ToPagedList(pageNumber, pageSize);
+        //    //return View("Index");
+        //    return PartialView("~/Areas/Seller/Views/Products/Search.cshtml");
+        //}
+        public ActionResult Paginate(int pageNumber)
+        {
+            ProductClient CC = new ProductClient();
+            int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
+            ViewBag.listProducts = CC.findAll(Storeid).ToPagedList(pageNumber, PageSize);
+            return PartialView("~/Areas/Seller/Views/Products/Search.cshtml");
+        }
+        public ActionResult Search(string Name,int TypeID,int MinAmount,int MaxAmount)
+        {
 
 
-                //int pageSize = 2;
-                //int pageNumber = (page ?? 1);
-                //product.OrderBy(p => p.Product_ID);
-                //return View(product.ToPagedList(pageNumber, pageSize));
-                return PartialView("~/Areas/Seller/Views/Products/Search.cshtml", product);
-            }
+          
+            ProductClient CC = new ProductClient();
+            int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
+            Find filter = new Find();
+            filter.StoreID = Storeid;
+            filter.Name = Name;
+            filter.TypeID = TypeID;
+            filter.QualityMin = MinAmount;
+            filter.QualityMax = MaxAmount;
+            
+           
 
+            ViewBag.listProducts = CC.filter(filter);
+            
+            return PartialView("~/Areas/Seller/Views/Products/Search.cshtml");
+            
 
             //}
 
@@ -93,20 +87,6 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
             List<Product_Type> ListType = db.Product_Type.Where(x => x.MaintypeID == MaintypeID).ToList();
             return Json(ListType, JsonRequestBehavior.AllowGet);
         }
-        // GET: Seller/Products/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
        
 
   
@@ -115,6 +95,8 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
         {
     
             ViewBag.TypeID = new SelectList(db.Product_Type, "TypeID", "Name");
+            
+     
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName");
             return View();
         }
@@ -124,13 +106,13 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Product_ID,Name,Price,Amount,TypeID,Store_ID,Pictures,Decription,BrandID")] Product product, HttpPostedFileBase file)
+        public ActionResult Create(ProductViewModel cvm,HttpPostedFileBase file)
         {
-            
+           
+            //HttpPostedFileBase file = Request.Files[0];
             if (ModelState.IsValid)
             {
-
-                //HttpPostedFileBase file = Request.Files[0];
+                
                 if (file != null)
                 {
                     string ImageName = Path.GetFileName(file.FileName);
@@ -138,107 +120,77 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
 
                     // save image in folder
                     file.SaveAs(physicalPath);
-                    product.Pictures = ImageName;
+                    cvm.product.Pictures = ImageName;
                 }
-
-                //save new record in database
-                //tblA newRecord = new tblA();
-                //newRecord.fname = Request.Form["fname"];
-                //newRecord.lname = Request.Form["lname"];
-                //newRecord.MoviePoster = ImageName;
-                //db.tblAs.Add(newRecord);
-                //db.SaveChanges();
-
-                db.Products.Add(product);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ProductClient CC = new ProductClient();
+                int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
+                cvm.product.Store_ID = Storeid;
+                CC.Create(cvm.product);
+                
             }
 
+            return RedirectToAction("Index");
+
+
+
+
+
             
-            ViewBag.TypeID = new SelectList(db.Product_Type, "TypeID", "Name", product.TypeID);
-            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", product.BrandID);
-            return View(product);
+
         }
 
         // GET: Seller/Products/Edit/5
-        public ActionResult Edit(int? id)
+        [HttpGet]
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-           
-            ViewBag.TypeID = new SelectList(db.Product_Type, "TypeID", "Name", product.TypeID);
-            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", product.BrandID);
-            return View(product);
+            ProductClient CC = new ProductClient();
+            ProductViewModel CVM = new ProductViewModel();
+           CVM.product = CC.find(id);
+           ViewBag.TypeID = new SelectList(db.Product_Type, "TypeID", "Name", CVM.product.TypeID);
+           ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", CVM.product.BrandID);
+            return View("Edit", CVM);
         }
 
         // POST: Seller/Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Product_ID,Name,Price,Amount,TypeID,Store_ID,Pictures,Decription,BrandID")] Product product, HttpPostedFileBase file)
+        public ActionResult Edit(ProductViewModel CVM, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                if (file != null)
+
+                ProductClient CC = new ProductClient();
+                if (file == null)
+                {
+                    CVM.product.Pictures = CC.find(CVM.product.Product_ID).Pictures;
+                }
+                else
                 {
                     string ImageName = Path.GetFileName(file.FileName);
                     string physicalPath = Server.MapPath("~/images/" + ImageName);
 
                     // save image in folder
                     file.SaveAs(physicalPath);
-                    product.Pictures = ImageName;
+                    CVM.product.Pictures = ImageName;
                 }
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
+                CVM.product.Store_ID = Storeid;
+                CC.Edit(CVM.product);
             }
-            
-            ViewBag.TypeID = new SelectList(db.Product_Type, "TypeID", "Name", product.TypeID);
-            ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", product.BrandID);
-            return View(product);
+            return RedirectToAction("Index"); 
         }
+       
 
         // GET: Seller/Products/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
-
-        // POST: Seller/Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
+            ProductClient CC = new ProductClient();
+            CC.Delete(id);
             return RedirectToAction("Index");
         }
+        
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

@@ -2,61 +2,63 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Fashison_eCommerce.Models;
+using Fashison_eCommerce.ViewModel;
 
 namespace Fashison_eCommerce.Areas.Seller.Controllers
 {
     public class StoresController : Controller
     {
         private DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
-
+        
         // GET: Seller/Stores
         public ActionResult Index()
         {
-            Store store = db.Stores.Find(Session["userID"]);
-            return View(store);
+            StoreClient CC = new StoreClient();
+            StoreViewModel CVM = new StoreViewModel();
+            CVM.store = CC.find(Convert.ToInt32(Session["userID"]));
+            return View(CVM);
         }
 
-       
-       
-        // GET: Seller/Stores/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Store store = db.Stores.Find(id);
-            if (store == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.UserID = new SelectList(db.Users, "Id", "Username", store.UserID);
-            return View(store);
-        }
+
+
+
 
         // POST: Seller/Stores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Store_ID,Address,UserID,ShopName,Decription,Pictures,Coverpics")] Store store)
+        public ActionResult Edit(StoreViewModel CVM, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            StoreClient CC = new StoreClient();
+            StoreViewModel St = new StoreViewModel();
+            St.store = CC.find(Convert.ToInt32(Session["userID"]));
+            if (file == null)
             {
-                db.Entry(store).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                CVM.store.Pictures = St.store.Pictures;
             }
-            
-            return View(store);
+            else
+            {
+                string ImageName = Path.GetFileName(file.FileName);
+                string physicalPath = Server.MapPath("~/images/" + ImageName);
+
+                // save image in folder
+                file.SaveAs(physicalPath);
+                CVM.store.Pictures = ImageName;
+            }
+            CVM.store.Store_ID = St.store.Store_ID;
+            CVM.store.UserID = St.store.UserID;
+            CC.Edit(CVM.store);
+        
+            return RedirectToAction("Index");
         }
 
-        
+
 
         protected override void Dispose(bool disposing)
         {

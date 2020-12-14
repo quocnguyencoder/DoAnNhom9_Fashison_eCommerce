@@ -4,20 +4,40 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Net.Http.Headers;
+using System.Net.Http.Formatting;
+using System.Web.Http;
 
 namespace Fashison_eCommerce.Models
 {
     public class ProductClient
     {
         private string Base_URL = "https://localhost:44320/api/";
-        public IEnumerable<Product> findAll()
+        public IEnumerable<Product> findAll(int StoreID)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage respone = client.GetAsync("Products").Result;
+                HttpResponseMessage respone = client.GetAsync("Products/GetProducts/" + StoreID).Result;
+                if (respone.IsSuccessStatusCode)
+                    return respone.Content.ReadAsAsync<IEnumerable<Product>>().Result;
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public IEnumerable<Product> filter(Find filter)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(Base_URL);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage respone = client.GetAsync("Products/FindProducts/filter?StoreID="+filter.StoreID+"&Name="+filter.Name +"&TypeID=" + filter.TypeID + "&QualityMin=" + filter.QualityMin + "&QualityMax=" + filter.QualityMax).Result;
+                //HttpResponseMessage respone = client.GetAsync("Products/FindProducts/filter?"+ filter).Result;
                 if (respone.IsSuccessStatusCode)
                     return respone.Content.ReadAsAsync<IEnumerable<Product>>().Result;
                 return null;
@@ -35,7 +55,7 @@ namespace Fashison_eCommerce.Models
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage response = client.GetAsync("Products/" + id).Result;
-
+               
                 if (response.IsSuccessStatusCode)
                     return response.Content.ReadAsAsync<Product>().Result;
                 return null;
@@ -43,6 +63,25 @@ namespace Fashison_eCommerce.Models
             catch
             {
                 return null;
+            }
+        }
+        public int Storeid(int userID)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(Base_URL);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("Products/GetStoreid/" + userID).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
+                else
+                    return 0;
+            }
+            catch
+            {
+                return 0;
             }
         }
         public bool Create(Product product)

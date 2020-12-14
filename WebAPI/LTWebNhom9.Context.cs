@@ -29,7 +29,6 @@ namespace WebAPI
     
         public virtual DbSet<Authorize> Authorizes { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Product_Type> Product_Type { get; set; }
@@ -37,6 +36,13 @@ namespace WebAPI
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<Cart_Item> Cart_Item { get; set; }
+        public virtual DbSet<Main_Type> Main_Type { get; set; }
+        public virtual DbSet<Order_Items> Order_Items { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
     
         public virtual int sp_AccountChangePassword(string email, string password)
         {
@@ -184,15 +190,19 @@ namespace WebAPI
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("Sp_User_Login", userNameParameter, passwordParameter);
         }
     
-        public virtual ObjectResult<FindProducts_Result> FindProducts(string name, string type, Nullable<int> qualityMin, Nullable<int> qualityMax)
+        public virtual ObjectResult<FindProducts_Result> FindProducts(Nullable<int> store_ID, string name, Nullable<int> type, Nullable<int> qualityMin, Nullable<int> qualityMax)
         {
+            var store_IDParameter = store_ID.HasValue ?
+                new ObjectParameter("Store_ID", store_ID) :
+                new ObjectParameter("Store_ID", typeof(int));
+    
             var nameParameter = name != null ?
                 new ObjectParameter("Name", name) :
                 new ObjectParameter("Name", typeof(string));
     
-            var typeParameter = type != null ?
+            var typeParameter = type.HasValue ?
                 new ObjectParameter("Type", type) :
-                new ObjectParameter("Type", typeof(string));
+                new ObjectParameter("Type", typeof(int));
     
             var qualityMinParameter = qualityMin.HasValue ?
                 new ObjectParameter("QualityMin", qualityMin) :
@@ -202,16 +212,66 @@ namespace WebAPI
                 new ObjectParameter("QualityMax", qualityMax) :
                 new ObjectParameter("QualityMax", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProducts_Result>("FindProducts", nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProducts_Result>("FindProducts", store_IDParameter, nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
         }
     
-        public virtual ObjectResult<getProducts_Result> getProducts(Nullable<int> userID)
+        public virtual ObjectResult<getProducts_Result> getProducts(Nullable<int> storeID)
         {
-            var userIDParameter = userID.HasValue ?
-                new ObjectParameter("userID", userID) :
-                new ObjectParameter("userID", typeof(int));
+            var storeIDParameter = storeID.HasValue ?
+                new ObjectParameter("StoreID", storeID) :
+                new ObjectParameter("StoreID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getProducts_Result>("getProducts", userIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getProducts_Result>("getProducts", storeIDParameter);
+        }
+    
+        public virtual ObjectResult<FindProduct_Result> FindProduct(Nullable<int> store_ID, string name, Nullable<int> type, Nullable<int> qualityMin, Nullable<int> qualityMax)
+        {
+            var store_IDParameter = store_ID.HasValue ?
+                new ObjectParameter("Store_ID", store_ID) :
+                new ObjectParameter("Store_ID", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            var qualityMinParameter = qualityMin.HasValue ?
+                new ObjectParameter("QualityMin", qualityMin) :
+                new ObjectParameter("QualityMin", typeof(int));
+    
+            var qualityMaxParameter = qualityMax.HasValue ?
+                new ObjectParameter("QualityMax", qualityMax) :
+                new ObjectParameter("QualityMax", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProduct_Result>("FindProduct", store_IDParameter, nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
+        }
+    
+        public virtual ObjectResult<FindProducts1_Result> FindProducts1(Nullable<int> store_ID, string name, Nullable<int> type, Nullable<int> qualityMin, Nullable<int> qualityMax)
+        {
+            var store_IDParameter = store_ID.HasValue ?
+                new ObjectParameter("Store_ID", store_ID) :
+                new ObjectParameter("Store_ID", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            var qualityMinParameter = qualityMin.HasValue ?
+                new ObjectParameter("QualityMin", qualityMin) :
+                new ObjectParameter("QualityMin", typeof(int));
+    
+            var qualityMaxParameter = qualityMax.HasValue ?
+                new ObjectParameter("QualityMax", qualityMax) :
+                new ObjectParameter("QualityMax", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProducts1_Result>("FindProducts1", store_IDParameter, nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
         }
     }
 }

@@ -15,24 +15,28 @@ namespace WebAPI.Controllers
     public class StoresController : ApiController
     {
         private DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
-
-        // GET: api/Stores
-        public IQueryable<Store> GetStores()
-        {
-            return db.Stores;
-        }
+        [HttpGet]
 
         // GET: api/Stores/5
+        [Route("api/Stores/GetStore/{userID}")]
         [ResponseType(typeof(Store))]
-        public IHttpActionResult GetStore(int id)
+
+        public IHttpActionResult GetStore(int userID)
         {
-            Store store = db.Stores.Find(id);
+            Store store = (from s in db.Stores where s.UserID == userID select s).FirstOrDefault();
             if (store == null)
             {
                 return NotFound();
             }
-
-            return Ok(store);
+            Store store1 = new Store();
+            store1.ShopName = store.ShopName;
+            store1.Pictures = store.Pictures;
+            store1.Coverpics = store.Coverpics;
+            store1.Address = store.Address;
+            store1.Decription = store.Decription;
+            store1.Store_ID = store.Store_ID;
+            store1.UserID = store.UserID;
+            return Ok(store1);
         }
 
         // PUT: api/Stores/5
@@ -70,36 +74,7 @@ namespace WebAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Stores
-        [ResponseType(typeof(Store))]
-        public IHttpActionResult PostStore(Store store)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Stores.Add(store);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = store.Store_ID }, store);
-        }
-
-        // DELETE: api/Stores/5
-        [ResponseType(typeof(Store))]
-        public IHttpActionResult DeleteStore(int id)
-        {
-            Store store = db.Stores.Find(id);
-            if (store == null)
-            {
-                return NotFound();
-            }
-
-            db.Stores.Remove(store);
-            db.SaveChanges();
-
-            return Ok(store);
-        }
+       
 
         protected override void Dispose(bool disposing)
         {

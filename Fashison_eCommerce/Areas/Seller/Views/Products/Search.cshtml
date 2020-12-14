@@ -1,110 +1,86 @@
-﻿@model IEnumerable<Fashison_eCommerce.Models.Product>
-@*@{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/Seller/Views/Shared/_Layout.cshtml";
-}*@
-@*<form>
-    <label>Tên sản phẩm</label>
-    <input type="text" name="Name" placeholder="Nhập vào" />
-    <br />
-    <label>Loại</label>
-    @Html.DropDownList("TypeID", null, "Select one", htmlAttributes: new { @class = "form-control" })
-    <label>Kho hàng</label>
-    <input type="text" name="MinAmount" />
-    <label>-</label>
-    <input type="text" name="MaxAmount" />
-    <input type="submit" value="Tìm" id="search" />
-</form>*@
+﻿
+@*@model PagedList.IPagedList<Fashison_eCommerce.Models.Product>*@
+@using PagedList.Mvc
+@using PagedList
 
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="~/Assets/Seller/css/Products.css" rel="stylesheet" />
+<div class="container">
 
-<table class="table" id="product">
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Price
-        </th>
-        <th>
-            Amount
-        </th>
-        <th>
-            Pictures
-        </th>
-        <th>
-            Decription
-        </th>
-
-        <th>
-            Type Name
-        </th>
-        <th>
-            Brand Name
-        </th>
-        <th></th>
-    </tr>
-
-    @*@foreach (var item in Model)
-    {*@
-        @*<tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    <img src="~/images/@item.Pictures" width="100" height="100" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Decription)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product_Type.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Brand.BrandName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Product_ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Product_ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Product_ID })
-                </td>
-            </tr>*@
-<div class="row-fluid">
-    <div id="featured" class="carousel slide">
-        <div class="carousel-inner">
-            <div class="item">
-                <ul class="thumbnails">
-                    @foreach (var item in ViewBag.listProducts)
-                    {
-                        <li class="span3">
-                            <div class="thumbnail">
-                                <i class="tag"></i>
-                                <a href="#"><img src="~/images/@item.Pictures" width="100" height="100" alt=""></a>
-                                <div class="caption">
-                                    <h5>@item.Name</h5>
-                                    <h4><a href="#">@item.Price</a> <span class="pull-right">Kho hang:@item.Amount</span> </h4>
-                                    <h5> @Html.ActionLink("Edit", "Edit", new { id = item.Product_ID })</h5>
-                                </div>
+    <div class="row" id="product_area">
+        @foreach (var item in ViewBag.listProducts)
+        {
+            <div class="col-md-3">
+                <figure class="card card-product">
+                    <div class="img-wrap"><img src="~/images/@item.Pictures"></div>
+                    <figcaption class="info-wrap">
+                        <h5 class="title">@item.Name</h5>
+                        <div class="rating-wrap">
+                            <div class="label-rating h6">
+                                <span class="price-new">@item.Price VND</span>
                             </div>
-                        </li>
-                    }
+                            <div class="label-rating">Kho hang:@item.Amount</div>
 
+                        </div>
+                    </figcaption>
+                    <div class="bottom-wrap">
+                        <a href="@Url.Action("Edit","Products",new { id = item.Product_ID })">Edit</a>   |    <a onclick="return confirm('Do you want to Delete?')" href="@Url.Action("Delete","Products",new {id= item.Product_ID})">Delete</a>
 
+                    </div>
+                </figure>
             </div>
+        }
 
 
-        </div>
-        <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
-        <a class="right carousel-control" href="#featured" data-slide="next">›</a>
     </div>
+
+
+
 </div>
-    @*}*@
-
-</table>
-
+<br />
+@*Trang: @(ViewBag.listProducts.PageCount< ViewBag.listProducts.PageNumber ? 0: ViewBag.listProducts.PageNumber)/@ViewBag.listProducts.PageCount
+    @Html.PagedListPager((IPagedList)ViewBag.listProducts, page => Url.Action("Getpaging", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "product_area" }))*@
+@*<tfoot class="pager">
+    <tr>
+        <td colspan="3">
+            @for (int i = 1; i <= ViewBag.listProducts.PageCount; i++)
+            {
+                if (i == ViewBag.CurrentPage)
+                {
+                    @i
+                }
+                else
+                {
+            <div class="page-number">
+                <a  href="@i">@i</a>
+            </div>
+                    
+                }
+            }
+        </td>
+    </tr>
+</tfoot>
+<script>
+    var pageNumber = @ViewBag.CurrentPage ;
+    
+    function fnLoadPage() {
+        $.ajax({
+            url: "/Products/Paginate",
+            data: { pageNumber: pageNumber },
+            success: function (response) {
+                $("#product_area").html(response);
+            }
+        });
+    }
+    $(function () {
+        $(".page-number a").click(function () {
+            debugger
+            eval("pageNumber=(pageNumber+" + $(this).attr("href") + ")");
+            fnLoadPage();
+            return false;
+        });
+    });
+</script>*@

@@ -14,7 +14,7 @@ namespace Fashison_eCommerce.Controllers
         public ActionResult Index()
         {
             ProductClient CC = new ProductClient();
-            ViewBag.listProducts = CC.findAll();
+            //ViewBag.listProducts = CC.findAll();
 
             return View();
         }
@@ -42,7 +42,7 @@ namespace Fashison_eCommerce.Controllers
         {
             ProductClient CC = new ProductClient();
             ProductViewModel CVM = new ProductViewModel();
-            CVM.product = CC.find(id);
+            //CVM.product = CC.find(id);
             return View("Edit", CVM);
         }
         [HttpPost]

@@ -18,6 +18,9 @@ namespace Fashison_eCommerce.Models
         public User()
         {
             this.Stores = new HashSet<Store>();
+            this.Addresses = new HashSet<Address>();
+            this.Carts = new HashSet<Cart>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int Id { get; set; }
@@ -30,9 +33,16 @@ namespace Fashison_eCommerce.Models
         public string Phone { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public Nullable<int> RoleID { get; set; }
+        public string Avatar { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }
         public virtual Role Role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Address> Addresses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

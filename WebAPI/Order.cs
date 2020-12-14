@@ -14,11 +14,27 @@ namespace WebAPI
     
     public partial class Order
     {
-        public int Recipt_ID { get; set; }
-        public Nullable<float> Cost { get; set; }
-        public string Status { get; set; }
-        public Nullable<int> User_ID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Order()
+        {
+            this.Order_Items = new HashSet<Order_Items>();
+        }
     
+        public string Order_ID { get; set; }
+        public Nullable<int> User_ID { get; set; }
+        public Nullable<int> Store_ID { get; set; }
+        public Nullable<double> delivery { get; set; }
+        public string payment { get; set; }
+        public Nullable<System.DateTime> created_date { get; set; }
+        public Nullable<int> status { get; set; }
+        public string decription { get; set; }
+        public Nullable<int> Address_ID { get; set; }
+        public Nullable<double> Total_Order { get; set; }
+    
+        public virtual Address Address { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order_Items> Order_Items { get; set; }
+        public virtual Store Store { get; set; }
         public virtual User User { get; set; }
     }
 }
