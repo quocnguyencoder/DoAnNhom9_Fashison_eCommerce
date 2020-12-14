@@ -194,6 +194,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\view_MainTypeController.cs" />
     <Compile Include="getOrders_Of_User_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
@@ -246,7 +247,13 @@
     <Compile Include="Role.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_getOrderDetail1_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_getOrderDetail_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_getOrderDetail_Result1.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_getUserAddress_Result.cs">
@@ -259,6 +266,9 @@
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_loadUserCart_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ProductByType_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Store.cs">
@@ -280,6 +290,9 @@
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="view_Buyer_Order_Items.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_MainType.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
   </ItemGroup>

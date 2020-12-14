@@ -108,5 +108,12 @@ namespace WebAPI.Controllers
         {
             return db.Buyer_LoadProduct.Count(e => e.Product_ID == id) > 0;
         }
+
+        [HttpGet]
+        [Route("api/Buyer_LoadProduct/Type/{typeid}")]
+        public IHttpActionResult GetProduct_byType(int typeid)
+        {
+            return Ok(db.sp_ProductByType(typeid));
+        }
     }
 }

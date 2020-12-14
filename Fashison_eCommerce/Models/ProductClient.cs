@@ -38,7 +38,27 @@ namespace Fashison_eCommerce.Models
                 HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<IEnumerable < View_Product >>().Result;
+                    return response.Content.ReadAsAsync<IEnumerable<View_Product>>().Result;
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        //find by type 
+        public IEnumerable<View_Product> findbyType(int typeid)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(Base_URL);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/Type/" + typeid).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return response.Content.ReadAsAsync<IEnumerable<View_Product>>().Result;
                 return null;
             }
             catch
