@@ -1,0 +1,16 @@
+﻿@{
+    var address_ID = -1;
+    foreach (var address in ViewBag.Address)
+    {
+        if (address.default_address == 1)
+        {
+            <p> <strong> @address.full_name (+84)@address.phone </strong> @address.address1</p>
+            address_ID = address.Address_ID;
+            break;
+        }
+    }
+    if(address_ID == -1)
+    {
+        <p>Vui long them dia chi giao hang!</p>
+    }
+}

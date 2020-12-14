@@ -51,13 +51,13 @@
                            
                             <div class="dropdown">
                                 <span class="dropdown-custom">
-                                    <img scr="#" alt="ava" />
+                                    <img scr="#" style="border-radius: 50%;" alt="ava" />
                                     <a href="#">@Session["username"]</a>
                                 </span>
                                 <div class="dropdown-custom-content">
-                                    @Html.ActionLink("My Profile", "UserProfile", "User")
-                                    <a href="#">Purchase</a>
-                                    @Html.ActionLink("Logout", "Logout", "Account")
+                                    <a href="/User/UserProfile">Profile</a>
+                                    <a href="/User/Purchase">Purchase</a>
+                                    <a href="/Account/Logout">Logout</a>
                                 </div>
                             </div>
                         }
