@@ -188,8 +188,11 @@
     <Compile Include="Controllers\Buyer_OrdersController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\Cart_ItemController.cs" />
+    <Compile Include="Controllers\ChangeStatusController.cs" />
+    <Compile Include="Controllers\GetAddressByIDController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\Order_AllController.cs" />
     <Compile Include="Controllers\Order_ItemsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\Seller_ProductController.cs" />
@@ -237,6 +240,9 @@
     <Compile Include="Order.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
+    <Compile Include="Order_All.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="Order_Items.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
@@ -254,6 +260,9 @@
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Role.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_getAddressByID_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_getOrderDetail1_Result.cs">
@@ -284,6 +293,9 @@
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_searchProduct_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_View_Orders_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Store.cs">

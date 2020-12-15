@@ -44,6 +44,7 @@
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Order_Items" Width="1.5" PointX="0.75" PointY="14.75" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Orders" Width="1.5" PointX="3.125" PointY="14.75" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_MainType" Width="1.5" PointX="5.25" PointY="14.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_All" Width="1.5" PointX="14.375" PointY="7.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
