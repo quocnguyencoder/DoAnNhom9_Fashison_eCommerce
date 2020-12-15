@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Kênh người bán</div>
     </a>
 
     <!-- Divider -->
@@ -16,7 +16,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+            <span>Trang chủ</span>
         </a>
     </li>
 
@@ -99,6 +99,36 @@
                 <h6 class="collapse-header">Other Pages:</h6>
                 <a class="collapse-item" href="404.html">404 Page</a>
                 <a class="collapse-item" href="blank.html">Blank Page</a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseShop"
+            aria-expanded="true" aria-controls="collapseShop">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Quản Lý Shop</span>
+        </a>
+        <div id="collapseShop" class="collapse" aria-labelledby="headingUtilities"
+                data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Utilities:</h6>
+                <a class="collapse-item" href="utilities-color.html">Đánh Giá Shop</a>
+                <a class="collapse-item" href="utilities-border.html">Hồ Sơ Shop</a>
+                <a class="collapse-item" href="utilities-animation.html">Trang Trí Shop</a>
+            </div>
+        </div>
+    </li>
+
+<!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsetest"
+            aria-expanded="true" aria-controls="collapsetest">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Quản Lý Đơn hàng</span>
+        </a>
+        <div id="collapsetest" class="collapse" aria-labelledby="headingUtilities"
+                data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Utilities:</h6>
+                <a class="collapse-item" href=""@Url.Action("Orders", "Index")" class="elements"">Tất cả đơn hàng</a>
+                <a class="collapse-item" href="utilities-border.html">Đơn hàng cần xác nhận</a>
+                <a class="collapse-item" href="utilities-animation.html">Đơn hàng hủy</a>
             </div>
         </div>
     </li>

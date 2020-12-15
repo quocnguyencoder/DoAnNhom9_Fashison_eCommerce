@@ -214,6 +214,96 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Buyer_LoadProduct' does not
           <Property Name="BrandID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Order_All' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Order_All">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_ID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="delivery" Type="float" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="decription" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Total_Order" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Order_Cancel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Order_Cancel">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_ID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="delivery" Type="float" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="decription" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Total_Order" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Order_Confirm' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Order_Confirm">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_ID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="delivery" Type="float" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="decription" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Total_Order" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Order_Delivered' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Order_Delivered">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_ID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="delivery" Type="float" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="decription" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Total_Order" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Order_Delivering' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Order_Delivering">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_ID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="delivery" Type="float" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="decription" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Total_Order" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Order_Receive' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Order_Receive">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Order_ID" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="delivery" Type="float" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="decription" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Total_Order" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Buyer_Order_Items' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="view_Buyer_Order_Items">
           <Key>
@@ -532,6 +622,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_getAddressByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="addressID" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_getOrderDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="order_id" Type="nchar" Mode="In" />
         </Function>
@@ -568,6 +661,10 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
         <Function Name="Sp_User_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_View_Orders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="store_id" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="DB_A6A231_DAQLTMDTModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
@@ -611,6 +708,78 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
     [Buyer_LoadProduct].[Decription] AS [Decription], 
     [Buyer_LoadProduct].[BrandID] AS [BrandID]
     FROM [dbo].[Buyer_LoadProduct] AS [Buyer_LoadProduct]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Order_All" EntityType="Self.Order_All" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Order_All].[Name] AS [Name], 
+    [Order_All].[Order_ID] AS [Order_ID], 
+    [Order_All].[delivery] AS [delivery], 
+    [Order_All].[created_date] AS [created_date], 
+    [Order_All].[status] AS [status], 
+    [Order_All].[decription] AS [decription], 
+    [Order_All].[address] AS [address], 
+    [Order_All].[Total_Order] AS [Total_Order]
+    FROM [dbo].[Order_All] AS [Order_All]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Order_Cancel" EntityType="Self.Order_Cancel" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Order_Cancel].[Name] AS [Name], 
+    [Order_Cancel].[Order_ID] AS [Order_ID], 
+    [Order_Cancel].[delivery] AS [delivery], 
+    [Order_Cancel].[created_date] AS [created_date], 
+    [Order_Cancel].[status] AS [status], 
+    [Order_Cancel].[decription] AS [decription], 
+    [Order_Cancel].[address] AS [address], 
+    [Order_Cancel].[Total_Order] AS [Total_Order]
+    FROM [dbo].[Order_Cancel] AS [Order_Cancel]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Order_Confirm" EntityType="Self.Order_Confirm" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Order_Confirm].[Name] AS [Name], 
+    [Order_Confirm].[Order_ID] AS [Order_ID], 
+    [Order_Confirm].[delivery] AS [delivery], 
+    [Order_Confirm].[created_date] AS [created_date], 
+    [Order_Confirm].[status] AS [status], 
+    [Order_Confirm].[decription] AS [decription], 
+    [Order_Confirm].[address] AS [address], 
+    [Order_Confirm].[Total_Order] AS [Total_Order]
+    FROM [dbo].[Order_Confirm] AS [Order_Confirm]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Order_Delivered" EntityType="Self.Order_Delivered" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Order_Delivered].[Name] AS [Name], 
+    [Order_Delivered].[Order_ID] AS [Order_ID], 
+    [Order_Delivered].[delivery] AS [delivery], 
+    [Order_Delivered].[created_date] AS [created_date], 
+    [Order_Delivered].[status] AS [status], 
+    [Order_Delivered].[decription] AS [decription], 
+    [Order_Delivered].[address] AS [address], 
+    [Order_Delivered].[Total_Order] AS [Total_Order]
+    FROM [dbo].[Order_Delivered] AS [Order_Delivered]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Order_Delivering" EntityType="Self.Order_Delivering" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Order_Delivering].[Name] AS [Name], 
+    [Order_Delivering].[Order_ID] AS [Order_ID], 
+    [Order_Delivering].[delivery] AS [delivery], 
+    [Order_Delivering].[created_date] AS [created_date], 
+    [Order_Delivering].[status] AS [status], 
+    [Order_Delivering].[decription] AS [decription], 
+    [Order_Delivering].[address] AS [address], 
+    [Order_Delivering].[Total_Order] AS [Total_Order]
+    FROM [dbo].[Order_Delivering] AS [Order_Delivering]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Order_Receive" EntityType="Self.Order_Receive" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Order_Receive].[Name] AS [Name], 
+    [Order_Receive].[Order_ID] AS [Order_ID], 
+    [Order_Receive].[delivery] AS [delivery], 
+    [Order_Receive].[created_date] AS [created_date], 
+    [Order_Receive].[status] AS [status], 
+    [Order_Receive].[decription] AS [decription], 
+    [Order_Receive].[address] AS [address], 
+    [Order_Receive].[Total_Order] AS [Total_Order]
+    FROM [dbo].[Order_Receive] AS [Order_Receive]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_Buyer_Order_Items" EntityType="Self.view_Buyer_Order_Items" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1079,7 +1248,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
           <Parameter Name="typeid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_ProductByStore" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_ProductByStore_Result)">
-            <Parameter Name="storeid" Mode="In" Type="Int32" />
+          <Parameter Name="storeid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_searchProduct" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_searchProduct_Result)">
             <Parameter Name="name" Mode="In" Type="String" />
@@ -1094,6 +1263,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
           </FunctionImport>
           <FunctionImport Name="getProducts" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.getProducts_Result)">
             <Parameter Name="StoreID" Mode="In" Type="Int32" />
+          <EntitySet Name="Order_All" EntityType="DB_A6A231_DAQLTMDTModel.Order_All" />
+          <EntitySet Name="Order_Cancel" EntityType="DB_A6A231_DAQLTMDTModel.Order_Cancel" />
+          <EntitySet Name="Order_Confirm" EntityType="DB_A6A231_DAQLTMDTModel.Order_Confirm" />
+          <EntitySet Name="Order_Delivered" EntityType="DB_A6A231_DAQLTMDTModel.Order_Delivered" />
+          <EntitySet Name="Order_Delivering" EntityType="DB_A6A231_DAQLTMDTModel.Order_Delivering" />
+          <EntitySet Name="Order_Receive" EntityType="DB_A6A231_DAQLTMDTModel.Order_Receive" />
+          <FunctionImport Name="sp_View_Orders" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_View_Orders_Result)">
+            <Parameter Name="store_id" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getAddressByID" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_getAddressByID_Result)">
+            <Parameter Name="addressID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -1574,6 +1755,101 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
           <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
           <Property Type="Int32" Name="BrandID" Nullable="true" />
+        <EntityType Name="Order_All">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order_Cancel">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order_Confirm">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order_Delivered">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order_Delivering">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order_Receive">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <ComplexType Name="sp_View_Orders_Result">
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
+          <Property Type="Double" Name="delivery" Nullable="true" />
+          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="decription" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_getAddressByID_Result">
+          <Property Type="Int32" Name="Address_ID" Nullable="false" />
+          <Property Type="Int32" Name="User_ID" Nullable="true" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="default_address" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2013,6 +2289,113 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
                 <ScalarProperty Name="Pictures" ColumnName="Pictures" />
                 <ScalarProperty Name="Decription" ColumnName="Decription" />
                 <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+          <EntitySetMapping Name="Order_All">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_All">
+              <MappingFragment StoreEntitySet="Order_All">
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Cancel">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Cancel">
+              <MappingFragment StoreEntitySet="Order_Cancel">
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Confirm">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Confirm">
+              <MappingFragment StoreEntitySet="Order_Confirm">
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Delivered">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Delivered">
+              <MappingFragment StoreEntitySet="Order_Delivered">
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Delivering">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Delivering">
+              <MappingFragment StoreEntitySet="Order_Delivering">
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Receive">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Receive">
+              <MappingFragment StoreEntitySet="Order_Receive">
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_View_Orders" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_View_Orders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_View_Orders_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getAddressByID" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_getAddressByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_getAddressByID_Result">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="default_address" ColumnName="default_address" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

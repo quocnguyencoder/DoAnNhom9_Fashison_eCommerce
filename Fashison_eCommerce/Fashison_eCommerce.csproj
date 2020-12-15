@@ -153,6 +153,7 @@
     <Compile Include="Areas\Buyer\Controllers\SearchController.cs" />
     <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
+    <Compile Include="Areas\Seller\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Seller\Controllers\StoresController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
@@ -262,6 +263,10 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreClient.cs" />
+    <Compile Include="Models\OrderClient.cs" />
+    <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\Order_All.cs" />
+    <Compile Include="Models\Order_AllClient.cs" />
     <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -336,6 +341,9 @@
     <Compile Include="ViewModel\BuyerOrderItemsViewModel.cs" />
     <Compile Include="ViewModel\BuyerOrdersViewModel.cs" />
     <Compile Include="ViewModel\Cart_ItemViewModel.cs" />
+    <Compile Include="ViewModel\OrderDetailViewModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
+    <Compile Include="ViewModel\Order_AllViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="ViewModel\StoreViewModel.cs" />
     <Compile Include="ViewModel\UserCartViewModel.cs" />
@@ -2318,6 +2326,18 @@
     <Content Include="Areas\Buyer\Views\ProductDetail\SearchProduct.cshtml" />
     <Content Include="Areas\Buyer\Views\Search\Search.cshtml" />
     <Content Include="Areas\Buyer\Views\Search\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\Detail.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabAll.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabCancel.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabDeliver.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabDelivered.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabReceive.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Header.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\UserAddressByID.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
