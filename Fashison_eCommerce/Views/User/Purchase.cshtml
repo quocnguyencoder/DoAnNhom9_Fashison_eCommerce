@@ -3,30 +3,8 @@
     ViewBag.Title = "Purchase";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-
-<div id="sidebar" class="span3">
-    <div class="well well-small">
-        <img src="#" alt="ava" />
-        username <br />
-        <p>edit profile</p>
-    </div>
-    <ul id="sideManu" class="nav nav-tabs nav-stacked">
-        <li class="subMenu open">
-            <a> My account </a>
-            <ul>
-                <li><a class="active" href="#"><i class="icon-chevron-right"></i>Profile </a></li>
-                <li><a href="#"><i class="icon-chevron-right"></i>Address</a></li>
-                <li><a href="#"><i class="icon-chevron-right"></i>Change password</a></li>
-            </ul>
-        </li>
-        <li class="subMenu">
-            <a> Purchase </a>
-        </li>
-        <li class="subMenu">
-            <a>Notice</a>
-        </li>
-    </ul>
-</div>
+@using Fashison_eCommerce.Controllers;
+@{Html.RenderPartial("Sidebar", "User");}
 
 <div style=" float: right; background-color: white; height: 100%; max-height: 900px; max-width: 850px; width: 100%;">
     <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
@@ -49,12 +27,13 @@
                     var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
                     foreach (var order in ViewBag.OrdersList)
                     {
+                        var temp = ((UserController)this.ViewContext.Controller).ConvertToStatus(order.status);
                         <tr>
                             <th scope="row"><a href="/User/PurchaseDetail?Order_id=@order.Order_ID">@order.Order_ID</a></th>
                             <td>@order.created_date</td>
                             <td>@order.decription</td>
                             <td>@String.Format(info, "{0:C2}", order.Total_Order)</td>
-                            <td>@order.status</td>
+                            <td>@temp </td>
                         </tr>
                     }
                 }
