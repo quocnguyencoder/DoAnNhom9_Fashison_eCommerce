@@ -148,6 +148,9 @@
     <Compile Include="Areas\Buyer\Controllers\CartCheckoutController.cs" />
     <Compile Include="Areas\Buyer\Controllers\Cart_ItemController.cs" />
     <Compile Include="Areas\Buyer\Controllers\MainPageController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\ProductbyTypeController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\ProductDetailController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\SearchController.cs" />
     <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
@@ -169,6 +172,8 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_ItemClient.cs" />
+    <Compile Include="Models\MainType.cs" />
+    <Compile Include="Models\MainTypeClient.cs" />
     <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -2186,6 +2191,16 @@
     <Content Include="Areas\Buyer\Views\UserCart\CartInfo.cshtml" />
     <Content Include="Areas\Buyer\Views\CartCheckout\Index.cshtml" />
     <Content Include="Areas\Buyer\Views\CartCheckout\GetUserAddress.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\Details.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\ProductType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductbyType\ProductbyType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductbyType\Index.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\RelatedProduct.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\MainType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\ProductOfStore.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\SearchProduct.cshtml" />
+    <Content Include="Areas\Buyer\Views\Search\Search.cshtml" />
+    <Content Include="Areas\Buyer\Views\Search\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2436,6 +2451,7 @@
     <Folder Include="Areas\Seller\Views\Shared\" />
     <Folder Include="Data\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
+    <Folder Include="Views\MainType\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

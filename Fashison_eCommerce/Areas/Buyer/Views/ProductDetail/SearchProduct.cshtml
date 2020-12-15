@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewBag.Title = "SearchProduct";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    var type = ViewBag.typeName;
+}
+
+@model Fashison_eCommerce.ViewModel.Cart_ItemViewModel
+
+<div class="row">
+    <!-- Sidebar ================================================== -->
+    <div id="sidebar" class="span3">
+        <div class="well well-small">
+            <a id="myCart" href="/UserCart">
+                <img src="~/Styles_css/User_styles/themes/images/ico-cart.png" alt="cart">
+                <div class="cart_info">
+                    @{Html.RenderAction("CountCartItem", "UserCart");}
+                </div>
+
+            </a>
+        </div>
+        <ul id="sideManu" class="nav nav-tabs nav-stacked">
+            @{ Html.RenderAction("ProductType", "ProductDetail");}
+        </ul>
+    </div>
+    <!-- Sidebar end=============================================== -->
+
+    <div class="span9">
+        @*<ul class="breadcrumb">
+            <li><a href="/">home</a> <span class="divider">/</span></li>
+            <li><a href="">@viewbag.maintype.name</a> <span class="divider">/</span></li>
+            <li class="active">@type.name</li>
+        </ul>*@
+        <h3> @*Products Name*@ <small class="pull-right"> @ViewBag.count products are available  </small></h3>
+        <hr class="soft">
+
+        <hr class="soft">
+        <!-- ================ sort product ======================= -->
+        @*<form class="form-horizontal span6">
+                <div class="control-group">
+                    <label class="control-label alignL">Sort By </label>
+                    <select>
+                        <option>Priduct name A - Z</option>
+                        <option>Priduct name Z - A</option>
+                        <option>Priduct Stoke</option>
+                        <option>Price Lowest first</option>
+                    </select>
+                </div>
+            </form>*@
+
+        <div id="myTab" class="pull-right">
+            <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+            <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+        </div>
+        <div class="loader">
+            <br class="clr">
+            <div class="tab-content">
+                <div class="tab-pane active" id="listView">
+                    @foreach (var prod1 in ViewBag.ProductsByType)
+                    {
+                        <div class="row">
+                            <div class="span2">
+                                <img src="~/Product_Images/@prod1.Pictures" alt="" style="width: 180px; height: 195px" />
+                            </div>
+
+                            <div class="span4">
+                                <hr class="soft" />
+                                <h4> @prod1.Name </h4>
+                                <h5>
+                                    @prod1.Decription
+                                </h5>
+                                <a class="btn btn-small pull-right" href="/Buyer/ProductDetail/Details?id=@prod1.Product_ID">View Details</a>
+                                <br class="clr" />
+                            </div>
+                            <div class="span3 alignR">
+                                <form class="form-horizontal qtyFrm">
+                                    <h3>@prod1.Price VNĐ</h3>
+                                    <div class="btn-group">
+                                        <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <hr class="soft" />
+                    }
+                </div>
+
+                <div class="tab-pane" id="blockView">
+                    <ul class="thumbnails">
+                        @foreach (var prod in ViewBag.ProductsByType)
+                        {
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="/Buyer/ProductDetail/Details?id=@prod.Product_ID"><img src="~/Product_Images/@prod.Pictures" alt="" style="width: 190px; height: 210px" /></a>
+                                    <div class="caption">
+                                        <h5>@prod.Name</h5>
+                                        <p>
+                                            @prod.Decription
+                                        </p>
+                                        <h4 style="text-align:center"><a class="btn" href="/Buyer/ProductDetail/Details?id=@prod.Product_ID"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@prod.Price</a></h4>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                    <hr class="soft">
+                </div>
+            </div>
+        </div>
+
+        <!-- phan trang -->
+        @*<div class="pagination">
+                <ul>
+                    <li><a href="#">‹</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">›</a></li>
+                </ul>
+            </div>*@
+        @*<input type ="button" onclick="BtnClick()" value="click" />*@
+        <br class="clr">
+    </div>
+</div>
+
+
+
+
+
+
