@@ -199,6 +199,7 @@
     <Compile Include="FindProducts_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\view_MainTypeController.cs" />
     <Compile Include="getOrders_Of_User_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
@@ -276,6 +277,15 @@
     <Compile Include="sp_loadUserCart_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ProductByStore_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ProductByType_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_searchProduct_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="Store.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
@@ -295,6 +305,9 @@
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="view_Buyer_Order_Items.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_MainType.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
   </ItemGroup>

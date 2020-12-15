@@ -36,11 +36,39 @@ namespace Fashison_eCommerce.Controllers
             ViewBag.OrdersList = BOC.findAll(Convert.ToInt32(Session["userID"]));
             return View();
         }
+        public string ConvertToStatus(int stt)
+        {
+            string status = "";
+            switch (stt)
+            {
+                case 0:
+                    status = "đã hủy";
+                    break;
+                case 1:
+                    status = "chờ xác nhận";
+                    break;
+                case 2:
+                    status = "chờ lấy hàng";
+                    break;
+                case 3:
+                    status = "đang giao";
+                    break;
+                case 4:
+                    status = "đã giao hàng";
+                    break;
+            }
+            return status;
+        }
         public ActionResult PurchaseDetail(string Order_id)
         {
             BuyerOrderItemsClient BOIC = new BuyerOrderItemsClient();
             ViewBag.DetailList = BOIC.find(Order_id);
             return View();
+        }
+
+        public ActionResult Sidebar()
+        {
+            return PartialView();
         }
     }
 }

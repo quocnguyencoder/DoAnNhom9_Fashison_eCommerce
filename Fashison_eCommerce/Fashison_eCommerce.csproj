@@ -148,6 +148,9 @@
     <Compile Include="Areas\Buyer\Controllers\CartCheckoutController.cs" />
     <Compile Include="Areas\Buyer\Controllers\Cart_ItemController.cs" />
     <Compile Include="Areas\Buyer\Controllers\MainPageController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\ProductbyTypeController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\ProductDetailController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\SearchController.cs" />
     <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
@@ -2303,6 +2306,16 @@
     <Content Include="Areas\Seller\Views\Shared\_Sidebar.cshtml" />
     <Content Include="Areas\Seller\Views\Stores\Index.cshtml" />
     <Content Include="Areas\Seller\Views\Products\Search.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\Details.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\ProductType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductbyType\ProductbyType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductbyType\Index.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\RelatedProduct.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\MainType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\ProductOfStore.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\SearchProduct.cshtml" />
+    <Content Include="Areas\Buyer\Views\Search\Search.cshtml" />
+    <Content Include="Areas\Buyer\Views\Search\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2543,6 +2556,7 @@
     <Content Include="Views\Shared\CountCartItem.cshtml" />
     <Content Include="Views\User\Purchase.cshtml" />
     <Content Include="Views\User\PurchaseDetail.cshtml" />
+    <Content Include="Views\User\Sidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2553,6 +2567,7 @@
     <Folder Include="Data\" />
     <Folder Include="images\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
+    <Folder Include="Views\MainType\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

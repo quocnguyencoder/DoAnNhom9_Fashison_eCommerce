@@ -80,17 +80,12 @@
                 </a>
                 <div class="navbar-inner">
                     <a class="brand" href="/"><img src="~/Styles_css/User_styles/themes/images/new-logo.png" alt="Esshop" /></a>
-                    <form class="form-inline navbar-search" method="post" action="products.html">
-                        <input id="srchFld" class="srchTxt" type="text" />
-                        <select class="srchTxt">
-                            <option>All</option>
-                            <option>CLOTHES </option>
-                            <option>FOOD AND BEVERAGES </option>
-                            <option>HEALTH & BEAUTY </option>
-                            <option>SPORTS & LEISURE </option>
-                            <option>BOOKS & ENTERTAINMENTS </option>
-                        </select>
-                        <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+                    <form class="form-inline navbar-search" method="post" action="/Buyer/Search/Index">
+                        <input id="srchFld" class="srchTxt" type="text" name="name" />
+                        @* ===================== select main type *@
+                        @{ Html.RenderAction("MainType", "ProductDetail");}
+                        @* ================ *@
+                        <button type="submit" id="submitButton" class="btn btn-primary" href="/Buyer/Search/">Go</button>
                     </form>
                     <ul id="topMenu" class="nav pull-right">
                         @*<li class=""><a href="special_offer.html">Specials Offer</a></li>

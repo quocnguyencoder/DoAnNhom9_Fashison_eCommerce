@@ -1,0 +1,20 @@
+﻿<div class="tab-content">
+    <ul class="thumbnails">
+        @foreach (var prod in ViewBag.prodOfStore)
+        {
+            <li class="span3">
+                <div class="thumbnail">
+                    <a href="/Buyer/ProductDetail/Details?id=@prod.Product_ID"><img src="~/Product_Images/@prod.Pictures" alt="" style="max-height: unset; max-width: 215px" /></a>
+                    <div class="caption">
+                        <h5>@prod.Name</h5>
+                        <p>
+                            @prod.Decription
+                        </p>
+                        <h4 style="text-align:center"><a class="btn" href="/Buyer/ProductDetail/Details?id=@prod.Product_ID"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@prod.Price</a></h4>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+    <hr class="soft" />
+</div>

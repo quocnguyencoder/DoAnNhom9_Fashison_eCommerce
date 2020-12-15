@@ -108,5 +108,26 @@ namespace WebAPI.Controllers
         {
             return db.Buyer_LoadProduct.Count(e => e.Product_ID == id) > 0;
         }
+
+        [HttpGet]
+        [Route("api/Buyer_LoadProduct/Type/{typeid}")]
+        public IHttpActionResult GetProduct_byType(int typeid)
+        {
+            return Ok(db.sp_ProductByType(typeid));
+        }
+
+
+        [Route("api/Buyer_LoadProduct/Store/{storeid}")]
+        public IHttpActionResult GetProduct_byStore(int storeid)
+        {
+            return Ok(db.sp_ProductByStore(storeid));
+        }
+
+        [HttpGet]
+        [Route("api/Buyer_LoadProduct/Search/{typeid}/{name}")]
+        public IHttpActionResult Search(string name, int typeid)
+        {
+            return Ok(db.sp_searchProduct(name,typeid));
+        }
     }
 }

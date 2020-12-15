@@ -38,7 +38,7 @@ namespace Fashison_eCommerce.Models
                 HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<IEnumerable < view_Products >>().Result;
+                    return response.Content.ReadAsAsync<IEnumerable<view_Products>>().Result;
                 return null;
             }
             catch
@@ -46,6 +46,67 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
+
+        //find by type 
+        public IEnumerable<view_Products> findbyType(int typeid)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(Base_URL);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/Type/" + typeid).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return response.Content.ReadAsAsync<IEnumerable<view_Products>>().Result;
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        // get by store
+        public IEnumerable<view_Products> findbyStore(int storeid)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(Base_URL);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/Store/" + storeid).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return response.Content.ReadAsAsync<IEnumerable<view_Products>>().Result;
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        //search Product
+        public IEnumerable<view_Products> search(int typeid, string name)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(Base_URL);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/Search/" + typeid+"/"+name).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return response.Content.ReadAsAsync<IEnumerable<view_Products>>().Result;
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public bool Create(Product product)
         {
             try
