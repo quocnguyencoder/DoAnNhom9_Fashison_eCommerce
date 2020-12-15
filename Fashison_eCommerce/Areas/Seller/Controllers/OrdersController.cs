@@ -16,29 +16,47 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
         public ActionResult Index()
         {
             Order_AllClient OA = new Order_AllClient();
-            ViewBag.listOrder_All = OA.findAll(Convert.ToInt32(Session["userID"]));
+            ViewBag.listOrder_All = OA.findAll(Convert.ToInt32(Session["userID"]),-1);
 
-            Order_ConfirmClient OC = new Order_ConfirmClient();
-            ViewBag.listOrder_Confirm = OC.findAll();
+            ViewBag.listOrder_Confirm = OA.findAll(Convert.ToInt32(Session["userID"]), 1);
 
-            Order_CancelClient OCa = new Order_CancelClient();
-            ViewBag.listOrder_Cancel = OCa.findAll();
+            ViewBag.listOrder_Cancel = OA.findAll(Convert.ToInt32(Session["userID"]), 0);
 
-            Order_DeliveringClient OD = new Order_DeliveringClient();
-            ViewBag.listOrder_Delivering = OD.findAll();
+            ViewBag.listOrder_Delivering = OA.findAll(Convert.ToInt32(Session["userID"]), 3);
 
-            Order_ReceiveClient ORE = new Order_ReceiveClient();
-            ViewBag.listOrder_Receive = ORE.findAll();
+            ViewBag.listOrder_Receive = OA.findAll(Convert.ToInt32(Session["userID"]), 2);
 
-            Order_DeliveredClient ODE = new Order_DeliveredClient();
-            ViewBag.listOrder_Delivered = ODE.findAll();
+            ViewBag.listOrder_Delivered = OA.findAll(Convert.ToInt32(Session["userID"]), 4);
 
             return View();
         }
+        public string ConvertToStatus(int stt)
+        {
+            string status = "";
+            switch (stt)
+            {
+                case 0:
+                    status = "đã hủy";
+                    break;
+                case 1:
+                    status = "chờ xác nhận";
+                    break;
+                case 2:
+                    status = "chờ lấy hàng";
+                    break;
+                case 3:
+                    status = "đang giao";
+                    break;
+                case 4:
+                    status = "đã giao hàng";
+                    break;
+            }
+            return status;
+        }
         public ActionResult Detail(string id)
         {
-            Order_AllClient OA = new Order_AllClient();
-            ViewBag.OrderDetail = OA.find(id);
+            BuyerOrderItemsClient BOIC = new BuyerOrderItemsClient();
+            ViewBag.DetailList = BOIC.find(id);
             return View();
         }
         public ActionResult ChangeStatus(string id, int status)

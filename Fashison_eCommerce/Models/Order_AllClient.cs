@@ -10,14 +10,14 @@ namespace Fashison_eCommerce.Models
     public class Order_AllClient
     {
         private string Base_URL = "https://localhost:44320/api/";
-        public IEnumerable<Order_All> findAll(int userID)
+        public IEnumerable<Order_All> findAll(int userID, int  status)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage respone = client.GetAsync("Order_All?userID="+ userID + "&status=-1").Result;
+                HttpResponseMessage respone = client.GetAsync("Order_All?userID="+ userID + "&status="+status).Result;
                 if (respone.IsSuccessStatusCode)
                     return respone.Content.ReadAsAsync<IEnumerable<Order_All>>().Result;
                 return null;

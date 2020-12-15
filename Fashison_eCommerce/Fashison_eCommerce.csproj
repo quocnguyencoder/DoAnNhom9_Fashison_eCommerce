@@ -179,16 +179,6 @@
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\Order_All.cs" />
     <Compile Include="Models\Order_AllClient.cs" />
-    <Compile Include="Models\Order_Cancel.cs" />
-    <Compile Include="Models\Order_CancelClient.cs" />
-    <Compile Include="Models\Order_Confirm.cs" />
-    <Compile Include="Models\Order_ConfirmClient.cs" />
-    <Compile Include="Models\Order_Delivered.cs" />
-    <Compile Include="Models\Order_DeliveredClient.cs" />
-    <Compile Include="Models\Order_Delivering.cs" />
-    <Compile Include="Models\Order_DeliveringClient.cs" />
-    <Compile Include="Models\Order_Receive.cs" />
-    <Compile Include="Models\Order_ReceiveClient.cs" />
     <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
