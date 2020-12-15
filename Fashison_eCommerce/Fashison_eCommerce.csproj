@@ -2426,6 +2426,7 @@
     <Content Include="Views\Shared\CountCartItem.cshtml" />
     <Content Include="Views\User\Purchase.cshtml" />
     <Content Include="Views\User\PurchaseDetail.cshtml" />
+    <Content Include="Views\User\Sidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
