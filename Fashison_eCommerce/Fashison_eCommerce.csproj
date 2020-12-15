@@ -2199,6 +2199,8 @@
     <Content Include="Areas\Buyer\Views\ProductDetail\MainType.cshtml" />
     <Content Include="Areas\Buyer\Views\ProductDetail\ProductOfStore.cshtml" />
     <Content Include="Areas\Buyer\Views\ProductDetail\SearchProduct.cshtml" />
+    <Content Include="Areas\Buyer\Views\Search\Search.cshtml" />
+    <Content Include="Areas\Buyer\Views\Search\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2445,7 +2447,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Buyer\Data\" />
     <Folder Include="Areas\Buyer\Views\Cart_Item\" />
-    <Folder Include="Areas\Buyer\Views\Search\" />
     <Folder Include="Areas\Seller\Data\" />
     <Folder Include="Areas\Seller\Views\Shared\" />
     <Folder Include="Data\" />

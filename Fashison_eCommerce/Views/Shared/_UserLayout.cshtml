@@ -80,8 +80,8 @@
                 </a>
                 <div class="navbar-inner">
                     <a class="brand" href="/"><img src="~/Styles_css/User_styles/themes/images/new-logo.png" alt="Esshop" /></a>
-                    <form class="form-inline navbar-search" method="post" action="products.html">
-                        <input id="srchFld" class="srchTxt" type="text" />
+                    <form class="form-inline navbar-search" method="post" action="/Buyer/Search/Index">
+                        <input id="srchFld" class="srchTxt" type="text" name="name" />
                         @* ===================== select main type *@
                         @{ Html.RenderAction("MainType", "ProductDetail");}
                         @* ================ *@
