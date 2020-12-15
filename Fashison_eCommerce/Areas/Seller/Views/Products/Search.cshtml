@@ -1,0 +1,85 @@
+﻿@*@model PagedList.IPagedList<Fashison_eCommerce.Models.Product>*@
+@using PagedList.Mvc
+@using PagedList
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="~/Assets/Seller/css/Products.css" rel="stylesheet" />
+<div class="container">
+
+    <div class="row" id="product_area">
+        @foreach (var item in ViewBag.listProducts)
+        {
+            <div class="col-md-3">
+                <figure class="card card-product">
+                    <div class="img-wrap"><img src="~/images/@item.Pictures"></div>
+                    <figcaption class="info-wrap">
+                        <h5 class="title">@item.Name</h5>
+                        <div class="rating-wrap">
+                            <div class="label-rating h6">
+                                <span class="price-new">@item.Price VND</span>
+                            </div>
+                            <div class="label-rating">Kho hang:@item.Amount</div>
+
+                        </div>
+                    </figcaption>
+                    <div class="bottom-wrap">
+                        <a href="@Url.Action("Edit","Products",new { id = item.Product_ID })">Edit</a>   |    <a onclick="return confirm('Do you want to Delete?')" href="@Url.Action("Delete","Products",new {id= item.Product_ID})">Delete</a>
+
+                    </div>
+                </figure>
+            </div>
+        }
+
+
+    </div>
+
+
+
+</div>
+<br />
+@*Trang: @(ViewBag.listProducts.PageCount< ViewBag.listProducts.PageNumber ? 0: ViewBag.listProducts.PageNumber)/@ViewBag.listProducts.PageCount
+    @Html.PagedListPager((IPagedList)ViewBag.listProducts, page => Url.Action("Getpaging", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "product_area" }))*@
+@*<tfoot class="pager">
+        <tr>
+            <td colspan="3">
+                @for (int i = 1; i <= ViewBag.listProducts.PageCount; i++)
+                {
+                    if (i == ViewBag.CurrentPage)
+                    {
+                        @i
+                    }
+                    else
+                    {
+                <div class="page-number">
+                    <a  href="@i">@i</a>
+                </div>
+
+                    }
+                }
+            </td>
+        </tr>
+    </tfoot>
+    <script>
+        var pageNumber = @ViewBag.CurrentPage ;
+
+        function fnLoadPage() {
+            $.ajax({
+                url: "/Products/Paginate",
+                data: { pageNumber: pageNumber },
+                success: function (response) {
+                    $("#product_area").html(response);
+                }
+            });
+        }
+        $(function () {
+            $(".page-number a").click(function () {
+                debugger
+                eval("pageNumber=(pageNumber+" + $(this).attr("href") + ")");
+                fnLoadPage();
+                return false;
+            });
+        });
+    </script>*@

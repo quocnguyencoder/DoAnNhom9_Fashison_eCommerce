@@ -18,6 +18,8 @@ namespace Fashison_eCommerce.Models
         public Product()
         {
             this.Cart_Item = new HashSet<Cart_Item>();
+            this.Order_Items = new HashSet<Order_Items>();
+            this.Ratings = new HashSet<Rating>();
         }
     
         public int Product_ID { get; set; }
@@ -35,5 +37,9 @@ namespace Fashison_eCommerce.Models
         public virtual Brand Brand { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart_Item> Cart_Item { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order_Items> Order_Items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

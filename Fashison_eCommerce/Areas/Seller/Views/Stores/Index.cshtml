@@ -1,0 +1,60 @@
+﻿@model Fashison_eCommerce.ViewModel.StoreViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Seller/Views/Shared/_Layout.cshtml";
+}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="~/Assets/Seller/css/Store.css" rel="stylesheet" />
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container emp-profile">
+    @using (Html.BeginForm("Edit", "Stores", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="~/Product_Images/@Model.store.Pictures" class="img-responsive" id="targetImg" />
+                    <div class="file btn btn-lg btn-primary">
+                        Change Photo
+                        <input type="file" name="file" id="file" accept="image/*" />
+                    </div>
+                    @*<div id="imgPreview" class="thumbnail">
+                            <img src="~/images/@Model.store.Coverpics" class="img-responsive" id="targetImg" />
+
+                        </div>*@
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="control-label">Tên Shop</label>
+                    @Html.EditorFor(model => model.store.ShopName, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Địa chỉ</label>
+                    @Html.EditorFor(model => model.store.Address, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Mô tả Shop</label>
+                    @Html.TextAreaFor(model => model.store.Decription, new { @cols = "100", @rows = "8", @style = "width:100%;" })
+                </div>
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" id="save" value="Lưu" />
+            </div>
+
+
+        </div>
+    }
+
+
+</div>
+<script>
+    $(document).ready(function () {
+        $("#save").on("click", function () {
+            alert('Lưu thành công');
+        });
+
+    });
+</script>

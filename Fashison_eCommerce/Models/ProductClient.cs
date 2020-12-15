@@ -28,7 +28,7 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
-        public IEnumerable<View_Product> find(int id)
+        public IEnumerable<view_Products> find(int id)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Fashison_eCommerce.Models
                 HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<IEnumerable<View_Product>>().Result;
+                    return response.Content.ReadAsAsync<IEnumerable<view_Products>>().Result;
                 return null;
             }
             catch
@@ -48,7 +48,7 @@ namespace Fashison_eCommerce.Models
         }
 
         //find by type 
-        public IEnumerable<View_Product> findbyType(int typeid)
+        public IEnumerable<view_Products> findbyType(int typeid)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Fashison_eCommerce.Models
                 HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/Type/" + typeid).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<IEnumerable<View_Product>>().Result;
+                    return response.Content.ReadAsAsync<IEnumerable<view_Products>>().Result;
                 return null;
             }
             catch
@@ -68,7 +68,7 @@ namespace Fashison_eCommerce.Models
         }
 
         // get by store
-        public IEnumerable<View_Product> findbyStore(int storeid)
+        public IEnumerable<view_Products> findbyStore(int storeid)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace Fashison_eCommerce.Models
                 HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/Store/" + storeid).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<IEnumerable<View_Product>>().Result;
+                    return response.Content.ReadAsAsync<IEnumerable<view_Products>>().Result;
                 return null;
             }
             catch
@@ -88,7 +88,7 @@ namespace Fashison_eCommerce.Models
         }
 
         //search Product
-        public IEnumerable<View_Product> search(int typeid, string name)
+        public IEnumerable<view_Products> search(int typeid, string name)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace Fashison_eCommerce.Models
                 HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/Search/" + typeid+"/"+name).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<IEnumerable<View_Product>>().Result;
+                    return response.Content.ReadAsAsync<IEnumerable<view_Products>>().Result;
                 return null;
             }
             catch
