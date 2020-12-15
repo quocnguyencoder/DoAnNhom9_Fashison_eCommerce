@@ -45,7 +45,7 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
             else
             {
                 string ImageName = Path.GetFileName(file.FileName);
-                string physicalPath = Server.MapPath("~/images/" + ImageName);
+                string physicalPath = Server.MapPath("~/Product_Images/" + ImageName);
 
                 // save image in folder
                 file.SaveAs(physicalPath);

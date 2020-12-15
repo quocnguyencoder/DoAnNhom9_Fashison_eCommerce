@@ -201,6 +201,8 @@
     <Compile Include="Models\Load_User_Cart_Result.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MainType.cs" />
+    <Compile Include="Models\MainTypeClient.cs" />
     <Compile Include="Models\Main_Type.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>

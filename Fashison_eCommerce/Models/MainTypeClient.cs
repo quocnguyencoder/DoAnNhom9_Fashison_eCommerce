@@ -35,7 +35,7 @@ namespace Fashison_eCommerce.Models
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage respone = client.GetAsync("view_MainType/"+id).Result;
+                HttpResponseMessage respone = client.GetAsync("view_MainType/" + id).Result;
                 if (respone.IsSuccessStatusCode)
                     return respone.Content.ReadAsAsync<IEnumerable<MainType>>().Result;
                 return null;
