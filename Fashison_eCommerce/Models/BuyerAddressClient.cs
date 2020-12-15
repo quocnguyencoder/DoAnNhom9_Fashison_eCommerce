@@ -29,6 +29,24 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
+        public IEnumerable<BuyerAddress> findByAddressID(int id)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(Base_URL);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("getAddressByID?id=" + id).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return response.Content.ReadAsAsync<IEnumerable<BuyerAddress>>().Result;
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         public bool Create(BuyerAddress address)
         {
             try

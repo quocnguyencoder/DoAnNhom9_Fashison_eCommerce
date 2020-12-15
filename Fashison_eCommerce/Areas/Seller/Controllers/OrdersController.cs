@@ -59,6 +59,12 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
             ViewBag.DetailList = BOIC.find(id);
             return View();
         }
+        public ActionResult UserAddressByID(int id)
+        {
+            BuyerAddressClient buyerAddressClient = new BuyerAddressClient();
+            ViewBag.Address = buyerAddressClient.findByAddressID(id);
+            return PartialView();
+        }
         public ActionResult ChangeStatus(string id, int status)
         {
             HttpClient hc = new HttpClient();

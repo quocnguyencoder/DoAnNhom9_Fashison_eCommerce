@@ -612,6 +612,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_getAddressByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="addressID" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_getOrderDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="order_id" Type="nchar" Mode="In" />
         </Function>
@@ -1251,6 +1254,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
             <Parameter Name="store_id" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_getAddressByID" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_getAddressByID_Result)">
+            <Parameter Name="addressID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1797,6 +1803,14 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
           <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
           <Property Type="Double" Name="Total_Order" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="sp_getAddressByID_Result">
+          <Property Type="Int32" Name="Address_ID" Nullable="false" />
+          <Property Type="Int32" Name="User_ID" Nullable="true" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="default_address" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2303,6 +2317,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
                 <ScalarProperty Name="decription" ColumnName="decription" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getAddressByID" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_getAddressByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_getAddressByID_Result">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="default_address" ColumnName="default_address" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

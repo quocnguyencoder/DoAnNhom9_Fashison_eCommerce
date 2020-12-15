@@ -312,5 +312,14 @@ namespace WebAPI
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_View_Orders_Result>("sp_View_Orders", store_idParameter, statusParameter);
         }
+    
+        public virtual ObjectResult<sp_getAddressByID_Result> sp_getAddressByID(Nullable<int> addressID)
+        {
+            var addressIDParameter = addressID.HasValue ?
+                new ObjectParameter("addressID", addressID) :
+                new ObjectParameter("addressID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getAddressByID_Result>("sp_getAddressByID", addressIDParameter);
+        }
     }
 }

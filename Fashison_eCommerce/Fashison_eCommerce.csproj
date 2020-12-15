@@ -2220,6 +2220,7 @@
     <Content Include="Areas\Seller\Views\Shared\_Header.cshtml" />
     <Content Include="Areas\Seller\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Seller\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\UserAddressByID.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
