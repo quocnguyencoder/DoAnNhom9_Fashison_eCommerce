@@ -31,26 +31,26 @@
                     {
                         <tr>
                             <td> <img style="height: auto; width:auto" src="~/Product_Images/@product.Pictures" alt="product img" /> @product.Name <br /> Provide by <a href="#">@product.ShopName</a> </td>
-                            <td style=" vertical-align:middle"> @String.Format(info, "{0:C0}", product.price)</td>
+                            <td style=" vertical-align:middle"> @String.Format(info, "{0:C2}", product.price)</td>
                             <td style=" vertical-align:middle"> @product.quantity </td>
-                            <td style="vertical-align:middle"> @String.Format(info, "{0:C0}", product.total)</td>
+                            <td style="vertical-align:middle"> @String.Format(info, "{0:C2}", product.total)</td>
                         </tr>
                     }
                 }
                 <tr>
                     <td colspan="2"></td>
                     <td > Total cost: </td>
-                    <td style="text-align:right;">@String.Format(info, "{0:C0}", detailinfo.total)</td>
+                    <td style="text-align:right;">@String.Format(info, "{0:C2}", detailinfo.total)</td>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
                     <td> Total delivery:</td>
-                    <td style="text-align:right;"> @String.Format(info, "{0:C0}", detailinfo.delivery)</td>
+                    <td style="text-align:right;"> @String.Format(info, "{0:C2}", detailinfo.delivery)</td>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
                     <td> TOTAL: </td>
-                    <td style="text-align:right;color:orangered;font-size:x-large">@String.Format(info, "{0:C0}", detailinfo.Total_Order)</td>
+                    <td style="text-align:right;color:orangered;font-size:x-large">@String.Format(info, "{0:C2}", detailinfo.Total_Order)</td>
                 </tr>
             </tbody>
         </table>
