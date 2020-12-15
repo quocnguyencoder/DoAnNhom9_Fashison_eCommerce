@@ -19,7 +19,7 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
     {
         private DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
 
-        public const int PageSize = 4;
+   
         // GET: Seller/Products
         public ActionResult Index()
         {
@@ -50,13 +50,13 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
         //    //return View("Index");
         //    return PartialView("~/Areas/Seller/Views/Products/Search.cshtml");
         //}
-        public ActionResult Paginate(int pageNumber)
-        {
-            ProductsClient CC = new ProductsClient();
-            int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
-            ViewBag.listProducts = CC.findAll(Storeid).ToPagedList(pageNumber, PageSize);
-            return PartialView("~/Areas/Seller/Views/Products/Search.cshtml");
-        }
+        //public ActionResult Paginate(int pageNumber)
+        //{
+        //    ProductsClient CC = new ProductsClient();
+        //    int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
+        //    ViewBag.listProducts = CC.findAll(Storeid).ToPagedList(pageNumber, PageSize);
+        //    return PartialView("~/Areas/Seller/Views/Products/Search.cshtml");
+        //}
         public ActionResult Search(string Name, int TypeID, int MinAmount, int MaxAmount)
         {
 
