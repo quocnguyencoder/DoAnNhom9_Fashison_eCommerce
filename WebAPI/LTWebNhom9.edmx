@@ -539,6 +539,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
         <Function Name="sp_loadUserCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_ProductByStore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="storeid" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_ProductByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="typeid" Type="int" Mode="In" />
         </Function>
@@ -546,6 +549,10 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_searchProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="typeid" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Sp_User_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1059,6 +1066,13 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
           </FunctionImport>
           <EntitySet Name="view_MainType" EntityType="DB_A6A231_DAQLTMDTModel.view_MainType" />
           <FunctionImport Name="sp_ProductByType" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_ProductByType_Result)">
+          <Parameter Name="typeid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ProductByStore" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_ProductByStore_Result)">
+            <Parameter Name="storeid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_searchProduct" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_searchProduct_Result)">
+            <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="typeid" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -1497,6 +1511,28 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
           <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
           <Property Type="Int32" Name="BrandID" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="sp_ProductByStore_Result">
+          <Property Type="Int32" Name="Product_ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Single" Name="Price" Nullable="false" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+          <Property Type="Int32" Name="TypeID" Nullable="false" />
+          <Property Type="Int32" Name="Store_ID" Nullable="false" />
+          <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
+          <Property Type="Int32" Name="BrandID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_searchProduct_Result">
+          <Property Type="Int32" Name="Product_ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Single" Name="Price" Nullable="false" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+          <Property Type="Int32" Name="TypeID" Nullable="false" />
+          <Property Type="Int32" Name="Store_ID" Nullable="false" />
+          <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
+          <Property Type="Int32" Name="BrandID" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1866,6 +1902,36 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_MainType' does not hav
           <FunctionImportMapping FunctionImportName="sp_ProductByType" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_ProductByType">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_ProductByType_Result">
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ProductByStore" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_ProductByStore">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_ProductByStore_Result">
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_searchProduct" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_searchProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_searchProduct_Result">
                 <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />

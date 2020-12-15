@@ -66,6 +66,47 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
+
+        // get by store
+        public IEnumerable<View_Product> findbyStore(int storeid)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(Base_URL);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/Store/" + storeid).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return response.Content.ReadAsAsync<IEnumerable<View_Product>>().Result;
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        //search Product
+        public IEnumerable<View_Product> search(int typeid, string name)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(Base_URL);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("Buyer_LoadProduct/Search/" + typeid+"/"+name).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return response.Content.ReadAsAsync<IEnumerable<View_Product>>().Result;
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public bool Create(Product product)
         {
             try

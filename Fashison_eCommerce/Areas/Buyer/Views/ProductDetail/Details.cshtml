@@ -91,11 +91,16 @@
                                     <tbody>
                                         <tr class="techSpecRow"><th colspan="2">Product Details</th></tr>
                                         <tr class="techSpecRow"><td class="techSpecTD1">Brand: </td><td class="techSpecTD2"> @ViewBag.brand.BrandName </td></tr>
-                                        <tr class="techSpecRow"><td class="techSpecTD1">Shop: </td><td class="techSpecTD2"> @ViewBag.store.ShopName<a class="btn btn-small pull-right" href="/">More Info</a></td></tr>
+                                        <tr class="techSpecRow"><td class="techSpecTD1">Shop: </td><td class="techSpecTD2"> @ViewBag.store.ShopName@*<a class="btn btn-small pull-right" onclick="BtnClick" >More Info</a>*@</td></tr>
 
                                     </tbody>
-                                </table>
 
+                                </table>
+                                <hr class="soft">
+                                <h4>Product of shop</h4>
+                                <div class="loader" data-action="/Buyer/ProductDetail/ProductOfStore/@prod.Store_ID">
+                                    @{ Html.RenderAction("ProductOfStore", "ProductDetail", new { storeid = prod.Store_ID });}
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="profile">
                                 <div id="myTab" class="pull-right">
@@ -105,13 +110,12 @@
                                 <br class="clr" />
                                 <hr class="soft" />
                                 <!-- related product ========================================= -->
-                                <div class="tab-content">
-                                    @{ Html.RenderAction("RelatedProduct", "ProductDetail", new { typeid = prod.TypeID });}
+                                
+                                @{ Html.RenderAction("RelatedProduct", "ProductDetail", new { typeid = prod.TypeID });}
 
-                                </div>
+                            </div>
                                     <!-- ========================================= -->
-                                    <br class="clr">
-                                </div>
+                            <br class="clr">
                         </div>
                     </div>
                 </div>

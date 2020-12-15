@@ -268,7 +268,13 @@
     <Compile Include="sp_loadUserCart_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ProductByStore_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ProductByType_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_searchProduct_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Store.cs">

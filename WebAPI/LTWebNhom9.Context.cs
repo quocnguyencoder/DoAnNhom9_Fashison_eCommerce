@@ -271,5 +271,27 @@ namespace WebAPI
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ProductByType_Result>("sp_ProductByType", typeidParameter);
         }
+    
+        public virtual ObjectResult<sp_ProductByStore_Result> sp_ProductByStore(Nullable<int> storeid)
+        {
+            var storeidParameter = storeid.HasValue ?
+                new ObjectParameter("storeid", storeid) :
+                new ObjectParameter("storeid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ProductByStore_Result>("sp_ProductByStore", storeidParameter);
+        }
+    
+        public virtual ObjectResult<sp_searchProduct_Result> sp_searchProduct(string name, Nullable<int> typeid)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var typeidParameter = typeid.HasValue ?
+                new ObjectParameter("typeid", typeid) :
+                new ObjectParameter("typeid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_searchProduct_Result>("sp_searchProduct", nameParameter, typeidParameter);
+        }
     }
 }

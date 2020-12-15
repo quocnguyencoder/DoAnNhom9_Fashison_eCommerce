@@ -76,5 +76,25 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             ViewBag.ProductsByType = CC.findbyType(typeid).OrderByDescending(x => x.Name);
             return View();
         }
+
+        public PartialViewResult MainType()
+        {
+            MainTypeClient MC = new MainTypeClient();
+            ViewBag.mainType = MC.findAll();
+            return PartialView();
+        }
+
+        public PartialViewResult ProductOfStore(int storeid)
+        {
+            ProductClient PC = new ProductClient();
+            ViewBag.prodOfStore = PC.findbyStore(storeid);
+            return PartialView();
+        }
+
+        public ActionResult SearchProduct(int id)
+        {
+
+            return View();
+        }
     }
 }

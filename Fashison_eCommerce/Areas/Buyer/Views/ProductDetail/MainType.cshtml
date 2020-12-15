@@ -1,0 +1,7 @@
+﻿<select class="srchTxt">
+    <option id="0">All</option>
+    @foreach(var maintype in ViewBag.mainType)
+    {
+        <option id="@maintype.ID">@maintype.Name</option>
+    }
+</select>
