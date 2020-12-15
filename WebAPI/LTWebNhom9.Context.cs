@@ -48,6 +48,12 @@ namespace WebAPI
         public virtual DbSet<view_Buyer_Order_Items> view_Buyer_Order_Items { get; set; }
         public virtual DbSet<view_Buyer_Orders> view_Buyer_Orders { get; set; }
         public virtual DbSet<view_MainType> view_MainType { get; set; }
+        public virtual DbSet<Order_All> Order_All { get; set; }
+        public virtual DbSet<Order_Cancel> Order_Cancel { get; set; }
+        public virtual DbSet<Order_Confirm> Order_Confirm { get; set; }
+        public virtual DbSet<Order_Delivered> Order_Delivered { get; set; }
+        public virtual DbSet<Order_Delivering> Order_Delivering { get; set; }
+        public virtual DbSet<Order_Receive> Order_Receive { get; set; }
     
         public virtual int sp_AccountChangePassword(string email, string password)
         {
@@ -292,6 +298,19 @@ namespace WebAPI
                 new ObjectParameter("typeid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_searchProduct_Result>("sp_searchProduct", nameParameter, typeidParameter);
+        }
+    
+        public virtual ObjectResult<sp_View_Orders_Result> sp_View_Orders(Nullable<int> store_id, Nullable<int> status)
+        {
+            var store_idParameter = store_id.HasValue ?
+                new ObjectParameter("store_id", store_id) :
+                new ObjectParameter("store_id", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_View_Orders_Result>("sp_View_Orders", store_idParameter, statusParameter);
         }
     }
 }

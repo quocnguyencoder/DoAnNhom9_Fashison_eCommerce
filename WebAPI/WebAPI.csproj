@@ -190,7 +190,13 @@
     <Compile Include="Controllers\Cart_ItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\Order_AllController.cs" />
+    <Compile Include="Controllers\Order_CancelController.cs" />
+    <Compile Include="Controllers\Order_ConfirmController.cs" />
+    <Compile Include="Controllers\Order_DeliveredController.cs" />
+    <Compile Include="Controllers\Order_DeliveringController.cs" />
     <Compile Include="Controllers\Order_ItemsController.cs" />
+    <Compile Include="Controllers\Order_ReceiveController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -228,7 +234,25 @@
     <Compile Include="Order.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
+    <Compile Include="Order_All.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order_Cancel.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order_Confirm.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order_Delivered.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order_Delivering.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
     <Compile Include="Order_Items.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order_Receive.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Permission.cs">
@@ -275,6 +299,9 @@
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_searchProduct_Result.cs">
+      <DependentUpon>LTWebNhom9.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_View_Orders_Result.cs">
       <DependentUpon>LTWebNhom9.tt</DependentUpon>
     </Compile>
     <Compile Include="Store.cs">
