@@ -261,5 +261,39 @@ namespace WebAPI
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getUserAddress_Result>("sp_getUserAddress", user_idParameter);
         }
+    
+        public virtual ObjectResult<FindProducts_Result> FindProducts(Nullable<int> store_ID, string name, Nullable<int> type, Nullable<int> qualityMin, Nullable<int> qualityMax)
+        {
+            var store_IDParameter = store_ID.HasValue ?
+                new ObjectParameter("Store_ID", store_ID) :
+                new ObjectParameter("Store_ID", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            var qualityMinParameter = qualityMin.HasValue ?
+                new ObjectParameter("QualityMin", qualityMin) :
+                new ObjectParameter("QualityMin", typeof(int));
+    
+            var qualityMaxParameter = qualityMax.HasValue ?
+                new ObjectParameter("QualityMax", qualityMax) :
+                new ObjectParameter("QualityMax", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProducts_Result>("FindProducts", store_IDParameter, nameParameter, typeParameter, qualityMinParameter, qualityMaxParameter);
+        }
+    
+        public virtual ObjectResult<getProducts_Result> getProducts(Nullable<int> storeID)
+        {
+            var storeIDParameter = storeID.HasValue ?
+                new ObjectParameter("StoreID", storeID) :
+                new ObjectParameter("StoreID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getProducts_Result>("getProducts", storeIDParameter);
+        }
     }
 }

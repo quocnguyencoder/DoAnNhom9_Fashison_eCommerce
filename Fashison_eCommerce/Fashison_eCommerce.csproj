@@ -151,10 +151,17 @@
     <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\Seller\Controllers\StoresController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Authorize.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BuyerAddress.cs" />
     <Compile Include="Models\BuyerAddressClient.cs" />
     <Compile Include="Models\BuyerOrderDetail.cs" />
@@ -162,6 +169,12 @@
     <Compile Include="Models\BuyerOrderItemsClient.cs" />
     <Compile Include="Models\BuyerOrders.cs" />
     <Compile Include="Models\BuyerOrdersClient.cs" />
+    <Compile Include="Models\Buyer_LoadAllProduct.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Buyer_LoadProduct.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cart.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -169,6 +182,81 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_ItemClient.cs" />
+    <Compile Include="Models\Find.cs" />
+    <Compile Include="Models\FindProducts_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getOrders_Of_User_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getProducts_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\get_ProductByID_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Load_User_Cart_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Main_Type.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_All.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_Cancel.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_Confirm.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_Delivered.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_Delivering.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_Items.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_Receive.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Permission.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductsClient.cs" />
+    <Compile Include="Models\Rating.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetCartItem_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_getOrderDetail_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_getUserAddress_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_loadUserCart_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_ProductByStore_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_ProductByType_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_searchProduct_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreClient.cs" />
     <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -220,13 +308,31 @@
     <Compile Include="Models\UserCartClient.cs" />
     <Compile Include="Models\UserClient.cs" />
     <Compile Include="Models\UserModel.cs" />
-    <Compile Include="Models\View_Product.cs" />
+    <Compile Include="Models\view_Buyer_Orders.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_Buyer_Order_Items.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_MainType.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_Product.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_Products.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_Shop.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BuyerAddressViewModel.cs" />
     <Compile Include="ViewModel\BuyerOrderDetailViewModel.cs" />
     <Compile Include="ViewModel\BuyerOrderItemsViewModel.cs" />
     <Compile Include="ViewModel\BuyerOrdersViewModel.cs" />
     <Compile Include="ViewModel\Cart_ItemViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
+    <Compile Include="ViewModel\StoreViewModel.cs" />
     <Compile Include="ViewModel\UserCartViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
@@ -1918,6 +2024,13 @@
     <Content Include="Assets\Buyer\JavaScript.js" />
     <Content Include="Assets\Buyer\loading.gif" />
     <Content Include="Assets\Buyer\text_loading.gif" />
+    <Content Include="Assets\Seller\css\displayimg.css" />
+    <Content Include="Assets\Seller\css\FilterForm.css" />
+    <Content Include="Assets\Seller\css\Imagefile.css" />
+    <Content Include="Assets\Seller\css\Products.css" />
+    <Content Include="Assets\Seller\css\Store.css" />
+    <Content Include="Assets\Seller\js\Displayimg.js" />
+    <Content Include="Assets\Seller\js\Filter.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -2170,8 +2283,6 @@
     <Content Include="Areas\Buyer\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Buyer\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Seller\Views\Products\Create.cshtml" />
-    <Content Include="Areas\Seller\Views\Products\Delete.cshtml" />
-    <Content Include="Areas\Seller\Views\Products\Details.cshtml" />
     <Content Include="Areas\Seller\Views\Products\Edit.cshtml" />
     <Content Include="Areas\Seller\Views\Products\Index.cshtml" />
     <Content Include="Areas\Seller\Views\Acount\Login.cshtml" />
@@ -2186,6 +2297,12 @@
     <Content Include="Areas\Buyer\Views\UserCart\CartInfo.cshtml" />
     <Content Include="Areas\Buyer\Views\CartCheckout\Index.cshtml" />
     <Content Include="Areas\Buyer\Views\CartCheckout\GetUserAddress.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Header.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Areas\Seller\Views\Stores\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Products\Search.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2433,8 +2550,8 @@
     <Folder Include="Areas\Buyer\Data\" />
     <Folder Include="Areas\Buyer\Views\Cart_Item\" />
     <Folder Include="Areas\Seller\Data\" />
-    <Folder Include="Areas\Seller\Views\Shared\" />
     <Folder Include="Data\" />
+    <Folder Include="images\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
   </ItemGroup>
   <ItemGroup>
