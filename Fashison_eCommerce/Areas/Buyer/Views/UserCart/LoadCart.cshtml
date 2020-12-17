@@ -9,36 +9,37 @@
         </tr>
     </thead>
     <tbody>
-        @{
-            //float totalPrice = 0;
-            foreach (var cartItem in ViewBag.Cart)
-            {
-                var total = cartItem.Price * cartItem.Quantity;
-                <tr>
-                    <td> <img width="60" src="~/Product_Images/@cartItem.Pictures" alt="" /></td>
-                    <td>@cartItem.Name<br />@cartItem.Decription</td>
-                    <td>
-                        <div class="input-append">
-                            <input class="span1" id="@cartItem.ItemID" style="max-width:34px" placeholder="@cartItem.Quantity" value="@cartItem.Quantity" @*id="appendedInputButtons"*@ size="16" type="text">
-                            <button class="btn decrease_btn" type="button" data-item_id="@cartItem.ItemID"><i class="icon-minus"></i></button>
-                            <button class="btn increase_btn" type="button" data-item_id="@cartItem.ItemID"><i class="icon-plus"></i></button>
-                            <button class="btn btn-danger delete_btn" type="button" data-item_id="@cartItem.ItemID"><i class="icon-remove icon-white"></i></button>
-                        </div>
-                    </td>
-                    <td id="Price_@cartItem.ItemID">@cartItem.Price</td>
-                    <td id="Total_@cartItem.ItemID">@total</td>
-                </tr>
-                //totalPrice += total;
-            }
+    @{
+        var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+        //float totalPrice = 0;
+        foreach (var cartItem in ViewBag.Cart)
+        {
+            var total = cartItem.Price * cartItem.Quantity;
+            <tr>
+                <td> <img width="60" src="~/Product_Images/@cartItem.Pictures" alt="" /></td>
+                <td>@cartItem.Name<br />@*@cartItem.Decription*@</td>
+                <td>
+                    <div class="input-append">
+                        <input class="span1" id="@cartItem.ItemID" style="max-width:34px" placeholder="@cartItem.Quantity" value="@cartItem.Quantity" @*id="appendedInputButtons"*@ size="16" type="text">
+                        <button class="btn decrease_btn" type="button" data-item_id="@cartItem.ItemID"><i class="icon-minus"></i></button>
+                        <button class="btn increase_btn" type="button" data-item_id="@cartItem.ItemID"><i class="icon-plus"></i></button>
+                        <button class="btn btn-danger delete_btn" type="button" data-item_id="@cartItem.ItemID"><i class="icon-remove icon-white"></i></button>
+                    </div>
+                </td>
+                <td id="Price_@cartItem.ItemID">@String.Format(info, "{0:C0}", cartItem.Price)</td>
+                <td id="Total_@cartItem.ItemID">@String.Format(info, "{0:C0}", total)</td>
+            </tr>
+            //totalPrice += total;
         }
-        <tr>
-            <td colspan="4" style="text-align:right"><strong>TOTAL </strong></td>
-            <td class="label label-important" style="display:block"> <strong> <p class="total"> @{Html.RenderAction("TotalCost", "UserCart");}</p> </strong></td>
-        </tr>
+    }
+    <tr>
+        <td colspan="4" style="text-align:right"><strong>TOTAL </strong></td>
+        <td class="label label-important" style="display:block"> <strong> <p class="total"> @{Html.RenderAction("TotalCost", "UserCart");}</p> </strong></td>
+    </tr>
     </tbody>
 </table>
     <script language="javascript">
-        // gan event cho cac button add to cart
+        // gan event cho cac button
         var cartItem = {
             init: function () {
                 console.log("init");

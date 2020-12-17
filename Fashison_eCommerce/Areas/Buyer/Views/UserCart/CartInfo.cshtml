@@ -2,7 +2,7 @@
 
     if ( count != "0")
     {
-        <p>@count Items in your cart </p><span class="badge badge-warning pull-right">@{Html.RenderAction("TotalCost", "UserCart");}đ</span>
+        <p>@count Items in your cart </p><span class="badge badge-warning pull-right">@{Html.RenderAction("TotalCost", "UserCart");}</span>
     }
     else
     {

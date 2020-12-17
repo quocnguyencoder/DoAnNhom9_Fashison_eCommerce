@@ -44,6 +44,7 @@
         </thead>
         <tbody>
             @{
+                var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
                 string shop_list = "";
                 string delivery_list = "";
                 var total = 0;
@@ -66,9 +67,9 @@
                             var temp = @item.Price * @item.Quantity;
                             <tr>
                                 <td> <img style="height: auto; width:auto" src="~/Product_Images/@item.Pictures" alt="product img" /> @item.Name </td>
-                                <td style=" vertical-align:middle"> @item.Price đ</td>
+                                <td style=" vertical-align:middle"> @String.Format(info, "{0:C0}", item.Price)</td>
                                 <td style=" vertical-align:middle"> @item.Quantity </td>
-                                <td style="vertical-align:middle"> @temp đ</td>
+                                <td style="vertical-align:middle"> @String.Format(info, "{0:C0}", temp)</td>
                             </tr>
                             total_By_Shop += temp;
                             count += 1;
@@ -90,12 +91,12 @@
                                 <p style="max-width:300px !important">Giao hàng nhanh <a style="float: right" href="#">CHANGE</a> </p>
                             </div>
                         </td>
-                        <td style="vertical-align:middle"> @delivery đ </td>
+                        <td style="vertical-align:middle"> @String.Format(info, "{0:C0}", delivery) </td>
                     </tr>
                     <tr>
                         <td colspan="2">  </td>
                         <td style="color: dimgray; vertical-align:middle"> Total cost (@count item(s))</td>
-                        <td style=" vertical-align:middle"><strong>@total_By_Shop đ</strong>  </td>
+                        <td style=" vertical-align:middle"><strong>@String.Format(info, "{0:C0}", total_By_Shop)</strong>  </td>
                     </tr>
                 }
             }
@@ -107,19 +108,19 @@
         <table class="table ">
             <tbody>
                 <tr>
-                    <td colspan="2">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+                    <td colspan="2">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
                     <td> Total cost: </td>
-                    <td style="text-align:right;">@total_cost đ</td>
+                    <td style="text-align:right;">@String.Format(info, "{0:C0}", total_cost)</td>
                 </tr>
                 <tr>
-                    <td colspan="2">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+                    <td colspan="2"></td>
                     <td> Total delivery:</td>
-                    <td style="text-align:right;"> @total_delivery đ</td>
+                    <td style="text-align:right;"> @String.Format(info, "{0:C0}", total_delivery)</td>
                 </tr>
                 <tr>
-                    <td colspan="2">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+                    <td colspan="2"></td>
                     <td> TOTAL: </td>
-                    <td style="text-align:right;color:orangered;font-size:x-large"> @total đ</td>
+                    <td style="text-align:right;color:orangered;font-size:x-large"> @String.Format(info, "{0:C0}", total)</td>
                 </tr>
             </tbody>
         </table>

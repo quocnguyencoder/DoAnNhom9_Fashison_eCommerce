@@ -32,7 +32,7 @@
                             <th scope="row"><a href="/User/PurchaseDetail?Order_id=@order.Order_ID">@order.Order_ID</a></th>
                             <td>@order.created_date</td>
                             <td>@order.decription</td>
-                            <td>@String.Format(info, "{0:C2}", order.Total_Order)</td>
+                            <td>@String.Format(info, "{0:C0}", order.Total_Order)</td>
                             <td>@temp </td>
                         </tr>
                     }
