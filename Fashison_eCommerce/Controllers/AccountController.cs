@@ -15,8 +15,9 @@ namespace Fashison_eCommerce.Controllers
 {
     public class AccountController : Controller
     {
-       
+
         // GET: Account
+        DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
 
         [HttpGet]
         public ActionResult Index()
@@ -41,11 +42,13 @@ namespace Fashison_eCommerce.Controllers
                 using (var _context = new DB_A6A231_DAQLTMDTEntities())
                 {
                     // query id tu email va password de kiem tra dang nhap
-                    var obj = (from u in _context.Users where u.Email == user.Email && u.Password == user.Password select u).FirstOrDefault();
+                    //var obj = (from u in _context.Users where u.Email == user.Email && u.Password == user.Password select u).FirstOrDefault();
+                    var obj = db.sp_Login(user.Email, user.Password).FirstOrDefault();
                     if(obj != null)
                     {
                         Session["userID"] = obj.Id.ToString();
                         Session["username"] = obj.Username.ToString();
+                        Session["avatar"] = obj.Avatar.ToString();
                         //string username = obj.Username.ToString();
                         return RedirectToAction("Index", "MainPage", new { Area = "Buyer" });
                     }

@@ -10,6 +10,8 @@ namespace Fashison_eCommerce.Controllers
 {
     public class UserController : Controller
     {
+        DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
+
         // GET: User
         public ActionResult Index()
         {
@@ -115,5 +117,59 @@ namespace Fashison_eCommerce.Controllers
             ViewBag.listAddresses = address.find(Convert.ToInt32(Session["userID"]));
             return PartialView("PartialAddress");
         }
+
+        [HttpGet]
+        public ActionResult EditProfile()
+        {
+            if (Session["userID"] != null)
+            {
+                int id = Convert.ToInt32(Session["userID"]);
+                ViewBag.User = db.Users.Where(x => x.Id == id).FirstOrDefault();
+                DateTime date = Convert.ToDateTime(ViewBag.User.Birthday);
+                string day = date.Day.ToString();
+                string month = date.Month.ToString();
+                if (date.Day < 10)
+                {
+                    day = "0" + date.Day;
+                }
+                if (date.Month < 10)
+                {
+                    month = "0" + date.Month;
+                }
+                
+                ViewBag.birthday = date.Year + "-" + month + "-" + day;
+            }
+            return View();
+        }
+        public ActionResult showEditProfile()
+        {
+            int id = Convert.ToInt32(Session["userID"]);
+            string username = Request["Username"];
+            string email = Request["email"];
+            string address = Request["address"];
+            string gender = Request["Gender"];
+
+            //không thay đổi giới tính
+            if (gender == null)
+            {
+                gender = db.Users.Where(x => x.Id == id).Select(x => x.Gender).FirstOrDefault();
+            }
+            string phone = Request["phone"];
+            DateTime date = Convert.ToDateTime(Request["date"]);
+            string avatar = Session["avatar"].ToString();
+            db.sp_EditProfile(id, username, email, address, gender, phone, date, avatar);
+            db.SaveChanges();
+
+            return RedirectToAction("EditProFile");
+        }
+
+
+        public string Upload(HttpPostedFileBase file)
+        {
+            file.SaveAs(Server.MapPath("~/User_Images/" + file.FileName));
+            Session["avatar"] = file.FileName;
+            return "/User_Images/" + file.FileName;
+        }
+
     }
 }
