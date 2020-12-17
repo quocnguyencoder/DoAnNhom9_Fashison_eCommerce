@@ -331,6 +331,7 @@
     <Compile Include="Models\view_Shop.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AddressViewModel.cs" />
     <Compile Include="ViewModel\BuyerAddressViewModel.cs" />
     <Compile Include="ViewModel\BuyerOrderDetailViewModel.cs" />
     <Compile Include="ViewModel\BuyerOrderItemsViewModel.cs" />
@@ -2464,6 +2465,7 @@
     <Content Include="Styles_css\User_styles\themes\switch\theamswitcher.js" />
     <Content Include="Styles_css\User_styles\themes\switch\themeswitch.css" />
     <Content Include="Styles_css\User_styles\themes\united\bootstrap.min.css" />
+    <Content Include="UserScripts\AddressSubmit.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2559,6 +2561,8 @@
     <Content Include="Views\User\Purchase.cshtml" />
     <Content Include="Views\User\PurchaseDetail.cshtml" />
     <Content Include="Views\User\Sidebar.cshtml" />
+    <Content Include="Views\User\Address.cshtml" />
+    <Content Include="Views\User\PartialAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

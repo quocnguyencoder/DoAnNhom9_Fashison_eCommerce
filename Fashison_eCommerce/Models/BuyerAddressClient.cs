@@ -29,7 +29,7 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
-        public bool Create(BuyerAddress address)
+        public bool Create(Address address)
         {
             try
             {
@@ -44,14 +44,14 @@ namespace Fashison_eCommerce.Models
                 return false;
             }
         }
-        public bool Edit(BuyerAddress address)
+        public bool Edit(Address address)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PutAsJsonAsync("Addresses/" + address.User_ID, address).Result;
+                HttpResponseMessage response = client.PutAsJsonAsync("Addresses/" + address.Address_ID, address).Result;
                 return response.IsSuccessStatusCode;
             }
             catch
