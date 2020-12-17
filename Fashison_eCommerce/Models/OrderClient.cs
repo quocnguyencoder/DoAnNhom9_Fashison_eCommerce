@@ -2,26 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace Fashison_eCommerce.Models
 {
-    public class BuyerAddressClient
+    public class OrderClient
     {
         private string Base_URL = "https://localhost:44320/api/";
-        public IEnumerable<BuyerAddress> find(int id)
+        public IEnumerable<Orders> findAll()
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("Addresses/" + id).Result;
-
-                if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<IEnumerable<BuyerAddress>>().Result;
+                HttpResponseMessage respone = client.GetAsync("Orders").Result;
+                if (respone.IsSuccessStatusCode)
+                    return respone.Content.ReadAsAsync<IEnumerable<Orders>>().Result;
                 return null;
             }
             catch
@@ -29,18 +27,17 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
-  
-        public IEnumerable<BuyerAddress> findByAddressID(int id)
+        public Orders find(string id)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("getAddressByID?id=" + id).Result;
+                HttpResponseMessage response = client.GetAsync("Orders/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return response.Content.ReadAsAsync<IEnumerable<BuyerAddress>>().Result;
+                    return response.Content.ReadAsAsync<Orders>().Result;
                 return null;
             }
             catch
@@ -48,14 +45,14 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
-        public bool Create(Address address)
+        public bool Create(Orders Order)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync("Addresses", address).Result;
+                HttpResponseMessage response = client.PostAsJsonAsync("Orders", Order).Result;
                 return response.IsSuccessStatusCode;
             }
             catch
@@ -63,14 +60,14 @@ namespace Fashison_eCommerce.Models
                 return false;
             }
         }
-        public bool Edit(Address address)
+        public bool Edit(Orders Order)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PutAsJsonAsync("Addresses/" + address.Address_ID, address).Result;
+                HttpResponseMessage response = client.PutAsJsonAsync("Orders/" + Order.Order_ID, Order).Result;
                 return response.IsSuccessStatusCode;
             }
             catch
@@ -85,7 +82,7 @@ namespace Fashison_eCommerce.Models
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.DeleteAsync("Addresses/" + id).Result;
+                HttpResponseMessage response = client.DeleteAsync("Orders/" + id).Result;
                 return response.IsSuccessStatusCode;
             }
             catch

@@ -1,0 +1,40 @@
+﻿@*<script>
+$(document).ready(function () {
+    $("#orders_confirm").DataTable({
+            processing: true,
+            autoWidth: true
+        });
+}
+</script>*@
+<div class="container-fluid">
+    <table class="table table-striped orders" id="order_cancel" style="width: 100%;">
+        <thead>
+            <tr id="list-header">
+                <th scope="col">Khách hàng</th>
+                <th scope="col">Mã hóa đơn</th>
+                <th scope="col">Phí Ship</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Trạng thái đơn hàng</th>
+                <th scope="col">Ghi chú</th>
+                <th scope="col">Địa chỉ giao hàng</th>
+                <th scope="col">Tổng giá trị đơn hàng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.listOrder_Cancel)
+            {   
+                <tr>
+                    <td>@item.Name</td>
+                    <td><a href="@Url.Action("Detail","Orders", new { id = item.Order_ID })">@item.Order_ID</a></td>
+                    <td>@item.delivery</td>
+                    <td>@item.created_date</td>
+                    <td>@item.status</td>
+                    <td>@item.decription</td>
+                    <td>@item.address</td>
+                    <td>@item.Total_Order</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" id="btnReloadData">Reload data</button>
+</div>
