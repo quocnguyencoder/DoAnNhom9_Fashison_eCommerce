@@ -1,4 +1,5 @@
 ﻿using Fashison_eCommerce.Models;
+using Fashison_eCommerce.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,50 @@ namespace Fashison_eCommerce.Controllers
         public ActionResult Sidebar()
         {
             return PartialView();
+        }
+        public ActionResult Address()
+        {
+            BuyerAddressClient add = new BuyerAddressClient();
+            ViewBag.listAddresses = add.find(Convert.ToInt32(Session["userID"]));
+
+            return View();
+        }
+        [HttpPost]
+    
+        public ActionResult Create(Address add)
+        {
+
+            BuyerAddressClient address = new BuyerAddressClient();
+
+            add.User_ID = Convert.ToInt32(Session["userID"]);
+            add.default_address = 0;
+            address.Create(add);
+           ViewBag.listAddresses = address.find(Convert.ToInt32(Session["userID"]));
+
+            return PartialView("PartialAddress");
+
+
+
+        }
+        [HttpPost]
+        public ActionResult Edit(Address add)
+        {
+
+
+            BuyerAddressClient address = new BuyerAddressClient();
+
+            add.User_ID = Convert.ToInt32(Session["userID"]);
+     
+              address.Edit(add);
+            ViewBag.listAddresses = address.find(Convert.ToInt32(Session["userID"]));
+            return PartialView("PartialAddress");
+        }
+        public ActionResult Delete(int id)
+        {
+            BuyerAddressClient address = new BuyerAddressClient();
+            address.Delete(id);
+            ViewBag.listAddresses = address.find(Convert.ToInt32(Session["userID"]));
+            return PartialView("PartialAddress");
         }
     }
 }
