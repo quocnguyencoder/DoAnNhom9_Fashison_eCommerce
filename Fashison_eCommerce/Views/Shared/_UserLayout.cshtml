@@ -28,6 +28,7 @@
 
     <script src="~/Assets/Buyer/JavaScript.js"></script>
     @RenderSection("CustomStyles", required: false)
+    @RenderSection("upload", required: false)
 </head>
 <body>
     <div id="header">
@@ -53,7 +54,7 @@
 
                             <div class="dropdown">
                                 <span class="dropdown-custom">
-                                    <img scr="#" style="border-radius: 50%;" alt="ava" />
+                                    <img src="~/User_Images/@Session["avatar"]" style="border-radius: 50%; width:25px; height:25px" alt="ava" />
                                     <a href="#">@Session["username"]</a>
                                 </span>
                                 <div class="dropdown-custom-content">

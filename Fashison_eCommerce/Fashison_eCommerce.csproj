@@ -256,6 +256,9 @@
     <Compile Include="Models\sp_loadUserCart_Result.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_Login_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_ProductByStore_Result.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -2578,6 +2581,7 @@
     <Content Include="Views\User\Sidebar.cshtml" />
     <Content Include="Views\User\Address.cshtml" />
     <Content Include="Views\User\PartialAddress.cshtml" />
+    <Content Include="Views\User\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2588,6 +2592,7 @@
     <Folder Include="Data\" />
     <Folder Include="images\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
+    <Folder Include="User_Images\" />
     <Folder Include="Views\MainType\" />
   </ItemGroup>
   <ItemGroup>
