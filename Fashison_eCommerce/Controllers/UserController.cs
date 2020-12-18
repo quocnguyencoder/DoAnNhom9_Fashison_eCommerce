@@ -19,18 +19,25 @@ namespace Fashison_eCommerce.Controllers
         }
         public ActionResult UserProfile()
         {
-            //using (var _context = new DB_A6A231_DAQLTMDTEntities())
-            //{
-            //    int userID = Convert.ToInt32(Session["userID"]);
-            //    var obj = (from u in _context.Users where u.Id == userID select u).FirstOrDefault();
-            //    ViewBag.Username = obj.Username;
-            //    ViewBag.Email = obj.Email;
-            //    ViewBag.Name = obj.Name;
-            //    ViewBag.Address = obj.Address;
-            //    ViewBag.Gender = obj.Gender;
-            //    ViewBag.Phone = obj.Phone;
-            //    ViewBag.Birthday = obj.Birthday;
-            //}
+            if (Session["userID"] != null)
+            {
+                int id = Convert.ToInt32(Session["userID"]);
+                ViewBag.User = db.Users.Where(x => x.Id == id).FirstOrDefault();
+                DateTime date = Convert.ToDateTime(ViewBag.User.Birthday);
+                string day = date.Day.ToString();
+                string month = date.Month.ToString();
+                if (date.Day < 10)
+                {
+                    day = "0" + date.Day;
+                }
+                if (date.Month < 10)
+                {
+                    month = "0" + date.Month;
+                }
+
+                ViewBag.birthday =  day + "-" + month + "-" + date.Year;
+            }
+
             return View();
         }
         public ActionResult Purchase()
@@ -160,7 +167,26 @@ namespace Fashison_eCommerce.Controllers
             db.sp_EditProfile(id, username, email, address, gender, phone, date, avatar);
             db.SaveChanges();
 
-            return RedirectToAction("EditProFile");
+            //return RedirectToAction("EditProFile");
+            if (Session["userID"] != null)
+            {
+                id = Convert.ToInt32(Session["userID"]);
+                ViewBag.User = db.Users.Where(x => x.Id == id).FirstOrDefault();
+                date = Convert.ToDateTime(ViewBag.User.Birthday);
+                string day = date.Day.ToString();
+                string month = date.Month.ToString();
+                if (date.Day < 10)
+                {
+                    day = "0" + date.Day;
+                }
+                if (date.Month < 10)
+                {
+                    month = "0" + date.Month;
+                }
+
+                ViewBag.birthday = date.Year + "-" + month + "-" + day;
+            }
+            return View("EditProfile");
         }
 
 
