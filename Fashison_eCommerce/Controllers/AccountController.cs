@@ -48,7 +48,7 @@ namespace Fashison_eCommerce.Controllers
                     {
                         Session["userID"] = obj.Id.ToString();
                         Session["username"] = obj.Username.ToString();
-                        if (obj.Avatar.ToString() != null)
+                        if (obj.Avatar != null)
                         {
                             Session["Avatar"] = obj.Avatar.ToString();
                         }
