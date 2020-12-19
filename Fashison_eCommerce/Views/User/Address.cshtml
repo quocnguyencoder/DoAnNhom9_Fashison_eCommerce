@@ -3,7 +3,7 @@
     ViewBag.Title = "Address";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<script src="~/UserScripts/AddressSubmit.js"></script>
+<script src="~/UserScripts/AddressSubmitCreate.js"></script>
 @{Html.RenderPartial("Sidebar", "User");}
 <div id="address"><button type="button" class="btn btn-info btn" style="float:right;" data-toggle="modal" data-target="#create-modal">Thêm địa chỉ</button></div>
 <div id="create-modal" class="modal fade" role="dialog">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Trở lại</button>
-                    <input type="submit" class="btn btn-info" id="submit" value="Hoàn thành">
+                    <input type="submit" class="btn btn-info" id="createForm" value="Hoàn thành">
                 </div>
             </form>
         </div>

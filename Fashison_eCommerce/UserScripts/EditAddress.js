@@ -13,12 +13,7 @@
 			$("#addressid").val(addid);
 			$("#addressdefault").val(adddefault);
 		});
-		$("#createForm").submit(function (event) {
-
-			submitcreateForm();
-			$("#create-modal").modal('hide');
-			return false;
-		});
+		
 		$("#editForm").submit(function (event) {
 			debugger
 			submiteditForm();
@@ -38,22 +33,22 @@
 			add.phone = addphone;
 			add.address1 = addaddress;
 			add.default_address = 1;
-		
-				$.ajax({
-					type: "POST",
-					url: "/User/Edit",
-					data: '{add: ' + JSON.stringify(add) + '}',
-					contentType: "application/json; charset=utf-8",
-					success: function (response) {
-						
-						$("#table-address").html(response);
 
-					},
-					error: function () {
-						alert("Error");
-					}
-				});
-			
+			$.ajax({
+				type: "POST",
+				url: "/User/Edit",
+				data: '{add: ' + JSON.stringify(add) + '}',
+				contentType: "application/json; charset=utf-8",
+				success: function (response) {
+
+					$("#table-address").html(response);
+
+				},
+				error: function () {
+					alert("Error");
+				}
+			});
+
 		});
 		$("button#btnDelete").click(function () {
 			debugger
@@ -77,31 +72,11 @@
 
 		});
 	});
-	function submitcreateForm() {
-		var add = {};
-		add.full_name = $('#name').val();
-		add.phone = $("#phone").val();
-		add.address1 = $("#Address").val();
 	
-		$.ajax({
-			type: "POST",
-			url: "/User/Create",
-			data: '{add: ' + JSON.stringify(add) + '}',
-			contentType: "application/json; charset=utf-8",
-			success: function (response) {
-				
-				$("#table-address").html(response);
-				
-			},
-			error: function () {
-				alert("Error");
-			}
-		});
-	}
 	function submiteditForm() {
 		debugger
 		var add = {};
-		
+
 		add.Address_ID = $('#addressid').val();
 		add.full_name = $('#Name').val();
 		add.phone = $("#Phone").val();
@@ -113,7 +88,7 @@
 			data: '{add: ' + JSON.stringify(add) + '}',
 			contentType: "application/json; charset=utf-8",
 			success: function (response) {
-			
+
 				$("#table-address").html(response);
 
 			},

@@ -2340,11 +2340,8 @@
     <Content Include="Areas\Seller\Views\Orders\TabDelivered.cshtml" />
     <Content Include="Areas\Seller\Views\Orders\TabReceive.cshtml" />
     <Content Include="Areas\Seller\Views\Orders\UserAddressByID.cshtml" />
-
     <Content Include="Areas\Buyer\Views\Shop\Shop.cshtml" />
-
     <Content Include="Areas\Buyer\Views\CartCheckout\GetShop.cshtml" />
-
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2491,7 +2488,8 @@
     <Content Include="Styles_css\User_styles\themes\switch\theamswitcher.js" />
     <Content Include="Styles_css\User_styles\themes\switch\themeswitch.css" />
     <Content Include="Styles_css\User_styles\themes\united\bootstrap.min.css" />
-    <Content Include="UserScripts\AddressSubmit.js" />
+    <Content Include="UserScripts\AddressSubmitCreate.js" />
+    <Content Include="UserScripts\EditAddress.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
