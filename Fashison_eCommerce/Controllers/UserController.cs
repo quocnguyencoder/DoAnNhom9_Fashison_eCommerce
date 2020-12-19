@@ -107,8 +107,6 @@ namespace Fashison_eCommerce.Controllers
         [HttpPost]
         public ActionResult Edit(Address add)
         {
-
-
             BuyerAddressClient address = new BuyerAddressClient();
 
             add.User_ID = Convert.ToInt32(Session["userID"]);
