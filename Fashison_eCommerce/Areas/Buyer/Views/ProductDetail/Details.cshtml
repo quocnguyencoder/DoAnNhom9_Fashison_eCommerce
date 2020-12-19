@@ -69,12 +69,12 @@
                     <hr class="soft">
                     <div class="span9" style="background-color: antiquewhite ">
                         <div class="row">
-                            <div class="span3" href="/User/Index">
-                                <div class="brand" style="padding: 20px 0px 30px 30px"><img src="~/Styles_css/Image/@*@ViewBag.Pictures*@" alt="Esshop">  </div>
+                            <div class="span3" >
+                                <div class="brand" href="/Buyer/Shop/Index?id=@ViewBag.store.Store_ID" style="padding: 20px 0px 30px 30px; width:150px"><img src="~/Product_Images/@ViewBag.store.Pictures"  alt="Esshop">  </div>
                             </div>
                             <div class="span3" style="margin-top: 40px">
-                                <h5> @ViewBag.store.ShopName </h5>
-                                <a> @ViewBag.store.Address</a>
+                                <a href="/Buyer/Shop/Index?id=@ViewBag.store.Store_ID"> @ViewBag.store.ShopName </a>
+                                <h5> @ViewBag.store.Address</h5>
                             </div>
                         </div>
                     </div>

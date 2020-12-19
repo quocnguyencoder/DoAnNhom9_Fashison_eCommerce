@@ -151,6 +151,7 @@
     <Compile Include="Areas\Buyer\Controllers\ProductbyTypeController.cs" />
     <Compile Include="Areas\Buyer\Controllers\ProductDetailController.cs" />
     <Compile Include="Areas\Buyer\Controllers\SearchController.cs" />
+    <Compile Include="Areas\Buyer\Controllers\ShopController.cs" />
     <Compile Include="Areas\Buyer\Controllers\UserCartController.cs" />
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
     <Compile Include="Areas\Seller\Controllers\OrdersController.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Areas\Seller\Controllers\StoresController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
     <Compile Include="Models\Address.cs">
@@ -2338,6 +2340,7 @@
     <Content Include="Areas\Seller\Views\Orders\TabDelivered.cshtml" />
     <Content Include="Areas\Seller\Views\Orders\TabReceive.cshtml" />
     <Content Include="Areas\Seller\Views\Orders\UserAddressByID.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shop\Shop.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2594,6 +2597,7 @@
     <Folder Include="images\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
     <Folder Include="User_Images\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\MainType\" />
   </ItemGroup>
   <ItemGroup>

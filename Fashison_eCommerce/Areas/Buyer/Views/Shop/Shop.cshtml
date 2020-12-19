@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Shop";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    
+}
+
+<div id="mainBody">
+    <div class="container">
+        <div class="span12" style="background-color: antiquewhite ">
+            <div class="row">
+                <div class="span3" style="margin-left: 100px" >
+                    <div class="brand" href="Buyer/Store/Index?id=@ViewBag.store.Store_ID" style="padding: 20px 0px 30px 30px; width: 250px;"><img src="~/Product_Images/@ViewBag.store.Pictures" alt="Esshop">  </div>
+                </div>
+                <div class="span3" style="margin-top: 40px">
+                    <h2> @ViewBag.store.ShopName </h2>
+                    <h4>Địa chỉ: @ViewBag.store.Address</h4>
+                    <h4>Thông tin: @ViewBag.store.Decription</h4>
+                </div>
+            </div>
+        </div>
+        <hr class="soft">
+        <hr class="soft" />
+            
+        <div class="span12">    
+            <h4>Product of shop</h4>
+            <div class="loader" data-action="/Buyer/ProductDetail/ProductOfStore/@ViewBag.store.Store_ID">
+                @{ Html.RenderAction("ProductOfStore", "ProductDetail", new { storeid = @ViewBag.store.Store_ID });}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MainBody End ============================= -->
