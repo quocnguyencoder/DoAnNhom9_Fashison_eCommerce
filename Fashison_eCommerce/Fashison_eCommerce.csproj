@@ -2338,6 +2338,7 @@
     <Content Include="Areas\Seller\Views\Orders\TabDelivered.cshtml" />
     <Content Include="Areas\Seller\Views\Orders\TabReceive.cshtml" />
     <Content Include="Areas\Seller\Views\Orders\UserAddressByID.cshtml" />
+    <Content Include="Areas\Buyer\Views\CartCheckout\GetShop.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

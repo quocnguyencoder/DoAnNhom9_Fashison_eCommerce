@@ -3,7 +3,8 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     var prod = ViewBag.detail[0];
 }
-
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); }
 <div id="mainBody">
     <div class="container">
         <div class="row">
@@ -54,10 +55,10 @@
                         <hr class="soft" />
                         <form class="form-horizontal qtyFrm">
                             <div class="control-group">
-                                <label class="control-label"><span>@prod.Price VNĐ</span></label>
+                                <label class="control-label"><span style="color: orange; font-size: x-large; font-weight: bold;">@String.Format(info, "{0:C0}", prod.Price)</span></label>
                                 <div class="controls">
-                                    <input type="number" class="span1" placeholder="Qty." />
-                                    <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
+                                    @*<input type="number" class="span1" placeholder="Qty." />*@
+                                    <button type="submit" class="btn AddToCart btn-large btn-primary pull-right" data-product_id="@prod.Product_ID"> Add to cart <i class=" icon-shopping-cart"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -110,11 +111,11 @@
                                 <br class="clr" />
                                 <hr class="soft" />
                                 <!-- related product ========================================= -->
-                                
+
                                 @{ Html.RenderAction("RelatedProduct", "ProductDetail", new { typeid = prod.TypeID });}
 
                             </div>
-                                    <!-- ========================================= -->
+                            <!-- ========================================= -->
                             <br class="clr">
                         </div>
                     </div>
@@ -126,3 +127,38 @@
 
 
 <!-- MainBody End ============================= -->
+<script language="javascript">
+    // gan event cho cac button add to cart
+    var user = {
+        init: function () {
+            console.log("init");
+            user.registerEvents();
+        },
+        registerEvents: function () {
+            $('.AddToCart').off('click').on('click', function (e) {
+                console.log("click");
+                e.preventDefault();
+                var id = $(this).data('product_id');
+                console.log(id);
+                // them san pham vao gio hang
+                $.ajax({
+                    url: "/Buyer/Cart_Item/AddToCart",
+                    type: 'POST',
+                    data: { ProductID: id },
+                    success: function (msg) {
+                        // load lai so san pham co trong gio hang
+                        $.ajax({
+                            url: "/Buyer/UserCart/CartInfo",
+                            success: function (result) {
+                                $(".cart_info").html(result);
+                                alert('Add to cart successfully!');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    }
+    user.init();
+
+</script>
