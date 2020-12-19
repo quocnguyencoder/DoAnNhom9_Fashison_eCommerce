@@ -2045,6 +2045,7 @@
     <Content Include="Assets\Seller\css\Imagefile.css" />
     <Content Include="Assets\Seller\css\Products.css" />
     <Content Include="Assets\Seller\css\Store.css" />
+    <Content Include="Assets\Seller\index.js" />
     <Content Include="Assets\Seller\js\Displayimg.js" />
     <Content Include="Assets\Seller\js\Filter.js" />
     <Content Include="Content\bootstrap-theme.css" />

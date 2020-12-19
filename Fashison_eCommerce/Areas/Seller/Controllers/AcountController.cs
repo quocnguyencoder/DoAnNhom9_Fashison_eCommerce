@@ -9,11 +9,18 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
 {
     public class AcountController : Controller
     {
+        DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
         // GET: Seller/Acount
         public ActionResult Dashboard()
         {
             if (Session["userID"] != null)
+            {
+                ProductsClient CC = new ProductsClient();
+                int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
+                ViewBag.listProducts = CC.findAll(Storeid);
                 return View();
+            }
+               
             else
             {
                 return View("Login");
@@ -36,11 +43,13 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
                 using (var _context = new DB_A6A231_DAQLTMDTEntities())
                 {
                     // query id tu email va password de kiem tra dang nhap
-                    var obj = (from u in _context.Users where u.Email == user.Email && u.Password == user.Password select u).FirstOrDefault();
+                    //var obj = (from u in _context.Users where u.Email == user.Email && u.Password == user.Password select u).FirstOrDefault();
+                    var obj = db.sp_Login(user.Email, user.Password).FirstOrDefault();
                     if (obj != null)
                     {
                         Session["userID"] = obj.Id.ToString();
                         Session["username"] = obj.Username.ToString();
+                        Session["avatar"] = obj.Avatar.ToString();
                         //string username = obj.Username.ToString();
                         return RedirectToAction("Dashboard", "Acount");
                     }
