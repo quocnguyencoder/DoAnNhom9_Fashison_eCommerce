@@ -159,7 +159,7 @@
     <Compile Include="Areas\Seller\Controllers\StoresController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ManageUserController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
     <Compile Include="Models\Address.cs">
@@ -2340,11 +2340,8 @@
     <Content Include="Areas\Seller\Views\Orders\TabDelivered.cshtml" />
     <Content Include="Areas\Seller\Views\Orders\TabReceive.cshtml" />
     <Content Include="Areas\Seller\Views\Orders\UserAddressByID.cshtml" />
-
     <Content Include="Areas\Buyer\Views\Shop\Shop.cshtml" />
-
     <Content Include="Areas\Buyer\Views\CartCheckout\GetShop.cshtml" />
-
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2590,6 +2587,8 @@
     <Content Include="Views\User\Address.cshtml" />
     <Content Include="Views\User\PartialAddress.cshtml" />
     <Content Include="Views\User\EditProfile.cshtml" />
+    <Content Include="Views\ManageUser\ManageUser.cshtml" />
+    <Content Include="Views\ManageUser\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2601,7 +2600,6 @@
     <Folder Include="images\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
     <Folder Include="User_Images\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\MainType\" />
   </ItemGroup>
   <ItemGroup>
