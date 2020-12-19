@@ -48,9 +48,20 @@ namespace Fashison_eCommerce.Controllers
                     {
                         Session["userID"] = obj.Id.ToString();
                         Session["username"] = obj.Username.ToString();
+
                         //Lay mat khau người dùng
                         Session["pass"] = user.Password.ToString();
                         Session["avatar"] = obj.Avatar.ToString();
+
+                        if (obj.Avatar != null)
+                        {
+                            Session["Avatar"] = obj.Avatar.ToString();
+                        }
+                        else
+                        {
+                            Session["Avatar"] = "#.png";
+                        }
+
                         //string username = obj.Username.ToString();
                         return RedirectToAction("Index", "MainPage", new { Area = "Buyer" });
                     }

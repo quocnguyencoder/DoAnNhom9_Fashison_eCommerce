@@ -34,7 +34,7 @@
 
                     <div id="gallery" class="span3">
                         <a href="~/Product_Images/@prod.Pictures" title="@prod.Name" style="width: 220px">
-                            <img src="~/Product_Images/@prod.Pictures" style="width:100%" alt="@prod.Name" />
+                            <img src="~/Product_Images/@prod.Pictures" alt="@prod.Name" style="weight:100%;"/>
                         </a>
                         <div id="differentview" class="moreOptopm carousel slide"></div>
 
@@ -70,8 +70,10 @@
                     <hr class="soft">
                     <div class="span9" style="background-color: antiquewhite ">
                         <div class="row">
-                            <div class="span3" >
-                                <div class="brand" href="/Buyer/Shop/Index?id=@ViewBag.store.Store_ID" style="padding: 20px 0px 30px 30px; width:150px"><img src="~/Product_Images/@ViewBag.store.Pictures"  alt="Esshop">  </div>
+                            <div class="span2" >
+                                <div class="brand" href="/Buyer/Shop/Index?id=@ViewBag.store.Store_ID" style="padding: 20px 0px 30px 30px; width:150px">
+                                    <img src="~/Product_Images/@ViewBag.store.Pictures" style="weight: 100px; height: 100px;" alt="Esshop">  
+                                </div>
                             </div>
                             <div class="span3" style="margin-top: 40px">
                                 <a href="/Buyer/Shop/Index?id=@ViewBag.store.Store_ID"> @ViewBag.store.ShopName </a>
