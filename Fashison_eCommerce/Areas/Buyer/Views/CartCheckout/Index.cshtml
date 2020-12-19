@@ -53,7 +53,7 @@
                 foreach (var shop in ViewBag.Shops)
                 {
                     <tr>
-                        <td colspan="4"> Shop name @shop</td>
+                        <td colspan="4"> @*Shop name @shop*@ Shop @{Html.RenderAction("GetShop", "CartCheckout", new { id = shop });}</td>
                     </tr>
                     var total_By_Shop = 0;
                     var count = 0;
@@ -66,7 +66,7 @@
                         {
                             var temp = @item.Price * @item.Quantity;
                             <tr>
-                                <td> <img style="height: auto; width:auto" src="~/Product_Images/@item.Pictures" alt="product img" /> @item.Name </td>
+                                <td> <img style="height: 100px; width: 100px;" src="~/Product_Images/@item.Pictures" alt="product img" /> @item.Name </td>
                                 <td style=" vertical-align:middle"> @String.Format(info, "{0:C0}", item.Price)</td>
                                 <td style=" vertical-align:middle"> @item.Quantity </td>
                                 <td style="vertical-align:middle"> @String.Format(info, "{0:C0}", temp)</td>

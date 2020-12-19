@@ -22,7 +22,7 @@
                     <td scope="col">@item.address</td>
                     @if (item.default_address == 1)
                     {
-                        <td scope="col" style="color:aquamarine;">Mặc định</td>
+                        <td scope="col" style="color:orangered;">Mặc định</td>
 
                     }
                     else
@@ -32,7 +32,12 @@
                     }
                     <td>
                         <div id="address">
-                           @if (item.default_address == 0) {<button type="button" id="btndefault" class="btn btn-info btn" data-id="@item.Address_ID" data-name="@item.full_name" data-phone="@item.phone" data-address="@item.address">Mặc định</button> } 
+                           @if (item.default_address == 0) 
+                           {
+                               <button type="button" id="btndefault"  class="btn btn-info btn" data-id="@item.Address_ID" data-name="@item.full_name" data-phone="@item.phone" data-address="@item.address">
+                                   Mặc định
+                                </button> 
+                            } 
                              <button type="button" id="btnedit" class="btn btn-info btn" data-toggle="modal" data-target="#edit-modal" name="Modal" data-id="@item.Address_ID" data-name="@item.full_name" data-phone="@item.phone" data-address="@item.address" data-default="@item.default_address" Open modal for @item.full_name @item.phone @item.address>Sửa</button>  <button type="button" id="btnDelete" class="btn btn-info btn" data-id="@item.Address_ID">Xóa</button>
 
                         </div>

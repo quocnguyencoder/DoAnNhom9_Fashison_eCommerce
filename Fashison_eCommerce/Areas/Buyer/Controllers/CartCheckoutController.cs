@@ -32,6 +32,12 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             return View();
         }
 
+        DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
+        public ActionResult GetShop(int id)
+        {
+            ViewBag.shopName = db.Stores.Where(x => x.Store_ID == id).FirstOrDefault().ShopName;
+            return PartialView();
+        }
         // tao 1 unique id cho order
         public string GenerateOrderID()
         {

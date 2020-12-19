@@ -53,8 +53,8 @@
                     e.preventDefault();
                     var id = $(this).data('item_id');
                     var quantity = parseInt(document.getElementById(String(id)).value) + 1;
-                    console.log(id);
-                    console.log(quantity);
+                    //console.log(id);
+                    //console.log(quantity);
                     // them san pham vao gio hang
                     $.ajax({
                         url: "/Buyer/Cart_Item/UpdateCart",
@@ -62,8 +62,10 @@
                         data: { ProductID: id, Quantity: quantity },
                         success: function (msg) {
                             document.getElementById(String(id)).value = quantity;
-                            console.log(parseInt(document.getElementById("Price_".concat(String(id))).value));
-                            document.getElementById("Total_".concat(String(id))).textContent = parseInt(document.getElementById("Price_".concat(String(id))).textContent) * quantity;
+                            //console.log(parseInt(document.getElementById("Price_".concat(String(id))).value));
+                            document.getElementById("Total_".concat(String(id))).textContent = Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(parseInt(document.getElementById("Price_".concat(String(id))).textContent) * quantity * 1000);
+                               // parseInt(document.getElementById("Price_".concat(String(id))).textContent) * quantity;
+
                         }
                     });
                     $.ajax({
@@ -81,8 +83,8 @@
                     e.preventDefault();
                     var id = $(this).data('item_id');
                     var quantity = parseInt(document.getElementById(String(id)).value) - 1;
-                    console.log(id);
-                    console.log(quantity);
+                    //console.log(id);
+                    //console.log(quantity);
                     // them san pham vao gio hang
                     $.ajax({
                         url: "/Buyer/Cart_Item/UpdateCart",
@@ -90,7 +92,8 @@
                         data: { ProductID: id, Quantity: quantity },
                         success: function (msg) {
                             document.getElementById(String(id)).value = quantity;
-                            document.getElementById("Total_".concat(String(id))).textContent = parseInt(document.getElementById("Price_".concat(String(id))).textContent) * quantity;
+                            //document.getElementById("Total_".concat(String(id))).textContent = parseInt(document.getElementById("Price_".concat(String(id))).textContent) * quantity;
+                            document.getElementById("Total_".concat(String(id))).textContent = Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(parseInt(document.getElementById("Price_".concat(String(id))).textContent) * quantity * 1000);
                         }
                     });
                     $.ajax({
