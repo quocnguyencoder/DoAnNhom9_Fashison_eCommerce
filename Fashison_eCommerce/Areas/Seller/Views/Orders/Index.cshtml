@@ -48,8 +48,10 @@
 @section jsFooter{
     <script src="~/Assets/Seller/OrderController.js"></script>
 }
+
 <div style="min-width: 966px; max-width: 1122px; padding: 0 48px; margin: 42px auto; display: flex;">
     <div class="content-wrapper">
+
         <div class="tab">
             <button class="tablinks" onclick="openTabcontrol(event, 'all')">Tất cả</button>
             <button class="tablinks" onclick="openTabcontrol(event, 'receive')">Chờ lấy hàng</button>
@@ -57,6 +59,7 @@
             <button class="tablinks" onclick="openTabcontrol(event, 'delivered')">Đã giao</button>
             <button class="tablinks" onclick="openTabcontrol(event, 'cancel')">Đơn hủy</button>
         </div>
+
         <div id="all" class="tabcontent">
             @RenderPage("TabAll.cshtml")
         </div>
@@ -93,5 +96,6 @@
                 evt.currentTarget.className += " active";
             }
         </script>
+        <script>openTabcontrol(event, 'all')</script>
     </div>
 </div>
