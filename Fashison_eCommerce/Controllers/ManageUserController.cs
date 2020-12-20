@@ -28,18 +28,19 @@ namespace Fashison_eCommerce.Controllers
                     string query = "select * from view_Users";
                     SqlCommand cmd = new SqlCommand(query, con);
                     ViewBag.Users = cmd.ExecuteReader();
+                    return View("ManageUser");
                 }
                 catch (Exception e)
                 {
-                    Response.Write("<script>alert('"+e.Message.ToString()+"')</script>");
-                    return View("~/Views/Account/Login.cshtml");
+                    Response.Write(e.Message.ToString());
+                    return View("~/Views/Account/Error.cshtml");
                 }
             }
             else
             {
                 return View("~/Views/Account/Login.cshtml");
             }
-            return View("ManageUser");
+            
         }
 
         public ActionResult Delete(int id)
@@ -62,13 +63,13 @@ namespace Fashison_eCommerce.Controllers
                 query = "select * from view_Users";
                 cmd = new SqlCommand(query, con);
                 ViewBag.Users = cmd.ExecuteReader();
+                return PartialView("ManageUser");
             }
             catch (Exception e)
             {
-                Response.Write("<script>alert('" + e.Message.ToString() + "')</script>");
+                Response.Write( e.Message.ToString() );
+                return PartialView("~/Views/Account/Error.cshtml");
             }
-            return PartialView("ManageUser");
         }
-
     }
 }
