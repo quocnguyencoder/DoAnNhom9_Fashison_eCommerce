@@ -51,7 +51,6 @@ namespace Fashison_eCommerce.Controllers
 
                         //Lay mat khau người dùng
                         Session["pass"] = user.Password.ToString();
-                        Session["avatar"] = obj.Avatar.ToString();
 
                         if (obj.Avatar != null)
                         {

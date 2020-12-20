@@ -367,15 +367,15 @@ namespace Fashison_eCommerce.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_searchProduct_Result>("sp_searchProduct", nameParameter, typeidParameter);
         }
     
-        public virtual int sp_EditProfile(Nullable<int> id, string username, string email, string address, string gender, string phone, Nullable<System.DateTime> birthday, string avatar)
+        public virtual int sp_EditProfile(Nullable<int> id, string name, string email, string address, string gender, string phone, Nullable<System.DateTime> birthday, string avatar)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            var usernameParameter = username != null ?
-                new ObjectParameter("Username", username) :
-                new ObjectParameter("Username", typeof(string));
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
     
             var emailParameter = email != null ?
                 new ObjectParameter("Email", email) :
@@ -401,7 +401,7 @@ namespace Fashison_eCommerce.Models
                 new ObjectParameter("Avatar", avatar) :
                 new ObjectParameter("Avatar", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EditProfile", idParameter, usernameParameter, emailParameter, addressParameter, genderParameter, phoneParameter, birthdayParameter, avatarParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EditProfile", idParameter, nameParameter, emailParameter, addressParameter, genderParameter, phoneParameter, birthdayParameter, avatarParameter);
         }
     
         public virtual ObjectResult<sp_Login_Result> sp_Login(string email, string pass)
