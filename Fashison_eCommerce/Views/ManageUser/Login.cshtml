@@ -1,0 +1,102 @@
+﻿@model Fashison_eCommerce.Models.User
+
+@{
+    Layout = null;
+}
+@Html.AntiForgeryToken()
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="~/Styles_css/Login_styles/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+</head>
+<body>
+    <!-- title -->
+    <h1>
+        <span>F</span>ashion
+    </h1>
+    <!-- //title -->
+    <!-- content -->
+    <div class="sub-main-w3">
+        <form action="/Account/VerifyLogin" method="post">
+            <div class="form-style-agile">
+                <label>
+                    Email
+                    <i class="fas fa-user"></i>
+                </label>
+
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                <input placeholder="Email" name="Email" type="text" required="">
+
+            </div>
+            <div class="form-style-agile">
+                <label>
+                    Password
+                    <i class="fas fa-unlock-alt"></i>
+                </label>
+
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                <input placeholder="Password" name="Password" type="password" required="">
+            </div>
+            <!-- checkbox -->
+            <div class="wthree-text">
+                <ul>
+                    <li>
+                        <label class="anim">
+                            <input type="checkbox" class="checkbox">
+                            <span>Remember me</span>
+                        </label>
+                    </li>
+                    <li>
+                        <a href="/Account/ForgotPassword">Forgot Password?</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- //checkbox -->
+            <input type="submit" value="Log In">
+            <!-- social icons -->
+            <div class="footer-social">
+                <h2>Or</h2>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-facebook-f icon_facebook"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-twitter icon_twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-dribbble icon_dribbble"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-google-plus-g icon_g_plus"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- //social icons -->
+            <div class="wthree-text">
+                <ul>
+                    <li>
+
+                    </li>
+                    <li>
+                        <a href="/Account/Register"> register now </a>
+                    </li>
+                </ul>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

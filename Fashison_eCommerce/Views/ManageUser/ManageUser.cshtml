@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 2px solid #dddddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            width: auto;
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="span12">
+        <h3>Quản lí tài khoản</h3>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Birthday</th>
+                <th>Address</th>
+                <th>Option</th>
+            </tr>
+            @foreach (var user in ViewBag.Users)
+            {
+                <tr>
+                    <td>@user["Id"]</td>
+                    <td><img src="~/User_Images/@user["Avatar"]" alt="avatar" style="width: 30px; height:30px" /></td>
+                    <td>@user["Name"]</td>
+                    <td>@user["Email"]</td>
+                    <td>@user["Gender"]</td>
+                    <td>@user["Birthday"]</td>
+                    <td>@user["Address"]</td>
+                    <td>
+                        <a href="/ManageUser/Delete?id=@user["Id"]">Xóa</a>
+                    </td>
+                </tr>
+
+            }
+        </table>
+    </div>
+</body>
+</html>

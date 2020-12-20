@@ -149,7 +149,7 @@ namespace Fashison_eCommerce.Controllers
         public ActionResult showEditProfile()
         {
             int id = Convert.ToInt32(Session["userID"]);
-            string username = Request["Username"];
+            string name = Request["Username"];
             string email = Request["email"];
             string address = Request["address"];
             string gender = Request["Gender"];
@@ -162,7 +162,7 @@ namespace Fashison_eCommerce.Controllers
             string phone = Request["phone"];
             DateTime date = Convert.ToDateTime(Request["date"]);
             string avatar = Session["avatar"].ToString();
-            db.sp_EditProfile(id, username, email, address, gender, phone, date, avatar);
+            db.sp_EditProfile(id, name, email, address, gender, phone, date, avatar);
             db.SaveChanges();
 
             //return RedirectToAction("EditProFile");
@@ -184,7 +184,7 @@ namespace Fashison_eCommerce.Controllers
 
                 ViewBag.birthday = date.Year + "-" + month + "-" + day;
             }
-            return View("EditProfile");
+            return PartialView("EditProfile");
         }
 
 
