@@ -653,9 +653,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Parameter Name="password" Type="nchar" Mode="In" />
         </Function>
         <Function Name="sp_AccountResgister" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="username" Type="nchar" Mode="In" />
-          <Parameter Name="password" Type="nchar" Mode="In" />
-          <Parameter Name="email" Type="nchar" Mode="In" />
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -675,7 +675,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         </Function>
         <Function Name="sp_EditProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
-          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
           <Parameter Name="Email" Type="nvarchar" Mode="In" />
           <Parameter Name="Address" Type="nvarchar" Mode="In" />
           <Parameter Name="Gender" Type="nvarchar" Mode="In" />
@@ -1300,7 +1300,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           </FunctionImport>
           <FunctionImport Name="sp_EditProfile">
             <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="Address" Mode="In" Type="String" />
             <Parameter Name="Gender" Mode="In" Type="String" />

@@ -161,7 +161,7 @@ namespace Fashison_eCommerce.Controllers
             }
             string phone = Request["phone"];
             DateTime date = Convert.ToDateTime(Request["date"]);
-            string avatar = Session["avatar"].ToString();
+            string avatar = Session["Avatar"].ToString();
             db.sp_EditProfile(id, name, email, address, gender, phone, date, avatar);
             db.SaveChanges();
 
