@@ -18,9 +18,54 @@
 
             </a>
         </div>
-        <ul id="sideManu" class="nav nav-tabs nav-stacked">
-            @{ Html.RenderAction("ProductType", "ProductDetail");}
-        </ul>
+        <div class="typeloader">
+            <ul id="sideManu" class="nav nav-tabs nav-stacked ">
+                @*@{ Html.RenderAction("ProductType", "ProductDetail");}*@
+                <li class="subMenu open">
+                    <a><img src="~/Assets/Buyer/text_loading.gif" /> </a>
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+                </li>
+                <li class="subMenu open">
+                    <a><img src="~/Assets/Buyer/text_loading.gif" /> </a>
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+                </li>
+                <li class="subMenu open">
+                    <a><img src="~/Assets/Buyer/text_loading.gif" /> </a>
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
     </div>
     <!-- Sidebar end=============================================== -->
     <div class="span9">
@@ -145,6 +190,14 @@
                 }
             }
             user.init();
+        }
+    });
+
+    $.ajax({
+        // load cac san pham
+        url: "/Buyer/ProductDetail/ProductType",
+        success: function (result) {
+            $(".typeloader").html(result);
         }
     });
    
