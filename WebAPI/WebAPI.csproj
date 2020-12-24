@@ -189,6 +189,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\Cart_ItemController.cs" />
     <Compile Include="Controllers\ChangeStatusController.cs" />
+    <Compile Include="Controllers\CheckAdminLoginController.cs" />
     <Compile Include="Controllers\GetAddressByIDController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />

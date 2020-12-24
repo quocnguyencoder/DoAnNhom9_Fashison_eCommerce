@@ -140,7 +140,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BrandsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
@@ -161,10 +162,13 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
     <Compile Include="Models\Address.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Authorize.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Brand.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BuyerAddress.cs" />
     <Compile Include="Models\BuyerAddressClient.cs" />
@@ -174,166 +178,181 @@
     <Compile Include="Models\BuyerOrders.cs" />
     <Compile Include="Models\BuyerOrdersClient.cs" />
     <Compile Include="Models\Buyer_LoadAllProduct.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Buyer_LoadProduct.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_Item.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_ItemClient.cs" />
+    <Compile Include="Models\CheckAdminLogin_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Find.cs" />
     <Compile Include="Models\FindProducts_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\getOrders_Of_User_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\getProducts_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_ProductByID_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListOrderDetailUser_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListOrdersUser1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Load_User_Cart_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MainType.cs" />
     <Compile Include="Models\MainTypeClient.cs" />
     <Compile Include="Models\Main_Type.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderClient.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\Order_All.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order_AllClient.cs" />
     <Compile Include="Models\Order_Cancel.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order_Confirm.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order_Delivered.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order_Delivering.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order_Items.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order_Receive.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Permission.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductsClient.cs" />
+    <Compile Include="Models\Product_Type.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Rating.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReportAdminIndex_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_getAddressByID_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_GetCartItem_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_getOrderDetail_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_getUserAddress_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_loadUserCart_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_Login_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_ProductByStore_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_ProductByType_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_searchProduct_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_View_Orders_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Store.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreClient.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Brand.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DA_TrangTMDTModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DA_TrangTMDTModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DA_TrangTMDTModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DA_TrangTMDTModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FindProduct_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ProductClient.cs" />
-    <Compile Include="Models\Product_Type.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Store.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\UserCartClient.cs" />
     <Compile Include="Models\UserClient.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\view_Buyer_Orders.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\view_Buyer_Order_Items.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\view_MainType.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\view_Product.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\view_Products.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\view_Shop.cs">
-      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BuyerAddressViewModel.cs" />
     <Compile Include="ViewModel\BuyerOrderDetailViewModel.cs" />
@@ -2056,15 +2075,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\DA_TrangTMDTModel.Context.tt">
+    <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
-      <LastGenOutput>DA_TrangTMDTModel.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DA_TrangTMDTModel.tt">
+    <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
-      <LastGenOutput>DA_TrangTMDTModel.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Product_Images\1.png" />
     <Content Include="Product_Images\AoKhoacNu.png" />
@@ -2099,19 +2118,72 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\PT_Sans-Web-Regular.ttf" />
-    <EntityDeploy Include="Models\DA_TrangTMDTModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DA_TrangTMDTModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DA_TrangTMDTModel.edmx.diagram">
-      <DependentUpon>DA_TrangTMDTModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_Footer.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Header.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Sidebar.cshtml" />
-    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\InfoShop.cshtml" />
+    <Content Include="Areas\Seller\Views\web.config" />
+    <Content Include="Areas\Buyer\Views\web.config" />
+    <Content Include="Areas\Buyer\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Buyer\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Seller\Views\Products\Create.cshtml" />
+    <Content Include="Areas\Seller\Views\Products\Edit.cshtml" />
+    <Content Include="Areas\Seller\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Acount\Login.cshtml" />
+    <Content Include="Areas\Seller\Views\Acount\Dashboard.cshtml" />
+    <Content Include="Areas\Buyer\Views\UserCart\Cart.cshtml" />
+    <Content Include="Areas\Buyer\Views\UserCart\CountCartItem.cshtml" />
+    <Content Include="Areas\Buyer\Views\MainPage\Index.cshtml" />
+    <Content Include="Areas\Buyer\Views\MainPage\UserProfile.cshtml" />
+    <Content Include="Areas\Buyer\Views\MainPage\LoadProducts.cshtml" />
+    <Content Include="Areas\Buyer\Views\UserCart\LoadCart.cshtml" />
+    <Content Include="Areas\Buyer\Views\UserCart\TotalCost.cshtml" />
+    <Content Include="Areas\Buyer\Views\UserCart\CartInfo.cshtml" />
+    <Content Include="Areas\Buyer\Views\CartCheckout\Index.cshtml" />
+    <Content Include="Areas\Buyer\Views\CartCheckout\GetUserAddress.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Header.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Seller\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Areas\Seller\Views\Stores\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Products\Search.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\Details.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\ProductType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductbyType\ProductbyType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductbyType\Index.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\RelatedProduct.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\MainType.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\ProductOfStore.cshtml" />
+    <Content Include="Areas\Buyer\Views\ProductDetail\SearchProduct.cshtml" />
+    <Content Include="Areas\Buyer\Views\Search\Search.cshtml" />
+    <Content Include="Areas\Buyer\Views\Search\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\Detail.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabAll.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabCancel.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabDeliver.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabDelivered.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabReceive.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\UserAddressByID.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Admin\Views\Home\AdminDashboard.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutTable.cshtml" />
+    <Content Include="Areas\Admin\Views\Brands\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Brands\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Brands\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Brands\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Brands\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Assets\Admin\scss\navs\_global.scss" />
     <Content Include="Assets\Admin\scss\navs\_sidebar.scss" />
     <Content Include="Assets\Admin\scss\navs\_topbar.scss" />
@@ -2284,55 +2356,8 @@
     <Content Include="Assets\Admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.map" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.map" />
-    <Content Include="Areas\Admin\Views\Shop\InfoShop.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
-    <Content Include="Areas\Seller\Views\web.config" />
-    <Content Include="Areas\Buyer\Views\web.config" />
-    <Content Include="Areas\Buyer\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Buyer\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Seller\Views\Products\Create.cshtml" />
-    <Content Include="Areas\Seller\Views\Products\Edit.cshtml" />
-    <Content Include="Areas\Seller\Views\Products\Index.cshtml" />
-    <Content Include="Areas\Seller\Views\Acount\Login.cshtml" />
-    <Content Include="Areas\Seller\Views\Acount\Dashboard.cshtml" />
-    <Content Include="Areas\Buyer\Views\UserCart\Cart.cshtml" />
-    <Content Include="Areas\Buyer\Views\UserCart\CountCartItem.cshtml" />
-    <Content Include="Areas\Buyer\Views\MainPage\Index.cshtml" />
-    <Content Include="Areas\Buyer\Views\MainPage\UserProfile.cshtml" />
-    <Content Include="Areas\Buyer\Views\MainPage\LoadProducts.cshtml" />
-    <Content Include="Areas\Buyer\Views\UserCart\LoadCart.cshtml" />
-    <Content Include="Areas\Buyer\Views\UserCart\TotalCost.cshtml" />
-    <Content Include="Areas\Buyer\Views\UserCart\CartInfo.cshtml" />
-    <Content Include="Areas\Buyer\Views\CartCheckout\Index.cshtml" />
-    <Content Include="Areas\Buyer\Views\CartCheckout\GetUserAddress.cshtml" />
-    <Content Include="Areas\Seller\Views\Shared\_Footer.cshtml" />
-    <Content Include="Areas\Seller\Views\Shared\_Header.cshtml" />
-    <Content Include="Areas\Seller\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Seller\Views\Shared\_Sidebar.cshtml" />
-    <Content Include="Areas\Seller\Views\Stores\Index.cshtml" />
-    <Content Include="Areas\Seller\Views\Products\Search.cshtml" />
-    <Content Include="Areas\Buyer\Views\ProductDetail\Details.cshtml" />
-    <Content Include="Areas\Buyer\Views\ProductDetail\ProductType.cshtml" />
-    <Content Include="Areas\Buyer\Views\ProductbyType\ProductbyType.cshtml" />
-    <Content Include="Areas\Buyer\Views\ProductbyType\Index.cshtml" />
-    <Content Include="Areas\Buyer\Views\ProductDetail\RelatedProduct.cshtml" />
-    <Content Include="Areas\Buyer\Views\ProductDetail\MainType.cshtml" />
-    <Content Include="Areas\Buyer\Views\ProductDetail\ProductOfStore.cshtml" />
-    <Content Include="Areas\Buyer\Views\ProductDetail\SearchProduct.cshtml" />
-    <Content Include="Areas\Buyer\Views\Search\Search.cshtml" />
-    <Content Include="Areas\Buyer\Views\Search\Index.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\Detail.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\Index.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\TabAll.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\TabCancel.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\TabDeliver.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\TabDelivered.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\TabReceive.cshtml" />
-    <Content Include="Areas\Seller\Views\Orders\UserAddressByID.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\_UserEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\_OrderDetail.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

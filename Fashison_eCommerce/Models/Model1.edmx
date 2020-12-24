@@ -36,7 +36,7 @@
           <Key>
             <PropertyRef Name="Cart_ID" />
           </Key>
-          <Property Name="Cart_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Cart_ID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Cart_Item">
@@ -134,9 +134,9 @@
             <PropertyRef Name="Store_ID" />
           </Key>
           <Property Name="Store_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Address" Type="nchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
           <Property Name="UserID" Type="int" />
-          <Property Name="ShopName" Type="nvarchar" MaxLength="20" />
+          <Property Name="ShopName" Type="nvarchar" MaxLength="50" />
           <Property Name="Decription" Type="nvarchar" MaxLength="1000" />
           <Property Name="Pictures" Type="nvarchar" MaxLength="50" />
           <Property Name="Coverpics" Type="nvarchar" MaxLength="50" />
@@ -612,6 +612,17 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Parameter Name="id" Type="nchar" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
         </Function>
+        <Function Name="CheckAdminLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="RESULT" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="FindProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Store_ID" Type="int" Mode="In" />
           <Parameter Name="Name" Type="nvarchar" Mode="In" />
@@ -623,11 +634,26 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         <Function Name="get_ProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="product_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="getDateTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="real">
+          <Parameter Name="storeID" Type="int" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="hour" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetIdFromEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="getOrders_Of_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
         <Function Name="getProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StoreID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ListOrderDetailUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderid" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="ListOrdersUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
         </Function>
         <Function Name="Load_User_Cart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_id" Type="int" Mode="In" />
@@ -645,17 +671,21 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             </CollectionType>
           </ReturnType>
         </Function>
-        <Function Name="MaHoaMD5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
-          <Parameter Name="pass" Type="varchar" Mode="In" />
+        <Function Name="MaHoaMD5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="pass" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ReportAdminIndex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ResetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_AccountChangePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="nchar" Mode="In" />
           <Parameter Name="password" Type="nchar" Mode="In" />
         </Function>
         <Function Name="sp_AccountResgister" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="username" Type="nchar" Mode="In" />
-          <Parameter Name="password" Type="nchar" Mode="In" />
-          <Parameter Name="email" Type="nchar" Mode="In" />
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -672,6 +702,19 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_EditProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="Gender" Type="nvarchar" Mode="In" />
+          <Parameter Name="Phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="Birthday" Type="date" Mode="In" />
+          <Parameter Name="Avatar" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_getAddressByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="addressID" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_GetCartItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CartID" Type="int" Mode="In" />
@@ -690,8 +733,15 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_InsUserFb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_loadUserCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="pass" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_ProductByStore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="storeid" Type="int" Mode="In" />
@@ -712,6 +762,10 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         <Function Name="Sp_User_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_View_Orders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="store_id" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="DB_A6A231_DAQLTMDTModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
@@ -967,13 +1021,119 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DB_A6A231_DAQLTMDTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="CheckAdminLogin_Result">
+          <Property Name="RESULT" Type="Int32" />
+        </ComplexType>
+        <ComplexType Name="Load_User_Cart_Result">
+          <Property Name="Pictures" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Single" Nullable="false" />
+          <Property Name="Store_ID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Address_ID" />
+          </Key>
+          <Property Name="Address_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" />
+          <Property Name="full_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="default_address" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Address__User_ID__31B762FC" FromRole="Address" ToRole="Users" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Address___55009F39" FromRole="Address" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Authorize">
+          <Key>
+            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="PermissionID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="PermissionID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Permission" Relationship="Self.FK__Authorize__Permi__534D60F1" FromRole="Authorize" ToRole="Permission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Authorize__RoleI__5165187F" FromRole="Authorize" ToRole="Role" />
+        </EntityType>
         <EntityType Name="Brand">
           <Key>
             <PropertyRef Name="BrandID" />
           </Key>
           <Property Name="BrandID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="DB_A6A231_DAQLTMDTModel.FK" FromRole="Brand" ToRole="Product" />
+          <NavigationProperty Name="Products" Relationship="Self.FK" FromRole="Brand" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Cart_ID" />
+          </Key>
+          <Property Name="Cart_ID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Cart__UserID__5535A963" FromRole="Cart" ToRole="Users" />
+          <NavigationProperty Name="Cart_Item" Relationship="Self.FK__Cart_Item__Cart___47A6A41B" FromRole="Cart" ToRole="Cart_Item" />
+        </EntityType>
+        <EntityType Name="Cart_Item">
+          <Key>
+            <PropertyRef Name="ItemID" />
+            <PropertyRef Name="Cart_ID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Cart_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cart" Relationship="Self.FK__Cart_Item__Cart___47A6A41B" FromRole="Cart_Item" ToRole="Cart" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Cart_Item__ItemI__46B27FE2" FromRole="Cart_Item" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Main_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product_Type" Relationship="Self.FK__Product_T__Maint__2180FB33" FromRole="Main_Type" ToRole="Product_Type" />
+        </EntityType>
+        <EntityType Name="Order_Items">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+            <PropertyRef Name="Item_ID" />
+          </Key>
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Item_ID" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Double" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="discount" Type="Double" />
+          <Property Name="total" Type="Double" />
+          <Property Name="status" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Order_Ite__Item___57DD0BE4" FromRole="Order_Items" ToRole="Product" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Order_Ite__Order__56E8E7AB" FromRole="Order_Items" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="User_ID" Type="Int32" />
+          <Property Name="Store_ID" Type="Int32" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="payment" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address_ID" Type="Int32" />
+          <Property Name="Total_Order" Type="Double" />
+          <NavigationProperty Name="Address" Relationship="Self.FK__Orders__Address___55009F39" FromRole="Orders" ToRole="Address" />
+          <NavigationProperty Name="Order_Items" Relationship="Self.FK__Order_Ite__Order__56E8E7AB" FromRole="Orders" ToRole="Order_Items" />
+          <NavigationProperty Name="Store" Relationship="Self.FK__Orders__Store_ID__540C7B00" FromRole="Orders" ToRole="Store" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Orders__User_ID__531856C7" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionID" />
+          </Key>
+          <Property Name="PermissionID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Authorizes" Relationship="Self.FK__Authorize__Permi__534D60F1" FromRole="Permission" ToRole="Authorize" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -987,13 +1147,13 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Name="Store_ID" Type="Int32" Nullable="false" />
           <Property Name="Pictures" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BrandID" Type="Int32" />
+          <NavigationProperty Name="Brand" Relationship="Self.FK" FromRole="Product" ToRole="Brand" />
+          <NavigationProperty Name="Cart_Item" Relationship="Self.FK__Cart_Item__ItemI__46B27FE2" FromRole="Product" ToRole="Cart_Item" />
+          <NavigationProperty Name="Order_Items" Relationship="Self.FK__Order_Ite__Item___57DD0BE4" FromRole="Product" ToRole="Order_Items" />
           <NavigationProperty Name="Store" Relationship="Self.FK__Product__Store_I__2F10007B" FromRole="Product" ToRole="Store" />
           <NavigationProperty Name="Product_Type" Relationship="Self.FK__Product__TypeID__2E1BDC42" FromRole="Product" ToRole="Product_Type" />
-          <Property Name="BrandID" Type="Int32" />
-          <NavigationProperty Name="Brand" Relationship="DB_A6A231_DAQLTMDTModel.FK" FromRole="Product" ToRole="Brand" />
-          <NavigationProperty Name="Cart_Item" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF" FromRole="Product" ToRole="Cart_Item" />
-          <NavigationProperty Name="Order_Items" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Item___57DD0BE4" FromRole="Product" ToRole="Order_Items" />
-          <NavigationProperty Name="Ratings" Relationship="DB_A6A231_DAQLTMDTModel.FK__Rating__ProductI__6FE99F9F" FromRole="Product" ToRole="Rating" />
+          <NavigationProperty Name="Ratings" Relationship="Self.FK__Rating__ProductI__6FE99F9F" FromRole="Product" ToRole="Rating" />
         </EntityType>
         <EntityType Name="Product_Type">
           <Key>
@@ -1001,24 +1161,44 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           </Key>
           <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK__Product__TypeID__2E1BDC42" FromRole="Product_Type" ToRole="Product" />
           <Property Name="MaintypeID" Type="Int32" />
-          <NavigationProperty Name="Main_Type" Relationship="DB_A6A231_DAQLTMDTModel.FK__Product_T__Maint__2180FB33" FromRole="Product_Type" ToRole="Main_Type" />
+          <NavigationProperty Name="Main_Type" Relationship="Self.FK__Product_T__Maint__2180FB33" FromRole="Product_Type" ToRole="Main_Type" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Product__TypeID__2E1BDC42" FromRole="Product_Type" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Rating__ProductI__6FE99F9F" FromRole="Rating" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rolename" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Authorizes" Relationship="Self.FK__Authorize__RoleI__5165187F" FromRole="Role" ToRole="Authorize" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__RoleID__52593CB8" FromRole="Role" ToRole="Users" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
             <PropertyRef Name="Store_ID" />
           </Key>
           <Property Name="Store_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserID" Type="Int32" />
-          <NavigationProperty Name="Products" Relationship="Self.FK__Product__Store_I__2F10007B" FromRole="Store" ToRole="Product" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Store__UserID__29572725" FromRole="Store" ToRole="Users" />
-          <Property Name="ShopName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ShopName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Pictures" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Coverpics" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__Store_ID__540C7B00" FromRole="Store" ToRole="Order" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Store_ID__540C7B00" FromRole="Store" ToRole="Orders" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Product__Store_I__2F10007B" FromRole="Store" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Store__UserID__29572725" FromRole="Store" ToRole="Users" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1043,14 +1223,367 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Birthday" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Stores" Relationship="Self.FK__Store__UserID__29572725" FromRole="Users" ToRole="Store" />
           <Property Name="RoleID" Type="Int32" />
-          <NavigationProperty Name="Carts" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" FromRole="User" ToRole="Cart" />
           <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Addresses" Relationship="DB_A6A231_DAQLTMDTModel.FK__Address__User_ID__31B762FC" FromRole="User" ToRole="Address" />
-          <NavigationProperty Name="Orders" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7" FromRole="User" ToRole="Order" />
-          <NavigationProperty Name="Role" Relationship="DB_A6A231_DAQLTMDTModel.FK__Users__RoleID__52593CB8" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK__Address__User_ID__31B762FC" FromRole="Users" ToRole="Address" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Cart__UserID__5535A963" FromRole="Users" ToRole="Cart" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__User_ID__531856C7" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleID__52593CB8" FromRole="Users" ToRole="Role" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK__Store__UserID__29572725" FromRole="Users" ToRole="Store" />
         </EntityType>
+        <EntityType Name="Buyer_LoadAllProduct">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="TypeID" />
+            <PropertyRef Name="Store_ID" />
+            <PropertyRef Name="Pictures" />
+            <PropertyRef Name="Decription" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Single" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Store_ID" Type="Int32" Nullable="false" />
+          <Property Name="Pictures" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BrandID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Buyer_LoadProduct">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="TypeID" />
+            <PropertyRef Name="Store_ID" />
+            <PropertyRef Name="Pictures" />
+            <PropertyRef Name="Decription" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Single" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Store_ID" Type="Int32" Nullable="false" />
+          <Property Name="Pictures" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BrandID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Order_All">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order_Cancel">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order_Confirm">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order_Delivered">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order_Delivering">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order_Receive">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="view_Buyer_Order_Items">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+            <PropertyRef Name="Item_ID" />
+          </Key>
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Item_ID" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Double" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="discount" Type="Double" />
+          <Property Name="total" Type="Double" />
+          <Property Name="status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="view_Buyer_Orders">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="User_ID" Type="Int32" />
+          <Property Name="Store_ID" Type="Int32" />
+          <Property Name="delivery" Type="Double" />
+          <Property Name="payment" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address_ID" Type="Int32" />
+          <Property Name="Total_Order" Type="Double" />
+        </EntityType>
+        <EntityType Name="view_MainType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="view_Product">
+          <Key>
+            <PropertyRef Name="TypeID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaintypeID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="view_Products">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="TypeID" />
+            <PropertyRef Name="Store_ID" />
+            <PropertyRef Name="Pictures" />
+            <PropertyRef Name="Decription" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Single" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Store_ID" Type="Int32" Nullable="false" />
+          <Property Name="Pictures" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BrandID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="view_Shop">
+          <Key>
+            <PropertyRef Name="Store_ID" />
+          </Key>
+          <Property Name="Store_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ShopName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Pictures" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Coverpics" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__Address__User_ID__31B762FC">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Address___55009F39">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authorize__Permi__534D60F1">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="Authorize" Type="Self.Authorize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PermissionID" />
+            </Principal>
+            <Dependent Role="Authorize">
+              <PropertyRef Name="PermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authorize__RoleI__5165187F">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Authorize" Type="Self.Authorize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Authorize">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="BrandID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__UserID__5535A963">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart_Item__Cart___47A6A41B">
+          <End Role="Cart" Type="Self.Cart" Multiplicity="1" />
+          <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cart">
+              <PropertyRef Name="Cart_ID" />
+            </Principal>
+            <Dependent Role="Cart_Item">
+              <PropertyRef Name="Cart_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart_Item__ItemI__46B27FE2">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Cart_Item" Type="Self.Cart_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Cart_Item">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product_T__Maint__2180FB33">
+          <End Role="Main_Type" Type="Self.Main_Type" Multiplicity="0..1" />
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product_Type">
+              <PropertyRef Name="MaintypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__Item___57DD0BE4">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="Item_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__Order__56E8E7AB">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_ID" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Store_ID__540C7B00">
+          <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="Store_ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Store_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__User_ID__531856C7">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Product__Store_I__2F10007B">
           <End Role="Store" Type="Self.Store" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -1075,6 +1608,30 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Rating__ProductI__6FE99F9F">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleID__52593CB8">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Store__UserID__29572725">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="Store" Type="Self.Store" Multiplicity="*" />
@@ -1088,12 +1645,88 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DB_A6A231_DAQLTMDTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Authorizes" EntityType="Self.Authorize" />
           <EntitySet Name="Brands" EntityType="Self.Brand" />
+          <EntitySet Name="Carts" EntityType="Self.Cart" />
+          <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" />
+          <EntitySet Name="Main_Type" EntityType="Self.Main_Type" />
+          <EntitySet Name="Order_Items" EntityType="Self.Order_Items" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Product_Type" EntityType="Self.Product_Type" />
+          <EntitySet Name="Ratings" EntityType="Self.Rating" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Stores" EntityType="Self.Store" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Buyer_LoadAllProduct" EntityType="Self.Buyer_LoadAllProduct" />
+          <EntitySet Name="Buyer_LoadProduct" EntityType="Self.Buyer_LoadProduct" />
+          <EntitySet Name="Order_All" EntityType="Self.Order_All" />
+          <EntitySet Name="Order_Cancel" EntityType="Self.Order_Cancel" />
+          <EntitySet Name="Order_Confirm" EntityType="Self.Order_Confirm" />
+          <EntitySet Name="Order_Delivered" EntityType="Self.Order_Delivered" />
+          <EntitySet Name="Order_Delivering" EntityType="Self.Order_Delivering" />
+          <EntitySet Name="Order_Receive" EntityType="Self.Order_Receive" />
+          <EntitySet Name="view_Buyer_Order_Items" EntityType="Self.view_Buyer_Order_Items" />
+          <EntitySet Name="view_Buyer_Orders" EntityType="Self.view_Buyer_Orders" />
+          <EntitySet Name="view_MainType" EntityType="Self.view_MainType" />
+          <EntitySet Name="view_Product" EntityType="Self.view_Product" />
+          <EntitySet Name="view_Products" EntityType="Self.view_Products" />
+          <EntitySet Name="view_Shop" EntityType="Self.view_Shop" />
+          <AssociationSet Name="FK__Address__User_ID__31B762FC" Association="Self.FK__Address__User_ID__31B762FC">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Address___55009F39" Association="Self.FK__Orders__Address___55009F39">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authorize__Permi__534D60F1" Association="Self.FK__Authorize__Permi__534D60F1">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="Authorize" EntitySet="Authorizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authorize__RoleI__5165187F" Association="Self.FK__Authorize__RoleI__5165187F">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Authorize" EntitySet="Authorizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK" Association="Self.FK">
+            <End Role="Brand" EntitySet="Brands" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__UserID__5535A963" Association="Self.FK__Cart__UserID__5535A963">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart_Item__Cart___47A6A41B" Association="Self.FK__Cart_Item__Cart___47A6A41B">
+            <End Role="Cart" EntitySet="Carts" />
+            <End Role="Cart_Item" EntitySet="Cart_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart_Item__ItemI__46B27FE2" Association="Self.FK__Cart_Item__ItemI__46B27FE2">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart_Item" EntitySet="Cart_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product_T__Maint__2180FB33" Association="Self.FK__Product_T__Maint__2180FB33">
+            <End Role="Main_Type" EntitySet="Main_Type" />
+            <End Role="Product_Type" EntitySet="Product_Type" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__Item___57DD0BE4" Association="Self.FK__Order_Ite__Item___57DD0BE4">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__Order__56E8E7AB" Association="Self.FK__Order_Ite__Order__56E8E7AB">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Store_ID__540C7B00" Association="Self.FK__Orders__Store_ID__540C7B00">
+            <End Role="Store" EntitySet="Stores" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__User_ID__531856C7" Association="Self.FK__Orders__User_ID__531856C7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK__Product__Store_I__2F10007B" Association="Self.FK__Product__Store_I__2F10007B">
             <End Role="Store" EntitySet="Stores" />
             <End Role="Product" EntitySet="Products" />
@@ -1102,14 +1735,49 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <End Role="Product_Type" EntitySet="Product_Type" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <AssociationSet Name="FK__Rating__ProductI__6FE99F9F" Association="Self.FK__Rating__ProductI__6FE99F9F">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleID__52593CB8" Association="Self.FK__Users__RoleID__52593CB8">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
           <AssociationSet Name="FK__Store__UserID__29572725" Association="Self.FK__Store__UserID__29572725">
             <End Role="Users" EntitySet="Users" />
             <End Role="Store" EntitySet="Stores" />
           </AssociationSet>
-          <AssociationSet Name="FK" Association="DB_A6A231_DAQLTMDTModel.FK">
-            <End Role="Brand" EntitySet="Brands" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
+          <FunctionImport Name="CheckAdminLogin" IsComposable="true" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.CheckAdminLogin_Result)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Load_User_Cart" IsComposable="true" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.Load_User_Cart_Result)">
+          <Parameter Name="user_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ChangeStatus">
+            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="FindProducts" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.FindProducts_Result)">
+            <Parameter Name="Store_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Type" Mode="In" Type="Int32" />
+            <Parameter Name="QualityMin" Mode="In" Type="Int32" />
+            <Parameter Name="QualityMax" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_ProductByID" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.get_ProductByID_Result)">
+          <Parameter Name="product_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getOrders_Of_User" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.getOrders_Of_User_Result)">
+          <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getProducts" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.getProducts_Result)">
+          <Parameter Name="StoreID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AccountChangePassword">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_AccountResgister">
             <Parameter Name="username" Mode="In" Type="String" />
             <Parameter Name="password" Mode="In" Type="String" />
@@ -1131,136 +1799,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          <FunctionImport Name="sp_EditProfile">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Birthday" Mode="In" Type="DateTime" />
+            <Parameter Name="Avatar" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="Sp_User_Login" ReturnType="Collection(Boolean)">
-            <Parameter Name="UserName" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_AccountChangePassword">
-            <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="password" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="FindProduct" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.FindProduct_Result)">
-            <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Type" Mode="In" Type="String" />
-            <Parameter Name="QualityMin" Mode="In" Type="String" />
-            <Parameter Name="QualityMax" Mode="In" Type="String" />
-          </FunctionImport>
-          <EntitySet Name="Carts" EntityType="DB_A6A231_DAQLTMDTModel.Cart" />
-          <AssociationSet Name="FK__Cart__UserID__5535A963" Association="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Cart" EntitySet="Carts" />
-          </AssociationSet>
-          <EntitySet Name="Cart_Item" EntityType="DB_A6A231_DAQLTMDTModel.Cart_Item" />
-          <AssociationSet Name="FK__Cart_Item__Cart___0F624AF8" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___0F624AF8">
-            <End Role="Cart" EntitySet="Carts" />
-            <End Role="Cart_Item" EntitySet="Cart_Item" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Cart_Item__ItemI__0E6E26BF" Association="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Cart_Item" EntitySet="Cart_Item" />
-          </AssociationSet>
-          <EntitySet Name="Addresses" EntityType="DB_A6A231_DAQLTMDTModel.Address" />
-          <EntitySet Name="Authorizes" EntityType="DB_A6A231_DAQLTMDTModel.Authorize" />
-          <EntitySet Name="Main_Type" EntityType="DB_A6A231_DAQLTMDTModel.Main_Type" />
-          <EntitySet Name="Order_Items" EntityType="DB_A6A231_DAQLTMDTModel.Order_Items" />
-          <EntitySet Name="Orders" EntityType="DB_A6A231_DAQLTMDTModel.Order" />
-          <EntitySet Name="Permissions" EntityType="DB_A6A231_DAQLTMDTModel.Permission" />
-          <EntitySet Name="Ratings" EntityType="DB_A6A231_DAQLTMDTModel.Rating" />
-          <EntitySet Name="Roles" EntityType="DB_A6A231_DAQLTMDTModel.Role" />
-          <EntitySet Name="Buyer_LoadAllProduct" EntityType="DB_A6A231_DAQLTMDTModel.Buyer_LoadAllProduct" />
-          <EntitySet Name="Buyer_LoadProduct" EntityType="DB_A6A231_DAQLTMDTModel.Buyer_LoadProduct" />
-          <EntitySet Name="Order_All" EntityType="DB_A6A231_DAQLTMDTModel.Order_All" />
-          <EntitySet Name="Order_Cancel" EntityType="DB_A6A231_DAQLTMDTModel.Order_Cancel" />
-          <EntitySet Name="Order_Confirm" EntityType="DB_A6A231_DAQLTMDTModel.Order_Confirm" />
-          <EntitySet Name="Order_Delivered" EntityType="DB_A6A231_DAQLTMDTModel.Order_Delivered" />
-          <EntitySet Name="Order_Delivering" EntityType="DB_A6A231_DAQLTMDTModel.Order_Delivering" />
-          <EntitySet Name="Order_Receive" EntityType="DB_A6A231_DAQLTMDTModel.Order_Receive" />
-          <EntitySet Name="view_Buyer_Order_Items" EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Order_Items" />
-          <EntitySet Name="view_Buyer_Orders" EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Orders" />
-          <EntitySet Name="view_MainType" EntityType="DB_A6A231_DAQLTMDTModel.view_MainType" />
-          <EntitySet Name="view_Product" EntityType="DB_A6A231_DAQLTMDTModel.view_Product" />
-          <EntitySet Name="view_Products" EntityType="DB_A6A231_DAQLTMDTModel.view_Products" />
-          <EntitySet Name="view_Shop" EntityType="DB_A6A231_DAQLTMDTModel.view_Shop" />
-          <AssociationSet Name="FK__Address__User_ID__31B762FC" Association="DB_A6A231_DAQLTMDTModel.FK__Address__User_ID__31B762FC">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Address" EntitySet="Addresses" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__Address___55009F39" Association="DB_A6A231_DAQLTMDTModel.FK__Orders__Address___55009F39">
-            <End Role="Address" EntitySet="Addresses" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Authorize__Permi__534D60F1" Association="DB_A6A231_DAQLTMDTModel.FK__Authorize__Permi__534D60F1">
-            <End Role="Permission" EntitySet="Permissions" />
-            <End Role="Authorize" EntitySet="Authorizes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Authorize__RoleI__5165187F" Association="DB_A6A231_DAQLTMDTModel.FK__Authorize__RoleI__5165187F">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="Authorize" EntitySet="Authorizes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Product_T__Maint__2180FB33" Association="DB_A6A231_DAQLTMDTModel.FK__Product_T__Maint__2180FB33">
-            <End Role="Main_Type" EntitySet="Main_Type" />
-            <End Role="Product_Type" EntitySet="Product_Type" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Order_Ite__Item___57DD0BE4" Association="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Item___57DD0BE4">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Order_Items" EntitySet="Order_Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Order_Ite__Order__56E8E7AB" Association="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="Order_Items" EntitySet="Order_Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__Store_ID__540C7B00" Association="DB_A6A231_DAQLTMDTModel.FK__Orders__Store_ID__540C7B00">
-            <End Role="Store" EntitySet="Stores" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__User_ID__531856C7" Association="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Rating__ProductI__6FE99F9F" Association="DB_A6A231_DAQLTMDTModel.FK__Rating__ProductI__6FE99F9F">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Rating" EntitySet="Ratings" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Users__RoleID__52593CB8" Association="DB_A6A231_DAQLTMDTModel.FK__Users__RoleID__52593CB8">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <FunctionImport Name="ChangeStatus">
-            <Parameter Name="id" Mode="In" Type="String" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="FindProducts" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.FindProducts_Result)">
-            <Parameter Name="Store_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Type" Mode="In" Type="Int32" />
-            <Parameter Name="QualityMin" Mode="In" Type="Int32" />
-            <Parameter Name="QualityMax" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="get_ProductByID" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.get_ProductByID_Result)">
-          <Parameter Name="product_ID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="getOrders_Of_User" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.getOrders_Of_User_Result)">
-          <Parameter Name="userid" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="getProducts" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.getProducts_Result)">
-          <Parameter Name="StoreID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Load_User_Cart" IsComposable="true" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.Load_User_Cart_Result)">
-          <Parameter Name="user_id" Mode="In" Type="Int32" />
+          <FunctionImport Name="sp_getAddressByID" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_getAddressByID_Result)">
+          <Parameter Name="addressID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetCartItem" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_GetCartItem_Result)">
           <Parameter Name="CartID" Mode="In" Type="Int32" />
@@ -1271,6 +1821,14 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <FunctionImport Name="sp_getUserAddress" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_getUserAddress_Result)">
           <Parameter Name="user_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_loadUserCart" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_loadUserCart_Result)">
           <Parameter Name="user_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1280,524 +1838,50 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <FunctionImport Name="sp_ProductByType" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_ProductByType_Result)">
           <Parameter Name="typeid" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_searchProduct" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_searchProduct_Result)">
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="typeid" Mode="In" Type="Int32" />
           </FunctionImport>
-          </EntityContainer>
-        <Association Name="FK">
-          <End Type="DB_A6A231_DAQLTMDTModel.Brand" Role="Brand" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Brand">
-              <PropertyRef Name="BrandID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="BrandID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="FindProduct_Result">
-          <Property Type="Int32" Name="Product_ID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="30" />
-          <Property Type="Single" Name="Price" Nullable="false" />
-          <Property Type="Int32" Name="Amount" Nullable="false" />
-          <Property Type="Int32" Name="TypeID" Nullable="false" />
-          <Property Type="Int32" Name="Store_ID" Nullable="false" />
-          <Property Type="String" Name="Pictures" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
-          <Property Type="Int32" Name="BrandID" Nullable="true" />
-        </ComplexType>
-        <EntityType Name="Cart">
-          <Key>
-            <PropertyRef Name="Cart_ID" />
-          </Key>
-          <Property Name="Cart_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart__UserID__5535A963" FromRole="Cart" ToRole="User" />
-          <NavigationProperty Name="Cart_Item" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___0F624AF8" FromRole="Cart" ToRole="Cart_Item" />
-        </EntityType>
-        <Association Name="FK__Cart__UserID__5535A963">
-          <End Type="DB_A6A231_DAQLTMDTModel.User" Role="User" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart" Role="Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Cart">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Cart_Item">
-          <Key>
-            <PropertyRef Name="ItemID" />
-            <PropertyRef Name="Cart_ID" />
-          </Key>
-          <Property Name="ItemID" Type="Int32" Nullable="false" />
-          <Property Name="Cart_ID" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="Cart" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__Cart___0F624AF8" FromRole="Cart_Item" ToRole="Cart" />
-          <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF" FromRole="Cart_Item" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK__Cart_Item__Cart___0F624AF8">
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart" Role="Cart" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cart">
-              <PropertyRef Name="Cart_ID" />
-            </Principal>
-            <Dependent Role="Cart_Item">
-              <PropertyRef Name="Cart_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Cart_Item__ItemI__0E6E26BF">
-          <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Cart_Item" Role="Cart_Item" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Cart_Item">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Address">
-          <Key>
-            <PropertyRef Name="Address_ID" />
-          </Key>
-          <Property Name="Address_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="User_ID" Type="Int32" />
-          <Property Name="full_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="default_address" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Address__User_ID__31B762FC" FromRole="Address" ToRole="User" />
-          <NavigationProperty Name="Orders" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__Address___55009F39" FromRole="Address" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Authorize">
-          <Key>
-            <PropertyRef Name="RoleID" />
-            <PropertyRef Name="PermissionID" />
-          </Key>
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="PermissionID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Permission" Relationship="DB_A6A231_DAQLTMDTModel.FK__Authorize__Permi__534D60F1" FromRole="Authorize" ToRole="Permission" />
-          <NavigationProperty Name="Role" Relationship="DB_A6A231_DAQLTMDTModel.FK__Authorize__RoleI__5165187F" FromRole="Authorize" ToRole="Role" />
-        </EntityType>
-        <EntityType Name="Main_Type">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Product_Type" Relationship="DB_A6A231_DAQLTMDTModel.FK__Product_T__Maint__2180FB33" FromRole="Main_Type" ToRole="Product_Type" />
-        </EntityType>
-        <EntityType Name="Order_Items">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-            <PropertyRef Name="Item_ID" />
-          </Key>
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="Item_ID" Type="Int32" Nullable="false" />
-          <Property Name="price" Type="Double" />
-          <Property Name="quantity" Type="Int32" />
-          <Property Name="discount" Type="Double" />
-          <Property Name="total" Type="Double" />
-          <Property Name="status" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Item___57DD0BE4" FromRole="Order_Items" ToRole="Product" />
-          <NavigationProperty Name="Order" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB" FromRole="Order_Items" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-          </Key>
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="User_ID" Type="Int32" />
-          <Property Name="Store_ID" Type="Int32" />
-          <Property Name="delivery" Type="Double" />
-          <Property Name="payment" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address_ID" Type="Int32" />
-          <Property Name="Total_Order" Type="Double" />
-          <NavigationProperty Name="Address" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__Address___55009F39" FromRole="Order" ToRole="Address" />
-          <NavigationProperty Name="Order_Items" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB" FromRole="Order" ToRole="Order_Items" />
-          <NavigationProperty Name="Store" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__Store_ID__540C7B00" FromRole="Order" ToRole="Store" />
-          <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7" FromRole="Order" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Permission">
-          <Key>
-            <PropertyRef Name="PermissionID" />
-          </Key>
-          <Property Name="PermissionID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Authorizes" Relationship="DB_A6A231_DAQLTMDTModel.FK__Authorize__Permi__534D60F1" FromRole="Permission" ToRole="Authorize" />
-        </EntityType>
-        <EntityType Name="Rating">
-          <Key>
-            <PropertyRef Name="ProductID" />
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="Rate" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Product" Relationship="DB_A6A231_DAQLTMDTModel.FK__Rating__ProductI__6FE99F9F" FromRole="Rating" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="RoleID" />
-          </Key>
-          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Rolename" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Authorizes" Relationship="DB_A6A231_DAQLTMDTModel.FK__Authorize__RoleI__5165187F" FromRole="Role" ToRole="Authorize" />
-          <NavigationProperty Name="Users" Relationship="DB_A6A231_DAQLTMDTModel.FK__Users__RoleID__52593CB8" FromRole="Role" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Buyer_LoadAllProduct">
-          <Key>
-            <PropertyRef Name="Product_ID" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="Amount" />
-            <PropertyRef Name="TypeID" />
-            <PropertyRef Name="Store_ID" />
-            <PropertyRef Name="Pictures" />
-            <PropertyRef Name="Decription" />
-          </Key>
-          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Single" Nullable="false" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
-          <Property Name="TypeID" Type="Int32" Nullable="false" />
-          <Property Name="Store_ID" Type="Int32" Nullable="false" />
-          <Property Name="Pictures" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Decription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="BrandID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Buyer_LoadProduct">
-          <Key>
-            <PropertyRef Name="Product_ID" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="Amount" />
-            <PropertyRef Name="TypeID" />
-            <PropertyRef Name="Store_ID" />
-            <PropertyRef Name="Pictures" />
-            <PropertyRef Name="Decription" />
-          </Key>
-          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Single" Nullable="false" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
-          <Property Name="TypeID" Type="Int32" Nullable="false" />
-          <Property Name="Store_ID" Type="Int32" Nullable="false" />
-          <Property Name="Pictures" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Decription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="BrandID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Order_All">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-          </Key>
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="delivery" Type="Double" />
-          <Property Name="created_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Total_Order" Type="Double" />
-        </EntityType>
-        <EntityType Name="Order_Cancel">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-          </Key>
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="delivery" Type="Double" />
-          <Property Name="created_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Total_Order" Type="Double" />
-        </EntityType>
-        <EntityType Name="Order_Confirm">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-          </Key>
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="delivery" Type="Double" />
-          <Property Name="created_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Total_Order" Type="Double" />
-        </EntityType>
-        <EntityType Name="Order_Delivered">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-          </Key>
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="delivery" Type="Double" />
-          <Property Name="created_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Total_Order" Type="Double" />
-        </EntityType>
-        <EntityType Name="Order_Delivering">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-          </Key>
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="delivery" Type="Double" />
-          <Property Name="created_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Total_Order" Type="Double" />
-        </EntityType>
-        <EntityType Name="Order_Receive">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-          </Key>
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="delivery" Type="Double" />
-          <Property Name="created_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Total_Order" Type="Double" />
-        </EntityType>
-        <EntityType Name="view_Buyer_Order_Items">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-            <PropertyRef Name="Item_ID" />
-          </Key>
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="Item_ID" Type="Int32" Nullable="false" />
-          <Property Name="price" Type="Double" />
-          <Property Name="quantity" Type="Int32" />
-          <Property Name="discount" Type="Double" />
-          <Property Name="total" Type="Double" />
-          <Property Name="status" Type="Int32" />
-        </EntityType>
-        <EntityType Name="view_Buyer_Orders">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-          </Key>
-          <Property Name="Order_ID" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
-          <Property Name="User_ID" Type="Int32" />
-          <Property Name="Store_ID" Type="Int32" />
-          <Property Name="delivery" Type="Double" />
-          <Property Name="payment" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address_ID" Type="Int32" />
-          <Property Name="Total_Order" Type="Double" />
-        </EntityType>
-        <EntityType Name="view_MainType">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="view_Product">
-          <Key>
-            <PropertyRef Name="TypeID" />
-            <PropertyRef Name="Name" />
-          </Key>
-          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaintypeID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="view_Products">
-          <Key>
-            <PropertyRef Name="Product_ID" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="Amount" />
-            <PropertyRef Name="TypeID" />
-            <PropertyRef Name="Store_ID" />
-            <PropertyRef Name="Pictures" />
-            <PropertyRef Name="Decription" />
-          </Key>
-          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Single" Nullable="false" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
-          <Property Name="TypeID" Type="Int32" Nullable="false" />
-          <Property Name="Store_ID" Type="Int32" Nullable="false" />
-          <Property Name="Pictures" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Decription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="BrandID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="view_Shop">
-          <Key>
-            <PropertyRef Name="Store_ID" />
-          </Key>
-          <Property Name="Store_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="ShopName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Pictures" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Coverpics" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK__Address__User_ID__31B762FC">
-          <End Type="DB_A6A231_DAQLTMDTModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Address" Role="Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="User_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__Address___55009F39">
-          <End Type="DB_A6A231_DAQLTMDTModel.Address" Role="Address" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="Address_ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="Address_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Authorize__Permi__534D60F1">
-          <End Type="DB_A6A231_DAQLTMDTModel.Permission" Role="Permission" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Authorize" Role="Authorize" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Permission">
-              <PropertyRef Name="PermissionID" />
-            </Principal>
-            <Dependent Role="Authorize">
-              <PropertyRef Name="PermissionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Authorize__RoleI__5165187F">
-          <End Type="DB_A6A231_DAQLTMDTModel.Role" Role="Role" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Authorize" Role="Authorize" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleID" />
-            </Principal>
-            <Dependent Role="Authorize">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Product_T__Maint__2180FB33">
-          <End Type="DB_A6A231_DAQLTMDTModel.Main_Type" Role="Main_Type" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Product_Type" Role="Product_Type" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Main_Type">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Product_Type">
-              <PropertyRef Name="MaintypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Order_Ite__Item___57DD0BE4">
-          <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Order_Items" Role="Order_Items" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Order_Items">
-              <PropertyRef Name="Item_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Order_Ite__Order__56E8E7AB">
-          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Order_Items" Role="Order_Items" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="Order_ID" />
-            </Principal>
-            <Dependent Role="Order_Items">
-              <PropertyRef Name="Order_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__Store_ID__540C7B00">
-          <End Type="DB_A6A231_DAQLTMDTModel.Store" Role="Store" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="Store_ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="Store_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__User_ID__531856C7">
-          <End Type="DB_A6A231_DAQLTMDTModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="User_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Rating__ProductI__6FE99F9F">
-          <End Type="DB_A6A231_DAQLTMDTModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.Rating" Role="Rating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Product_ID" />
-            </Principal>
-            <Dependent Role="Rating">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Users__RoleID__52593CB8">
-          <End Type="DB_A6A231_DAQLTMDTModel.Role" Role="Role" Multiplicity="0..1" />
-          <End Type="DB_A6A231_DAQLTMDTModel.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="Sp_User_Login" ReturnType="Collection(Boolean)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_View_Orders" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_View_Orders_Result)">
+            <Parameter Name="store_id" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ResetPassword">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetIdFromEmail" ReturnType="Collection(Int32)">
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ReportAdminIndex" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ReportAdminIndex_Result)" />
+          <FunctionImport Name="sp_Login" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_Login_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ListOrderDetailUser" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ListOrderDetailUser_Result)">
+          <Parameter Name="orderid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ListOrdersUser" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ListOrdersUser_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUserFb">
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ListOrdersUser1" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ListOrdersUser1_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
         <ComplexType Name="FindProducts_Result">
           <Property Type="Int32" Name="Product_ID" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
@@ -1843,14 +1927,13 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
           <Property Type="Int32" Name="BrandID" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="Load_User_Cart_Result">
-          <Property Type="String" Name="Pictures" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
-          <Property Type="Single" Name="Price" Nullable="false" />
-          <Property Type="Int32" Name="Store_ID" Nullable="false" />
-          <Property Type="Int32" Name="Quantity" Nullable="true" />
-          <Property Type="Int32" Name="ItemID" Nullable="false" />
+        <ComplexType Name="sp_getAddressByID_Result">
+          <Property Type="Int32" Name="Address_ID" Nullable="false" />
+          <Property Type="Int32" Name="User_ID" Nullable="true" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="default_address" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_GetCartItem_Result">
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
@@ -1883,6 +1966,17 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
           <Property Type="Int32" Name="default_address" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_loadUserCart_Result">
           <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
@@ -1926,12 +2020,89 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
           <Property Type="Int32" Name="BrandID" Nullable="true" />
         </ComplexType>
-        </Schema>
+        <ComplexType Name="sp_View_Orders_Result">
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
+          <Property Type="Double" Name="delivery" Nullable="true" />
+          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="decription" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ReportAdminIndex_Result">
+          <Property Type="Double" Name="Total" Nullable="true" />
+          <Property Type="Int32" Name="Orders" Nullable="true" />
+          <Property Type="Int32" Name="Users" Nullable="true" />
+          <Property Type="Double" Name="Ship" Nullable="true" />
+          <Property Type="Double" Name="Discount" Nullable="true" />
+          <Property Type="Int32" Name="Products" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_Login_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Birthday" Nullable="true" />
+          <Property Type="Int32" Name="RoleID" Nullable="true" />
+          <Property Type="String" Name="Avatar" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ListOrderDetailUser_Result">
+          <Property Type="Int32" Name="Item_ID" Nullable="false" />
+          <Property Type="Double" Name="price" Nullable="true" />
+          <Property Type="Int32" Name="quantity" Nullable="true" />
+          <Property Type="Double" Name="discount" Nullable="true" />
+          <Property Type="Double" Name="total" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ListOrdersUser_Result">
+          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
+          <Property Type="Int32" Name="Store_ID" Nullable="true" />
+          <Property Type="Double" Name="delivery" Nullable="true" />
+          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ListOrdersUser1_Result">
+          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="ShopName" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="delivery" Nullable="true" />
+          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+        </ComplexType>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DB_A6A231_DAQLTMDTModelStoreContainer" CdmEntityContainer="DB_A6A231_DAQLTMDTEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address1" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="default_address" ColumnName="default_address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authorizes">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Authorize">
+              <MappingFragment StoreEntitySet="Authorize">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Brands">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Brand">
               <MappingFragment StoreEntitySet="Brand">
@@ -1940,10 +2111,71 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cart_Item">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart_Item">
+              <MappingFragment StoreEntitySet="Cart_Item">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_Type">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Main_Type">
+              <MappingFragment StoreEntitySet="Main_Type">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Items">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Items">
+              <MappingFragment StoreEntitySet="Order_Items">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
                 <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -1952,28 +2184,47 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
                 <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
                 <ScalarProperty Name="Pictures" ColumnName="Pictures" />
                 <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Product_Type">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Product_Type">
               <MappingFragment StoreEntitySet="Product_Type">
-                <ScalarProperty Name="MaintypeID" ColumnName="MaintypeID" />
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MaintypeID" ColumnName="MaintypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Rolename" ColumnName="Rolename" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Stores">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Store">
               <MappingFragment StoreEntitySet="Store">
-                <ScalarProperty Name="Coverpics" ColumnName="Coverpics" />
-                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
-                <ScalarProperty Name="Decription" ColumnName="Decription" />
-                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
                 <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Coverpics" ColumnName="Coverpics" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1991,8 +2242,6 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -2002,325 +2251,219 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_AccountResgister" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_AccountResgister" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="Sp_User_Login" FunctionName="DB_A6A231_DAQLTMDTModel.Store.Sp_User_Login" />
-          <FunctionImportMapping FunctionImportName="sp_AccountChangePassword" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_AccountChangePassword" />
-          <EntitySetMapping Name="Carts">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart">
-              <MappingFragment StoreEntitySet="Cart">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cart_Item">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Cart_Item">
-              <MappingFragment StoreEntitySet="Cart_Item">
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Addresses">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Address">
-              <MappingFragment StoreEntitySet="Address">
-                <ScalarProperty Name="default_address" ColumnName="default_address" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="address1" ColumnName="address" />
-                <ScalarProperty Name="full_name" ColumnName="full_name" />
-                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
-                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Authorizes">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Authorize">
-              <MappingFragment StoreEntitySet="Authorize">
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Main_Type">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Main_Type">
-              <MappingFragment StoreEntitySet="Main_Type">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Order_Items">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Items">
-              <MappingFragment StoreEntitySet="Order_Items">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="discount" ColumnName="discount" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
-                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
-                <ScalarProperty Name="decription" ColumnName="decription" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="payment" ColumnName="payment" />
-                <ScalarProperty Name="delivery" ColumnName="delivery" />
-                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
-                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Permissions">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Permission">
-              <MappingFragment StoreEntitySet="Permission">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Ratings">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Rating">
-              <MappingFragment StoreEntitySet="Rating">
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Rolename" ColumnName="Rolename" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Buyer_LoadAllProduct">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Buyer_LoadAllProduct">
               <MappingFragment StoreEntitySet="Buyer_LoadAllProduct">
-                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
-                <ScalarProperty Name="Decription" ColumnName="Decription" />
-                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
-                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Buyer_LoadProduct">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Buyer_LoadProduct">
               <MappingFragment StoreEntitySet="Buyer_LoadProduct">
-                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
-                <ScalarProperty Name="Decription" ColumnName="Decription" />
-                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
-                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Order_All">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_All">
               <MappingFragment StoreEntitySet="Order_All">
-                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="decription" ColumnName="decription" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="delivery" ColumnName="delivery" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Order_Cancel">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Cancel">
               <MappingFragment StoreEntitySet="Order_Cancel">
-                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="decription" ColumnName="decription" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="delivery" ColumnName="delivery" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Order_Confirm">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Confirm">
               <MappingFragment StoreEntitySet="Order_Confirm">
-                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="decription" ColumnName="decription" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="delivery" ColumnName="delivery" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Order_Delivered">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Delivered">
               <MappingFragment StoreEntitySet="Order_Delivered">
-                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="decription" ColumnName="decription" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="delivery" ColumnName="delivery" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Order_Delivering">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Delivering">
               <MappingFragment StoreEntitySet="Order_Delivering">
-                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="decription" ColumnName="decription" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="delivery" ColumnName="delivery" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Order_Receive">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Receive">
               <MappingFragment StoreEntitySet="Order_Receive">
-                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="decription" ColumnName="decription" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="delivery" ColumnName="delivery" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="view_Buyer_Order_Items">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.view_Buyer_Order_Items">
               <MappingFragment StoreEntitySet="view_Buyer_Order_Items">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="discount" ColumnName="discount" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
                 <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="view_Buyer_Orders">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.view_Buyer_Orders">
               <MappingFragment StoreEntitySet="view_Buyer_Orders">
-                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
-                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
-                <ScalarProperty Name="decription" ColumnName="decription" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="payment" ColumnName="payment" />
-                <ScalarProperty Name="delivery" ColumnName="delivery" />
-                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
-                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
                 <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="view_MainType">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.view_MainType">
               <MappingFragment StoreEntitySet="view_MainType">
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="view_Product">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.view_Product">
               <MappingFragment StoreEntitySet="view_Product">
-                <ScalarProperty Name="MaintypeID" ColumnName="MaintypeID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MaintypeID" ColumnName="MaintypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="view_Products">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.view_Products">
               <MappingFragment StoreEntitySet="view_Products">
-                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
-                <ScalarProperty Name="Decription" ColumnName="Decription" />
-                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
-                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="view_Shop">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.view_Shop">
               <MappingFragment StoreEntitySet="view_Shop">
-                <ScalarProperty Name="Coverpics" ColumnName="Coverpics" />
-                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
-                <ScalarProperty Name="Decription" ColumnName="Decription" />
-                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Coverpics" ColumnName="Coverpics" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionName="DB_A6A231_DAQLTMDTModel.Store.CheckAdminLogin" FunctionImportName="CheckAdminLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.CheckAdminLogin_Result">
+                <ScalarProperty Name="RESULT" ColumnName="RESULT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="DB_A6A231_DAQLTMDTModel.Store.Load_User_Cart" FunctionImportName="Load_User_Cart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Load_User_Cart_Result">
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ChangeStatus" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ChangeStatus" />
           <FunctionImportMapping FunctionImportName="FindProducts" FunctionName="DB_A6A231_DAQLTMDTModel.Store.FindProducts">
             <ResultMapping>
@@ -2383,16 +2526,21 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Load_User_Cart" FunctionName="DB_A6A231_DAQLTMDTModel.Store.Load_User_Cart">
+          <FunctionImportMapping FunctionImportName="sp_AccountChangePassword" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_AccountChangePassword" />
+          <FunctionImportMapping FunctionImportName="sp_AccountResgister" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_AccountResgister" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_EditProfile" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_EditProfile" />
+          <FunctionImportMapping FunctionImportName="sp_getAddressByID" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_getAddressByID">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Load_User_Cart_Result">
-                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Decription" ColumnName="Decription" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_getAddressByID_Result">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="default_address" ColumnName="default_address" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2440,6 +2588,25 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_loadUserCart" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_loadUserCart">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_loadUserCart_Result">
@@ -2483,6 +2650,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_searchProduct" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_searchProduct">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_searchProduct_Result">
@@ -2495,6 +2663,79 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
                 <ScalarProperty Name="Pictures" ColumnName="Pictures" />
                 <ScalarProperty Name="Decription" ColumnName="Decription" />
                 <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="Sp_User_Login" FunctionName="DB_A6A231_DAQLTMDTModel.Store.Sp_User_Login" />
+          <FunctionImportMapping FunctionImportName="sp_View_Orders" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_View_Orders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_View_Orders_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ResetPassword" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ResetPassword" />
+          <FunctionImportMapping FunctionImportName="GetIdFromEmail" FunctionName="DB_A6A231_DAQLTMDTModel.Store.GetIdFromEmail" />
+          <FunctionImportMapping FunctionImportName="ReportAdminIndex" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ReportAdminIndex">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ReportAdminIndex_Result">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Orders" ColumnName="Orders" />
+                <ScalarProperty Name="Users" ColumnName="Users" />
+                <ScalarProperty Name="Ship" ColumnName="Ship" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Products" ColumnName="Products" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Login" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_Login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_Login_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ListOrderDetailUser" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ListOrderDetailUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ListOrderDetailUser_Result">
+                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUserFb" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_InsUserFb" />
+          <FunctionImportMapping FunctionImportName="ListOrdersUser1" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ListOrdersUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ListOrdersUser1_Result">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -1,83 +1,156 @@
-﻿@model Fashison_eCommerce.Models.User
-
-@{
+﻿@{
     ViewBag.Title = "Details";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutTable.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
+<header>
+    <style>
+        .label-info {
+            text-align: right;
+            width: 200px;
+            padding-right: 20px;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Username)
-        </dd>
+        .text-info {
+            text-align: left;
+            padding-left: 20px;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            .text-info div {
+                margin: 10px;
+            }
+    </style>
+</header>
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">User's Information</a>
+        <a class="nav-item nav-link" id="nav-order-tab" data-toggle="tab" href="#nav-order" role="tab" aria-controls="nav-order" aria-selected="false">User's Orders</a>
+        <a class="nav-item nav-link" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab" aria-controls="nav-product" aria-selected="false">Products in User's Store</a>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
+        <div class="container border-bottom" style="padding-top: 30px;">
+            <h3>@ViewBag.user.Name</h3>
+        </div>
+        <div style="padding-top: 30px;" class="d-flex">
+            <div class="xl-col-8" style="flex-grow: 1;">
+                <div class="form-group d-flex">
+                    <label class="label-info">UserName: </label>
+                    <label class="text-info">@ViewBag.user.Username</label>
+                </div>
+                <div class="form-group d-flex">
+                    <label class="label-info">Email: </label>
+                    <label class="text-info">@ViewBag.user.Email</label>
+                </div>
+                <div class="form-group d-flex">
+                    <label class="label-info">Phone: </label>
+                    <label class="text-info">@ViewBag.user.Phone</label>
+                </div>
+                <div class="form-group d-flex">
+                    <label class="label-info">Store's Name: </label>
+                    <label class="text-info">@ViewBag.store.ShopName</label>
+                </div>
+                <div class="form-group d-flex">
+                    <label class="label-info">Gender: </label>
+                    <div class="text-info d-flex">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Male" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                                Male
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Female">
+                            <label class="form-check-label" for="exampleRadios2">
+                                Female
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="Orther">
+                            <label class="form-check-label" for="exampleRadios3">
+                                Other
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-flex">
+                    <label class="label-info">DOB: </label>
+                    <input type="date" class="form-control text-info" value="@ViewBag.user.Birthday">
+                </div>
+            </div>
+            <div class="xl-col-4">
+                <div class="container">
+                    <div title="Avatar">
+                        <img src="https://i.pinimg.com/originals/14/f1/01/14f101a28f7bf7f860f3b3a8fd3fae4c.png" style="border-radius: 50%; width: 256px; height: 256px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-order" role="tabpanel" aria-labelledby="nav-order-tab">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="padding: 20px;" onclick="LoadOrderDetail(@ViewBag.user.Id)">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-all-tab" data-toggle="pill" href="#" role="tab" aria-controls="pills-all" aria-selected="true" onclick="ChangeStatus(-1)">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-confirm-tab" data-toggle="pill" href="#pills-confirm" role="tab" aria-controls="pills-confirm" aria-selected="false" data-status="1" onclick="ChangeStatus(1)">Confirm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-receive-tab" data-toggle="pill" href="#pills-receive" role="tab" aria-controls="pills-receive" aria-selected="false" data-status="2" onclick="ChangeStatus(2)">Receive</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-deliver-tab" data-toggle="pill" href="#pills-deliver" role="tab" aria-controls="pills-deliver" aria-selected="false" data-status="3" onclick="ChangeStatus(3)">Delivering</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-delivered-tab" data-toggle="pill" href="#pills-delivered" role="tab" aria-controls="pills-delivered" aria-selected="false" data-status="4" onclick="ChangeStatus(4)">Delivered</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-cancel-tab" data-toggle="pill" href="#pills-cancel" role="tab" aria-controls="pills-cancel" aria-selected="false" data-status="0" onclick="ChangeStatus(0)">Cancel</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="edit-person">
+            <div id="edit-person-container">
+                
+            </div>
+        </div>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            </div>
+            <div class="tab-pane fade" id="pills-confirm" role="tabpanel" aria-labelledby="pills-confirm-tab">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
-
-    </dl>
+            </div>
+            <div class="tab-pane fade" id="pills-receive" role="tabpanel" aria-labelledby="pills-receive-tab">...</div>
+            <div class="tab-pane fade" id="pills-deliver" role="tabpanel" aria-labelledby="pills-deliver-tab">...</div>
+            <div class="tab-pane fade" id="pills-delivered" role="tabpanel" aria-labelledby="pills-delivered-tab">...</div>
+            <div class="tab-pane fade" id="pills-cancel" role="tabpanel" aria-labelledby="pills-cancel-tab">...</div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">...</div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<script>
+    var status = -1;
+    function ChangeStatus(status_change) {
+        status = status_change;
+    };
+    function LoadOrderDetail(e) {
+        alert(e);
+        alert(status);
+        $.ajax({
+            data: {
+                userid: e,
+                status: status
+            },
+            url: "/Admin/Users/OrderDetail",
+            type: 'GET',
+            async: true,
+            success: function (data) {
+                $('#edit-person-container').html(data);
+                var x = document.getElementById("edit-person");
+                x.style.display = "block";
+            }
+        });
+    };
+</script>

@@ -17,7 +17,7 @@ namespace Fashison_eCommerce.Areas.Admin
             context.MapRoute(
                  "Admin_default",
                  "Admin/{controller}/{action}/{id}",
-                 new { action = "Index", controller = "Home", id = UrlParameter.Optional },
+                 new { action = "AdminDashboard", controller = "Home", id = UrlParameter.Optional },
                  new[] { "Fashison_eCommerce.Areas.Admin.Controllers" }
               );
         }

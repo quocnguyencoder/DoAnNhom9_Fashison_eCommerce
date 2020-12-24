@@ -11,16 +11,13 @@ namespace Fashison_eCommerce.Models
 {
     using System;
     
-    public partial class FindProduct_Result
+    public partial class ListOrderDetailUser_Result
     {
-        public int Product_ID { get; set; }
-        public string Name { get; set; }
-        public float Price { get; set; }
-        public int Amount { get; set; }
-        public int TypeID { get; set; }
-        public int Store_ID { get; set; }
-        public string Pictures { get; set; }
-        public string Decription { get; set; }
-        public Nullable<int> BrandID { get; set; }
+        public int Item_ID { get; set; }
+        public Nullable<double> price { get; set; }
+        public Nullable<int> quantity { get; set; }
+        public Nullable<double> discount { get; set; }
+        public Nullable<double> total { get; set; }
+        public Nullable<int> status { get; set; }
     }
 }

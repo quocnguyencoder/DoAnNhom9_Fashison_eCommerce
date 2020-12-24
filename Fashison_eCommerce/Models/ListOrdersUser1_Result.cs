@@ -10,15 +10,15 @@
 namespace Fashison_eCommerce.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Cart_Item
+    public partial class ListOrdersUser1_Result
     {
-        public int ItemID { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public int Cart_ID { get; set; }
-    
-        public virtual Cart Cart { get; set; }
-        public virtual Product Product { get; set; }
+        public string Order_ID { get; set; }
+        public string ShopName { get; set; }
+        public Nullable<double> delivery { get; set; }
+        public string payment { get; set; }
+        public Nullable<System.DateTime> created_date { get; set; }
+        public Nullable<double> Total_Order { get; set; }
+        public Nullable<int> status { get; set; }
     }
 }

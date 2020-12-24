@@ -350,5 +350,22 @@ namespace WebAPI
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_View_Orders_Result>("sp_View_Orders", store_idParameter, statusParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> sp_CheckAdminLogin(string email, string password, Nullable<int> result)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var resultParameter = result.HasValue ?
+                new ObjectParameter("Result", result) :
+                new ObjectParameter("Result", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_CheckAdminLogin", emailParameter, passwordParameter, resultParameter);
+        }
     }
 }

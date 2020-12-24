@@ -17,7 +17,8 @@ namespace Fashison_eCommerce.Areas.Buyer
             context.MapRoute(
                 "Buyer_default",
                 "Buyer/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new[] { "Fashison_eCommerce.Areas.Buyer.Controllers" }
             );
         }
     }
