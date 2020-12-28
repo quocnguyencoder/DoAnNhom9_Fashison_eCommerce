@@ -1,0 +1,73 @@
+﻿
+<script src="~/Assets/Seller/vendors/Chart.js/dist/Chart.min.js"></script>
+
+@*<script src="~/Assets/Seller/js/Chart.js"></script>*@
+
+<div class="x_content">
+    <img src="~/Assets/Buyer/text_loading.gif" id="loading" style="display:none;position: absolute;top: 40%;left: 45%;z-index: 100"/>
+    <canvas id="lineChart"></canvas>
+</div>
+
+<link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<script>
+    var ctx = document.getElementById("lineChart");
+    ctx.height = 300;
+    var lineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [@ViewBag.Date],
+            datasets: [{
+                label: "Doanh thu",
+                backgroundColor: "rgba(38, 185, 154, 0.31)",
+                borderColor: "rgba(38, 185, 154, 0.7)",
+                pointBorderColor: "rgba(38, 185, 154, 0.7)",
+                pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointBorderWidth: 1,
+                data: [@ViewBag.DateTotals]
+
+            }]
+        },
+        options : {
+            scales: {
+                xAxes: [{
+                    time: {
+                        unit: 'time'
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 12
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+
+                        callback: function (value) {
+                            if (value % 1 === 0) {
+                                if (value > 1) { return value; }
+                            }
+
+                        }
+
+                    }
+                }]
+
+
+
+            },
+            legend: {
+                onClick: function (e) {
+                    e.stopPropagation();
+                }
+            },
+            maintainAspectRatio: false,
+        }
+    });
+</script>

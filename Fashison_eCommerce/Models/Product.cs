@@ -31,6 +31,7 @@ namespace Fashison_eCommerce.Models
         public string Pictures { get; set; }
         public string Decription { get; set; }
         public Nullable<int> BrandID { get; set; }
+        public Nullable<int> status { get; set; }
     
         public virtual Store Store { get; set; }
         public virtual Product_Type Product_Type { get; set; }
