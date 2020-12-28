@@ -18,6 +18,7 @@ namespace Fashison_eCommerce.Models
         public Order()
         {
             this.Order_Items = new HashSet<Order_Items>();
+            this.Order_Tracking = new HashSet<Order_Tracking>();
         }
     
         public string Order_ID { get; set; }
@@ -36,5 +37,7 @@ namespace Fashison_eCommerce.Models
         public virtual ICollection<Order_Items> Order_Items { get; set; }
         public virtual Store Store { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order_Tracking> Order_Tracking { get; set; }
     }
 }

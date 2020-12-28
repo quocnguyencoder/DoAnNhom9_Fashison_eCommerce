@@ -66,9 +66,13 @@ namespace Fashison_eCommerce.Controllers
                 case 4:
                     status = "đã giao hàng";
                     break;
+                case 5:
+                    status = "trả hàng, hoàn tiền";
+                    break;
             }
             return status;
         }
+
         public ActionResult PurchaseDetail(string Order_id)
         {
             BuyerOrderItemsClient BOIC = new BuyerOrderItemsClient();
@@ -187,12 +191,25 @@ namespace Fashison_eCommerce.Controllers
             return PartialView("EditProfile");
         }
 
-
         public string Upload(HttpPostedFileBase file)
         {
             file.SaveAs(Server.MapPath("~/User_Images/" + file.FileName));
             Session["avatar"] = file.FileName;
             return "/User_Images/" + file.FileName;
+        }
+
+        public ActionResult OrderTracking(string order_id)
+        {
+            order_id = "9kMqhoZzEw2";
+            BuyerOrderItemsClient BOIC = new BuyerOrderItemsClient();
+            var DetailList= BOIC.find(order_id);
+            ViewBag.DetailList = DetailList;
+            List<Order_Tracking> tracking = db.Order_Tracking.Where(t => t.Order_ID == order_id).ToList<Order_Tracking>();
+            ViewBag.length = tracking.Count();
+            var tracking_list = tracking.Reverse<Order_Tracking>();
+            ViewBag.Tracking = tracking_list.ToList<Order_Tracking>();
+            
+            return View();
         }
 
     }
