@@ -57,6 +57,7 @@ namespace Fashison_eCommerce.Models
         public virtual DbSet<view_Product> view_Product { get; set; }
         public virtual DbSet<view_Products> view_Products { get; set; }
         public virtual DbSet<view_Shop> view_Shop { get; set; }
+        public virtual DbSet<Order_Tracking> Order_Tracking { get; set; }
     
         public virtual int sp_AccountResgister(string username, string password, string email)
         {

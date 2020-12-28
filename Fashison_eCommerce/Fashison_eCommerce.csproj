@@ -156,6 +156,7 @@
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
     <Compile Include="Areas\Seller\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\Seller\Controllers\ReveneuController.cs" />
     <Compile Include="Areas\Seller\Controllers\StoresController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -234,6 +235,9 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order_Receive.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_Tracking.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Permission.cs">
@@ -2042,14 +2046,22 @@
     <Content Include="Assets\Buyer\JavaScript.js" />
     <Content Include="Assets\Buyer\loading.gif" />
     <Content Include="Assets\Buyer\text_loading.gif" />
+    <Content Include="Assets\Seller\css\DatePicker.css" />
     <Content Include="Assets\Seller\css\displayimg.css" />
     <Content Include="Assets\Seller\css\FilterForm.css" />
     <Content Include="Assets\Seller\css\Imagefile.css" />
     <Content Include="Assets\Seller\css\Products.css" />
     <Content Include="Assets\Seller\css\Store.css" />
     <Content Include="Assets\Seller\index.js" />
+    <Content Include="Assets\Seller\js\Chart.js" />
+    <Content Include="Assets\Seller\js\DatePicker.js" />
     <Content Include="Assets\Seller\js\Displayimg.js" />
     <Content Include="Assets\Seller\js\Filter.js" />
+    <Content Include="Assets\Seller\vendors\bootstrap.min.css" />
+    <Content Include="Assets\Seller\vendors\Chart.js\dist\Chart.bundle.js" />
+    <Content Include="Assets\Seller\vendors\Chart.js\dist\Chart.bundle.min.js" />
+    <Content Include="Assets\Seller\vendors\Chart.js\dist\Chart.js" />
+    <Content Include="Assets\Seller\vendors\Chart.js\dist\Chart.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -2342,6 +2354,8 @@
     <Content Include="Areas\Seller\Views\Orders\UserAddressByID.cshtml" />
     <Content Include="Areas\Buyer\Views\Shop\Shop.cshtml" />
     <Content Include="Areas\Buyer\Views\CartCheckout\GetShop.cshtml" />
+    <Content Include="Areas\Seller\Views\Reveneu\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Reveneu\ReveneuChart.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
