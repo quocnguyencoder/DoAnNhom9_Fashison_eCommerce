@@ -1,0 +1,46 @@
+﻿
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+<style>
+    .List .table td, .table th
+    {
+        padding: 0.25em !important;
+    }
+</style>
+
+<h2>OrderList</h2>
+<div class="List">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Description</th>
+                <th scope="col">Payment</th>
+                <th scope="col">Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var order in ViewBag.listOrder)
+                {
+                        <tr>
+                            <td scope="row">@order.Order_ID</td>
+                            <td>@order.full_name</td>
+                            <td>@order.address</td>
+                            <td>@order.phone</td>
+                            <td>@order.decription</td>
+                            <td>@order.payment</td>
+                            <td>@String.Format(info, "{0:C0}", @order.Total_Order)</td>
+                            <td><a href="#" class="btn btn-primary" data-id="@order.Order_ID" data-status=3>Giao hàng</a></td>
+                        </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+

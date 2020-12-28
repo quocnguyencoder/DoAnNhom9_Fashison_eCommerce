@@ -57,6 +57,7 @@ namespace Fashison_eCommerce.Models
         public virtual DbSet<view_Product> view_Product { get; set; }
         public virtual DbSet<view_Products> view_Products { get; set; }
         public virtual DbSet<view_Shop> view_Shop { get; set; }
+        public virtual DbSet<Order_Tracking> Order_Tracking { get; set; }
     
         public virtual int sp_AccountResgister(string username, string password, string email)
         {
@@ -415,6 +416,15 @@ namespace Fashison_eCommerce.Models
                 new ObjectParameter("pass", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Result>("sp_Login", emailParameter, passParameter);
+        }
+    
+        public virtual ObjectResult<DetailOrder_Result> DetailOrder(Nullable<int> shipperid)
+        {
+            var shipperidParameter = shipperid.HasValue ?
+                new ObjectParameter("shipperid", shipperid) :
+                new ObjectParameter("shipperid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DetailOrder_Result>("DetailOrder", shipperidParameter);
         }
     }
 }

@@ -68,6 +68,17 @@
           <Property Name="total" Type="float" />
           <Property Name="status" Type="int" />
         </EntityType>
+        <EntityType Name="Order_Tracking">
+          <Key>
+            <PropertyRef Name="Track_ID" />
+          </Key>
+          <Property Name="Track_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order_ID" Type="nchar" MaxLength="11" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Shipper_ID" Type="int" />
+        </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="Order_ID" />
@@ -134,9 +145,9 @@
             <PropertyRef Name="Store_ID" />
           </Key>
           <Property Name="Store_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Address" Type="nchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
           <Property Name="UserID" Type="int" />
-          <Property Name="ShopName" Type="nvarchar" MaxLength="20" />
+          <Property Name="ShopName" Type="nvarchar" MaxLength="50" />
           <Property Name="Decription" Type="nvarchar" MaxLength="1000" />
           <Property Name="Pictures" Type="nvarchar" MaxLength="50" />
           <Property Name="Coverpics" Type="nvarchar" MaxLength="50" />
@@ -500,6 +511,30 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Order_Tra__Order__084B3915">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="Order_Tracking" Type="Self.Order_Tracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_ID" />
+            </Principal>
+            <Dependent Role="Order_Tracking">
+              <PropertyRef Name="Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Tra__Shipp__093F5D4E">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Order_Tracking" Type="Self.Order_Tracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order_Tracking">
+              <PropertyRef Name="Shipper_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Orders__Address___55009F39">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
@@ -611,6 +646,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         <Function Name="ChangeStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="nchar" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DetailOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="shipperid" Type="int" Mode="In" />
         </Function>
         <Function Name="FindProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Store_ID" Type="int" Mode="In" />
@@ -735,6 +773,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Main_Type" EntityType="Self.Main_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order_Items" EntityType="Self.Order_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Tracking" EntityType="Self.Order_Tracking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -940,6 +979,14 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Order_Items" EntitySet="Order_Items" />
           </AssociationSet>
+          <AssociationSet Name="FK__Order_Tra__Order__084B3915" Association="Self.FK__Order_Tra__Order__084B3915">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Tracking" EntitySet="Order_Tracking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Tra__Shipp__093F5D4E" Association="Self.FK__Order_Tra__Shipp__093F5D4E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Order_Tracking" EntitySet="Order_Tracking" />
+          </AssociationSet>
           <AssociationSet Name="FK__Orders__Address___55009F39" Association="Self.FK__Orders__Address___55009F39">
             <End Role="Address" EntitySet="Address" />
             <End Role="Orders" EntitySet="Orders" />
@@ -1024,11 +1071,11 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <PropertyRef Name="Store_ID" />
           </Key>
           <Property Name="Store_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Product__Store_I__2F10007B" FromRole="Store" ToRole="Product" />
           <NavigationProperty Name="User" Relationship="Self.FK__Store__UserID__29572725" FromRole="Store" ToRole="Users" />
-          <Property Name="ShopName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ShopName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Pictures" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Coverpics" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1064,6 +1111,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <NavigationProperty Name="Addresses" Relationship="DB_A6A231_DAQLTMDTModel.FK__Address__User_ID__31B762FC" FromRole="User" ToRole="Address" />
           <NavigationProperty Name="Orders" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Role" Relationship="DB_A6A231_DAQLTMDTModel.FK__Users__RoleID__52593CB8" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Order_Tracking" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Shipp__093F5D4E" FromRole="User" ToRole="Order_Tracking" />
         </EntityType>
         <Association Name="FK__Product__Store_I__2F10007B">
           <End Role="Store" Type="Self.Store" Multiplicity="1" />
@@ -1312,6 +1360,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="pass" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Order_Tracking" EntityType="DB_A6A231_DAQLTMDTModel.Order_Tracking" />
+          <AssociationSet Name="FK__Order_Tra__Order__084B3915" Association="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Order__084B3915">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Order_Tracking" EntitySet="Order_Tracking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Tra__Shipp__093F5D4E" Association="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Shipp__093F5D4E">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order_Tracking" EntitySet="Order_Tracking" />
+          </AssociationSet>
+          <FunctionImport Name="DetailOrder" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.DetailOrder_Result)">
+          <Parameter Name="shipperid" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <Association Name="FK">
           <End Type="DB_A6A231_DAQLTMDTModel.Brand" Role="Brand" Multiplicity="0..1" />
@@ -1468,6 +1528,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <NavigationProperty Name="Order_Items" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB" FromRole="Order" ToRole="Order_Items" />
           <NavigationProperty Name="Store" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__Store_ID__540C7B00" FromRole="Order" ToRole="Store" />
           <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="Order_Tracking" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Order__084B3915" FromRole="Order" ToRole="Order_Tracking" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -1966,6 +2027,52 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Type="DateTime" Name="Birthday" Nullable="true" />
           <Property Type="Int32" Name="RoleID" Nullable="true" />
           <Property Type="String" Name="Avatar" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <EntityType Name="Order_Tracking">
+          <Key>
+            <PropertyRef Name="Track_ID" />
+          </Key>
+          <Property Name="Track_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Shipper_ID" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Order__084B3915" FromRole="Order_Tracking" ToRole="Order" />
+          <NavigationProperty Name="User" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Shipp__093F5D4E" FromRole="Order_Tracking" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Order_Tra__Order__084B3915">
+          <End Type="DB_A6A231_DAQLTMDTModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Order_Tracking" Role="Order_Tracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Order_ID" />
+            </Principal>
+            <Dependent Role="Order_Tracking">
+              <PropertyRef Name="Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Tra__Shipp__093F5D4E">
+          <End Type="DB_A6A231_DAQLTMDTModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Order_Tracking" Role="Order_Tracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order_Tracking">
+              <PropertyRef Name="Shipper_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="DetailOrder_Result">
+          <Property Type="String" Name="Order_ID" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="decription" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2554,6 +2661,31 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Order_Tracking">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Tracking">
+              <MappingFragment StoreEntitySet="Order_Tracking">
+                <ScalarProperty Name="Shipper_ID" ColumnName="Shipper_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Track_ID" ColumnName="Track_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DetailOrder" FunctionName="DB_A6A231_DAQLTMDTModel.Store.DetailOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.DetailOrder_Result">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

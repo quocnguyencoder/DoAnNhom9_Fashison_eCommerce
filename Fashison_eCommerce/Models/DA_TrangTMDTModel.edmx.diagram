@@ -53,6 +53,9 @@
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Rating__ProductI__6FE99F9F" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Users__RoleID__52593CB8" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Tracking" Width="1.5" PointX="10.75" PointY="0.75" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Order__084B3915" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Shipp__093F5D4E" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
