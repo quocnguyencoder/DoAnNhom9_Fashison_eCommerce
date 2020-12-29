@@ -21,6 +21,7 @@ namespace Fashison_eCommerce.Models
             this.Carts = new HashSet<Cart>();
             this.Addresses = new HashSet<Address>();
             this.Orders = new HashSet<Order>();
+            this.Order_Tracking = new HashSet<Order_Tracking>();
         }
     
         public int Id { get; set; }
@@ -44,5 +45,7 @@ namespace Fashison_eCommerce.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         public virtual Role Role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order_Tracking> Order_Tracking { get; set; }
     }
 }
