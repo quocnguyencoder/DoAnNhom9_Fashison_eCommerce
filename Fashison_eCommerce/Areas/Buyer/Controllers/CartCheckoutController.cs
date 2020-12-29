@@ -175,7 +175,7 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             
             Session["Address_ID"] = Session["tempAddress"];
             var a = Session["Address_ID"];
-            return Redirect("Index");
+            return PartialView("PartialAddressCheckout1");
         }
 
         public ActionResult RadioButton(int id_address)
