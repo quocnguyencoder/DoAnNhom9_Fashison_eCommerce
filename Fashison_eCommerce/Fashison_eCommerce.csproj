@@ -2048,12 +2048,15 @@
     <Content Include="Assets\Buyer\Address.css" />
     <Content Include="Assets\Buyer\bundle.css" />
     <Content Include="Assets\Buyer\CreateAddress.js" />
+    <Content Include="Assets\Buyer\cod.svg" />
     <Content Include="Assets\Buyer\CustomStyles.css" />
     <Content Include="Assets\Buyer\facebook.png" />
     <Content Include="Assets\Buyer\JavaScript.js" />
     <Content Include="Assets\Buyer\loading.gif" />
+    <Content Include="Assets\Buyer\paypal.svg" />
     <Content Include="Assets\Buyer\text_loading.gif" />
     <Content Include="Assets\Seller\css\DatePicker.css" />
+    <Content Include="Assets\Buyer\TrackingStyles.css" />
     <Content Include="Assets\Seller\css\displayimg.css" />
     <Content Include="Assets\Seller\css\FilterForm.css" />
     <Content Include="Assets\Seller\css\Imagefile.css" />
@@ -2617,6 +2620,7 @@
     <Content Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\ManageUser\ManageUser.cshtml" />
     <Content Include="Views\ManageUser\Login.cshtml" />
+    <Content Include="Views\User\OrderTracking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
