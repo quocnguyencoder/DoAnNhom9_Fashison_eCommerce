@@ -99,6 +99,7 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         [HttpPost]
         public ActionResult Checkout(int address_ID, string shop_List, string delivery_List)
         {
+            address_ID = Convert.ToInt32(Session["Address_ID"].ToString());
             var check = CheckAvailableItems();
             if(check == null)
             {
