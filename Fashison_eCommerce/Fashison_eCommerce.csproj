@@ -51,6 +51,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -156,6 +159,7 @@
     <Compile Include="Areas\Seller\Controllers\AcountController.cs" />
     <Compile Include="Areas\Seller\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Seller\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\Seller\Controllers\ReveneuController.cs" />
     <Compile Include="Areas\Seller\Controllers\StoresController.cs" />
     <Compile Include="Areas\Seller\SellerAreaRegistration.cs" />
     <Compile Include="Areas\Shipper\Controllers\ShipperController.cs" />
@@ -2046,16 +2050,26 @@
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Assets\Buyer\Address.css" />
+    <Content Include="Assets\Buyer\bundle.css" />
+    <Content Include="Assets\Buyer\CreateAddress.js" />
+    <Content Include="Assets\Buyer\cod.svg" />
     <Content Include="Assets\Buyer\CustomStyles.css" />
+    <Content Include="Assets\Buyer\facebook.png" />
     <Content Include="Assets\Buyer\JavaScript.js" />
     <Content Include="Assets\Buyer\loading.gif" />
+    <Content Include="Assets\Buyer\paypal.svg" />
     <Content Include="Assets\Buyer\text_loading.gif" />
+    <Content Include="Assets\Seller\css\DatePicker.css" />
+    <Content Include="Assets\Buyer\TrackingStyles.css" />
     <Content Include="Assets\Seller\css\displayimg.css" />
     <Content Include="Assets\Seller\css\FilterForm.css" />
     <Content Include="Assets\Seller\css\Imagefile.css" />
     <Content Include="Assets\Seller\css\Products.css" />
     <Content Include="Assets\Seller\css\Store.css" />
     <Content Include="Assets\Seller\index.js" />
+    <Content Include="Assets\Seller\js\Chart.js" />
+    <Content Include="Assets\Seller\js\DatePicker.js" />
     <Content Include="Assets\Seller\js\Displayimg.js" />
     <Content Include="Assets\Seller\js\Filter.js" />
     <Content Include="Assets\Shipper\css\theme-1.css" />
@@ -2126,6 +2140,11 @@
     <Content Include="Assets\Shipper\scss\bootstrap\js\tests\visual\tab.html" />
     <Content Include="Assets\Shipper\scss\bootstrap\js\tests\visual\toast.html" />
     <Content Include="Assets\Shipper\scss\bootstrap\js\tests\visual\tooltip.html" />
+    <Content Include="Assets\Seller\vendors\bootstrap.min.css" />
+    <Content Include="Assets\Seller\vendors\Chart.js\dist\Chart.bundle.js" />
+    <Content Include="Assets\Seller\vendors\Chart.js\dist\Chart.bundle.min.js" />
+    <Content Include="Assets\Seller\vendors\Chart.js\dist\Chart.js" />
+    <Content Include="Assets\Seller\vendors\Chart.js\dist\Chart.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -2160,6 +2179,7 @@
     <Content Include="Product_Images\QuanTayAu.png" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Styles_css\Login_styles\bootstrap-social.css" />
     <Content Include="Styles_css\Login_styles\images\login-bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2543,6 +2563,13 @@
     <Content Include="Assets\Shipper\scss\theme\_mixins.scss" />
     <Content Include="Assets\Shipper\scss\theme\_responsive.scss" />
     <Content Include="Areas\Shipper\Views\Shipper\Login.cshtml" />
+
+    <Content Include="Areas\Buyer\Views\CartCheckout\PartialAddressCheckout.cshtml" />
+    <Content Include="Areas\Buyer\Views\CartCheckout\PartialAddressCheckout1.cshtml" />
+
+    <Content Include="Areas\Seller\Views\Reveneu\Index.cshtml" />
+    <Content Include="Areas\Seller\Views\Reveneu\ReveneuChart.cshtml" />
+
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2791,6 +2818,7 @@
     <Content Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\ManageUser\ManageUser.cshtml" />
     <Content Include="Views\ManageUser\Login.cshtml" />
+    <Content Include="Views\User\OrderTracking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

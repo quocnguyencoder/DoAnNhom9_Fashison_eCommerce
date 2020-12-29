@@ -1,144 +1,138 @@
-﻿
+﻿@model Fashison_eCommerce.ViewModel.AddressViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+<script src="~/Assets/Buyer/CreateAddress.js"></script>
 
 @section CustomStyles{
     <link href="~/Assets/Buyer/CustomStyles.css" rel="stylesheet" />
+    <link href="~/Assets/Buyer/Address.css" rel="stylesheet" />
+    <link href="~/Assets/Buyer/bundle.css" rel="stylesheet" />
 }
 
 
 @*@{var address_ID = 1; }*@
-<div id="Address">
-    <h1>Address</h1>
-    @*<p> <strong> Nguyễn Đức Minh Quốc (+84)586190243 </strong> 33 Hữu Nghị,Bình Thọ,Thủ Đức,TP. HCM</p>*@
-    @{
-        var address_ID = -1;
-        foreach (var address in ViewBag.Address)
-        {
-            if (address.default_address == 1)
-            {
-                <p> <strong> @address.full_name (+84)@address.phone </strong> @address.address</p>
-                address_ID = address.Address_ID;
-                break;
-            }
-        }
-        if (address_ID == -1)
-        {
-            <p>Vui long them dia chi giao hang!</p>
-        }
-    }
+<div class="loadAll">
+    <div id="mainBody">
+        <!--========Address checkout-->
+        <div class="loadAddress">
 
-</div>
-
-<div class="product_List">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
-                string shop_list = "";
-                string delivery_list = "";
-                var total = 0;
-                var total_cost = 0;
-                var total_delivery = 0;
-                foreach (var shop in ViewBag.Shops)
-                {
+        </div>
+        @{ var Current_AddressID = Session["Address_ID"];}
+        <div class="product_List">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td colspan="4"> @*Shop name @shop*@ Shop @{Html.RenderAction("GetShop", "CartCheckout", new { id = shop });}</td>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
                     </tr>
-                    var total_By_Shop = 0;
-                    var count = 0;
-                    var delivery = 12000;
-                    shop_list += Convert.ToString(shop) + " ";
-                    delivery_list += Convert.ToString(delivery) + " ";
-                    foreach (var item in ViewBag.Items)
-                    {
-                        if (item.Store_ID == shop)
+                </thead>
+                <tbody>
+                    @{
+                        var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+                        string shop_list = "";
+                        string delivery_list = "";
+                        var total = 0;
+                        var total_cost = 0;
+                        var total_delivery = 0;
+                        foreach (var shop in ViewBag.Shops)
                         {
-                            var temp = @item.Price * @item.Quantity;
                             <tr>
-                                <td> <img style="height: 100px; width: 100px;" src="~/Product_Images/@item.Pictures" alt="product img" /> @item.Name </td>
-                                <td style=" vertical-align:middle"> @String.Format(info, "{0:C0}", item.Price)</td>
-                                <td style=" vertical-align:middle"> @item.Quantity </td>
-                                <td style="vertical-align:middle"> @String.Format(info, "{0:C0}", temp)</td>
+                                <td colspan="4"> @*Shop name @shop*@ Shop @{Html.RenderAction("GetShop", "CartCheckout", new { id = shop });}</td>
                             </tr>
-                            total_By_Shop += temp;
-                            count += 1;
+                            var total_By_Shop = 0;
+                            var count = 0;
+                            var delivery = 12000;
+                            shop_list += Convert.ToString(shop) + " ";
+                            delivery_list += Convert.ToString(delivery) + " ";
+                            foreach (var item in ViewBag.Items)
+                            {
+                                if (item.Store_ID == shop)
+                                {
+                                    var temp = @item.Price * @item.Quantity;
+                                    <tr>
+                                        <td> <img style="height: 100px; width: 100px;" src="~/Product_Images/@item.Pictures" alt="product img" /> @item.Name </td>
+                                        <td style=" vertical-align:middle"> @String.Format(info, "{0:C0}", item.Price)</td>
+                                        <td style=" vertical-align:middle"> @item.Quantity </td>
+                                        <td style="vertical-align:middle"> @String.Format(info, "{0:C0}", temp)</td>
+                                    </tr>
+                                    total_By_Shop += temp;
+                                    count += 1;
+                                }
+                            }
+                            total_cost += total_By_Shop;
+                            total_delivery += delivery;
+                            total_By_Shop += delivery;
+                            total += total_By_Shop;
+                            <tr>
+                                <td colspan="1"> </td>
+                                <td style="color:darkcyan">
+                                    <br />
+                                    Đơn vị vận chuyển
+                                </td>
+                                <td>
+                                    <div style="max-width:300px !important">
+                                        <strong>Vận chuyển nhanh</strong>
+                                        <p style="max-width:300px !important">Giao hàng nhanh <a style="float: right" href="#">CHANGE</a> </p>
+                                    </div>
+                                </td>
+                                <td style="vertical-align:middle"> @String.Format(info, "{0:C0}", delivery) </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">  </td>
+                                <td style="color: dimgray; vertical-align:middle"> Total cost (@count item(s))</td>
+                                <td style=" vertical-align:middle"><strong>@String.Format(info, "{0:C0}", total_By_Shop)</strong>  </td>
+                            </tr>
                         }
                     }
-                    total_cost += total_By_Shop;
-                    total_delivery += delivery;
-                    total_By_Shop += delivery;
-                    total += total_By_Shop;
-                    <tr>
-                        <td colspan="1"> </td>
-                        <td style="color:darkcyan">
-                            <br />
-                            Đơn vị vận chuyển
-                        </td>
-                        <td>
-                            <div style="max-width:300px !important">
-                                <strong>Vận chuyển nhanh</strong>
-                                <p style="max-width:300px !important">Giao hàng nhanh <a style="float: right" href="#">CHANGE</a> </p>
-                            </div>
-                        </td>
-                        <td style="vertical-align:middle"> @String.Format(info, "{0:C0}", delivery) </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">  </td>
-                        <td style="color: dimgray; vertical-align:middle"> Total cost (@count item(s))</td>
-                        <td style=" vertical-align:middle"><strong>@String.Format(info, "{0:C0}", total_By_Shop)</strong>  </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-</div>
-<div class="Total">
-    <div style="">
-        <table class="table ">
-            <tbody>
-                <tr>
-                    <td colspan="2">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
-                    <td> Total cost: </td>
-                    <td style="text-align:right;">@String.Format(info, "{0:C0}", total_cost)</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td> Total delivery:</td>
-                    <td style="text-align:right;"> @String.Format(info, "{0:C0}", total_delivery)</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td> TOTAL: </td>
-                    <td style="text-align:right;color:orangered;font-size:x-large"> @String.Format(info, "{0:C0}", total)</td>
-                </tr>
-            </tbody>
-        </table>
-        <button style="color: white; background-color: coral; float: right; min-width:200px; min-height:38px; margin-right: 30px; font-size:larger;" id="checkout" >
-            Checkout
-        </button>
+                </tbody>
+            </table>
+        </div>
+        <div class="Total">
+            <div style="">
+                <table class="table ">
+                    <tbody>
+                        <tr>
+                            <td colspan="2">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+                            <td> Total cost: </td>
+                            <td style="text-align:right;">@String.Format(info, "{0:C0}", total_cost)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td> Total delivery:</td>
+                            <td style="text-align:right;"> @String.Format(info, "{0:C0}", total_delivery)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td> TOTAL: </td>
+                            <td style="text-align:right;color:orangered;font-size:x-large"> @String.Format(info, "{0:C0}", total)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button style="color: white; background-color: coral; float: right; min-width:200px; min-height:38px; margin-right: 30px; font-size:larger;" id="checkout">
+                    Checkout
+                </button>
+            </div>
+        </div>
     </div>
+
 </div>
 
+    
 
 <script>
+    
+
     var user = {
         init: function () {
             user.checkout();
         },
          checkout: function () {
             $('#checkout').on('click', function (e) {
-                var addressID = @address_ID;
+                var addressID = @Current_AddressID;
                 var shop_List = new String("@shop_list");
                 var delivery_List = new String("@delivery_list");
                 $.ajax({
@@ -166,5 +160,13 @@
         },
     }
     user.init();
+    $.ajax({
+        // load cac san pham
+        url: "/Buyer/CartCheckout/GetUserAddress",
+        success: function (result) {
+            $(".loadAddress").html(result);
+        }
+    });
 </script>
+
 

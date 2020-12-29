@@ -662,6 +662,16 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         <Function Name="get_ProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="product_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="getDateTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="storeID" Type="int" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="hour" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getMonthTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="storeID" Type="int" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="day" Type="int" Mode="In" />
+        </Function>
         <Function Name="getOrders_Of_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
@@ -738,6 +748,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_InsUserFb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_loadUserCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_id" Type="int" Mode="In" />
@@ -1362,6 +1375,11 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="pass" Mode="In" Type="String" />
           </FunctionImport>
+
+          <FunctionImport Name="sp_InsUserFb">
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+
           <EntitySet Name="Order_Tracking" EntityType="DB_A6A231_DAQLTMDTModel.Order_Tracking" />
           <AssociationSet Name="FK__Order_Tra__Order__084B3915" Association="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Order__084B3915">
             <End Role="Order" EntitySet="Orders" />
@@ -1372,7 +1390,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <End Role="Order_Tracking" EntitySet="Order_Tracking" />
           </AssociationSet>
           <FunctionImport Name="DetailOrder" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.DetailOrder_Result)">
-          <Parameter Name="shipperid" Mode="In" Type="Int32" />
+            <Parameter Name="shipperid" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <Association Name="FK">
@@ -2668,6 +2686,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+
+          <FunctionImportMapping FunctionImportName="sp_InsUserFb" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_InsUserFb" />
+
           <EntitySetMapping Name="Order_Tracking">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Tracking">
               <MappingFragment StoreEntitySet="Order_Tracking">
