@@ -104,6 +104,15 @@
     </table>
 </div>
 <div class="Total">
+    <h3>Payment method </h3>
+    <div class="radio">
+        <label><img src="~/Assets/Buyer/cod.svg" style="width: 70px;height:50px;" alt="cod"/><input type="radio" name="optradio" checked>Thanh toán khi nhận hàng</label>
+    </div>
+    <div class="radio">
+        <label><img src="~/Assets/Buyer/paypal.svg" style="margin-right:10px;" alt="cod" /><input type="radio" name="optradio">Thanh toán bằng PayPal</label>
+    </div>
+</div>
+<div class="Total">
     <div style="">
         <table class="table ">
             <tbody>
@@ -130,8 +139,9 @@
     </div>
 </div>
 
+    
 
-<script>
+    <script>
     var user = {
         init: function () {
             user.checkout();
@@ -166,5 +176,5 @@
         },
     }
     user.init();
-</script>
+    </script>
 

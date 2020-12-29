@@ -22,7 +22,7 @@
                     <th>Product</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Total</th>
+                    <th style="text-align:right;">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,7 +34,7 @@
                             <td> <img style="height: auto; width:auto; max-height: 90px; max-width:90px;" src="~/Product_Images/@product.Pictures" alt="product img" /> @product.Name <br /> Provide by <a href="#">@product.ShopName</a> </td>
                             <td style=" vertical-align:middle"> @String.Format(info, "{0:C0}", product.price)</td>
                             <td style=" vertical-align:middle"> @product.quantity </td>
-                            <td style="vertical-align:middle"> @String.Format(info, "{0:C0}", product.total)</td>
+                            <td style="vertical-align:middle;text-align:right;"> @String.Format(info, "{0:C0}", product.total)</td>
                         </tr>
                     }
                 }
@@ -56,5 +56,13 @@
             </tbody>
         </table>
     </div>
+</div>
+
+<div style=" float: right;  height: 100%; max-height: 900px; max-width: 850px; width: 100%; ">
+    <form action="/User/OrderTracking" style="margin-top: 30px;">
+        <input type="hidden" name="order_id" value="@detailinfo.Order_ID" />
+        <a href="/user/purchase"> << quay lại danh sách đơn hàng </a>
+        <button class="btn-large" style="margin-left: 40px; background-color:coral; color: aliceblue;" type="submit">Theo dõi đơn hàng</button>
+    </form>
 </div>
 

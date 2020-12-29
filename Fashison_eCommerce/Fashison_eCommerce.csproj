@@ -2041,9 +2041,11 @@
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Assets\Buyer\cod.svg" />
     <Content Include="Assets\Buyer\CustomStyles.css" />
     <Content Include="Assets\Buyer\JavaScript.js" />
     <Content Include="Assets\Buyer\loading.gif" />
+    <Content Include="Assets\Buyer\paypal.svg" />
     <Content Include="Assets\Buyer\text_loading.gif" />
     <Content Include="Assets\Buyer\TrackingStyles.css" />
     <Content Include="Assets\Seller\css\displayimg.css" />

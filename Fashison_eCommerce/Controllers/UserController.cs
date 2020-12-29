@@ -200,7 +200,7 @@ namespace Fashison_eCommerce.Controllers
 
         public ActionResult OrderTracking(string order_id)
         {
-            order_id = "9kMqhoZzEw2";
+            //order_id = "9kMqhoZzEw2";
             BuyerOrderItemsClient BOIC = new BuyerOrderItemsClient();
             var DetailList= BOIC.find(order_id);
             ViewBag.DetailList = DetailList;

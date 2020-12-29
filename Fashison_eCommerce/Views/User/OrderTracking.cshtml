@@ -15,7 +15,7 @@
 
 @{ 
     var detailinfo = (ViewBag.DetailList)[0];
-    var latest = (ViewBag.Tracking)[0];
+    var latest = (dynamic)null;
     var latest_status = ((UserController)this.ViewContext.Controller).ConvertToStatus(detailinfo.status);
     try
     {
@@ -26,7 +26,11 @@
 
 <div style=" float: right; height: 10%; max-height: 900px; max-width: 850px; width: 100%;">
     <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
-        <h3>Tracking of order <a href="#">@detailinfo.Order_ID</a></h3>
+            <form action="/User/PurchaseDetail" style="margin-top: 30px;">
+                <input type="hidden" name="Order_id" value="@detailinfo.Order_ID" />
+                <h3>Tracking of order <a href="#">@detailinfo.Order_ID</a></h3>
+                <button class="btn-default" style="float:right; background-color:coral; color: aliceblue;" type="submit">Xem chi tiết đơn hàng</button>
+            </form>
     </div>
 </div>
 <div style=" float: right; height: 10%; max-height: 900px; max-width: 850px; width: 100%;">
@@ -38,30 +42,46 @@
 <div style=" float: right; background-color: white; height: 100%; max-height: 900px; max-width: 850px; width: 100%;">
    
     <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
-        <p style="margin-left: 5px;">Status: <strong> @latest_status | @latest.UpdateDate </strong> </p>
+        <p style="margin-left: 5px;">
+            Status:
+            @{ if (latest == null)
+                {
+                    <strong> @latest_status | @detailinfo.created_date </strong>
+                }
+
+                else
+                {
+                    <strong> @latest_status | @latest.UpdateDate </strong>
+                }
+
+            }
+         
+        </p>
         <div class="tracking-progress-bar">
             <div class="tracking-progress-bar__item tracking-progress-bar__item--first tracking-progress-bar__item--active">&nbsp</div>
             @{
-
-                if (latest.Status == 5 || latest.Status == 4)
+                if (latest != null)
                 {
-                    for (int i = 0; i < 3; i++)
+                    if (latest.Status == 5 || latest.Status == 4)
                     {
+                        for (int i = 0; i < 3; i++)
+                        {
                         <span class="tracking-progress-bar__item__bar tracking-progress-bar__item__bar--active"> </span>
                         <div class="tracking-progress-bar__item tracking-progress-bar__item--active">&nbsp</div>
+                        }
                     }
-                }
-                else if (latest.Status == 2 || latest.Status == 3)
-                {
-                    for (int i = 0; i < latest_status - 1; i++)
+                    else if (latest.Status == 2 || latest.Status == 3)
                     {
+                        for (int i = 0; i < latest_status - 1; i++)
+                        {
                         <span class="tracking-progress-bar__item__bar tracking-progress-bar__item__bar--active"> </span>
                         <div class="tracking-progress-bar__item tracking-progress-bar__item--active">&nbsp</div>
-                    }
-                    for (int i = 0; i < 4 - latest_status; i++)
-                    {
+                        }
+                        for (int i = 0; i < 4 - latest_status; i++)
+                        {
                         <span class="tracking-progress-bar__item__bar tracking-progress-bar__item__bar--active"> </span>
                         <div class="tracking-progress-bar__item tracking-progress-bar__item--active">&nbsp</div>
+                        }
                     }
                 }
                 else
@@ -74,7 +94,8 @@
 
                     <span class="tracking-progress-bar__item__bar"> </span>
                     <div class="tracking-progress-bar__item">&nbsp</div>
-                }
+                    }
+                
 
             }
 
@@ -83,7 +104,7 @@
         <div class="tracking-progress-bar">
             <p>
                 &nbsp&nbsp&nbsp&nbsp Đặt hàng thành công <span style="margin-left:50px;margin-right:50px;">&nbsp</span>
-                Shop đã tiếp nhận <span style="margin-left:40px;margin-right:50px;">&nbsp</span> Đang vận chuyển <span style="margin-left:50px;margin-right:50px;">&nbsp</span> Giao hàng thành công
+                Shop đã tiếp nhận <span style="margin-left:40px;margin-right:50px;">&nbsp</span> Đang vận chuyển <span style="margin-left:50px;margin-right:20px;">&nbsp</span> Giao hàng thành công
             </p>
         </div>
         </div>
@@ -98,7 +119,7 @@
 </div>
 <div style=" float: right; background-color: white; height: 100%; max-height: 900px; max-width: 850px; width: 100%;">
     <div style="height: 100%; max-height: 800px; max-width: 300px; display: contents;">
-        <table class="table">
+        <table class="table table-hover" style="margin-left:auto !important; margin-right:auto !important;">
             @{
                 DateTime date = new DateTime();
                 int count = 1;
@@ -110,17 +131,17 @@
                         if (history.UpdateDate.Date != date.Date)
                         {
                             date = history.UpdateDate;
-                            <thead class="thead-light">
+                            <thead>
                                 <tr>
                                 @{
                                     if (count == 1)
                                     {
-                                        <th>Latest Update: @history.UpdateDate.DayOfWeek,@history.UpdateDate</th>
+                                        <th>Latest Update: @history.UpdateDate.DayOfWeek,@history.UpdateDate.Date.ToString("dd/MM/yyyy")</th>
                                         count++;
                                     }
                                     else
                                     {
-                                        <th> @history.UpdateDate.DayOfWeek,@history.UpdateDate</th>
+                                        <th> @history.UpdateDate.DayOfWeek,@history.UpdateDate.Date.ToString("dd/MM/yyyy")</th>
                                     }
                                 }
                                 </tr>
@@ -141,12 +162,12 @@
                             @{
                         if (count == 1)
                         {
-                            <th>Latest Update: @detailinfo.created_date.DayOfWeek,@detailinfo.created_date</th>
+                            <th>Latest Update: @detailinfo.created_date.DayOfWeek,@detailinfo.created_date.Date.ToString("dd/MM/yyyy")</th>
                             count++;
                         }
                         else
                         {
-                            <th> @detailinfo.created_date.DayOfWeek,@detailinfo.created_date</th>
+                            <th> @detailinfo.created_date.DayOfWeek,@detailinfo.created_date.Date.ToString("dd/MM/yyyy")</th>
                         }
                     }
                         </tr>
