@@ -20,5 +20,6 @@ namespace Fashison_eCommerce.Models
         public string decription { get; set; }
         public string payment { get; set; }
         public Nullable<double> Total_Order { get; set; }
+        public Nullable<int> status { get; set; }
     }
 }

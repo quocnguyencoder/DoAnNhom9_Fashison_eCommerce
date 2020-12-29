@@ -3,9 +3,13 @@
     var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
 <style>
-    .List .table td, .table th
+    /*.List .table td, .table th
     {
         padding: 0.25em !important;
+    }*/
+    .List .table a.btn-sm
+    {
+        font-size: 1.15rem;
     }
 </style>
 
@@ -28,6 +32,8 @@
             @{
                 foreach (var order in ViewBag.listOrder)
                 {
+                    if ((order.status == 2) || (order.status == 3))
+                    {
                         <tr>
                             <td scope="row">@order.Order_ID</td>
                             <td>@order.full_name</td>
@@ -36,11 +42,45 @@
                             <td>@order.decription</td>
                             <td>@order.payment</td>
                             <td>@String.Format(info, "{0:C0}", @order.Total_Order)</td>
-                            <td><a href="#" class="btn btn-primary" data-id="@order.Order_ID" data-status=3>Giao hàng</a></td>
+                            <td><a href="#" class="btn-sm" data-id="@order.Order_ID" data-status=@((order.status)+1) style="background-color:#5fcb71; color:white;">
+                                @((order.status == 2) ? "Giao hàng" :
+                                (order.status == 3) ? "Đang giao" : "")
+                                </a>
+                            </td>
                         </tr>
+                    }
                 }
             }
         </tbody>
     </table>
 </div>
+<script>
+    var user = {
+        init: function () {
+            console.log("init");
+            user.registerEvents();
+        },
+        registerEvents: function () {
+            $('.btn-sm').off('click').on('click', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id')
+                var status = $(this).data('status')
+                console.log(id);
+                $.ajax({
+                    url: "/Shipper/Shipper/ChangeStatus",
+                    data: {
+                        id: id,
+                        status: status
+                    },
+                    type: 'POST',
+                    async: true,
+                    success: function (msg) {
+                        alert(msg);
+                    }
+                });
+            });
+        }
+    }
+    user.init();
+</script>
 

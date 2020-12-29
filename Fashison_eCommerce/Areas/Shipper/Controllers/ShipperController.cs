@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Fashison_eCommerce.Models;
+using System.Net.Http;
 
 namespace Fashison_eCommerce.Areas.Shipper.Controllers
 {
@@ -86,6 +87,15 @@ namespace Fashison_eCommerce.Areas.Shipper.Controllers
                 }
             }
             return View("Error");
+        }
+
+        public ActionResult ChangeStatus(string id, int status)
+        {
+            HttpClient hc = new HttpClient();
+            hc.BaseAddress = new Uri("https://localhost:44320/api/");
+            HttpResponseMessage respond = hc.PostAsync("ChangeStatus?id=" + id + "&status=" + status, null).Result;
+
+            return Content(id);
         }
     }
 }

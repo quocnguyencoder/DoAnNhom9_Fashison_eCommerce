@@ -114,6 +114,7 @@
           <Property Name="Pictures" Type="nvarchar" MaxLength="100" />
           <Property Name="Decription" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="BrandID" Type="int" />
+          <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="Product_Type">
           <Key>
@@ -1055,6 +1056,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <NavigationProperty Name="Cart_Item" Relationship="DB_A6A231_DAQLTMDTModel.FK__Cart_Item__ItemI__0E6E26BF" FromRole="Product" ToRole="Cart_Item" />
           <NavigationProperty Name="Order_Items" Relationship="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Item___57DD0BE4" FromRole="Product" ToRole="Order_Items" />
           <NavigationProperty Name="Ratings" Relationship="DB_A6A231_DAQLTMDTModel.FK__Rating__ProductI__6FE99F9F" FromRole="Product" ToRole="Rating" />
+          <Property Name="status" Type="Int32" />
         </EntityType>
         <EntityType Name="Product_Type">
           <Key>
@@ -2073,6 +2075,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Type="String" Name="decription" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
           <Property Type="Double" Name="Total_Order" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2091,6 +2094,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="BrandID" ColumnName="BrandID" />
                 <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -2686,6 +2690,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
                 <ScalarProperty Name="decription" ColumnName="decription" />
                 <ScalarProperty Name="payment" ColumnName="payment" />
                 <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
