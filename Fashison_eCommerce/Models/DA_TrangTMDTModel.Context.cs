@@ -416,5 +416,14 @@ namespace Fashison_eCommerce.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Result>("sp_Login", emailParameter, passParameter);
         }
+    
+        public virtual int sp_InsUserFb(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsUserFb", emailParameter);
+        }
     }
 }

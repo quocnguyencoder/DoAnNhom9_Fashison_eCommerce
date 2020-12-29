@@ -27,8 +27,10 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             }
             ViewBag.Shops = shop_IDs;
             ViewBag.Items = cart_Items;
+            
             BuyerAddressClient buyerAddressClient = new BuyerAddressClient();
-            ViewBag.Address = buyerAddressClient.find(Convert.ToInt32(Session["userID"]));
+            var addressList = buyerAddressClient.find(Convert.ToInt32(Session["userID"]));
+            ViewBag.Address = addressList;
             return View();
         }
 
@@ -78,9 +80,21 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         public ActionResult GetUserAddress()
         {
             BuyerAddressClient buyerAddressClient = new BuyerAddressClient();
-            ViewBag.Address = buyerAddressClient.find(Convert.ToInt32(Session["userID"]));
-            return PartialView();
+            
+            var addressList = buyerAddressClient.find(Convert.ToInt32(Session["userID"]));
+            ViewBag.Address = addressList;
+            string a = Session["Address_ID"].ToString();
+            return PartialView("PartialAddressCheckout1");
         } 
+
+        public ActionResult GetAddress()
+        {
+            BuyerAddressClient BAC = new BuyerAddressClient();
+            ViewBag.Address = BAC.find(Convert.ToInt32(Session["userID"]));
+            Session["tempAddress"] = Session["Address_ID"];
+            string a = Session["tempAddress"].ToString();
+            return PartialView("PartialAddressCheckout");
+        }
 
         [HttpPost]
         public ActionResult Checkout(int address_ID, string shop_List, string delivery_List)
@@ -138,6 +152,38 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
                 return Content("Success!!!");
             }
             return Content("out of order");
+        }
+        [HttpPost]
+        public ActionResult Create(Address add)
+        {
+
+            BuyerAddressClient address = new BuyerAddressClient();
+
+            add.User_ID = Convert.ToInt32(Session["userID"]);
+            add.default_address = 0;
+            address.Create(add);
+            ViewBag.Address = address.find(Convert.ToInt32(Session["userID"]));
+
+            return PartialView("PartialAddressCheckout");
+        }
+
+        public ActionResult CompleteChangeAddress()
+        {
+            BuyerAddressClient address = new BuyerAddressClient();
+            ViewBag.Address = address.find(Convert.ToInt32(Session["userID"]));
+            
+            Session["Address_ID"] = Session["tempAddress"];
+            var a = Session["Address_ID"];
+            return Redirect("Index");
+        }
+
+        public ActionResult RadioButton(int id_address)
+        {
+            BuyerAddressClient address = new BuyerAddressClient();
+            ViewBag.Address = address.find(Convert.ToInt32(Session["userID"]));
+            Session["tempAddress"] = id_address;
+            var a = Session["tempAddress"];
+            return PartialView("PartialAddressCheckout");
         }
     }
 

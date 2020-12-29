@@ -37,3 +37,63 @@
     display: block;
     background-color: white;
 }
+
+.checkout-address-selection {
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    background: #fff;
+    display: block;
+}
+
+._298G_L {
+    height: .1875rem;
+    width: 98%;
+    background-position-x: -1.875rem;
+    background-size: 7.25rem .1875rem;
+    background-image: repeating-linear-gradient(45deg,#6fa6d6,#6fa6d6 33px,transparent 0,transparent 41px,#f18d9b 0,#f18d9b 74px,transparent 0,transparent 82px);
+}
+
+.checkout-address-selection__container {
+    padding: 1.75rem 1.5rem 1.5rem;
+}
+
+.checkout-address-selection__section-header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.checkout-address-selection__edit-addresses .stardust-radio {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .5625rem 1.5rem;
+    cursor: pointer !important;
+}
+
+.stardust-radio {
+    font-family: -apple-system,Helvetica Neue,Helvetica,Roboto,Droid Sans,Arial,sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(0,0,0,.87);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    cursor: default;
+    padding: 16px 12px;
+}

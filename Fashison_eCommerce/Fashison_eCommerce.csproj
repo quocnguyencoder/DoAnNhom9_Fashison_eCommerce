@@ -51,6 +51,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -2038,7 +2041,11 @@
     <Content Include="Assets\Admin\vendor\jquery\jquery.min.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.js" />
     <Content Include="Assets\Admin\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Assets\Buyer\Address.css" />
+    <Content Include="Assets\Buyer\bundle.css" />
+    <Content Include="Assets\Buyer\CreateAddress.js" />
     <Content Include="Assets\Buyer\CustomStyles.css" />
+    <Content Include="Assets\Buyer\facebook.png" />
     <Content Include="Assets\Buyer\JavaScript.js" />
     <Content Include="Assets\Buyer\loading.gif" />
     <Content Include="Assets\Buyer\text_loading.gif" />
@@ -2084,6 +2091,7 @@
     <Content Include="Product_Images\QuanTayAu.png" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Styles_css\Login_styles\bootstrap-social.css" />
     <Content Include="Styles_css\Login_styles\images\login-bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2342,6 +2350,8 @@
     <Content Include="Areas\Seller\Views\Orders\UserAddressByID.cshtml" />
     <Content Include="Areas\Buyer\Views\Shop\Shop.cshtml" />
     <Content Include="Areas\Buyer\Views\CartCheckout\GetShop.cshtml" />
+    <Content Include="Areas\Buyer\Views\CartCheckout\PartialAddressCheckout.cshtml" />
+    <Content Include="Areas\Buyer\Views\CartCheckout\PartialAddressCheckout1.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

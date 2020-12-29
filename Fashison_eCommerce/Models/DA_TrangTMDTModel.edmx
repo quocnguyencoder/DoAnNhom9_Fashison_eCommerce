@@ -700,6 +700,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_InsUserFb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_loadUserCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_id" Type="int" Mode="In" />
         </Function>
@@ -1311,6 +1314,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <FunctionImport Name="sp_Login" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_Login_Result)">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="pass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsUserFb">
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <Association Name="FK">
@@ -2557,6 +2563,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUserFb" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_InsUserFb" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
