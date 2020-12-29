@@ -11,14 +11,13 @@ namespace Fashison_eCommerce.Models
 {
     using System;
     
-    public partial class ListOrdersUser1_Result
+    public partial class sp_Shipper_Orders_Result
     {
+        public int Track_ID { get; set; }
         public string Order_ID { get; set; }
-        public string ShopName { get; set; }
-        public Nullable<double> delivery { get; set; }
-        public string payment { get; set; }
-        public Nullable<System.DateTime> created_date { get; set; }
-        public Nullable<double> Total_Order { get; set; }
-        public Nullable<int> status { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<int> Status { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> Shipper_ID { get; set; }
     }
 }

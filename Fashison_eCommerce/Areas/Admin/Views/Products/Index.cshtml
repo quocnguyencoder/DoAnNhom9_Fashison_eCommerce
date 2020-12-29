@@ -1,0 +1,217 @@
+﻿@model IEnumerable<Fashison_eCommerce.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutTable.cshtml";
+}
+<!-- DataTales Example -->
+<div class="card-header py-3 bg-white" style="height: 80px;">
+    <h5 class="m-0 font-weight-bold text-dark" style="display: inline; float: left; padding-top: 6px">Products Database</h5>
+    <!-- Refresh Databa -->
+    <div style=" padding-left: 5%; display: inline; width: 15%; float: left">
+        <button onclick="resetFunc()" type="button" class="btn btn-danger" title="Reload" style="background-color: #f5c6cb; color: #1d2124">
+            Refesh Data
+        </button>
+    </div>
+    <!-- Button to Open the Modal - Add type -->
+    <button type="button" class="btn btn-success" style="width: 15%; display:inline; float: right;" data-toggle="modal"
+            data-target="#addProduct">
+        <i class="fa fa-plus mr-2"></i> Add Product
+    </button>
+
+    <!-- Add-type The Modal -->
+    <div class="modal" id="addProduct">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Product</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="../Products/Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label asp-for="addName">Name :</label>
+                            <input type="text" id="addName" class="form-control" name="name">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="addPrice">Price :</label>
+                            <input type="text" id="addPrice" class="form-control" name="Price">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="addAmount">Amount</label>
+                            <input type="text" id="addAmount" class="form-control" name="Amount">
+                        </div>
+                        <div class="form-group">
+                            <label for="addType">Type:</label>
+                            <select name="Type" class="form-control">
+                                @foreach (var item in ViewBag.type)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="addStore">Store :</label>
+                            <select name="Store" class="form-control">
+                                @foreach (var x in ViewBag.shop)
+                                {
+                                    <option value="@x.Store_ID">@x.ShopName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="addDescription">Description :</label>
+                            <textarea type="text" id="addDescription" class="form-control" name="Description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="addBrand">Brand :</label>
+                            <select name="Brand" class="form-control">
+                                @foreach (var y in ViewBag.brand)
+                                {
+                                    <option value="@y.BrandID">@y.BrandName</option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Add</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-body">
+    <div class="table-responsive bg-white">
+        <table class="table table-hover data-table" id="dataTable" width="100%" cellspacing="0">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Store</th>
+                    <th>Description</th>
+                    <th>Brand</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Store</th>
+                    <th>Description</th>
+                    <th>Brand</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var item in ViewBag.product)
+                {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Amount</td>
+                    <td>@item.Product_Type.Name</td>
+                    <td>@item.Store.ShopName</td>
+                    <th>@item.Decription</th>
+                    <td>@item.Brand.BrandName</td>
+                    <td>@(item.status ==1? "Đã Xác Nhận":"Chưa Xác Nhận")</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" title="Edit"
+                                onclick="Edittype(@item.Product_ID)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.Product_ID)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning" title="Confirm" onclick="ConfirmFunction(@item.Product_ID)">
+                            <i class="fa fa-check"></i>
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal hide fade" id="edit-person">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="edit-person-container"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function resetFunc() {
+        location.reload();
+    };
+    function ConfirmFunction(e) {
+        e.preventDefault
+        if (confirm('Do you want to Confirm this Product?')) {
+            console.log("123", e)
+            $.ajax({
+                data: {
+                    id: e
+                },
+                type: 'GET',
+                url: "/Admin/Products/Confirm",
+                async: true,
+                success: function (msg) {
+                    $(".data-table").load();
+                }
+            });
+            alert('This Product will be show in Buyer Dashboard');
+        } else {
+            // Do nothing!
+            alert('Product was not Confirm.');
+        }
+    };
+    //Function Delete
+    function DeleteFunction(e) {
+        e.preventDefault
+        if (confirm('Do you want to Delete this Product from your Database?')) {
+            console.log("123", e)
+            $.ajax({
+                data: {
+                    id: e
+                },
+                type: 'POST',
+                url: "/Admin/Products/Delete",
+                async: true,
+                success: function (msg) {
+                    $(".data-table").load();
+                }
+            });
+            alert('Deleted');
+        } else {
+            // Do nothing!
+            alert('Thing was not deleted from your database.');
+        }
+    };
+    function Edittype(e) {
+        var url = "/Admin/Products/Edit"; // the url to the controller
+        var id = e; // the id that's given to each button in the list
+        $.get(url + '/' + id, function (data) {
+            $('#edit-person-container').html(data);
+            $('#edit-person').modal('show');
+        });
+    };
+
+    function OrderDetailForeach(e) {
+        alert("abc");
+        alert(e);
+    };
+
+</script>

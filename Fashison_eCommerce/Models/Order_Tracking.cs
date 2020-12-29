@@ -10,16 +10,18 @@
 namespace Fashison_eCommerce.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class ListOrderDetailUser_Result
+    public partial class Order_Tracking
     {
+        public int Track_ID { get; set; }
         public string Order_ID { get; set; }
-        public int Item_ID { get; set; }
-        public float Price { get; set; }
-        public Nullable<int> quantity { get; set; }
-        public Nullable<double> discount { get; set; }
-        public Nullable<int> status { get; set; }
-        public string Name { get; set; }
-        public string Pictures { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<int> Status { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> Shipper_ID { get; set; }
+    
+        public virtual Order Order { get; set; }
+        public virtual User User { get; set; }
     }
 }

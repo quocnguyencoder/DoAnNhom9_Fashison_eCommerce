@@ -10,17 +10,16 @@ using Fashison_eCommerce.Models;
 
 namespace Fashison_eCommerce.Areas.Admin.Controllers
 {
-    public class BrandsController : Controller
+    public class Main_TypeController : Controller
     {
         private DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
 
-        // GET: Admin/Brands
+        // GET: Admin/Main_Type
         public ActionResult Index()
         {
             if (Session["Email"] != null)
             {
-                var brand = db.Brands;
-                ViewBag.brand = brand;
+                ViewBag.type = db.Main_Type.ToList();
                 return View();
             }
             else
@@ -29,55 +28,58 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             }
         }
 
-        // GET: Admin/Users/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(FormCollection form)
         {
             int id = Convert.ToInt32(form["id"]);
             string name = form["Name"].ToString();
-            Brand newBrand = new Brand() { BrandID = id, BrandName = name};
-            db.Brands.Add(newBrand);
+            Main_Type type = new Main_Type() { Name=name };
+            db.Main_Type.Add(type);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        // GET: Admin/Brands/Edit/5
+        // GET: Admin/Main_Type/Edit/5
         public ActionResult Edit(int? id)
         {
-            var brand = db.Brands.Where(x => x.BrandID == id).FirstOrDefault();
-            ViewBag.brand = brand;
-            return PartialView("_BrandEdit");
+            Main_Type type = db.Main_Type.Find(id);
+            ViewBag.typeID = type;
+            ViewBag.type = db.Main_Type;
+            return PartialView("_TypeEdit");
         }
 
-        // POST: Admin/Brands/Edit/5
+        // POST: Admin/Main_Type/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BrandID,BrandName")] Brand brand)
+        public ActionResult Edit(FormCollection form)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(brand).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(brand);
+            int id = Convert.ToInt32(form["id"]);
+            string name = form["Name"].ToString();
+            MainType type = new MainType() { ID = id, Name = name };
+            db.Entry(type).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        // POST: Admin/Brands/Delete/5
+        // GET: Admin/Main_Type/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            Main_Type type = db.Main_Type.Find(id);
+            db.Main_Type.Remove(type);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // POST: Admin/Main_Type/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Brand brand = db.Brands.Find(id);
-            db.Brands.Remove(brand);
+            Main_Type type = db.Main_Type.Find(id);
+            db.Main_Type.Remove(type);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

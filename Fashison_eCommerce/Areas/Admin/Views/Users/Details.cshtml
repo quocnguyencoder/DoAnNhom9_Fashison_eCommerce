@@ -20,12 +20,17 @@
             .text-info div {
                 margin: 10px;
             }
+
+        .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+            color: #fff;
+            background-color: #5a5c69;
+        }
     </style>
 </header>
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">User's Information</a>
-        <a class="nav-item nav-link" id="nav-order-tab" data-toggle="tab" href="#nav-order" role="tab" aria-controls="nav-order" aria-selected="false">User's Orders</a>
+        <a class="nav-item nav-link" id="nav-order-tab" data-toggle="tab" href="#nav-order" role="tab" aria-controls="nav-order" aria-selected="false" onclick="LoadOrderDetail(@ViewBag.user.Id)">User's Orders</a>
         <a class="nav-item nav-link" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab" aria-controls="nav-product" aria-selected="false">Products in User's Store</a>
     </div>
 </nav>
@@ -89,8 +94,8 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="nav-order" role="tabpanel" aria-labelledby="nav-order-tab">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="padding: 20px;" onclick="LoadOrderDetail(@ViewBag.user.Id)">
+    <div class="tab-pane fade" id="nav-order" role="tabpanel" aria-labelledby="nav-order-tab" onclick="LoadOrderDetail(@ViewBag.user.Id)">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="padding: 20px;">
             <li class="nav-item">
                 <a class="nav-link active" id="pills-all-tab" data-toggle="pill" href="#" role="tab" aria-controls="pills-all" aria-selected="true" onclick="ChangeStatus(-1)">All</a>
             </li>
@@ -112,23 +117,86 @@
         </ul>
         <div class="tab-content" id="edit-person">
             <div id="edit-person-container">
-                
+                @*<div class="card border-dark mb-3" style="margin: 30px;">
+                    <div class="card-header d-flex justify-content-between">
+                        <div>ID: ...</div>
+                        <div>Shop's name: ...</div>
+                        <div>...</div>
+                    </div>
+                    <div class="card-body text-dark" id="LoadDetail">Không có đơn hàng nào được hiển thị</div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <div>Total: </div>
+                        <div style="color: red; font-size: large; margin-left: 20px;">0đ</div>
+                    </div>
+                </div>*@
             </div>
-        </div>
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
-
-            </div>
-            <div class="tab-pane fade" id="pills-confirm" role="tabpanel" aria-labelledby="pills-confirm-tab">
-
-            </div>
-            <div class="tab-pane fade" id="pills-receive" role="tabpanel" aria-labelledby="pills-receive-tab">...</div>
-            <div class="tab-pane fade" id="pills-deliver" role="tabpanel" aria-labelledby="pills-deliver-tab">...</div>
-            <div class="tab-pane fade" id="pills-delivered" role="tabpanel" aria-labelledby="pills-delivered-tab">...</div>
-            <div class="tab-pane fade" id="pills-cancel" role="tabpanel" aria-labelledby="pills-cancel-tab">...</div>
         </div>
     </div>
-    <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">...</div>
+    <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
+        <div class="card-body">
+            <div class="table-responsive bg-white">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Picture</th>
+                            <th>Product's Name</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Brand</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Picture</th>
+                            <th>Product's Name</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Brand</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in ViewBag.ShopProduct)
+                        {
+                            <tr>
+                                <td>Hình nè</td>
+                                <td>@item.ProductName</td>
+                                <td>@item.Amount</td>
+                                <td>@item.TypeName</td>
+                                <td>@item.BrandName</td>
+                                <td>@item.Decription</td>
+                                <td>@item.Price</td>
+                                <td>Status</td>
+                                <td>
+                                    <button type="button" class="btn btn-info" title="Detail" onclick="location.href='@Url.Action("Details", "Users",new { id = item.Id})'">
+                                        <i class="fa fa-address-book"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" title="Edit"
+                                            onclick="EditUser(@item.Id)">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.Id)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    <button type="submit" title="Reset Password"
+                                            class="btn btn-warning" onclick="ResetPassword(@item.Id)">
+                                        <i class="fa fa-redo-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     var status = -1;
@@ -136,8 +204,6 @@
         status = status_change;
     };
     function LoadOrderDetail(e) {
-        alert(e);
-        alert(status);
         $.ajax({
             data: {
                 userid: e,
@@ -148,9 +214,22 @@
             async: true,
             success: function (data) {
                 $('#edit-person-container').html(data);
-                var x = document.getElementById("edit-person");
-                x.style.display = "block";
             }
         });
     };
+    function OrderDetailForeach(e) {
+        alert("abc");
+        alert(e);
+    };
+    //$.ajax({
+        //    data: {
+        //        orderid: e
+        //    },
+        //    url: "/Admin/Users/OrderDetailForeach",
+        //    type: 'GET',
+        //    async: true,
+        //    success: function (data) {
+        //        $('#LoadDetail').html(data);
+        //    }
+        //});
 </script>

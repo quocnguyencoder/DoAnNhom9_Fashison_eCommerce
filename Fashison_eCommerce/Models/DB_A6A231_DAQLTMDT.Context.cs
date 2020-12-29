@@ -34,6 +34,7 @@ namespace Fashison_eCommerce.Models
         public virtual DbSet<Cart_Item> Cart_Item { get; set; }
         public virtual DbSet<Main_Type> Main_Type { get; set; }
         public virtual DbSet<Order_Items> Order_Items { get; set; }
+        public virtual DbSet<Order_Tracking> Order_Tracking { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -129,6 +130,15 @@ namespace Fashison_eCommerce.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_ProductByID_Result>("get_ProductByID", product_IDParameter);
         }
     
+        public virtual ObjectResult<Nullable<int>> GetIdFromEmail(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetIdFromEmail", emailParameter);
+        }
+    
         public virtual ObjectResult<getOrders_Of_User_Result> getOrders_Of_User(Nullable<int> userid)
         {
             var useridParameter = userid.HasValue ?
@@ -145,6 +155,42 @@ namespace Fashison_eCommerce.Models
                 new ObjectParameter("StoreID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getProducts_Result>("getProducts", storeIDParameter);
+        }
+    
+        public virtual ObjectResult<ListOrderDetailUser_Result> ListOrderDetailUser(string orderid)
+        {
+            var orderidParameter = orderid != null ?
+                new ObjectParameter("orderid", orderid) :
+                new ObjectParameter("orderid", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ListOrderDetailUser_Result>("ListOrderDetailUser", orderidParameter);
+        }
+    
+        public virtual ObjectResult<ListOrdersUser_Result> ListOrdersUser(Nullable<int> id, Nullable<int> status)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ListOrdersUser_Result>("ListOrdersUser", idParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<ReportAdminIndex_Result> ReportAdminIndex()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReportAdminIndex_Result>("ReportAdminIndex");
+        }
+    
+        public virtual int ResetPassword(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ResetPassword", idParameter);
         }
     
         public virtual int sp_AccountChangePassword(string email, string password)
@@ -331,6 +377,24 @@ namespace Fashison_eCommerce.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
         }
     
+        public virtual int sp_InsUserFb(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsUserFb", emailParameter);
+        }
+    
+        public virtual ObjectResult<sp_ListProductOfShop_Result> sp_ListProductOfShop(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ListProductOfShop_Result>("sp_ListProductOfShop", idParameter);
+        }
+    
         public virtual ObjectResult<sp_loadUserCart_Result> sp_loadUserCart(Nullable<int> user_id)
         {
             var user_idParameter = user_id.HasValue ?
@@ -338,6 +402,19 @@ namespace Fashison_eCommerce.Models
                 new ObjectParameter("user_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_loadUserCart_Result>("sp_loadUserCart", user_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_Login_Result> sp_Login(string email, string pass)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var passParameter = pass != null ?
+                new ObjectParameter("pass", pass) :
+                new ObjectParameter("pass", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Result>("sp_Login", emailParameter, passParameter);
         }
     
         public virtual ObjectResult<sp_ProductByStore_Result> sp_ProductByStore(Nullable<int> storeid)
@@ -388,6 +465,15 @@ namespace Fashison_eCommerce.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_searchProduct_Result>("sp_searchProduct", nameParameter, typeidParameter);
         }
     
+        public virtual ObjectResult<sp_Shipper_Orders_Result> sp_Shipper_Orders(Nullable<int> shipper_id)
+        {
+            var shipper_idParameter = shipper_id.HasValue ?
+                new ObjectParameter("shipper_id", shipper_id) :
+                new ObjectParameter("shipper_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Shipper_Orders_Result>("sp_Shipper_Orders", shipper_idParameter);
+        }
+    
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
@@ -419,70 +505,13 @@ namespace Fashison_eCommerce.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_View_Orders_Result>("sp_View_Orders", store_idParameter, statusParameter);
         }
     
-        public virtual int ResetPassword(Nullable<int> id)
+        public virtual int sp_ConfirmProduct_Admin(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ResetPassword", idParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> GetIdFromEmail(string email)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetIdFromEmail", emailParameter);
-        }
-    
-        public virtual ObjectResult<ReportAdminIndex_Result> ReportAdminIndex()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReportAdminIndex_Result>("ReportAdminIndex");
-        }
-    
-        public virtual ObjectResult<sp_Login_Result> sp_Login(string email, string pass)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            var passParameter = pass != null ?
-                new ObjectParameter("pass", pass) :
-                new ObjectParameter("pass", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Result>("sp_Login", emailParameter, passParameter);
-        }
-    
-        public virtual ObjectResult<ListOrderDetailUser_Result> ListOrderDetailUser(string orderid)
-        {
-            var orderidParameter = orderid != null ?
-                new ObjectParameter("orderid", orderid) :
-                new ObjectParameter("orderid", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ListOrderDetailUser_Result>("ListOrderDetailUser", orderidParameter);
-        }
-        public virtual int sp_InsUserFb(string email)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsUserFb", emailParameter);
-        }
-    
-        public virtual ObjectResult<ListOrdersUser1_Result> ListOrdersUser1(Nullable<int> id, Nullable<int> status)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var statusParameter = status.HasValue ?
-                new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ListOrdersUser1_Result>("ListOrdersUser1", idParameter, statusParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ConfirmProduct_Admin", idParameter);
         }
     }
 }

@@ -45,15 +45,22 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             user = db.Users.Find(id);
             ViewBag.user = user;
             ViewBag.store = db.Stores.Where(x => x.UserID == id).FirstOrDefault();
+            ViewBag.ShopProduct = db.sp_ListProductOfShop(id);
             return View(user);
         }
         
         public ActionResult OrderDetail(int userid, int status)
         {
-            ViewBag.order = db.ListOrdersUser1(userid, status);
+            ViewBag.order = db.ListOrdersUser(userid, status).ToList();
             ViewBag.store = db.Stores.Where(x => x.UserID == userid).FirstOrDefault();
             //ViewBag.orderdetail = db.ListOrderDetailUser(orderid);
             return PartialView("_OrderDetail");
+        }
+
+        public ActionResult OrderDetailForeach(string orderid)
+        {
+            ViewBag.item = db.ListOrderDetailUser(orderid);
+            return View("_OrderDetailForeach");
         }
 
         // GET: Admin/Users/Create

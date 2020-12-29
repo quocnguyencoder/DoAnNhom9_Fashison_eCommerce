@@ -19,6 +19,7 @@ namespace Fashison_eCommerce.Models
         {
             this.Addresses = new HashSet<Address>();
             this.Carts = new HashSet<Cart>();
+            this.Order_Tracking = new HashSet<Order_Tracking>();
             this.Orders = new HashSet<Order>();
             this.Stores = new HashSet<Store>();
         }
@@ -39,6 +40,8 @@ namespace Fashison_eCommerce.Models
         public virtual ICollection<Address> Addresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order_Tracking> Order_Tracking { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         public virtual Role Role { get; set; }

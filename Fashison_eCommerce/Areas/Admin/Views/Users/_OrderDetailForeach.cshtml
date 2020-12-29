@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+
+@foreach (var item in ViewBag.item)
+{
+    <div class="d-flex order-detail border-bottom">
+        <img src="https://www.gocbao.com/wp-content/uploads/2020/04/hinha-nh-anime-cute-43.jpg" alt="Girl in a jacket" width="80" height="80" style="margin: 10px; margin-right: 20px;">
+        <div style="flex-grow: 1;">
+            <h5 class="card-title">@item.Name</h5>
+            <p class="text-gray-700" style="font-size: smaller;"></p>
+            <h6 class="card-text">x @item.quantity</h6>
+        </div>
+        <div class="d-flex justify-content-end" style="width: 130px; height: 100px;">
+            <div style="text-align: right; color: red;">@item.Price</div>
+        </div>
+    </div>
+}

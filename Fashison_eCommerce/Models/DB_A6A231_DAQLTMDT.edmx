@@ -68,6 +68,17 @@
           <Property Name="total" Type="float" />
           <Property Name="status" Type="int" />
         </EntityType>
+        <EntityType Name="Order_Tracking">
+          <Key>
+            <PropertyRef Name="Track_ID" />
+          </Key>
+          <Property Name="Track_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order_ID" Type="nchar" MaxLength="11" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Shipper_ID" Type="int" />
+        </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="Order_ID" />
@@ -103,6 +114,7 @@
           <Property Name="Pictures" Type="nvarchar" MaxLength="100" />
           <Property Name="Decription" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="BrandID" Type="int" />
+          <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="Product_Type">
           <Key>
@@ -500,6 +512,30 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Order_Tra__Order__084B3915">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="Order_Tracking" Type="Self.Order_Tracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_ID" />
+            </Principal>
+            <Dependent Role="Order_Tracking">
+              <PropertyRef Name="Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Tra__Shipp__093F5D4E">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Order_Tracking" Type="Self.Order_Tracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order_Tracking">
+              <PropertyRef Name="Shipper_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Orders__Address___55009F39">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
@@ -631,10 +667,13 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Parameter Name="QualityMax" Type="int" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="fn_GetLatestDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="datetime">
+          <Parameter Name="order_id" Type="nchar" Mode="In" />
+        </Function>
         <Function Name="get_ProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="product_ID" Type="int" Mode="In" />
         </Function>
-        <Function Name="getDateTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="real">
+        <Function Name="getDateTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="storeID" Type="int" Mode="In" />
           <Parameter Name="date" Type="date" Mode="In" />
           <Parameter Name="hour" Type="int" Mode="In" />
@@ -693,6 +732,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
+        <Function Name="sp_ConfirmProduct_Admin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -736,6 +778,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         <Function Name="sp_InsUserFb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_ListProductOfShop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_loadUserCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_id" Type="int" Mode="In" />
         </Function>
@@ -758,6 +803,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Parameter Name="name" Type="nvarchar" Mode="In" />
           <Parameter Name="typeid" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_Shipper_Orders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="shipper_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Sp_User_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
@@ -775,6 +823,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Main_Type" EntityType="Self.Main_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order_Items" EntityType="Self.Order_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Tracking" EntityType="Self.Order_Tracking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -980,6 +1029,14 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Order_Items" EntitySet="Order_Items" />
           </AssociationSet>
+          <AssociationSet Name="FK__Order_Tra__Order__084B3915" Association="Self.FK__Order_Tra__Order__084B3915">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Tracking" EntitySet="Order_Tracking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Tra__Shipp__093F5D4E" Association="Self.FK__Order_Tra__Shipp__093F5D4E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Order_Tracking" EntitySet="Order_Tracking" />
+          </AssociationSet>
           <AssociationSet Name="FK__Orders__Address___55009F39" Association="Self.FK__Orders__Address___55009F39">
             <End Role="Address" EntitySet="Address" />
             <End Role="Orders" EntitySet="Orders" />
@@ -1108,6 +1165,19 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <NavigationProperty Name="Product" Relationship="Self.FK__Order_Ite__Item___57DD0BE4" FromRole="Order_Items" ToRole="Product" />
           <NavigationProperty Name="Order" Relationship="Self.FK__Order_Ite__Order__56E8E7AB" FromRole="Order_Items" ToRole="Orders" />
         </EntityType>
+        <EntityType Name="Order_Tracking">
+          <Key>
+            <PropertyRef Name="Track_ID" />
+          </Key>
+          <Property Name="Track_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_ID" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Shipper_ID" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Order_Tra__Order__084B3915" FromRole="Order_Tracking" ToRole="Orders" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Order_Tra__Shipp__093F5D4E" FromRole="Order_Tracking" ToRole="Users" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Order_ID" />
@@ -1124,6 +1194,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Name="Total_Order" Type="Double" />
           <NavigationProperty Name="Address" Relationship="Self.FK__Orders__Address___55009F39" FromRole="Orders" ToRole="Address" />
           <NavigationProperty Name="Order_Items" Relationship="Self.FK__Order_Ite__Order__56E8E7AB" FromRole="Orders" ToRole="Order_Items" />
+          <NavigationProperty Name="Order_Tracking" Relationship="Self.FK__Order_Tra__Order__084B3915" FromRole="Orders" ToRole="Order_Tracking" />
           <NavigationProperty Name="Store" Relationship="Self.FK__Orders__Store_ID__540C7B00" FromRole="Orders" ToRole="Store" />
           <NavigationProperty Name="User" Relationship="Self.FK__Orders__User_ID__531856C7" FromRole="Orders" ToRole="Users" />
         </EntityType>
@@ -1154,6 +1225,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <NavigationProperty Name="Store" Relationship="Self.FK__Product__Store_I__2F10007B" FromRole="Product" ToRole="Store" />
           <NavigationProperty Name="Product_Type" Relationship="Self.FK__Product__TypeID__2E1BDC42" FromRole="Product" ToRole="Product_Type" />
           <NavigationProperty Name="Ratings" Relationship="Self.FK__Rating__ProductI__6FE99F9F" FromRole="Product" ToRole="Rating" />
+          <Property Name="status" Type="Int32" />
         </EntityType>
         <EntityType Name="Product_Type">
           <Key>
@@ -1227,6 +1299,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Addresses" Relationship="Self.FK__Address__User_ID__31B762FC" FromRole="Users" ToRole="Address" />
           <NavigationProperty Name="Carts" Relationship="Self.FK__Cart__UserID__5535A963" FromRole="Users" ToRole="Cart" />
+          <NavigationProperty Name="Order_Tracking" Relationship="Self.FK__Order_Tra__Shipp__093F5D4E" FromRole="Users" ToRole="Order_Tracking" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__User_ID__531856C7" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleID__52593CB8" FromRole="Users" ToRole="Role" />
           <NavigationProperty Name="Stores" Relationship="Self.FK__Store__UserID__29572725" FromRole="Users" ToRole="Store" />
@@ -1560,6 +1633,30 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Order_Tra__Order__084B3915">
+          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Order_Tracking" Type="Self.Order_Tracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_ID" />
+            </Principal>
+            <Dependent Role="Order_Tracking">
+              <PropertyRef Name="Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Tra__Shipp__093F5D4E">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Order_Tracking" Type="Self.Order_Tracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order_Tracking">
+              <PropertyRef Name="Shipper_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Orders__Store_ID__540C7B00">
           <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
@@ -1652,6 +1749,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" />
           <EntitySet Name="Main_Type" EntityType="Self.Main_Type" />
           <EntitySet Name="Order_Items" EntityType="Self.Order_Items" />
+          <EntitySet Name="Order_Tracking" EntityType="Self.Order_Tracking" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -1719,6 +1817,14 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Order_Items" EntitySet="Order_Items" />
           </AssociationSet>
+          <AssociationSet Name="FK__Order_Tra__Order__084B3915" Association="Self.FK__Order_Tra__Order__084B3915">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Tracking" EntitySet="Order_Tracking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Tra__Shipp__093F5D4E" Association="Self.FK__Order_Tra__Shipp__093F5D4E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Order_Tracking" EntitySet="Order_Tracking" />
+          </AssociationSet>
           <AssociationSet Name="FK__Orders__Store_ID__540C7B00" Association="Self.FK__Orders__Store_ID__540C7B00">
             <End Role="Store" EntitySet="Stores" />
             <End Role="Orders" EntitySet="Orders" />
@@ -1768,11 +1874,25 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <FunctionImport Name="get_ProductByID" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.get_ProductByID_Result)">
           <Parameter Name="product_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetIdFromEmail" ReturnType="Collection(Int32)">
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="getOrders_Of_User" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.getOrders_Of_User_Result)">
           <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getProducts" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.getProducts_Result)">
           <Parameter Name="StoreID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ListOrderDetailUser" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ListOrderDetailUser_Result)">
+          <Parameter Name="orderid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ListOrdersUser" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ListOrdersUser_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ReportAdminIndex" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ReportAdminIndex_Result)" />
+          <FunctionImport Name="ResetPassword">
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_AccountChangePassword">
             <Parameter Name="email" Mode="In" Type="String" />
@@ -1829,8 +1949,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_InsUserFb">
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ListProductOfShop" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_ListProductOfShop_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_loadUserCart" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_loadUserCart_Result)">
           <Parameter Name="user_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Login" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_Login_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ProductByStore" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_ProductByStore_Result)">
           <Parameter Name="storeid" Mode="In" Type="Int32" />
@@ -1847,6 +1977,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="typeid" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_Shipper_Orders" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_Shipper_Orders_Result)">
+          <Parameter Name="shipper_id" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="Sp_User_Login" ReturnType="Collection(Boolean)">
             <Parameter Name="UserName" Mode="In" Type="String" />
@@ -1856,30 +1989,8 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <Parameter Name="store_id" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="ResetPassword">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="GetIdFromEmail" ReturnType="Collection(Int32)">
-          <Parameter Name="email" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="ReportAdminIndex" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ReportAdminIndex_Result)" />
-          <FunctionImport Name="sp_Login" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.sp_Login_Result)">
-            <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="pass" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="ListOrderDetailUser" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ListOrderDetailUser_Result)">
-          <Parameter Name="orderid" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="ListOrdersUser" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ListOrdersUser_Result)">
+          <FunctionImport Name="sp_ConfirmProduct_Admin">
             <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_InsUserFb">
-          <Parameter Name="email" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="ListOrdersUser1" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ListOrdersUser1_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="FindProducts_Result">
@@ -1927,6 +2038,33 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
           <Property Type="Int32" Name="BrandID" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="ListOrderDetailUser_Result">
+          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
+          <Property Type="Int32" Name="Item_ID" Nullable="false" />
+          <Property Type="Single" Name="Price" Nullable="false" />
+          <Property Type="Int32" Name="quantity" Nullable="true" />
+          <Property Type="Double" Name="discount" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ListOrdersUser_Result">
+          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="ShopName" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="delivery" Nullable="true" />
+          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ReportAdminIndex_Result">
+          <Property Type="Double" Name="Total" Nullable="true" />
+          <Property Type="Int32" Name="Orders" Nullable="true" />
+          <Property Type="Int32" Name="Users" Nullable="true" />
+          <Property Type="Double" Name="Ship" Nullable="true" />
+          <Property Type="Double" Name="Discount" Nullable="true" />
+          <Property Type="Int32" Name="Products" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="sp_getAddressByID_Result">
           <Property Type="Int32" Name="Address_ID" Nullable="false" />
           <Property Type="Int32" Name="User_ID" Nullable="true" />
@@ -1944,7 +2082,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         <ComplexType Name="sp_getOrderDetail_Result">
           <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
           <Property Type="Int32" Name="Store_ID" Nullable="true" />
-          <Property Type="String" Name="ShopName" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ShopName" Nullable="true" MaxLength="50" />
           <Property Type="Double" Name="delivery" Nullable="true" />
           <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
           <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
@@ -1978,6 +2116,16 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="sp_ListProductOfShop_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="50" />
+          <Property Type="Single" Name="Price" Nullable="false" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+          <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="BrandName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
+        </ComplexType>
         <ComplexType Name="sp_loadUserCart_Result">
           <Property Type="String" Name="Pictures" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
@@ -1986,6 +2134,19 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Type="Int32" Name="Store_ID" Nullable="false" />
           <Property Type="Int32" Name="Quantity" Nullable="true" />
           <Property Type="Int32" Name="ItemID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_Login_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Birthday" Nullable="true" />
+          <Property Type="Int32" Name="RoleID" Nullable="true" />
+          <Property Type="String" Name="Avatar" Nullable="true" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="sp_ProductByStore_Result">
           <Property Type="Int32" Name="Product_ID" Nullable="false" />
@@ -2020,6 +2181,14 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Type="String" Name="Decription" Nullable="false" MaxLength="1000" />
           <Property Type="Int32" Name="BrandID" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="sp_Shipper_Orders_Result">
+          <Property Type="Int32" Name="Track_ID" Nullable="false" />
+          <Property Type="String" Name="Order_ID" Nullable="true" MaxLength="11" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Shipper_ID" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="sp_View_Orders_Result">
           <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
@@ -2029,52 +2198,6 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Property Type="String" Name="decription" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
           <Property Type="Double" Name="Total_Order" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="ReportAdminIndex_Result">
-          <Property Type="Double" Name="Total" Nullable="true" />
-          <Property Type="Int32" Name="Orders" Nullable="true" />
-          <Property Type="Int32" Name="Users" Nullable="true" />
-          <Property Type="Double" Name="Ship" Nullable="true" />
-          <Property Type="Double" Name="Discount" Nullable="true" />
-          <Property Type="Int32" Name="Products" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_Login_Result">
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Password" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Gender" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Phone" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="Birthday" Nullable="true" />
-          <Property Type="Int32" Name="RoleID" Nullable="true" />
-          <Property Type="String" Name="Avatar" Nullable="true" MaxLength="100" />
-        </ComplexType>
-        <ComplexType Name="ListOrderDetailUser_Result">
-          <Property Type="Int32" Name="Item_ID" Nullable="false" />
-          <Property Type="Double" Name="price" Nullable="true" />
-          <Property Type="Int32" Name="quantity" Nullable="true" />
-          <Property Type="Double" Name="discount" Nullable="true" />
-          <Property Type="Double" Name="total" Nullable="true" />
-          <Property Type="Int32" Name="status" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="ListOrdersUser_Result">
-          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
-          <Property Type="Int32" Name="Store_ID" Nullable="true" />
-          <Property Type="Double" Name="delivery" Nullable="true" />
-          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
-          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
-          <Property Type="Double" Name="Total_Order" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="ListOrdersUser1_Result">
-          <Property Type="String" Name="Order_ID" Nullable="false" MaxLength="11" />
-          <Property Type="String" Name="ShopName" Nullable="true" MaxLength="50" />
-          <Property Type="Double" Name="delivery" Nullable="true" />
-          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
-          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
-          <Property Type="Double" Name="Total_Order" Nullable="true" />
-          <Property Type="Int32" Name="status" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2149,6 +2272,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Order_Tracking">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order_Tracking">
+              <MappingFragment StoreEntitySet="Order_Tracking">
+                <ScalarProperty Name="Track_ID" ColumnName="Track_ID" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Shipper_ID" ColumnName="Shipper_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Order">
               <MappingFragment StoreEntitySet="Orders">
@@ -2176,6 +2311,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -2495,6 +2631,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetIdFromEmail" FunctionName="DB_A6A231_DAQLTMDTModel.Store.GetIdFromEmail" />
           <FunctionImportMapping FunctionImportName="getOrders_Of_User" FunctionName="DB_A6A231_DAQLTMDTModel.Store.getOrders_Of_User">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.getOrders_Of_User_Result">
@@ -2526,6 +2663,46 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ListOrderDetailUser" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ListOrderDetailUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ListOrderDetailUser_Result">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ListOrdersUser" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ListOrdersUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ListOrdersUser_Result">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+                <ScalarProperty Name="delivery" ColumnName="delivery" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReportAdminIndex" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ReportAdminIndex">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ReportAdminIndex_Result">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Orders" ColumnName="Orders" />
+                <ScalarProperty Name="Users" ColumnName="Users" />
+                <ScalarProperty Name="Ship" ColumnName="Ship" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Products" ColumnName="Products" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ResetPassword" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ResetPassword" />
           <FunctionImportMapping FunctionImportName="sp_AccountChangePassword" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_AccountChangePassword" />
           <FunctionImportMapping FunctionImportName="sp_AccountResgister" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_AccountResgister" />
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_alterdiagram" />
@@ -2607,6 +2784,21 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsUserFb" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_InsUserFb" />
+          <FunctionImportMapping FunctionImportName="sp_ListProductOfShop" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_ListProductOfShop">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_ListProductOfShop_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_loadUserCart" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_loadUserCart">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_loadUserCart_Result">
@@ -2617,6 +2809,23 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
                 <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Login" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_Login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_Login_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2666,6 +2875,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Shipper_Orders" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_Shipper_Orders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_Shipper_Orders_Result">
+                <ScalarProperty Name="Track_ID" ColumnName="Track_ID" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Shipper_ID" ColumnName="Shipper_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="Sp_User_Login" FunctionName="DB_A6A231_DAQLTMDTModel.Store.Sp_User_Login" />
           <FunctionImportMapping FunctionImportName="sp_View_Orders" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_View_Orders">
@@ -2682,63 +2903,7 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ResetPassword" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ResetPassword" />
-          <FunctionImportMapping FunctionImportName="GetIdFromEmail" FunctionName="DB_A6A231_DAQLTMDTModel.Store.GetIdFromEmail" />
-          <FunctionImportMapping FunctionImportName="ReportAdminIndex" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ReportAdminIndex">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ReportAdminIndex_Result">
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Orders" ColumnName="Orders" />
-                <ScalarProperty Name="Users" ColumnName="Users" />
-                <ScalarProperty Name="Ship" ColumnName="Ship" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Products" ColumnName="Products" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Login" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_Login">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.sp_Login_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ListOrderDetailUser" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ListOrderDetailUser">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ListOrderDetailUser_Result">
-                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="discount" ColumnName="discount" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="status" ColumnName="status" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_InsUserFb" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_InsUserFb" />
-          <FunctionImportMapping FunctionImportName="ListOrdersUser1" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ListOrdersUser">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ListOrdersUser1_Result">
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
-                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
-                <ScalarProperty Name="delivery" ColumnName="delivery" />
-                <ScalarProperty Name="payment" ColumnName="payment" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
-                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
-                <ScalarProperty Name="status" ColumnName="status" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConfirmProduct_Admin" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_ConfirmProduct_Admin" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -228,7 +228,6 @@
         e.preventDefault
         if (confirm('Do you want to Reset Password of This User from your Database?')) {
             console.log("123", e)
-            alert(e);
             $.ajax({
                 data: {
                     id: e
@@ -242,6 +241,10 @@
             });
             alert('Done!');
         } 
+    };
+    function OrderDetailForeach(e) {
+        alert("abc");
+        alert(e);
     };
 
 </script>

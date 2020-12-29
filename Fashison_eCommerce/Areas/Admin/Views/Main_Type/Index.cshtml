@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Fashison_eCommerce.Models.Brand>
+﻿@model IEnumerable<Fashison_eCommerce.Models.MainType>
 
 @{
     ViewBag.Title = "Index";
@@ -6,32 +6,32 @@
 }
 <!-- DataTales Example -->
 <div class="card-header py-3 bg-white" style="height: 80px;">
-    <h5 class="m-0 font-weight-bold text-dark" style="display: inline; float: left; padding-top: 6px">Brands Database</h5>
+    <h5 class="m-0 font-weight-bold text-dark" style="display: inline; float: left; padding-top: 6px">Types Database</h5>
     <!-- Refresh Databa -->
     <div style=" padding-left: 5%; display: inline; width: 15%; float: left">
-        <button onclick="resetFunc()" type="button"  class="btn btn-danger" title="Reload" style="background-color: #f5c6cb; color: #1d2124">
+        <button onclick="resetFunc()" type="button" class="btn btn-danger" title="Reload" style="background-color: #f5c6cb; color: #1d2124">
             Refesh Data
         </button>
     </div>
-    <!-- Button to Open the Modal - Add User -->
+    <!-- Button to Open the Modal - Add type -->
     <button type="button" class="btn btn-success" style="width: 15%; display:inline; float: right;" data-toggle="modal"
-            data-target="#addUser">
-        <i class="fa fa-plus mr-2"></i> Add Brand
+            data-target="#addtype">
+        <i class="fa fa-plus mr-2"></i> Add Type
     </button>
 
-    <!-- Add-User The Modal -->
-    <div class="modal" id="addUser">
+    <!-- Add-type The Modal -->
+    <div class="modal" id="addtype">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Brand</h4>
+                    <h4 class="modal-title">Add Type</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form action="../Brands/Create" method="post">
+                    <form action="../Types/Create" method="post">
                         @Html.AntiForgeryToken()
                         <div class="form-group">
                             <label asp-for="addID">ID :</label>
@@ -69,17 +69,17 @@
                 </tr>
             </tfoot>
             <tbody>
-                @foreach (var item in ViewBag.brand)
+                @foreach (var item in ViewBag.type)
                 {
                     <tr>
-                        <td>@item.BrandID</td>
-                        <td>@item.BrandName</td>
+                        <td>@item.ID</td>
+                        <td>@item.Name</td>
                         <td>
                             <button type="button" class="btn btn-primary" title="Edit"
-                                    onclick="EditUser(@item.BrandID)">
+                                    onclick="Edittype(@item.ID)">
                                 <i class="fa fa-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.BrandID)">
+                            <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.ID)">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
@@ -106,14 +106,14 @@
     //Function Delete
     function DeleteFunction(e) {
         e.preventDefault
-        if (confirm('Do you want to Delete this User from your Database?')) {
+        if (confirm('Do you want to Delete this type from your Database?')) {
             console.log("123", e)
             $.ajax({
                 data: {
                     id: e
                 },
                 type: 'POST',
-                url: "/Admin/Brands/Delete",
+                url: "/Admin/Types/Delete",
                 async: true,
                 success: function (msg) {
                     //alert(msg);
@@ -125,8 +125,8 @@
             alert('Thing was not deleted from your database.');
         }
     };
-    function EditUser(e) {
-        var url = "/Admin/Brands/Edit"; // the url to the controller
+    function Edittype(e) {
+        var url = "/Admin/Main_Type/Edit"; // the url to the controller
         var id = e; // the id that's given to each button in the list
         $.get(url + '/' + id, function (data) {
             $('#edit-person-container').html(data);

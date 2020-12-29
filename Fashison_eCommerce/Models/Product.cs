@@ -31,6 +31,7 @@ namespace Fashison_eCommerce.Models
         public string Pictures { get; set; }
         public string Decription { get; set; }
         public Nullable<int> BrandID { get; set; }
+        public Nullable<int> status { get; set; }
     
         public virtual Brand Brand { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

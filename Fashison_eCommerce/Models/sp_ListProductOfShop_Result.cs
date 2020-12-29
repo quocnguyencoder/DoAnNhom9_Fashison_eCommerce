@@ -11,15 +11,15 @@ namespace Fashison_eCommerce.Models
 {
     using System;
     
-    public partial class ListOrderDetailUser_Result
+    public partial class sp_ListProductOfShop_Result
     {
-        public string Order_ID { get; set; }
-        public int Item_ID { get; set; }
+        public int Id { get; set; }
+        public string ProductName { get; set; }
         public float Price { get; set; }
-        public Nullable<int> quantity { get; set; }
-        public Nullable<double> discount { get; set; }
-        public Nullable<int> status { get; set; }
-        public string Name { get; set; }
+        public int Amount { get; set; }
         public string Pictures { get; set; }
+        public string TypeName { get; set; }
+        public string BrandName { get; set; }
+        public string Decription { get; set; }
     }
 }

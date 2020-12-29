@@ -4,23 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e480f8385acc4cfcb868adaa34f54c89" Name="Diagram1">
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Address" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Authorize" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Brand" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Cart" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Cart_Item" Width="1.5" PointX="10.5" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Main_Type" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Items" Width="1.5" PointX="12.75" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order" Width="1.5" PointX="7.5" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Permission" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Product" Width="1.5" PointX="7.5" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Product_Type" Width="1.5" PointX="5.25" PointY="19.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Rating" Width="1.5" PointX="9.75" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Role" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Store" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+      <Diagram DiagramId="90ec17a030e04471a2c599ea05650759" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Address" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Authorize" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Brand" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Cart" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Cart_Item" Width="1.5" PointX="10.5" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Main_Type" Width="1.5" PointX="3" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Items" Width="1.5" PointX="12.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Tracking" Width="1.5" PointX="12.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order" Width="1.5" PointX="7.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Permission" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Product" Width="1.5" PointX="7.5" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Product_Type" Width="1.5" PointX="5.25" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Rating" Width="1.5" PointX="9.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Role" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Store" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.User" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.User" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Buyer_LoadAllProduct" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Buyer_LoadProduct" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_All" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
@@ -31,10 +32,10 @@
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Order_Receive" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Order_Items" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Buyer_Orders" Width="1.5" PointX="13.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_MainType" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_MainType" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Product" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Products" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Shop" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Products" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.view_Shop" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="true" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Address__User_ID__31B762FC" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Orders__Address___55009F39" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Authorize__Permi__534D60F1" ManuallyRouted="false" />
@@ -46,6 +47,8 @@
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Product_T__Maint__2180FB33" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Item___57DD0BE4" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Order_Ite__Order__56E8E7AB" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Order__084B3915" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Order_Tra__Shipp__093F5D4E" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Orders__Store_ID__540C7B00" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Orders__User_ID__531856C7" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Product__Store_I__2F10007B" ManuallyRouted="false" />
