@@ -19,15 +19,73 @@ namespace Fashison_eCommerce.Areas.Shipper.Controllers
         {
             return View();
         }
+
         public ActionResult OrderList()
         {
-            var listOrder = db.DetailOrder(2);
-            ViewBag.listOrder = listOrder.ToList<DetailOrder_Result>();
-            return View();
+            if (Session["userID"] != null)
+            {
+                int ID = Convert.ToInt32(Session["userID"].ToString());
+                var listOrder = db.DetailOrder(ID);
+                ViewBag.listOrder = listOrder.ToList<DetailOrder_Result>();
+                return View();
+            }
+            else
+            {
+                return View("Login");
+            }
         }
+
         public ActionResult OrderDetail(String id)
         {
             return View();
+        }
+    
+        public ActionResult Login()
+        {
+            return View();
+
+        }
+
+        [HttpPost]// thuc hien dang nhap
+        public ActionResult VerifyLogin(User user)
+        {
+
+            // kiem tra du lieu nhap
+            if (ModelState.IsValid)
+            {
+                // truy van csdl 
+                using (var _context = new DB_A6A231_DAQLTMDTEntities())
+                {
+                    // query id tu email va password de kiem tra dang nhap
+                    //var obj = (from u in _context.Users where u.Email == user.Email && u.Password == user.Password select u).FirstOrDefault();
+                    var obj = db.sp_Login(user.Email, user.Password).FirstOrDefault();
+                    if (obj != null)
+                    {
+                        Session["userID"] = obj.Id.ToString();
+                        Session["username"] = obj.Username.ToString();
+
+                        //Lay mat khau người dùng
+                        Session["pass"] = user.Password.ToString();
+
+                        if (obj.Avatar != null)
+                        {
+                            Session["Avatar"] = obj.Avatar.ToString();
+                        }
+                        else
+                        {
+                            Session["Avatar"] = "#.png";
+                        }
+                        //string username = obj.Username.ToString();
+                        return RedirectToAction("OrderList", "Shipper");
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Invalid Email or Password')</script>");
+                        return View("Error");
+                    }
+                }
+            }
+            return View("Error");
         }
     }
 }

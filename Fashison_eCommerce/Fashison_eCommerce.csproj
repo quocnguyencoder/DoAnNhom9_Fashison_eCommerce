@@ -2542,6 +2542,7 @@
     <Content Include="Assets\Shipper\scss\theme\_demo.scss" />
     <Content Include="Assets\Shipper\scss\theme\_mixins.scss" />
     <Content Include="Assets\Shipper\scss\theme\_responsive.scss" />
+    <Content Include="Areas\Shipper\Views\Shipper\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
