@@ -37,11 +37,13 @@
                 <div class="span6">
                     @if (Session["userID"] != null)
                     {
+                        <a href="/Shipper/Shipper/OrderList" target="_blank">Shipper page</a>
                         <a href="/Seller/Acount/Dashboard" target="_blank">Seller page</a>
                     }
                     else
                     {
-                        <a href="/Seller/Acount/Login" target="_blank">Seller page</a>
+                        <a href="/Shipper/Shipper/Login" target="_blank">Shipper page</a>
+                        <a href = "/Seller/Acount/Login" target = "_blank">Seller page</a>
                     }
                     <a href="#" target="_blank">Download app</a>
                 </div>
