@@ -1,95 +1,117 @@
 ﻿@model IEnumerable<Fashison_eCommerce.Models.Brand>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutTable.cshtml";
+    ViewBag.Title = "test";
+    Layout = "~/Areas/Admin/Template/Layout/_AdminLayoutTable.cshtml";
 }
-<!-- DataTales Example -->
-<div class="card-header py-3 bg-white" style="height: 80px;">
-    <h5 class="m-0 font-weight-bold text-dark" style="display: inline; float: left; padding-top: 6px">Brands Database</h5>
-    <!-- Refresh Databa -->
-    <div style=" padding-left: 5%; display: inline; width: 15%; float: left">
-        <button onclick="resetFunc()" type="button"  class="btn btn-danger" title="Reload" style="background-color: #f5c6cb; color: #1d2124">
-            Refesh Data
-        </button>
-    </div>
-    <!-- Button to Open the Modal - Add User -->
-    <button type="button" class="btn btn-success" style="width: 15%; display:inline; float: right;" data-toggle="modal"
-            data-target="#addUser">
-        <i class="fa fa-plus mr-2"></i> Add Brand
-    </button>
 
-    <!-- Add-User The Modal -->
-    <div class="modal" id="addUser">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Brand</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>List Of Brands</h1>
                 </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form action="../Brands/Create" method="post">
-                        @Html.AntiForgeryToken()
-                        <div class="form-group">
-                            <label asp-for="addID">ID :</label>
-                            <input type="text" id="addID" class="form-control" name="id">
-                            <span asp-validation-for="ID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="addName">Name :</label>
-                            <input type="text" id="addName" class="form-control" name="Name">
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
-                        <button type="submit" class="btn btn-success">Add</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </form>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Brands</li>
+                    </ol>
                 </div>
+                <!-- Button to Open the Modal - Add User -->
+                <button type="button" class="btn btn-success" style="width: 15%; display:inline; float: right;" data-toggle="modal"
+                        data-target="#addUser">
+                    <i class="fa fa-plus mr-2"></i> Add Brand
+                </button>
             </div>
-        </div>
-    </div>
-</div>
-<div class="card-body">
-    <div class="table-responsive bg-white">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th></th>
-                </tr>
-            </tfoot>
-            <tbody>
-                @foreach (var item in ViewBag.brand)
-                {
-                    <tr>
-                        <td>@item.BrandID</td>
-                        <td>@item.BrandName</td>
-                        <td>
-                            <button type="button" class="btn btn-primary" title="Edit"
-                                    onclick="EditUser(@item.BrandID)">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.BrandID)">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
+        </div><!-- /.container-fluid -->
+    </section>
 
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Add-User The Modal -->
+                    <div class="modal" id="addUser">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Add Brand</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <form action="../Brands/Create" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-group">
+                                            <label asp-for="addID">ID :</label>
+                                            <input type="text" id="addID" class="form-control" name="id">
+                                            <span asp-validation-for="ID" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addName">Name :</label>
+                                            <input type="text" id="addName" class="form-control" name="Name">
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Add</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive bg-white">
+                        <table class="table table-hover" id="example1" width="100%" cellspacing="0">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var item in ViewBag.brand)
+                                {
+                                    <tr>
+                                        <td>@item.BrandID</td>
+                                        <td>@item.BrandName</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" title="Edit"
+                                                    onclick="EditUser(@item.BrandID)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.BrandID)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
 <div class="modal hide fade" id="edit-person">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -97,6 +119,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
     function resetFunc() {

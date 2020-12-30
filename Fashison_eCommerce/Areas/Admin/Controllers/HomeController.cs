@@ -33,7 +33,7 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
                     Session["Email"] = objUser.Email.ToString();
                     Session["Name"] = user.Name.ToString();
                     Session["Password"] = objUser.Password.ToString();
-                    return RedirectToAction("AdminDashboard");
+                    return RedirectToAction("index");
 
                 }
             }
@@ -41,6 +41,19 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
         }
 
         public ActionResult AdminDashboard()
+        {
+            if (Session["Email"] != null)
+            {
+                var report = db.ReportAdminIndex().FirstOrDefault();
+                ViewBag.report = report;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+        public ActionResult index()
         {
             if (Session["Email"] != null)
             {

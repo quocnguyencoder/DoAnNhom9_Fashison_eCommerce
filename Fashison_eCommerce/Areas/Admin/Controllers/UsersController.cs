@@ -29,6 +29,7 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             }
             
         }
+
         public ActionResult ResetPassword(int id)
         {
             if (ModelState.IsValid)
@@ -46,21 +47,16 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             ViewBag.user = user;
             ViewBag.store = db.Stores.Where(x => x.UserID == id).FirstOrDefault();
             ViewBag.ShopProduct = db.sp_ListProductOfShop(id);
+            ViewBag.product = db.Products.Where(y => y.Store_ID == id).ToList();
             return View(user);
         }
         
-        public ActionResult OrderDetail(int userid, int status)
+        public ActionResult OrderDetail(int userid)
         {
-            ViewBag.order = db.ListOrdersUser(userid, status).ToList();
+            ViewBag.user = db.Users.Find(userid);
             ViewBag.store = db.Stores.Where(x => x.UserID == userid).FirstOrDefault();
             //ViewBag.orderdetail = db.ListOrderDetailUser(orderid);
             return PartialView("_OrderDetail");
-        }
-
-        public ActionResult OrderDetailForeach(string orderid)
-        {
-            ViewBag.item = db.ListOrderDetailUser(orderid);
-            return View("_OrderDetailForeach");
         }
 
         // GET: Admin/Users/Create
@@ -94,6 +90,9 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
         {
             var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
             ViewBag.user = user;
+            DateTime birthday = new DateTime();
+            birthday = Convert.ToDateTime(user.Birthday);
+            ViewBag.birthday = birthday;
             return PartialView("_UserEdit");
         }
 

@@ -1,0 +1,266 @@
+﻿@model IEnumerable<Fashison_eCommerce.Models.User>
+
+@{
+    ViewBag.Title = "test";
+    Layout = "~/Areas/Admin/Template/Layout/_AdminLayoutTable.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>List Of Users</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Users</li>
+                    </ol>
+                </div>
+                <!-- Button to Open the Modal - Add User -->
+                <button type="button" class="btn btn-success" style="width: 15%; display:inline; float: right;" data-toggle="modal"
+                        data-target="#addUser">
+                    <i class="fa fa-plus mr-2"></i> Add user
+                </button>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Add-User The Modal -->
+                    <div class="modal" id="addUser">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Add user</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <form action="../Users/Create" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-group">
+                                            <label asp-for="addUsername">UserName :</label>
+                                            <input type="text" id="addUsername" class="form-control" name="Username">
+                                            <span asp-validation-for="Username" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addEmail">Email :</label>
+                                            <input type="email" id="addEmail" class="form-control" name="Email">
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addPass">Password</label>
+                                            <input type="password" id="addPass" class="form-control" name="Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addName">Name :</label>
+                                            <input type="text" id="addName" class="form-control" name="Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addPhone">Phone :</label>
+                                            <input type="tel" id="addPhone" class="form-control" name="Phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addAddress">Address :</label>
+                                            <input type="text" id="addAddress" class="form-control" name="Address">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addGender">Gender :</label>
+                                            <select name="Gender" id="addGender" class="form-control">
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addDOfB">DOB :</label>
+                                            <input type="date" class="form-control" id="addDOB" name="Birthday">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addRole">Role :</label>
+                                            <select name="RoleID" id="addRole" class="form-control">
+                                                <option value="1">Admin</option>
+                                                <option value="0">User</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Add</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive bg-white">
+                        <table class="table table-hover" id="example1" width="100%" cellspacing="0">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Birthday</th>
+                                    <th>Role</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Birthday</th>
+                                    <th>Role</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Username)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Address)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Gender)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Phone)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Birthday)
+                                        </td>
+                                        <td>
+                                            @(item.RoleID == 1 ? "Admin" : "User")
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info" title="Detail" onclick="location.href='@Url.Action("Details", "Users",new { id = item.Id})'">
+                                                <i class="fa fa-address-book"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-primary" title="Edit"
+                                                    onclick="EditUser(@item.Id)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.Id)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <button type="submit" title="Reset Password"
+                                                    class="btn btn-warning" onclick="ResetPassword(@item.Id)">
+                                                <i class="fa fa-redo-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+<script>
+    function resetFunc() {
+        location.reload();
+    };
+
+    //Function Delete
+    function DeleteFunction(e) {
+        e.preventDefault
+        if (confirm('Do you want to Delete this User from your Database?')) {
+            console.log("123", e)
+            $.ajax({
+                data: {
+                    id: e
+                },
+                type: 'POST',
+                url: "/Admin/Users/Delete",
+                async: true,
+                success: function (msg) {
+                    //alert(msg);
+                }
+            });
+            alert('Deleted');
+        } else {
+            // Do nothing!
+            alert('Thing was not deleted from your database.');
+        }
+    };
+    function EditUser(e) {
+        var url = "/Admin/Users/Edit"; // the url to the controller
+        var id = e; // the id that's given to each button in the list
+        $.get(url + '/' + id, function (data) {
+            $('#edit-person-container').html(data);
+            $('#edit-person').modal('show');
+        });
+    };
+
+    function DetailUser(e) {
+        e.preventDefault
+        $.ajax({
+            data: {
+                id: e
+            },
+            type: 'GET',
+            url: "/Admin/Users/Details",
+            async: true,
+            success: function (msg) {
+                //alert(msg);
+            }
+        });
+    };
+
+    function ResetPassword(e) {
+        e.preventDefault
+        if (confirm('Do you want to Reset Password of This User from your Database?')) {
+            console.log("123", e)
+            $.ajax({
+                data: {
+                    id: e
+                },
+                type: 'POST',
+                url: "/Admin/Users/ResetPassword",
+                async: true,
+                success: function (msg) {
+                    //alert(msg);
+                }
+            });
+            alert('Done!');
+        }
+    };
+    function OrderDetailForeach(e) {
+        alert("abc");
+        alert(e);
+    };
+
+</script>
+

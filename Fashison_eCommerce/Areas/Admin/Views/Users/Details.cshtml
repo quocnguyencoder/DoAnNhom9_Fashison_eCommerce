@@ -1,219 +1,197 @@
 ﻿@{
-    ViewBag.Title = "Details";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutTable.cshtml";
+    ViewBag.Title = "test";
+    Layout = "~/Areas/Admin/Template/Layout/_AdminLayoutTable.cshtml";
 }
 
-
-<header>
-    <style>
-        .label-info {
-            text-align: right;
-            width: 200px;
-            padding-right: 20px;
-        }
-
-        .text-info {
-            text-align: left;
-            padding-left: 20px;
-        }
-
-            .text-info div {
-                margin: 10px;
-            }
-
-        .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-            color: #fff;
-            background-color: #5a5c69;
-        }
-    </style>
-</header>
-<nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">User's Information</a>
-        <a class="nav-item nav-link" id="nav-order-tab" data-toggle="tab" href="#nav-order" role="tab" aria-controls="nav-order" aria-selected="false" onclick="LoadOrderDetail(@ViewBag.user.Id)">User's Orders</a>
-        <a class="nav-item nav-link" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab" aria-controls="nav-product" aria-selected="false">Products in User's Store</a>
-    </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
-        <div class="container border-bottom" style="padding-top: 30px;">
-            <h3>@ViewBag.user.Name</h3>
-        </div>
-        <div style="padding-top: 30px;" class="d-flex">
-            <div class="xl-col-8" style="flex-grow: 1;">
-                <div class="form-group d-flex">
-                    <label class="label-info">UserName: </label>
-                    <label class="text-info">@ViewBag.user.Username</label>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Profile User</h1>
                 </div>
-                <div class="form-group d-flex">
-                    <label class="label-info">Email: </label>
-                    <label class="text-info">@ViewBag.user.Email</label>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Profile</li>
+                    </ol>
                 </div>
-                <div class="form-group d-flex">
-                    <label class="label-info">Phone: </label>
-                    <label class="text-info">@ViewBag.user.Phone</label>
-                </div>
-                <div class="form-group d-flex">
-                    <label class="label-info">Store's Name: </label>
-                    <label class="text-info">@ViewBag.store.ShopName</label>
-                </div>
-                <div class="form-group d-flex">
-                    <label class="label-info">Gender: </label>
-                    <div class="text-info d-flex">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Male" checked>
-                            <label class="form-check-label" for="exampleRadios1">
-                                Male
-                            </label>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle"
+                                     src="~/Areas/Admin/Template/img_test/91776319_1165038667162166_6128732874704158720_n.jpg"
+                                     alt="User profile picture">
+                            </div>
+
+                            <h3 class="profile-username text-center">@ViewBag.user.Name</h3>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Gender</b> <a class="float-right">@ViewBag.user.Gender</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Phone</b> <a class="float-right">+ @ViewBag.user.Phone</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Role</b> <a class="float-right">@ViewBag.user.Role.Rolename</a>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Female">
-                            <label class="form-check-label" for="exampleRadios2">
-                                Female
-                            </label>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    <!-- About Me Box -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Detail User</h3>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="Orther">
-                            <label class="form-check-label" for="exampleRadios3">
-                                Other
-                            </label>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <strong><i class="fas fa-envelope"></i> Email</strong>
+
+                            <p class="text-muted">
+                                @ViewBag.user.Email
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+                            <p class="text-muted">@ViewBag.user.Address</p>
+
+                            <hr>
+
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Shop Name</strong>
+
+                            <p class="text-muted">@ViewBag.store.ShopName</p>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Orders</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Products</a></li>
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    @foreach (var item in ViewBag.user.Order_Tracking)
+                                    {
+                                        <div>
+                                            <div class="card border-dark mb-3" style="margin: 30px;">
+                                                <div class="card-header d-flex justify-content-between">
+                                                    <div>ID: @item.Order_ID</div>
+                                                    <div>Shop's name: @item.Order.Store.ShopName</div>
+                                                    <div>
+                                                        @(item.Status == 1 ? "Confirm" :
+                                                        item.Status == 2 ? "Receive" :
+                                                        item.Status == 3 ? "Delivering" :
+                                                        item.Status == 4 ? "Delivered" : "Cancel")
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-dark" id="LoadDetail"></div>
+                                                   
+                                                <div class="card-footer d-flex justify-content-end">
+                                                    <div>Total: </div>
+                                                    <div style="color: red; font-size: large; margin-left: 20px;">@item.Order.Total_Order</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="timeline">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Products Of User's Store</h3>
+
+                                            <div class="card-tools">
+                                                <div class="input-group input-group-sm" style="width: 150px;">
+                                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-default">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body table-responsive p-0">
+                                            <table class="table table-hover text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Name</th>
+                                                        <th>Description</th>
+                                                        <th>Amount</th>
+                                                        <th>Brand</th>
+                                                        <th>Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var product in ViewBag.product)
+                                                    {
+                                                        <tr>
+                                                            <td>@product.Product_ID</td>
+                                                            <td>@product.Name</td>
+                                                            <td>@product.Decription</td>
+                                                            <td>@product.Amount</td>
+                                                            <td>@product.Brand.BrandName</td>
+                                                            <td>@product.Price</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group d-flex">
-                    <label class="label-info">DOB: </label>
-                    <input type="date" class="form-control text-info" value="@ViewBag.user.Birthday">
-                </div>
             </div>
-            <div class="xl-col-4">
-                <div class="container">
-                    <div title="Avatar">
-                        <img src="https://i.pinimg.com/originals/14/f1/01/14f101a28f7bf7f860f3b3a8fd3fae4c.png" style="border-radius: 50%; width: 256px; height: 256px;">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="nav-order" role="tabpanel" aria-labelledby="nav-order-tab" onclick="LoadOrderDetail(@ViewBag.user.Id)">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="padding: 20px;">
-            <li class="nav-item">
-                <a class="nav-link active" id="pills-all-tab" data-toggle="pill" href="#" role="tab" aria-controls="pills-all" aria-selected="true" onclick="ChangeStatus(-1)">All</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-confirm-tab" data-toggle="pill" href="#pills-confirm" role="tab" aria-controls="pills-confirm" aria-selected="false" data-status="1" onclick="ChangeStatus(1)">Confirm</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-receive-tab" data-toggle="pill" href="#pills-receive" role="tab" aria-controls="pills-receive" aria-selected="false" data-status="2" onclick="ChangeStatus(2)">Receive</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-deliver-tab" data-toggle="pill" href="#pills-deliver" role="tab" aria-controls="pills-deliver" aria-selected="false" data-status="3" onclick="ChangeStatus(3)">Delivering</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-delivered-tab" data-toggle="pill" href="#pills-delivered" role="tab" aria-controls="pills-delivered" aria-selected="false" data-status="4" onclick="ChangeStatus(4)">Delivered</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-cancel-tab" data-toggle="pill" href="#pills-cancel" role="tab" aria-controls="pills-cancel" aria-selected="false" data-status="0" onclick="ChangeStatus(0)">Cancel</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="edit-person">
-            <div id="edit-person-container">
-                @*<div class="card border-dark mb-3" style="margin: 30px;">
-                    <div class="card-header d-flex justify-content-between">
-                        <div>ID: ...</div>
-                        <div>Shop's name: ...</div>
-                        <div>...</div>
-                    </div>
-                    <div class="card-body text-dark" id="LoadDetail">Không có đơn hàng nào được hiển thị</div>
-                    <div class="card-footer d-flex justify-content-end">
-                        <div>Total: </div>
-                        <div style="color: red; font-size: large; margin-left: 20px;">0đ</div>
-                    </div>
-                </div>*@
-            </div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
-        <div class="card-body">
-            <div class="table-responsive bg-white">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Picture</th>
-                            <th>Product's Name</th>
-                            <th>Amount</th>
-                            <th>Type</th>
-                            <th>Brand</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Picture</th>
-                            <th>Product's Name</th>
-                            <th>Amount</th>
-                            <th>Type</th>
-                            <th>Brand</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        @foreach (var item in ViewBag.ShopProduct)
-                        {
-                            <tr>
-                                <td>Hình nè</td>
-                                <td>@item.ProductName</td>
-                                <td>@item.Amount</td>
-                                <td>@item.TypeName</td>
-                                <td>@item.BrandName</td>
-                                <td>@item.Decription</td>
-                                <td>@item.Price</td>
-                                <td>Status</td>
-                                <td>
-                                    <button type="button" class="btn btn-info" title="Detail" onclick="location.href='@Url.Action("Details", "Users",new { id = item.Id})'">
-                                        <i class="fa fa-address-book"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-primary" title="Edit"
-                                            onclick="EditUser(@item.Id)">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.Id)">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    <button type="submit" title="Reset Password"
-                                            class="btn btn-warning" onclick="ResetPassword(@item.Id)">
-                                        <i class="fa fa-redo-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
 <script>
-    var status = -1;
-    function ChangeStatus(status_change) {
-        status = status_change;
-    };
+    
     function LoadOrderDetail(e) {
         $.ajax({
             data: {
-                userid: e,
-                status: status
+                userid: e
             },
             url: "/Admin/Users/OrderDetail",
             type: 'GET',
             async: true,
             success: function (data) {
-                $('#edit-person-container').html(data);
+                $('#activity').html(data);
             }
         });
     };
@@ -221,15 +199,4 @@
         alert("abc");
         alert(e);
     };
-    //$.ajax({
-        //    data: {
-        //        orderid: e
-        //    },
-        //    url: "/Admin/Users/OrderDetailForeach",
-        //    type: 'GET',
-        //    async: true,
-        //    success: function (data) {
-        //        $('#LoadDetail').html(data);
-        //    }
-        //});
 </script>

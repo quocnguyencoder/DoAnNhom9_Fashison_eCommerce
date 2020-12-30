@@ -4,13 +4,7 @@
 
 
 
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-    @foreach (var item in ViewBag.order)
+    @foreach (var item in ViewBag.user.OrderTracking)
     {
         <div>
             <div class="card border-dark mb-3" style="margin: 30px;">
@@ -32,6 +26,3 @@
             </div>
         </div>
     }
-    
-</body>
-</html>
