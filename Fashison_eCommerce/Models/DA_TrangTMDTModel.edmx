@@ -648,6 +648,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Parameter Name="id" Type="nchar" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
         </Function>
+        <Function Name="DetailOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="shipperid" Type="int" Mode="In" />
+        </Function>
         <Function Name="FindProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Store_ID" Type="int" Mode="In" />
           <Parameter Name="Name" Type="nvarchar" Mode="In" />
@@ -1386,6 +1389,9 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <End Role="User" EntitySet="Users" />
             <End Role="Order_Tracking" EntitySet="Order_Tracking" />
           </AssociationSet>
+          <FunctionImport Name="DetailOrder" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.DetailOrder_Result)">
+            <Parameter Name="shipperid" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <Association Name="FK">
           <End Type="DB_A6A231_DAQLTMDTModel.Brand" Role="Brand" Multiplicity="0..1" />
@@ -2079,6 +2085,16 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="DetailOrder_Result">
+          <Property Type="String" Name="Order_ID" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="full_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="decription" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="payment" Nullable="true" MaxLength="30" />
+          <Property Type="Double" Name="Total_Order" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2685,7 +2701,20 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-
+          <FunctionImportMapping FunctionImportName="DetailOrder" FunctionName="DB_A6A231_DAQLTMDTModel.Store.DetailOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.DetailOrder_Result">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="decription" ColumnName="decription" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="Total_Order" ColumnName="Total_Order" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

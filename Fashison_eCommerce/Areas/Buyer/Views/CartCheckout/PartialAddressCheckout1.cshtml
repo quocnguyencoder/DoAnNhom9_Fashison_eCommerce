@@ -52,8 +52,11 @@
                 }
                 @{ if (address_ID == -1)
                     {
-                        <div id="address"><button type="button" class="btn btn-info btn" style="float:right;" data-toggle="modal" data-target="#create-modal">Thêm địa chỉ</button></div>
-                        <p>Vui long them dia chi giao hang!</p>
+                        <form action="/User/Address" method="get">
+                            <div id="address"><button type="submit" class="btn btn-info btn" style="float:right;" >Thêm địa chỉ</button></div>
+                        </form>
+                        
+                        <p>Vui lòng thêm địa chỉ giao hàng</p>
                     }                
                 }
             </div>

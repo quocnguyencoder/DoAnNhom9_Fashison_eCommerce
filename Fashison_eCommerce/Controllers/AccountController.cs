@@ -107,10 +107,15 @@ namespace Fashison_eCommerce.Controllers
                         //Lay dia chi mac dinh cua nguoi dung de lam dia chỉ mua hang
                         BuyerAddressClient buyerAddressClient = new BuyerAddressClient();
                         var addressList = buyerAddressClient.find(Convert.ToInt32(Session["userID"]));
-                        Session["Address_ID"] = addressList.Where(x => x.default_address == 1).Select(x => x.Address_ID).FirstOrDefault();
+                        int addressID= addressList.Where(x => x.default_address == 1).Select(x => x.Address_ID).FirstOrDefault();
+                        Session["Address_ID"] = addressID;
+                        if ( Convert.ToInt32(Session["Address_ID"]) == 0)
+                        {
+                            Session["Address_ID"] = -1;
+                        }
 
                         //string username = obj.Username.ToString();
-                        return RedirectToAction("Index", "MainPage", new { Area = "Buyer" });
+                            return RedirectToAction("Index", "MainPage", new { Area = "Buyer" });
                     }
                     else
                     {

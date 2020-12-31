@@ -73,5 +73,11 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
 
             return Content(id);
         }
+        public ActionResult UserAddress(int id)
+        {
+            BuyerAddressClient buyerAddressClient = new BuyerAddressClient();
+            ViewBag.Address = buyerAddressClient.findByAddressID(id);
+            return PartialView();
+        }
     }
 }
