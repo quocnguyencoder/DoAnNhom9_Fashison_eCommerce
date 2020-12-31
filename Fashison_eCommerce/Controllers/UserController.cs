@@ -211,6 +211,12 @@ namespace Fashison_eCommerce.Controllers
             
             return View();
         }
+        public ActionResult UserAddress(int id)
+        {
+            BuyerAddressClient buyerAddressClient = new BuyerAddressClient();
+            ViewBag.Address = buyerAddressClient.findByAddressID(id);
+            return PartialView();
+        }
 
     }
 }

@@ -2575,6 +2575,7 @@
     <Content Include="Areas\Seller\Views\Reveneu\ReveneuChart.cshtml" />
     <Content Include="Areas\Buyer\Views\Paypal\SuccessView.cshtml" />
     <Content Include="Areas\Buyer\Views\Paypal\FailureView.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\UserAddress.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2824,6 +2825,7 @@
     <Content Include="Views\ManageUser\ManageUser.cshtml" />
     <Content Include="Views\ManageUser\Login.cshtml" />
     <Content Include="Views\User\OrderTracking.cshtml" />
+    <Content Include="Views\User\UserAddressByID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

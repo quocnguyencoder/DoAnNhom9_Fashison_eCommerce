@@ -132,58 +132,65 @@
     
 
 <script>
-    
+
 
     var user = {
         init: function () {
             user.checkout();
         },
          checkout: function () {
-            $('#checkout').on('click', function (e) {
+             $('#checkout').on('click', function (e) {
+                 var address = @Current_AddressID;
+                 if (address !== -1) {
+                     var shop_List = new String("@shop_list");
+                     var delivery_List = new String("@delivery_list");
+                     var payment = document.querySelector('input[name="payment"]:checked').value;
+                     if (payment === "paypal") {
+                         $.ajax({
+                             url: "/Buyer/Paypal/Index",
+                             type: 'POST',
+                             data: {
+                                 shop_List: shop_List,
+                                 delivery_List: delivery_List
+                             },
+                             success: function (msg) {
+                                 if (msg === "OK") {
+                                     window.location.href = "/Buyer/Paypal/PaymentWithPaypal";
+                                 }
+                                 else {
+                                     alert(msg);
+                                     window.location.href = "/Buyer/UserCart";
+                                 }
+                             }
+                         });
+                     }
+                     else {
+                         $.ajax({
+                             url: "/Buyer/CartCheckout/Checkout",
+                             type: 'POST',
+                             data: {
+                                 shop_List: shop_List,
+                                 delivery_List: delivery_List
+                             },
+                             success: function (msg) {
+                                 if (msg === "Success!!!") {
+                                     alert('Mua hàng thành công');
+                                     window.location.href = "/User/Purchase";
+                                 }
+                                 else {
+                                     alert(msg);
+                                     window.location.href = "/Buyer/UserCart";
+                                 }
 
-                var shop_List = new String("@shop_list");
-                var delivery_List = new String("@delivery_list");
-                var payment = document.querySelector('input[name="payment"]:checked').value;
-                if (payment === "paypal") {
-                    $.ajax({
-                        url: "/Buyer/Paypal/Index",
-                        type: 'POST',
-                        data: {
-                            shop_List: shop_List,
-                            delivery_List: delivery_List
-                        },
-                        success: function (msg) {
-                            if (msg === "OK") {
-                                window.location.href = "/Buyer/Paypal/PaymentWithPaypal";
-                            }
-                            else {
-                                alert(msg);
-                                window.location.href = "/Buyer/UserCart";
-                            }
-                        }
-                    });
-                }
-                else {
-                    $.ajax({
-                        url: "/Buyer/CartCheckout/Checkout",
-                        type: 'POST',
-                        data: {
-                            shop_List: shop_List,
-                            delivery_List: delivery_List
-                        },
-                        success: function (msg) {
-                            if (msg === "Success!!!") {
-                                alert(msg);
-                                window.location.href = "/Buyer/MainPage";
-                            }
-                            else {
-                                alert(msg);
-                                window.location.href = "/Buyer/UserCart";
-                            }
+                             }
+                         });
+                     }
+                 }
+                 else {
+                     alert("Vui lòng thêm địa chỉ giao hàng");
+                 }
 
-                        }
-                    });
-                }
+                
             });
         },
     }
