@@ -1,8 +1,11 @@
-﻿using Fashison_eCommerce.Models;
+﻿using ClosedXML.Excel;
+using Fashison_eCommerce.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,6 +37,9 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
                 data.Add(cost);
 
             }
+            TempData["Name"] = name;
+            TempData["Data"] = data;
+            TempData["Date"] = DateTime.Now.ToString("dd/MM/yyyy");
             var Data = string.Join(",", data);
 
             var Name = string.Join(",", name);
@@ -41,6 +47,7 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
 
             ViewBag.DateTotals = Data;
             ViewBag.Date = Name;
+           
             return View();
         }
         public ActionResult DateChart(DateTime Date)
@@ -82,8 +89,9 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
                    
                 
             }
-
-
+            TempData["Name"] = name;
+            TempData["Data"] = data;
+            TempData["Date"] = Date.ToString("dd/MM/yyyy");
             if (data!=null)
             {
                 var Data = string.Join(",", data);
@@ -95,6 +103,7 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
 
             
             ViewBag.Date = Name;
+           
             return PartialView("~/Areas/Seller/Views/Reveneu/ReveneuChart.cshtml");
         }
         public ActionResult MonthChart(DateTime Date)
@@ -150,8 +159,9 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
                     }
                 }
             }
-            
-
+            TempData["Name"] = name;
+            TempData["Data"] = data;
+            TempData["Date"] = Date.Month+"/"+Date.Year;
             if (data != null)
             {
                 var Data = string.Join(",", data);
@@ -161,8 +171,36 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
             var Name = string.Join(",", name);
 
             ViewBag.Date = Name;
+            
             return PartialView("~/Areas/Seller/Views/Reveneu/ReveneuChart.cshtml");
         }
-     
+        [HttpPost]
+        public FileResult ExportToExcel()
+        {
+            DataTable dt = new DataTable("Grid");
+            string date = TempData["Date"].ToString();
+          
+            dt.Columns.AddRange(new DataColumn[2] {new DataColumn("Date/Hour"), new DataColumn("Doanh thu") });
+            dt.Rows.Add(date);
+            var a = TempData["Name"];
+            List<string> Name = (List<string>)TempData["Name"];
+            List<int> Data = (List<int>)TempData["Data"];
+            for(int i=0;i<Data.Count;i++)
+            {
+                dt.Rows.Add(Name[i], Data[i]);
+            }
+            using (XLWorkbook wb = new XLWorkbook()) 
+            {
+              
+                var ws=wb.Worksheets.Add(dt);
+                ws.Row(2).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                using (MemoryStream stream = new MemoryStream()) 
+                {
+                    wb.SaveAs(stream);
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Doanhthu.xlsx");
+                }
+            }
+        }
+
     }
 }
