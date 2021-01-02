@@ -48,58 +48,49 @@
 @section jsFooter{
     <script src="~/Assets/Seller/OrderController.js"></script>
 }
+<div class="content-wrapper">
+    <div class="tab">
+        <button class="tablinks" onclick="openTabcontrol(event, 'all')">Tất cả</button>
+        <button class="tablinks" onclick="openTabcontrol(event, 'receive')">Chờ lấy hàng</button>
+        <button class="tablinks" onclick="openTabcontrol(event, 'deliver')">Đang giao</button>
+        <button class="tablinks" onclick="openTabcontrol(event, 'delivered')">Đã giao</button>
+        <button class="tablinks" onclick="openTabcontrol(event, 'cancel')">Đơn hủy</button>
+    </div>
+    <div id="all" class="tabcontent">
+        @RenderPage("TabAll.cshtml")
+    </div>
 
-<div style="min-width: 966px; max-width: 1122px; padding: 0 48px; margin: 42px auto; display: flex;">
-    <div class="content-wrapper">
+    <div id="receive" class="tabcontent">
+        @RenderPage("TabReceive.cshtml")
+    </div>
 
-        <div class="tab">
-            <button class="tablinks" onclick="openTabcontrol(event, 'all')">Tất cả</button>
-            <button class="tablinks" onclick="openTabcontrol(event, 'receive')">Chờ lấy hàng</button>
-            <button class="tablinks" onclick="openTabcontrol(event, 'deliver')">Đang giao</button>
-            <button class="tablinks" onclick="openTabcontrol(event, 'delivered')">Đã giao</button>
-            <button class="tablinks" onclick="openTabcontrol(event, 'cancel')">Đơn hủy</button>
-        </div>
+    <div id="deliver" class="tabcontent">
+        @RenderPage("TabDeliver.cshtml")
+    </div>
 
-        <div id="all" class="tabcontent">
-            @RenderPage("TabAll.cshtml")
-        </div>
+    <div id="delivered" class="tabcontent">
+        @RenderPage("TabDelivered.cshtml")
+    </div>
 
-        <div id="receive" class="tabcontent">
-            @RenderPage("TabReceive.cshtml")
-        </div>
-
-        <div id="deliver" class="tabcontent">
-            @RenderPage("TabDeliver.cshtml")
-        </div>
-
-        <div id="delivered" class="tabcontent">
-            @RenderPage("TabDelivered.cshtml")
-        </div>
-
-        <div id="cancel" class="tabcontent">
-            @RenderPage("TabCancel.cshtml")
-        </div>
+    <div id="cancel" class="tabcontent">
+        @RenderPage("TabCancel.cshtml")
+    </div>
 
 
-        <script>
-            function openTabcontrol(evt, tabControl) {
-                var i, tabcontent, tablinks;
-                tabcontent = document.getElementsByClassName("tabcontent");
-                for (i = 0; i < tabcontent.length; i++) {
-                    tabcontent[i].style.display = "none";
-                }
-                tablinks = document.getElementsByClassName("tablinks");
-                for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-                }
-                document.getElementById(tabControl).style.display = "block";
-                evt.currentTarget.className += " active";
+    <script>
+        function openTabcontrol(evt, tabControl) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
             document.getElementById(tabControl).style.display = "block";
             evt.currentTarget.className += " active";
         }
 
-        </script>
-        <script>openTabcontrol(event, 'all')</script>
-    </div>
+    </script>
 </div>

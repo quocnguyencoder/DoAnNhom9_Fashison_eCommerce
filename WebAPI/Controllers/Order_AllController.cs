@@ -19,8 +19,7 @@ namespace WebAPI.Controllers
         // GET: api/Order_All
         public IHttpActionResult GetOrder_All(int userID, int status)
         {
-            Store store = (from s in db.Stores where s.UserID == userID select s).FirstOrDefault();
-            return Ok(db.sp_View_Orders(store.Store_ID,status));
+            return Ok(db.sp_View_Orders(userID,status));
         }
 
         // GET: api/Order_All/5

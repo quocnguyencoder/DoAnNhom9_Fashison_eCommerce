@@ -29,7 +29,6 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
-  
         public IEnumerable<BuyerAddress> findByAddressID(int id)
         {
             try
@@ -48,7 +47,7 @@ namespace Fashison_eCommerce.Models
                 return null;
             }
         }
-        public bool Create(Address address)
+        public bool Create(BuyerAddress address)
         {
             try
             {
@@ -63,14 +62,14 @@ namespace Fashison_eCommerce.Models
                 return false;
             }
         }
-        public bool Edit(Address address)
+        public bool Edit(BuyerAddress address)
         {
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(Base_URL);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PutAsJsonAsync("Addresses/" + address.Address_ID, address).Result;
+                HttpResponseMessage response = client.PutAsJsonAsync("Addresses/" + address.User_ID, address).Result;
                 return response.IsSuccessStatusCode;
             }
             catch

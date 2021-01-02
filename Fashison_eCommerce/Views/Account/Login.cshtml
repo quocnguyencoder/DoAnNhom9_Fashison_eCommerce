@@ -11,7 +11,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link href="/Styles_css/Login_styles/bootstrap-social.css" rel="stylesheet" />
     <link href="~/Styles_css/Login_styles/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
 </head>
@@ -31,7 +30,7 @@
                 </label>
 
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                <input placeholder="Email" name="Email" type="text" required="" value="@ViewBag.Email">
+                <input placeholder="Email" name="Email" type="text" required="">
 
             </div>
             <div class="form-style-agile">
@@ -39,27 +38,17 @@
                     Password
                     <i class="fas fa-unlock-alt"></i>
                 </label>
-               
+
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                <input placeholder="Password" name="Password" type="password" required="" value="@ViewBag.Pass">
+                <input placeholder="Password" name="Password" type="password" required="">
             </div>
             <!-- checkbox -->
             <div class="wthree-text">
                 <ul>
                     <li>
                         <label class="anim">
-                            @{ if (ViewBag.Check == "1")
-                                {
-                                    <input type="checkbox" class="checkbox" id="checkMe" name="checkMe" value="1" checked>
-                                    <span>Remember me</span>
-                                }
-                                else
-                                {
-                                    <input type="checkbox" class="checkbox" id="checkMe" name="checkMe" value="1">
-                                    <span>Remember me</span>
-                                }
-                            }
-
+                            <input type="checkbox" class="checkbox">
+                            <span>Remember me</span>
                         </label>
                     </li>
                     <li>
@@ -74,7 +63,7 @@
                 <h2>Or</h2>
                 <ul>
                     <li>
-                        <a href="/Account/LoginFacebook">
+                        <a href="#">
                             <i class="fab fa-facebook-f icon_facebook"></i>
                         </a>
                     </li>

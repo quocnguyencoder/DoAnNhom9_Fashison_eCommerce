@@ -6,13 +6,13 @@
 @using Fashison_eCommerce.Controllers;
 @{Html.RenderPartial("Sidebar", "User");}
 
-<div style=" float: right; background-color: white; height: 100%; max-width: 850px; width: 100%;">
+<div style=" float: right; background-color: white; height: 100%; max-height: 900px; max-width: 850px; width: 100%;">
     <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
         <h4 style="margin-left: 5px;">My orders</h4>
     </div>
 
-    <div style="height: 100%; max-width: 300px; display: contents;">
-        <table id="purchase" class="table table-hover">
+    <div style="height: 100%; max-height: 800px; max-width: 300px; display: contents;">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">Order ID</th>
@@ -32,7 +32,7 @@
                             <th scope="row"><a href="/User/PurchaseDetail?Order_id=@order.Order_ID">@order.Order_ID</a></th>
                             <td>@order.created_date</td>
                             <td>@order.decription</td>
-                            <td>@String.Format(info, "{0:C0}", order.Total_Order)</td>
+                            <td>@String.Format(info, "{0:C2}", order.Total_Order)</td>
                             <td>@temp </td>
                         </tr>
                     }
@@ -41,11 +41,3 @@
         </table>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('#purchase').DataTable({
-            order: [[1, 'desc']]
-        });
-    });
-</script>
-

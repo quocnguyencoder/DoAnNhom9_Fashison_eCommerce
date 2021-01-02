@@ -3,8 +3,7 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     var prod = ViewBag.detail[0];
 }
-@{
-    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); }
+
 <div id="mainBody">
     <div class="container">
         <div class="row">
@@ -34,7 +33,7 @@
 
                     <div id="gallery" class="span3">
                         <a href="~/Product_Images/@prod.Pictures" title="@prod.Name" style="width: 220px">
-                            <img src="~/Product_Images/@prod.Pictures" alt="@prod.Name" style="weight:100%;"/>
+                            <img src="~/Product_Images/@prod.Pictures" style="width:100%" alt="@prod.Name" />
                         </a>
                         <div id="differentview" class="moreOptopm carousel slide"></div>
 
@@ -55,10 +54,10 @@
                         <hr class="soft" />
                         <form class="form-horizontal qtyFrm">
                             <div class="control-group">
-                                <label class="control-label"><span style="color: orange; font-size: x-large; font-weight: bold;">@String.Format(info, "{0:C0}", prod.Price)</span></label>
+                                <label class="control-label"><span>@prod.Price VNĐ</span></label>
                                 <div class="controls">
-                                    @*<input type="number" class="span1" placeholder="Qty." />*@
-                                    <button type="submit" class="btn AddToCart btn-large btn-primary pull-right" data-product_id="@prod.Product_ID"> Add to cart <i class=" icon-shopping-cart"></i></button>
+                                    <input type="number" class="span1" placeholder="Qty." />
+                                    <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -70,14 +69,12 @@
                     <hr class="soft">
                     <div class="span9" style="background-color: antiquewhite ">
                         <div class="row">
-                            <div class="span2" >
-                                <div class="brand" href="/Buyer/Shop/Index?id=@ViewBag.store.Store_ID" style="padding: 20px 0px 30px 30px; width:150px">
-                                    <img src="~/Product_Images/@ViewBag.store.Pictures" style="width: 100px; height: 100px;" alt="Esshop">  
-                                </div>
+                            <div class="span3" href="/User/Index">
+                                <div class="brand" style="padding: 20px 0px 30px 30px"><img src="~/Styles_css/Image/@*@ViewBag.Pictures*@" alt="Esshop">  </div>
                             </div>
                             <div class="span3" style="margin-top: 40px">
-                                <a href="/Buyer/Shop/Index?id=@ViewBag.store.Store_ID"> @ViewBag.store.ShopName </a>
-                                <h5> @ViewBag.store.Address</h5>
+                                <h5> @ViewBag.store.ShopName </h5>
+                                <a> @ViewBag.store.Address</a>
                             </div>
                         </div>
                     </div>
@@ -113,11 +110,11 @@
                                 <br class="clr" />
                                 <hr class="soft" />
                                 <!-- related product ========================================= -->
-
+                                
                                 @{ Html.RenderAction("RelatedProduct", "ProductDetail", new { typeid = prod.TypeID });}
 
                             </div>
-                            <!-- ========================================= -->
+                                    <!-- ========================================= -->
                             <br class="clr">
                         </div>
                     </div>
@@ -129,38 +126,3 @@
 
 
 <!-- MainBody End ============================= -->
-<script language="javascript">
-    // gan event cho cac button add to cart
-    var user = {
-        init: function () {
-            console.log("init");
-            user.registerEvents();
-        },
-        registerEvents: function () {
-            $('.AddToCart').off('click').on('click', function (e) {
-                console.log("click");
-                e.preventDefault();
-                var id = $(this).data('product_id');
-                console.log(id);
-                // them san pham vao gio hang
-                $.ajax({
-                    url: "/Buyer/Cart_Item/AddToCart",
-                    type: 'POST',
-                    data: { ProductID: id },
-                    success: function (msg) {
-                        // load lai so san pham co trong gio hang
-                        $.ajax({
-                            url: "/Buyer/UserCart/CartInfo",
-                            success: function (result) {
-                                $(".cart_info").html(result);
-                                alert('Add to cart successfully!');
-                            }
-                        });
-                    }
-                });
-            });
-        }
-    }
-    user.init();
-
-</script>

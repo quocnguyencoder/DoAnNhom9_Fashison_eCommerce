@@ -58,7 +58,6 @@ namespace Fashison_eCommerce.Models
         public virtual DbSet<view_Product> view_Product { get; set; }
         public virtual DbSet<view_Products> view_Products { get; set; }
         public virtual DbSet<view_Shop> view_Shop { get; set; }
-        public virtual DbSet<Order_Tracking> Order_Tracking { get; set; }
     
         [DbFunction("DB_A6A231_DAQLTMDTEntities", "CheckAdminLogin")]
         public virtual IQueryable<CheckAdminLogin_Result> CheckAdminLogin(string email, string password)
@@ -513,71 +512,6 @@ namespace Fashison_eCommerce.Models
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ConfirmProduct_Admin", idParameter);
-        public virtual int sp_EditProfile(Nullable<int> id, string name, string email, string address, string gender, string phone, Nullable<System.DateTime> birthday, string avatar)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var nameParameter = name != null ?
-                new ObjectParameter("name", name) :
-                new ObjectParameter("name", typeof(string));
-    
-            var emailParameter = email != null ?
-                new ObjectParameter("Email", email) :
-                new ObjectParameter("Email", typeof(string));
-    
-            var addressParameter = address != null ?
-                new ObjectParameter("Address", address) :
-                new ObjectParameter("Address", typeof(string));
-    
-            var genderParameter = gender != null ?
-                new ObjectParameter("Gender", gender) :
-                new ObjectParameter("Gender", typeof(string));
-    
-            var phoneParameter = phone != null ?
-                new ObjectParameter("Phone", phone) :
-                new ObjectParameter("Phone", typeof(string));
-    
-            var birthdayParameter = birthday.HasValue ?
-                new ObjectParameter("Birthday", birthday) :
-                new ObjectParameter("Birthday", typeof(System.DateTime));
-    
-            var avatarParameter = avatar != null ?
-                new ObjectParameter("Avatar", avatar) :
-                new ObjectParameter("Avatar", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EditProfile", idParameter, nameParameter, emailParameter, addressParameter, genderParameter, phoneParameter, birthdayParameter, avatarParameter);
-        }
-    
-        public virtual ObjectResult<sp_Login_Result> sp_Login(string email, string pass)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            var passParameter = pass != null ?
-                new ObjectParameter("pass", pass) :
-                new ObjectParameter("pass", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Result>("sp_Login", emailParameter, passParameter);
-        }
-    
-        public virtual ObjectResult<DetailOrder_Result> DetailOrder(Nullable<int> shipperid)
-        {
-            var shipperidParameter = shipperid.HasValue ?
-                new ObjectParameter("shipperid", shipperid) :
-                new ObjectParameter("shipperid", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DetailOrder_Result>("DetailOrder", shipperidParameter);
-        }
-        public virtual int sp_InsUserFb(string email)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsUserFb", emailParameter);
         }
     }
 }
