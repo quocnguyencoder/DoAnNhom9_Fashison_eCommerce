@@ -1,0 +1,165 @@
+﻿@model IEnumerable<Fashison_eCommerce.Models.Brand>
+
+@{
+    ViewBag.Title = "test";
+    Layout = "~/Areas/Admin/Template/Layout/_AdminLayoutTable.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>List Of Brands</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Brands</li>
+                    </ol>
+                </div>
+                <!-- Button to Open the Modal - Add User -->
+                <button type="button" class="btn btn-success" style="width: 15%; display:inline; float: right;" data-toggle="modal"
+                        data-target="#addUser">
+                    <i class="fa fa-plus mr-2"></i> Add Brand
+                </button>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Add-User The Modal -->
+                    <div class="modal" id="addUser">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Add Brand</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <form action="../Brands/Create" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-group">
+                                            <label asp-for="addID">ID :</label>
+                                            <input type="text" id="addID" class="form-control" name="id">
+                                            <span asp-validation-for="ID" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addName">Name :</label>
+                                            <input type="text" id="addName" class="form-control" name="Name">
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Add</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive bg-white">
+                        <table class="table table-hover" id="example1" width="100%" cellspacing="0">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var item in ViewBag.brand)
+                                {
+                                    <tr>
+                                        <td>@item.BrandID</td>
+                                        <td>@item.BrandName</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" title="Edit"
+                                                    onclick="EditUser(@item.BrandID)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.BrandID)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<div class="modal hide fade" id="edit-person">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="edit-person-container"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function resetFunc() {
+        location.reload();
+    };
+
+    //Function Delete
+    function DeleteFunction(e) {
+        e.preventDefault
+        if (confirm('Do you want to Delete this User from your Database?')) {
+            console.log("123", e)
+            $.ajax({
+                data: {
+                    id: e
+                },
+                type: 'POST',
+                url: "/Admin/Brands/Delete",
+                async: true,
+                success: function (msg) {
+                    //alert(msg);
+                }
+            });
+            alert('Deleted');
+        } else {
+            // Do nothing!
+            alert('Thing was not deleted from your database.');
+        }
+    };
+    function EditUser(e) {
+        var url = "/Admin/Brands/Edit"; // the url to the controller
+        var id = e; // the id that's given to each button in the list
+        $.get(url + '/' + id, function (data) {
+            $('#edit-person-container').html(data);
+            $('#edit-person').modal('show');
+        });
+    };
+
+    function OrderDetailForeach(e) {
+        alert("abc");
+        alert(e);
+    };
+
+</script>

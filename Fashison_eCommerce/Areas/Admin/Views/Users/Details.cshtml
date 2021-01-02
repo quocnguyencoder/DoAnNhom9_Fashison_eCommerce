@@ -1,83 +1,202 @@
-﻿@model Fashison_eCommerce.Models.User
-
-@{
-    ViewBag.Title = "Details";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewBag.Title = "test";
+    Layout = "~/Areas/Admin/Template/Layout/_AdminLayoutTable.cshtml";
 }
 
-<h2>Details</h2>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Profile User</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Profile</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
 
-        <dd>
-            @Html.DisplayFor(model => model.Username)
-        </dd>
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle"
+                                     src="~/Areas/Admin/Template/img_test/91776319_1165038667162166_6128732874704158720_n.jpg"
+                                     alt="User profile picture">
+                            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                            <h3 class="profile-username text-center">@ViewBag.user.Name</h3>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Gender</b> <a class="float-right">@ViewBag.user.Gender</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Phone</b> <a class="float-right">+ @ViewBag.user.Phone</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Role</b> <a class="float-right">@ViewBag.user.Role.Rolename</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    <!-- About Me Box -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Detail User</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <strong><i class="fas fa-envelope"></i> Email</strong>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
+                            <p class="text-muted">
+                                @ViewBag.user.Email
+                            </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+                            <hr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                            <p class="text-muted">@ViewBag.user.Address</p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+                            <hr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Shop Name</strong>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+                            <p class="text-muted">@ViewBag.store.ShopName</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Orders</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Products</a></li>
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    @foreach (var item in ViewBag.user.Order_Tracking)
+                                    {
+                                        <div>
+                                            <div class="card border-dark mb-3" style="margin: 30px;">
+                                                <div class="card-header d-flex justify-content-between">
+                                                    <div>ID: @item.Order_ID</div>
+                                                    <div>Shop's name: @item.Order.Store.ShopName</div>
+                                                    <div>
+                                                        @(item.Status == 1 ? "Confirm" :
+                                                        item.Status == 2 ? "Receive" :
+                                                        item.Status == 3 ? "Delivering" :
+                                                        item.Status == 4 ? "Delivered" : "Cancel")
+                                                    </div>
+                                                </div>
+                                                <div class="card-body text-dark" id="LoadDetail"></div>
+                                                   
+                                                <div class="card-footer d-flex justify-content-end">
+                                                    <div>Total: </div>
+                                                    <div style="color: red; font-size: large; margin-left: 20px;">@item.Order.Total_Order</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="timeline">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Products Of User's Store</h3>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
+                                            <div class="card-tools">
+                                                <div class="input-group input-group-sm" style="width: 150px;">
+                                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
-
-    </dl>
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-default">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body table-responsive p-0">
+                                            <table class="table table-hover text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Name</th>
+                                                        <th>Description</th>
+                                                        <th>Amount</th>
+                                                        <th>Brand</th>
+                                                        <th>Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var product in ViewBag.product)
+                                                    {
+                                                        <tr>
+                                                            <td>@product.Product_ID</td>
+                                                            <td>@product.Name</td>
+                                                            <td>@product.Decription</td>
+                                                            <td>@product.Amount</td>
+                                                            <td>@product.Brand.BrandName</td>
+                                                            <td>@product.Price</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<script>
+    
+    function LoadOrderDetail(e) {
+        $.ajax({
+            data: {
+                userid: e
+            },
+            url: "/Admin/Users/OrderDetail",
+            type: 'GET',
+            async: true,
+            success: function (data) {
+                $('#activity').html(data);
+            }
+        });
+    };
+    function OrderDetailForeach(e) {
+        alert("abc");
+        alert(e);
+    };
+</script>

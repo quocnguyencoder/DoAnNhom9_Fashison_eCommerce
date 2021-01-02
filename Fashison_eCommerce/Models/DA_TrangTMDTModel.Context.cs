@@ -36,11 +36,9 @@ namespace Fashison_eCommerce.Models
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Cart_Item> Cart_Item { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
-        public virtual DbSet<Authorize> Authorizes { get; set; }
         public virtual DbSet<Main_Type> Main_Type { get; set; }
         public virtual DbSet<Order_Items> Order_Items { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Buyer_LoadAllProduct> Buyer_LoadAllProduct { get; set; }
@@ -58,6 +56,8 @@ namespace Fashison_eCommerce.Models
         public virtual DbSet<view_Products> view_Products { get; set; }
         public virtual DbSet<view_Shop> view_Shop { get; set; }
         public virtual DbSet<Order_Tracking> Order_Tracking { get; set; }
+        public virtual DbSet<Authorize> Authorizes { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
     
         public virtual int sp_AccountResgister(string username, string password, string email)
         {
@@ -418,6 +418,15 @@ namespace Fashison_eCommerce.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Result>("sp_Login", emailParameter, passParameter);
         }
     
+        public virtual int sp_InsUserFb(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsUserFb", emailParameter);
+        }
+    
         public virtual ObjectResult<DetailOrder_Result> DetailOrder(Nullable<int> shipperid)
         {
             var shipperidParameter = shipperid.HasValue ?
@@ -426,13 +435,130 @@ namespace Fashison_eCommerce.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DetailOrder_Result>("DetailOrder", shipperidParameter);
         }
-        public virtual int sp_InsUserFb(string email)
+    
+        [DbFunction("DB_A6A231_DAQLTMDTEntities", "CheckAdminLogin")]
+        public virtual IQueryable<Nullable<int>> CheckAdminLogin(string email, string password)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Nullable<int>>("[DB_A6A231_DAQLTMDTEntities].[CheckAdminLogin](@Email, @Password)", emailParameter, passwordParameter);
+        }
+    
+        [DbFunction("DB_A6A231_DAQLTMDTEntities", "fn_getLatestStatus")]
+        public virtual IQueryable<fn_getLatestStatus_Result> fn_getLatestStatus()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_getLatestStatus_Result>("[DB_A6A231_DAQLTMDTEntities].[fn_getLatestStatus]()");
+        }
+    
+        [DbFunction("DB_A6A231_DAQLTMDTEntities", "fn_getShipper")]
+        public virtual IQueryable<fn_getShipper_Result> fn_getShipper()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_getShipper_Result>("[DB_A6A231_DAQLTMDTEntities].[fn_getShipper]()");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetIdFromEmail(string email)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsUserFb", emailParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetIdFromEmail", emailParameter);
+        }
+    
+        public virtual int ListOrderDetailUser(string orderid)
+        {
+            var orderidParameter = orderid != null ?
+                new ObjectParameter("orderid", orderid) :
+                new ObjectParameter("orderid", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ListOrderDetailUser", orderidParameter);
+        }
+    
+        public virtual ObjectResult<ListOrdersUser_Result> ListOrdersUser(Nullable<int> id, Nullable<int> status)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ListOrdersUser_Result>("ListOrdersUser", idParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<proc_getShipper_Result> proc_getShipper()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_getShipper_Result>("proc_getShipper");
+        }
+    
+        public virtual ObjectResult<ReportAdminIndex_Result> ReportAdminIndex()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReportAdminIndex_Result>("ReportAdminIndex");
+        }
+    
+        public virtual int ResetPassword(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ResetPassword", idParameter);
+        }
+    
+        public virtual int sp_ConfirmProduct_Admin(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ConfirmProduct_Admin", idParameter);
+        }
+    
+        public virtual ObjectResult<sp_getAddressByID_Result> sp_getAddressByID(Nullable<int> addressID)
+        {
+            var addressIDParameter = addressID.HasValue ?
+                new ObjectParameter("addressID", addressID) :
+                new ObjectParameter("addressID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getAddressByID_Result>("sp_getAddressByID", addressIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_ListProductOfShop_Result> sp_ListProductOfShop(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ListProductOfShop_Result>("sp_ListProductOfShop", idParameter);
+        }
+    
+        public virtual ObjectResult<sp_Shipper_Orders_Result> sp_Shipper_Orders(Nullable<int> shipper_id)
+        {
+            var shipper_idParameter = shipper_id.HasValue ?
+                new ObjectParameter("shipper_id", shipper_id) :
+                new ObjectParameter("shipper_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Shipper_Orders_Result>("sp_Shipper_Orders", shipper_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_View_Orders_Result> sp_View_Orders(Nullable<int> store_id, Nullable<int> status)
+        {
+            var store_idParameter = store_id.HasValue ?
+                new ObjectParameter("store_id", store_id) :
+                new ObjectParameter("store_id", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_View_Orders_Result>("sp_View_Orders", store_idParameter, statusParameter);
         }
     }
 }

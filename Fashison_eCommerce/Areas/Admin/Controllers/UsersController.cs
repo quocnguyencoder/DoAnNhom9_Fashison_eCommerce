@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Fashison_eCommerce.Models;
@@ -16,103 +16,114 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
         private DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
 
         // GET: Admin/Users
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Users.ToListAsync());
+            if (Session["Email"] != null)
+            {
+                var users = db.Users.Include(u => u.Role);
+                return View(users.ToList());
+            }
+            else
+            {
+                return Redirect("/Admin/Home/Login");
+            }
+
         }
 
-        // GET: Admin/Users/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult ResetPassword(int id)
         {
-            if (id == null)
+            if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.ResetPassword(id);
+                db.SaveChanges();
             }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
+            return RedirectToAction("Index");
+        }
+        
+        public ActionResult Details(int id)
+        {
+            User user = new User();
+            user = db.Users.Find(id);
+            ViewBag.user = user;
+            ViewBag.store = db.Stores.Where(x => x.UserID == id).FirstOrDefault();
+            ViewBag.ShopProduct = db.sp_ListProductOfShop(id);
+            ViewBag.product = db.Products.Where(y => y.Store_ID == id).ToList();
             return View(user);
+        }
+        
+        public ActionResult OrderDetail(int userid)
+        {
+            ViewBag.user = db.Users.Find(userid);
+            ViewBag.store = db.Stores.Where(x => x.UserID == userid).FirstOrDefault();
+            //ViewBag.orderdetail = db.ListOrderDetailUser(orderid);
+            return PartialView("_OrderDetail");
         }
 
         // GET: Admin/Users/Create
         public ActionResult Create()
         {
+            ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "Rolename");
             return View();
         }
 
-        // POST: Admin/Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Username,Email,Password,Name,Address,Gender,Phone,Birthday")] User user)
+        public ActionResult Create(FormCollection form)
         {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            return View(user);
+            string username = form["Username"].ToString();
+            string email = form["Email"].ToString();
+            string password = form["Password"].ToString();
+            string name = form["Name"].ToString();
+            string address = form["Address"].ToString();
+            string gender = form["Gender"].ToString();
+            string phone = form["Phone"].ToString();
+            DateTime birthday = Convert.ToDateTime(form["Birthday"]);
+            int role = Convert.ToInt32(form["RoleID"]);
+            User newUser = new User() { Username=username, Email=email, Password=password, Name=name, Address=address, Gender=gender, Phone=phone, Birthday=birthday, RoleID=role, Avatar=null};
+            db.Users.Add(newUser);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Users/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+            ViewBag.user = user;
+            DateTime birthday = new DateTime();
+            birthday = Convert.ToDateTime(user.Birthday);
+            ViewBag.birthday = birthday;
+            return PartialView("_UserEdit");
         }
 
-        // POST: Admin/Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Username,Email,Password,Name,Address,Gender,Phone,Birthday")] User user)
+        public ActionResult Edit(FormCollection form)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(user);
-        }
-
-        // GET: Admin/Users/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            int id = Convert.ToInt32(form["Id"]);
+            string username = form["Username"].ToString();
+            string email = form["Email"].ToString();
+            string name = form["Name"].ToString();
+            string address = form["Address"].ToString();
+            string gender = form["Gender"].ToString();
+            string phone = form["Phone"].ToString();
+            DateTime birthday = Convert.ToDateTime(form["Birthday"]);
+            int role = Convert.ToInt32(form["RoleID"]);
+            string password = form["Password"].ToString();
+            User user = new User() { Id=id, Username = username, Email = email, Password = password, Name = name, Address = address, Gender = gender, Phone = phone, Birthday = birthday, RoleID = role, Avatar = null};
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: Admin/Users/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        //[ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            User user = await db.Users.FindAsync(id);
+            User user = db.Users.Find(id);
             db.Users.Remove(user);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

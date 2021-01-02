@@ -16,7 +16,7 @@ namespace Fashison_eCommerce.Models
     {
         public int RoleID { get; set; }
         public string PermissionID { get; set; }
-        public string Note { get; set; }
+        public string ActionID { get; set; }
     
         public virtual Permission Permission { get; set; }
         public virtual Role Role { get; set; }

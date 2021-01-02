@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+    @foreach (var item in ViewBag.user.OrderTracking)
+    {
+        <div>
+            <div class="card border-dark mb-3" style="margin: 30px;">
+                <div class="card-header d-flex justify-content-between">
+                    <div>ID: @item.Order_ID</div>
+                    <div>Shop's name: @item.ShopName</div>
+                    <div>
+                        @(item.status == 1 ? "Confirm" :
+                    item.status == 2 ? "Receive" :
+                    item.status == 3 ? "Delivering" :
+                    item.status == 4 ? "Delivered" : "Cancel")
+                    </div>
+                </div>
+                <div class="card-body text-dark" id="LoadDetail"></div>
+                <div class="card-footer d-flex justify-content-end">
+                    <div>Total: </div>
+                    <div style="color: red; font-size: large; margin-left: 20px;">@item.Total_Order</div>
+                </div>
+            </div>
+        </div>
+    }

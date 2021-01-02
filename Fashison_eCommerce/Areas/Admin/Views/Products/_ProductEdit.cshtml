@@ -1,0 +1,66 @@
+﻿@model Fashison_eCommerce.Models.Product
+
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h4 class="modal-title">Edit Product</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div class="modal-body">
+    <form action="../Products/Edit" method="post">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <input type="text" id="addUsername" class="form-control bg-gray-200" name="Id" readonly value="@ViewBag.product.Product_ID" style="display: none">
+        </div>
+        <div class="form-group">
+            <label asp-for="addName">Name :</label>
+            <input type="text" id="addName" class="form-control" name="name" value="@ViewBag.product.Name">
+        </div>
+        <div class="form-group">
+            <label for="addPrice">Price :</label>
+            <input type="text" id="addPrice" class="form-control" name="Price" value="@ViewBag.product.Price">
+        </div>
+        <div class="form-group">
+            <label for="addAmount">Amount</label>
+            <input type="text" id="addAmount" class="form-control" name="Amount" value="@ViewBag.product.Amount">
+        </div>
+        <div class="form-group">
+            <label for="addType">Type:</label>
+            <select name="Type" class="form-control" value="@ViewBag.TypeID.Name">
+                @foreach (var item in ViewBag.type)
+                {
+                    <option value="@item.ID">@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="addStore">Store :</label>
+            <select name="Store" class="form-control" value="@ViewBag.StoreID.ShopName">
+                @foreach (var x in ViewBag.store)
+                {
+                    <option value="@x.Store_ID">@x.ShopName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="addDescription">Description :</label>
+            <textarea type="text" id="addDescription" class="form-control" name="Description" value="@ViewBag.product.Decription"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="addBrand">Brand :</label>
+            <select name="Brand" class="form-control" value="@ViewBag.BrandID.BrandName">
+                @foreach (var y in ViewBag.brand)
+                {
+                    <option value="@y.BrandID">@y.BrandName</option>
+                }
+            </select>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+    </form>
+</div>

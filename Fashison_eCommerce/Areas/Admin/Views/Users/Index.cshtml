@@ -1,127 +1,273 @@
 ﻿@model IEnumerable<Fashison_eCommerce.Models.User>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "test";
+    Layout = "~/Areas/Admin/Template/Layout/_AdminLayoutTable.cshtml";
 }
 
-<!-- Begin Page Content -->
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Quản Lý User:</h1>
-    <p class="mb-4">
-            Xem tình trạng User và cập nhật Thông tin User
-        </p>
-    <p> @Html.ActionLink("New User","Create")</p>
-    <div class="card shadow mb-4">
-
-        <div class="card-body">
-            <div class="table-responsive">
-                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="dataTables_length" id="dataTable_length">
-                                <label>
-                                    Show 
-                                    <select name="dataTable_length" aria-controls="dataTable" class="class=" custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                     entries
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div id="dataTable_filter" class="dataTables_filter">
-                                <label>
-                                    Search: 
-                                    <input type="search" class="form-control form-control-sm" placeholder aria-controls="dataTable" />
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Password</th>
-                                        <th>Name</th>
-                                        <th>Address</th>
-                                        <th>Gender</th>
-                                        <th>Phone</th>
-                                        <th>Birthday</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Password</th>
-                                        <th>Name</th>
-                                        <th>Address</th>
-                                        <th>Gender</th>
-                                        <th>Phone</th>
-                                        <th>Birthday</th>
-                                        <th></th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Username)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Email)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Password)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Name)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Address)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Gender)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Phone)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Birthday)
-                                            </td>
-                                            <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    @*Dòng này là phần phân trang nè*@
-                    @*<div class="row">
-                        <div class="col-sm-12 col-md-7">
-                            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-
-                            </div>
-                        </div>
-                    </div>*@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>List Of Types</h1>
                 </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Users</li>
+                    </ol>
+                </div>
+                <!-- Button to Open the Modal - Add User -->
+                <button type="button" class="btn btn-success" style="width: 15%; display:inline; float: right;" data-toggle="modal"
+                        data-target="#addUser">
+                    <i class="fa fa-plus mr-2"></i> Add user
+                </button>
             </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Add-User The Modal -->
+                    <div class="modal" id="addUser">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Add user</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <form action="../Users/Create" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-group">
+                                            <label asp-for="addUsername">UserName :</label>
+                                            <input type="text" id="addUsername" class="form-control" name="Username">
+                                            <span asp-validation-for="Username" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addEmail">Email :</label>
+                                            <input type="email" id="addEmail" class="form-control" name="Email">
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addPass">Password</label>
+                                            <input type="password" id="addPass" class="form-control" name="Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addName">Name :</label>
+                                            <input type="text" id="addName" class="form-control" name="Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addPhone">Phone :</label>
+                                            <input type="tel" id="addPhone" class="form-control" name="Phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addAddress">Address :</label>
+                                            <input type="text" id="addAddress" class="form-control" name="Address">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addGender">Gender :</label>
+                                            <select name="Gender" id="addGender" class="form-control">
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addDOfB">DOB :</label>
+                                            <input type="date" class="form-control" id="addDOB" name="Birthday">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addRole">Role :</label>
+                                            <select name="RoleID" id="addRole" class="form-control">
+                                                <option value="1">Admin</option>
+                                                <option value="0">User</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Add</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive bg-white">
+                        <table class="table table-hover" id="example1" width="100%" cellspacing="0">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Birthday</th>
+                                    <th>Role</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Birthday</th>
+                                    <th>Role</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Username)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Address)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Gender)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Phone)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Birthday)
+                                        </td>
+                                        <td>
+                                            @(item.RoleID == 1 ? "Admin" : "User")
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info" title="Detail" onclick="location.href='@Url.Action("Details", "Users",new { id = item.Id})'">
+                                                <i class="fa fa-address-book"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-primary" title="Edit"
+                                                    onclick="EditUser(@item.Id)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.Id)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <button type="submit" title="Reset Password"
+                                                    class="btn btn-warning" onclick="ResetPassword(@item.Id)">
+                                                <i class="fa fa-redo-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
         </div>
-    </div>  
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
+<div class="modal hide fade" id="edit-person">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="edit-person-container"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function resetFunc() {
+        location.reload();
+    };
+
+    //Function Delete
+    function DeleteFunction(e) {
+        e.preventDefault
+        if (confirm('Do you want to Delete this User from your Database?')) {
+            console.log("123", e)
+            $.ajax({
+                data: {
+                    id: e
+                },
+                type: 'POST',
+                url: "/Admin/Users/Delete",
+                async: true,
+                success: function (msg) {
+                    //alert(msg);
+                }
+            });
+            alert('Deleted');
+        } else {
+            // Do nothing!
+            alert('Thing was not deleted from your database.');
+        }
+    };
+    function EditUser(e) {
+        var url = "/Admin/Users/Edit"; // the url to the controller
+        var id = e; // the id that's given to each button in the list
+        $.get(url + '/' + id, function (data) {
+            $('#edit-person-container').html(data);
+            $('#edit-person').modal('show');
+        });
+    };
+
+    function DetailUser(e) {
+        e.preventDefault
+        $.ajax({
+            data: {
+                id: e
+            },
+            type: 'GET',
+            url: "/Admin/Users/Details",
+            async: true,
+            success: function (msg) {
+                //alert(msg);
+            }
+        });
+    };
+
+    function ResetPassword(e) {
+        e.preventDefault
+        if (confirm('Do you want to Reset Password of This User from your Database?')) {
+            console.log("123", e)
+            $.ajax({
+                data: {
+                    id: e
+                },
+                type: 'POST',
+                url: "/Admin/Users/ResetPassword",
+                async: true,
+                success: function (msg) {
+                    //alert(msg);
+                }
+            });
+            alert('Done!');
+        }
+    };
+    function OrderDetailForeach(e) {
+        alert("abc");
+        alert(e);
+    };
+
+</script>
+
