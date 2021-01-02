@@ -24,19 +24,34 @@
     <input type="number" value="0" min="0" id="MaxAmount" />
     <br />
     <button id="search" style="background-color:orangered;color:white;border: none;
-    border-radius: 1.5rem; ">
+    border-radius: 0.5rem; ">
         Tìm
     </button>
+    <div class="fa-pull-right">
+
+        @using (Html.BeginForm("ImportFromExcel", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary();
+
+            <input type="file" name="postedFile" accept=".xlsx, .xls" class="btn-outline-warning" />
+
+
+            <input type="submit" button id="upload" value="Import" class="btn-success" />
+
+        }
+    </div>
 
 </div>
-
-
 <p>
     @Html.ActionLink("Thêm sản phẩm", "Create")
 </p>
 
 
-@Html.Partial("~/Areas/Seller/Views/Products/Search.cshtml");
+
+<div>
+    @Html.Partial("~/Areas/Seller/Views/Products/Search.cshtml");
+</div>
+
 
 
 @*}*@
@@ -51,3 +66,34 @@
     <div class="pagination">
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
     </div>*@
+@*<script>
+    $("#upload").click(function () {
+        debugger;
+        if (window.FormData == undefined)
+            alert("Error: FormData is undefined");
+
+        else {
+            var fileUpload = $("#postedFile").get(0);
+            var files = fileUpload.files;
+
+            var fileData = new FormData();
+
+            fileData.append(files[0].name, files[0]);
+
+            $.ajax({
+                url: '/Products/ImportFromExcel',
+                type: 'POST',
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: fileData,
+                success: function (response) {
+               
+                    alert("@ViewBag.Message");
+                }
+            });
+        }
+
+    });
+</script>*@  
