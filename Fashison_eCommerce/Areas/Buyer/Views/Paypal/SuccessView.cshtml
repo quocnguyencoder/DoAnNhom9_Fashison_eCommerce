@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "SuccessView";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2>Thanh toán Paypal thành công</h2>
+
+<script type="text/javascript">
+        function redirect() {
+            var shop_List = new String("@ViewBag.shop_list");
+                var delivery_List = new String("@ViewBag.delivery_list");
+                $.ajax({
+                    url: "/Buyer/CartCheckout/Checkout",
+                    type: 'POST',
+                    data: {
+                        shop_List: shop_List,
+                        delivery_List: delivery_List
+                    },
+                    success: function (msg) {
+                        if (msg === "Success!!!") {
+                            alert('Mua hàng thành công');
+                            window.location.href = "/User/Purchase";
+                        }
+                        else {
+                            alert(msg);
+                            window.location.href = "/Buyer/UserCart";
+                        }
+
+                    }
+                });
+            }
+            window.onload = redirect;
+</script>

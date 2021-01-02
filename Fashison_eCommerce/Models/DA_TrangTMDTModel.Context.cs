@@ -418,6 +418,14 @@ namespace Fashison_eCommerce.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Result>("sp_Login", emailParameter, passParameter);
         }
     
+        public virtual ObjectResult<DetailOrder_Result> DetailOrder(Nullable<int> shipperid)
+        {
+            var shipperidParameter = shipperid.HasValue ?
+                new ObjectParameter("shipperid", shipperid) :
+                new ObjectParameter("shipperid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DetailOrder_Result>("DetailOrder", shipperidParameter);
+        }
         public virtual int sp_InsUserFb(string email)
         {
             var emailParameter = email != null ?

@@ -14,6 +14,7 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         // GET: Buyer/CartCheckout
         public ActionResult Index()
         {
+            Session["payment"] = "cod";
             UserCartClient UC = new UserCartClient();
             var cart_Items = UC.LoadCart(Convert.ToInt32(Session["userID"]));
             // get shop_id of item in cart
@@ -56,6 +57,7 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             return id;
         }
 
+        // kiem tra so luong hang hoa tuong ung voi san pham trong gio hang
         public List<int> CheckAvailableItems()
         {
             List<int> outOfOrder = default;
@@ -67,7 +69,7 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
                 var check = PC.find(item.ItemID);
                 foreach(var i in check)
                 {
-                    if (i.Amount == 0)
+                    if (i.Amount < item.Quantity)
                     {
                         outOfOrder.Add(item.ItemID);
                     }
@@ -97,9 +99,9 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
         }
 
         [HttpPost]
-        public ActionResult Checkout(int address_ID, string shop_List, string delivery_List)
+        public ActionResult Checkout(string shop_List, string delivery_List)
         {
-            address_ID = Convert.ToInt32(Session["Address_ID"].ToString());
+            int address_ID = Convert.ToInt32(Session["Address_ID"].ToString());
             var check = CheckAvailableItems();
             if(check == null)
             {
@@ -119,7 +121,7 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
                     buyerOrders.User_ID = Convert.ToInt32(Session["userID"]);
                     buyerOrders.Store_ID = Convert.ToInt32(i.Shop);
                     buyerOrders.delivery = Convert.ToInt32(i.Delivery);
-                    buyerOrders.payment = "cod";
+                    buyerOrders.payment = Session["payment"].ToString();
                     buyerOrders.created_date = DateTime.Now;
                     buyerOrders.decription = "";
                     buyerOrders.status = 1;
@@ -150,7 +152,9 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
                     }
 
                 }
+  
                 return Content("Success!!!");
+
             }
             return Content("out of order");
         }

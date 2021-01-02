@@ -4,17 +4,64 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
+<header>
+    <style>
+
+        .created-date {
+            display: flex;
+            align-items: flex-end;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+
+    </style>
+</header>
+
 @using Fashison_eCommerce.Controllers;
 @{Html.RenderPartial("Sidebar", "User");}
 
 @{ var detailinfo = (ViewBag.DetailList)[0];
-    var temp = ((UserController)this.ViewContext.Controller).ConvertToStatus(detailinfo.status);}
+    var temp = ((UserController)this.ViewContext.Controller).ConvertToStatus(detailinfo.status);
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");}
 
 <div style=" float: right; background-color: white; height: 100%; max-height: 900px; max-width: 850px; width: 100%;">
     <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
         <h4 style="margin-left: 5px;">Detail of order #@detailinfo.Order_ID - @temp </h4>
     </div>
+    <div class="created-date">
+        <span>Ngày đặt hàng <i>@detailinfo.created_date</i></span>
+    </div>
+    <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
+        <h4 style="margin-left: 5px;">Thông tin nhận hàng </h4>
+        <div style="margin-left: 50px;">
+            @{ Html.RenderAction("UserAddress", "Orders", new { id = detailinfo.Address_ID, area = "Seller" });}
+        </div>
+        
+    </div>
+    @{
+        var payment = @detailinfo.payment;
+        if (payment == "cod")
+            payment = "thanh toán khi nhận hàng";
+    }
+    <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
 
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>GIAO HÀNG</th>
+                    <th>THANH TOÁN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Phí vận chuyển: @String.Format(info, "{0:C0}", detailinfo.delivery)</td>
+
+                    <td>@payment </td>
+            </tbody>
+        </table>
+
+    </div>
     <div style="height: 100%; max-height: 800px; max-width: 300px; display: contents;">
         <table class="table">
             <thead>
@@ -27,7 +74,7 @@
             </thead>
             <tbody>
                 @{
-                    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+
                     foreach (var product in ViewBag.DetailList)
                     {
                         <tr>
