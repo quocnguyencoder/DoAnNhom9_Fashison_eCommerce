@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewBag.Title = "OrderTracking";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@section CustomStyles{
+
+    <link href="~/Assets/Buyer/TrackingStyles.css" rel="stylesheet" />
+
+}
+
+@using Fashison_eCommerce.Controllers;
+@{Html.RenderPartial("Sidebar", "User");}
+
+@{ 
+    var detailinfo = (ViewBag.DetailList)[0];
+    var latest = (dynamic)null;
+    var latest_status = ((UserController)this.ViewContext.Controller).ConvertToStatus(detailinfo.status);
+    try
+    {
+        latest = (ViewBag.Tracking)[0];
+    }
+    catch { }
+}
+
+<div style=" float: right; height: 10%; max-height: 900px; max-width: 850px; width: 100%;">
+    <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
+            <form action="/User/PurchaseDetail" style="margin-top: 30px;">
+                <input type="hidden" name="Order_id" value="@detailinfo.Order_ID" />
+                <h3>Tracking of order <a href="#">@detailinfo.Order_ID</a></h3>
+                <button class="btn-default" style="float:right; background-color:coral; color: aliceblue;" type="submit">Xem chi tiết đơn hàng</button>
+            </form>
+    </div>
+</div>
+<div style=" float: right; height: 10%; max-height: 900px; max-width: 850px; width: 100%;">
+    <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
+        <h4>Tracking status</h4>
+    </div>
+</div>
+
+<div style=" float: right; background-color: white; height: 100%; max-height: 900px; max-width: 850px; width: 100%;">
+   
+    <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
+        <p style="margin-left: 5px;">
+            Status:
+            @{ if (latest == null)
+                {
+                    <strong> @latest_status | @detailinfo.created_date </strong>
+                }
+
+                else
+                {
+                    <strong> @latest_status | @latest.UpdateDate </strong>
+                }
+
+            }
+         
+        </p>
+        <div class="tracking-progress-bar">
+            <div class="tracking-progress-bar__item tracking-progress-bar__item--first tracking-progress-bar__item--active">&nbsp</div>
+            @{
+                if (latest != null)
+                {
+                    if (latest.Status == 5 || latest.Status == 4)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                        <span class="tracking-progress-bar__item__bar tracking-progress-bar__item__bar--active"> </span>
+                        <div class="tracking-progress-bar__item tracking-progress-bar__item--active">&nbsp</div>
+                        }
+                    }
+                    else if (latest.Status == 2 || latest.Status == 3)
+                    {
+                        for (int i = 0; i < latest_status - 1; i++)
+                        {
+                        <span class="tracking-progress-bar__item__bar tracking-progress-bar__item__bar--active"> </span>
+                        <div class="tracking-progress-bar__item tracking-progress-bar__item--active">&nbsp</div>
+                        }
+                        for (int i = 0; i < 4 - latest_status; i++)
+                        {
+                        <span class="tracking-progress-bar__item__bar tracking-progress-bar__item__bar--active"> </span>
+                        <div class="tracking-progress-bar__item tracking-progress-bar__item--active">&nbsp</div>
+                        }
+                    }
+                }
+                else
+                {
+                    <span class="tracking-progress-bar__item__bar"> </span>
+                    <div class="tracking-progress-bar__item">&nbsp</div>
+
+                    <span class="tracking-progress-bar__item__bar"> </span>
+                    <div class="tracking-progress-bar__item">&nbsp</div>
+
+                    <span class="tracking-progress-bar__item__bar"> </span>
+                    <div class="tracking-progress-bar__item">&nbsp</div>
+                    }
+                
+
+            }
+
+
+        </div>
+        <div class="tracking-progress-bar">
+            <p>
+                &nbsp&nbsp&nbsp&nbsp Đặt hàng thành công <span style="margin-left:50px;margin-right:50px;">&nbsp</span>
+                Shop đã tiếp nhận <span style="margin-left:40px;margin-right:50px;">&nbsp</span> Đang vận chuyển <span style="margin-left:50px;margin-right:20px;">&nbsp</span> Giao hàng thành công
+            </p>
+        </div>
+        </div>
+
+    </div>
+
+<div style=" float: right; height: 10%; max-height: 900px; max-width: 850px; width: 100%;">
+    <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
+        <h4>Tracking status detail</h4>
+    </div>
+    
+</div>
+<div style=" float: right; background-color: white; height: 100%; max-height: 900px; max-width: 850px; width: 100%;">
+    <div style="height: 100%; max-height: 800px; max-width: 300px; display: contents;">
+        <table class="table table-hover" style="margin-left:auto !important; margin-right:auto !important;">
+            @{
+                DateTime date = new DateTime();
+                int count = 1;
+                string stt = "";
+                if (ViewBag.Tracking != null)
+                { 
+                    foreach (var history in ViewBag.Tracking)
+                    {
+                        if (history.UpdateDate.Date != date.Date)
+                        {
+                            date = history.UpdateDate;
+                            <thead>
+                                <tr>
+                                @{
+                                    if (count == 1)
+                                    {
+                                        <th>Latest Update: @history.UpdateDate.DayOfWeek,@history.UpdateDate.Date.ToString("dd/MM/yyyy")</th>
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        <th> @history.UpdateDate.DayOfWeek,@history.UpdateDate.Date.ToString("dd/MM/yyyy")</th>
+                                    }
+                                }
+                                </tr>
+                            </thead>
+                        }
+                        stt = ((UserController)this.ViewContext.Controller).ConvertToStatus(history.Status);
+                        <tbody>
+                            <tr>  
+                                <td>@history.UpdateDate.ToShortTimeString() &nbsp&nbsp&nbsp&nbsp @stt </td>
+                            </tr>
+                        </tbody>
+                    }
+                }
+                if (detailinfo.created_date.Date!= date.Date)
+                {
+                    <thead class="thead-light">
+                        <tr>
+                            @{
+                        if (count == 1)
+                        {
+                            <th>Latest Update: @detailinfo.created_date.DayOfWeek,@detailinfo.created_date.Date.ToString("dd/MM/yyyy")</th>
+                            count++;
+                        }
+                        else
+                        {
+                            <th> @detailinfo.created_date.DayOfWeek,@detailinfo.created_date.Date.ToString("dd/MM/yyyy")</th>
+                        }
+                    }
+                        </tr>
+                    </thead>
+                }
+                stt = ((UserController)this.ViewContext.Controller).ConvertToStatus(1);
+                <tbody>
+                    <tr>
+                        <td>@detailinfo.created_date.ToShortTimeString() &nbsp&nbsp&nbsp&nbsp @stt </td>
+                    </tr>
+                </tbody>
+
+            } 
+        </table>
+    </div>
+</div>

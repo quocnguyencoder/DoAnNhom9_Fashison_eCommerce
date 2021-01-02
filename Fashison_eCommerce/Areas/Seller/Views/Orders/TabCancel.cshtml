@@ -1,11 +1,15 @@
 ﻿@*<script>
-$(document).ready(function () {
-    $("#orders_confirm").DataTable({
-            processing: true,
-            autoWidth: true
-        });
+    $(document).ready(function () {
+        $("#orders_confirm").DataTable({
+                processing: true,
+                autoWidth: true
+            });
+    }
+    </script>*@
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
-</script>*@
+
 <div class="container-fluid">
     <table class="table table-striped orders" id="order_cancel" style="width: 100%;">
         <thead>
@@ -22,16 +26,16 @@ $(document).ready(function () {
         </thead>
         <tbody>
             @foreach (var item in ViewBag.listOrder_Cancel)
-            {   
+            {
                 <tr>
                     <td>@item.Name</td>
                     <td><a href="@Url.Action("Detail","Orders", new { id = item.Order_ID })">@item.Order_ID</a></td>
-                    <td>@item.delivery</td>
+                    <td>@String.Format(info, "{0:C0}", item.delivery)</td>
                     <td>@item.created_date</td>
                     <td>@item.status</td>
                     <td>@item.decription</td>
                     <td>@item.address</td>
-                    <td>@item.Total_Order</td>
+                    <td>@String.Format(info, "{0:C0}", item.Total_Order)</td>
                 </tr>
             }
         </tbody>

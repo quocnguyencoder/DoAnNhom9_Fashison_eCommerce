@@ -18,13 +18,58 @@
 
             </a>
         </div>
-        <ul id="sideManu" class="nav nav-tabs nav-stacked">
-            @{ Html.RenderAction("ProductType", "ProductDetail");}
-        </ul>
+        <div class="typeloader">
+            <ul id="sideManu" class="nav nav-tabs nav-stacked ">
+                @*@{ Html.RenderAction("ProductType", "ProductDetail");}*@
+                <li class="subMenu open">
+                    <a><img src="~/Assets/Buyer/text_loading.gif" /> </a>
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+                </li>
+                <li class="subMenu open">
+                    <a><img src="~/Assets/Buyer/text_loading.gif" /> </a>
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+                </li>
+                <li class="subMenu open">
+                    <a><img src="~/Assets/Buyer/text_loading.gif" /> </a>
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+
+                    <ul>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                        <li><img src="~/Assets/Buyer/text_loading.gif" /></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
     </div>
     <!-- Sidebar end=============================================== -->
     <div class="span9">
-        <div class="well well-small">
+        @*<div class="well well-small">
             <h4>Featured Products <small class="pull-right">200+ featured products</small></h4>
             <div class="row-fluid">
                 <div id="featured" class="carousel slide">
@@ -84,7 +129,7 @@
                     <a class="right carousel-control" href="#featured" data-slide="next">›</a>
                 </div>
             </div>
-        </div>
+        </div>*@
         <h4>Latest Products </h4>
         <div class="loader" data-action="/Buyer/MainPage/LoadProducts">
             <ul class="thumbnails">
@@ -121,30 +166,43 @@
                 },
                 registerEvents: function () {
                     $('.AddToCart').off('click').on('click', function (e) {
-                        console.log("click");
-                        e.preventDefault();
-                        var id = $(this).data('product_id');
-                        console.log(id);
-                        // them san pham vao gio hang
-                        $.ajax({
-                            url: "/Buyer/Cart_Item/AddToCart",
-                            type: 'POST',
-                            data: { ProductID: id },
-                            success: function (msg) {
-                                // load lai so san pham co trong gio hang
-                                $.ajax({
-                                    url: "/Buyer/UserCart/CartInfo",
-                                    success: function (result) {
-                                        $(".cart_info").html(result);
-                                        alert('Add to cart successfully!');
-                                    }
-                                });
-                            }
-                        });
+                        var userID = @Convert.ToInt32(Session["userID"]);
+                        if (userID !== 0) {
+                            e.preventDefault();
+                            var id = $(this).data('product_id');
+                            // them san pham vao gio hang
+                            $.ajax({
+                                url: "/Buyer/Cart_Item/AddToCart",
+                                type: 'POST',
+                                data: { ProductID: id },
+                                success: function (msg) {
+                                    // load lai so san pham co trong gio hang
+                                    $.ajax({
+                                        url: "/Buyer/UserCart/CartInfo",
+                                        success: function (result) {
+                                            $(".cart_info").html(result);
+                                            alert('Thêm vào giỏ hàng thành công');
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        else {
+                            window.location.href = "/Account/Login";
+                        }
+                        
                     });
                 }
             }
             user.init();
+        }
+    });
+
+    $.ajax({
+        // load cac san pham
+        url: "/Buyer/ProductDetail/ProductType",
+        success: function (result) {
+            $(".typeloader").html(result);
         }
     });
    

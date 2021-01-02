@@ -6,7 +6,7 @@
 }
 
 @model Fashison_eCommerce.ViewModel.Cart_ItemViewModel
-
+@{ var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");}
 <div class="row">
     <!-- Sidebar ================================================== -->
     <div id="sidebar" class="span3">
@@ -14,7 +14,7 @@
             <a id="myCart" href="/UserCart">
                 <img src="~/Styles_css/User_styles/themes/images/ico-cart.png" alt="cart">
                 <div class="cart_info">
-                    @{Html.RenderAction("CountCartItem", "UserCart");}
+                    @{Html.RenderAction("CartInfo", "UserCart");}
                 </div>
 
             </a>
@@ -66,17 +66,17 @@
                             <div class="span4">
                                 <hr class="soft" />
                                 <h4> @prod1.Name </h4>
-                                <h5>
+                                @*<h5>
                                     @prod1.Decription
-                                </h5>
+                                </h5>*@
                                 <a class="btn btn-small pull-right" href="/Buyer/ProductDetail/Details?id=@prod1.Product_ID">View Details</a>
                                 <br class="clr" />
                             </div>
                             <div class="span3 alignR">
                                 <form class="form-horizontal qtyFrm">
-                                    <h3>@prod1.Price VNĐ</h3>
+                                    <h3 style="color: orangered;">@String.Format(info, "{0:C0}", prod1.Price) </h3>
                                     <div class="btn-group">
-                                        <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+                                        <button type="submit" class="btn AddToCart btn-large btn-primary pull-right" data-product_id="@prod1.Product_ID"> Add to cart <i class=" icon-shopping-cart"></i></button>
                                     </div>
                                 </form>
                             </div>
@@ -94,10 +94,14 @@
                                     <a href="/Buyer/ProductDetail/Details?id=@prod.Product_ID"><img src="~/Product_Images/@prod.Pictures" alt="" style="width: 190px; height: 210px" /></a>
                                     <div class="caption">
                                         <h5>@prod.Name</h5>
-                                        <p>
+                                        @*<p>
                                             @prod.Decription
-                                        </p>
-                                        <h4 style="text-align:center"><a class="btn" href="/Buyer/ProductDetail/Details?id=@prod.Product_ID"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@prod.Price</a></h4>
+                                        </p>*@
+                                    <h4 style="text-align:center">
+                                        <a class="btn" href="/Buyer/ProductDetail/Details?id=@prod.Product_ID"> <i class="icon-zoom-in"></i></a>
+                                        <button type="submit" class="btn AddToCart btn-large btn-primary pull-right" data-product_id="@prod.Product_ID"> Add to cart <i class=" icon-shopping-cart"></i></button>
+                                        <a class="btn btn-primary" href="#">@String.Format(info, "{0:C0}", prod.Price)</a>
+                                    </h4>
                                     </div>
                                 </div>
                             </li>
@@ -124,7 +128,41 @@
         <br class="clr">
     </div>
 </div>
+<script language="javascript">
+    // gan event cho cac button add to cart
+    var user = {
+        init: function () {
+            console.log("init");
+            user.registerEvents();
+        },
+        registerEvents: function () {
+            $('.AddToCart').off('click').on('click', function (e) {
+                console.log("click");
+                e.preventDefault();
+                var id = $(this).data('product_id');
+                console.log(id);
+                // them san pham vao gio hang
+                $.ajax({
+                    url: "/Buyer/Cart_Item/AddToCart",
+                    type: 'POST',
+                    data: { ProductID: id },
+                    success: function (msg) {
+                        // load lai so san pham co trong gio hang
+                        $.ajax({
+                            url: "/Buyer/UserCart/CartInfo",
+                            success: function (result) {
+                                $(".cart_info").html(result);
+                                alert('Add to cart successfully!');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    }
+    user.init();
 
+</script>
 
 
 

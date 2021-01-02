@@ -3,17 +3,65 @@
     ViewBag.Title = "PurchaseDetail";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+
+<header>
+    <style>
+
+        .created-date {
+            display: flex;
+            align-items: flex-end;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+
+    </style>
+</header>
+
 @using Fashison_eCommerce.Controllers;
 @{Html.RenderPartial("Sidebar", "User");}
 
 @{ var detailinfo = (ViewBag.DetailList)[0];
-   var temp = ((UserController)this.ViewContext.Controller).ConvertToStatus(detailinfo.status);}
+    var temp = ((UserController)this.ViewContext.Controller).ConvertToStatus(detailinfo.status);
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");}
 
 <div style=" float: right; background-color: white; height: 100%; max-height: 900px; max-width: 850px; width: 100%;">
     <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
         <h4 style="margin-left: 5px;">Detail of order #@detailinfo.Order_ID - @temp </h4>
     </div>
+    <div class="created-date">
+        <span>Ngày đặt hàng <i>@detailinfo.created_date</i></span>
+    </div>
+    <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
+        <h4 style="margin-left: 5px;">Thông tin nhận hàng </h4>
+        <div style="margin-left: 50px;">
+            @{ Html.RenderAction("UserAddress", "Orders", new { id = detailinfo.Address_ID, area = "Seller" });}
+        </div>
+        
+    </div>
+    @{
+        var payment = @detailinfo.payment;
+        if (payment == "cod")
+            payment = "thanh toán khi nhận hàng";
+    }
+    <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
 
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>GIAO HÀNG</th>
+                    <th>THANH TOÁN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Phí vận chuyển: @String.Format(info, "{0:C0}", detailinfo.delivery)</td>
+
+                    <td>@payment </td>
+            </tbody>
+        </table>
+
+    </div>
     <div style="height: 100%; max-height: 800px; max-width: 300px; display: contents;">
         <table class="table">
             <thead>
@@ -21,39 +69,47 @@
                     <th>Product</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Total</th>
+                    <th style="text-align:right;">Total</th>
                 </tr>
             </thead>
             <tbody>
                 @{
-                    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+
                     foreach (var product in ViewBag.DetailList)
                     {
                         <tr>
-                            <td> <img style="height: auto; width:auto" src="~/Product_Images/@product.Pictures" alt="product img" /> @product.Name <br /> Provide by <a href="#">@product.ShopName</a> </td>
-                            <td style=" vertical-align:middle"> @String.Format(info, "{0:C2}", product.price)</td>
+                            <td> <img style="height: auto; width:auto; max-height: 90px; max-width:90px;" src="~/Product_Images/@product.Pictures" alt="product img" /> @product.Name <br /> Provide by <a href="#">@product.ShopName</a> </td>
+                            <td style=" vertical-align:middle"> @String.Format(info, "{0:C0}", product.price)</td>
                             <td style=" vertical-align:middle"> @product.quantity </td>
-                            <td style="vertical-align:middle"> @String.Format(info, "{0:C2}", product.total)</td>
+                            <td style="vertical-align:middle;text-align:right;"> @String.Format(info, "{0:C0}", product.total)</td>
                         </tr>
                     }
                 }
                 <tr>
                     <td colspan="2"></td>
-                    <td > Total cost: </td>
-                    <td style="text-align:right;">@String.Format(info, "{0:C2}", detailinfo.total)</td>
+                    <td> Total cost: </td>
+                    <td style="text-align:right;">@String.Format(info, "{0:C0}", detailinfo.total)</td>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
                     <td> Total delivery:</td>
-                    <td style="text-align:right;"> @String.Format(info, "{0:C2}", detailinfo.delivery)</td>
+                    <td style="text-align:right;"> @String.Format(info, "{0:C0}", detailinfo.delivery)</td>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
                     <td> TOTAL: </td>
-                    <td style="text-align:right;color:orangered;font-size:x-large">@String.Format(info, "{0:C2}", detailinfo.Total_Order)</td>
+                    <td style="text-align:right;color:orangered;font-size:x-large">@String.Format(info, "{0:C0}", detailinfo.Total_Order)</td>
                 </tr>
             </tbody>
         </table>
     </div>
+</div>
+
+<div style=" float: right;  height: 100%; max-height: 900px; max-width: 850px; width: 100%; ">
+    <form action="/User/OrderTracking" style="margin-top: 30px;">
+        <input type="hidden" name="order_id" value="@detailinfo.Order_ID" />
+        <a href="/user/purchase"> << quay lại danh sách đơn hàng </a>
+        <button class="btn-large" style="margin-left: 40px; background-color:coral; color: aliceblue;" type="submit">Theo dõi đơn hàng</button>
+    </form>
 </div>
 

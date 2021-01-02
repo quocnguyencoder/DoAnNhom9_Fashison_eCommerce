@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    var user = ViewBag.User;
+}
+
+
+@{Html.RenderPartial("Sidebar", "User");}
+
+<div style=" float: right; background-color: white; height: 100%; max-height: 900px; max-width: 850px; width: 100%;">
+    <div style="width: 800px!important; max-height: 30px; display: contents; margin-left: 5px; margin-bottom: 10px;">
+        <h4 style="margin-left: 5px;">My profile</h4>
+        <p style="margin-left: 5px;">Manage profile to secure your account</p>
+    </div>
+    <div style="float: right; vertical-align: middle; min-width: 200px; margin-right: 40px;">
+
+
+        <input type="file" id="fileUpload" accept="image/*" name="fileUpload" style="display:none" />
+        <img id="picUpload" name="picUpload" width="200" border-radius="50%" src="~/User_Images/@user.Avatar" />
+        <br />
+        <input type="button" id="btnUpload" value="Change" style="margin-left:60px;"/>
+    </div>
+
+    @section upload
+{
+        <script>
+
+            $(function () {
+                // event click button change
+                $('#btnUpload').click(function () {
+                    $('#fileUpload').trigger('click')
+                });
+                //change data fileUpload
+                $('#fileUpload').change(function () {
+                    //kiem tra  trinh duyet co ho tro Formdata
+                    if (window.FormData !== undefined) {
+                        //Lay du lieu tren fileUpload
+                        var fileUpload = $('#fileUpload').get(0);
+                        var files = fileUpload.files;
+                        //tao doi tuong formdata
+                        var formData = new FormData();
+                        //dua du lieu vao form
+                        formData.append('file', files[0]);
+                        $.ajax({
+                            type: 'POST',
+                            url: '/User/Upload',
+                            contentType: false, //khong co header
+                            processData: false,// khong xu li du lieu
+                            data: formData,
+                            success: function (urlImage) {
+                                $('#picUpload').attr('src', urlImage);
+ 
+                            },
+                            error: function (err) {
+                                alert('Error ' + err.statusText);
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+    }
+    <div style="height: 100%; max-height: 800px; max-width: 300px; display: contents;">
+        <form style="max-width: 300px;margin-left:20px;" action="/User/showEditProfile">
+            <div class="form-group">
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Name</label>
+                    <input id="Name" type="text" class="form-control" name="Username" value="@user.Name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input id="Email" type="email" class="form-control" name="Email" value="@user.Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input id="Address" type="text" class="form-control" name="Address" value="@user.Address">
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Gender</label>
+                <select class="srchTxt" id="Gender" name="Gender">
+                    <option value="" selected disabled hidden>@user.Gender</option>
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                    <option value="Khác">Khác</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Birthday</label>
+                <input type="date" id="start" class="form-control" name="Date" value="@ViewBag.birthday">
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Phone</label>
+                <input id="Phone" type="text" class="form-control" name="Phone" value="@user.Phone">
+            </div>
+            <button type="submit" id="submitButton" class="btn btn-primary" href="/User/showEditProfile/">Edit</button>
+        </form>
+    </div>
+</div>
+
+
+

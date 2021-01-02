@@ -60,7 +60,6 @@ namespace Fashison_eCommerce.Areas.Buyer.Controllers
             return View();
         }
 
-        [ChildActionOnly]
         public PartialViewResult ProductType()
         {
             MainTypeClient MC = new MainTypeClient();

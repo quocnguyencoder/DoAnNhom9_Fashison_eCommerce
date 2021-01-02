@@ -1,18 +1,20 @@
-﻿<ul class="thumbnails">
+﻿@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); }
+<ul class="thumbnails">
     @foreach (var Prod in ViewBag.listProducts)
     {
         <li class="span3">
             <div class="thumbnail">
-                <a href="/Buyer/ProductDetail/Details?id=@Prod.Product_ID"><img style="max-height: unset; max-width: 215px"src="~/Product_Images/@Prod.Pictures" alt="" /></a>
+                <a href="/Buyer/ProductDetail/Details?id=@Prod.Product_ID"><img style="height: 215px; width: 215px" src="~/Product_Images/@Prod.Pictures" alt="" /></a>
                 <div class="caption">
                     <h5>@Prod.Name</h5>
-                    <p style="max-width: 242px">
+                    @*<p style="max-width: 242px">
                         @Prod.Decription
-                    </p>
+                    </p>*@
                     <h4 style="text-align:center">
                         <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a>
                         <a class="btn AddToCart" href="#" data-product_id="@Prod.Product_ID">Add to <i class="icon-shopping-cart"></i></a>
-                        <a class="btn btn-primary" href="#">@Prod.Price đ</a>
+                        <a class="btn btn-primary" href="#">@String.Format(info, "{0:C0}", Prod.Price)</a>
                     </h4>
                 </div>
             </div>
