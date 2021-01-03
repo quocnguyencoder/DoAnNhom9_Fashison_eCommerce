@@ -72,15 +72,15 @@
                     }
                     else if (latest.Status == 2 || latest.Status == 3)
                     {
-                        for (int i = 0; i < latest_status - 1; i++)
+                        for (int i = 0; i < latest.Status - 1; i++)
                         {
                         <span class="tracking-progress-bar__item__bar tracking-progress-bar__item__bar--active"> </span>
                         <div class="tracking-progress-bar__item tracking-progress-bar__item--active">&nbsp</div>
                         }
-                        for (int i = 0; i < 4 - latest_status; i++)
+                        for (int i = 0; i < 4 - latest.Status; i++)
                         {
-                        <span class="tracking-progress-bar__item__bar tracking-progress-bar__item__bar--active"> </span>
-                        <div class="tracking-progress-bar__item tracking-progress-bar__item--active">&nbsp</div>
+                        <span class="tracking-progress-bar__item__bar tracking-progress-bar__item__bar"> </span>
+                        <div class="tracking-progress-bar__item tracking-progress-bar__item">&nbsp</div>
                         }
                     }
                 }

@@ -62,5 +62,10 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
             }
             return View("Error");
         }
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Login","Acount");
+        }
     }
 }

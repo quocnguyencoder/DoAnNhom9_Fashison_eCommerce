@@ -6208,6 +6208,7 @@
     <Content Include="Assets\Seller\css\Imagefile.css" />
     <Content Include="Assets\Seller\css\Products.css" />
     <Content Include="Assets\Seller\css\Store.css" />
+    <Content Include="Assets\Seller\img\3986701-online-shop-store-store-icon_112278.png" />
     <Content Include="Assets\Seller\index.js" />
     <Content Include="Assets\Seller\js\Chart.js" />
     <Content Include="Assets\Seller\js\DatePicker.js" />
