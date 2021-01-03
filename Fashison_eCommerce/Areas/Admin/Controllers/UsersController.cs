@@ -77,9 +77,17 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             string address = form["Address"].ToString();
             string gender = form["Gender"].ToString();
             string phone = form["Phone"].ToString();
+            string picture = null;
+            var f = Request.Files["Picture"];
+            if (f!=null && f.ContentLength > 0)
+            {
+                var path = Server.MapPath("~/User_Images/" +f.FileName);
+                picture = f.FileName.ToString();
+                f.SaveAs(path);
+            }    
             DateTime birthday = Convert.ToDateTime(form["Birthday"]);
             int role = Convert.ToInt32(form["RoleID"]);
-            User newUser = new User() { Username=username, Email=email, Password=password, Name=name, Address=address, Gender=gender, Phone=phone, Birthday=birthday, RoleID=role, Avatar=null};
+            User newUser = new User() { Username=username, Email=email, Password=password, Name=name, Address=address, Gender=gender, Phone=phone, Birthday=birthday, RoleID=role, Avatar=picture};
             db.Users.Add(newUser);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -109,8 +117,16 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             string phone = form["Phone"].ToString();
             DateTime birthday = Convert.ToDateTime(form["Birthday"]);
             int role = Convert.ToInt32(form["RoleID"]);
+            string picture = null;
+            var f = Request.Files["Picture"];
+            if (f != null && f.ContentLength > 0)
+            {
+                var path = Server.MapPath("~/User_Images/" + f.FileName);
+                picture = f.FileName.ToString();
+                f.SaveAs(path);
+            }
             string password = form["Password"].ToString();
-            User user = new User() { Id=id, Username = username, Email = email, Password = password, Name = name, Address = address, Gender = gender, Phone = phone, Birthday = birthday, RoleID = role, Avatar = null};
+            User user = new User() { Id=id, Username = username, Email = email, Password = password, Name = name, Address = address, Gender = gender, Phone = phone, Birthday = birthday, RoleID = role, Avatar = picture};
             db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");

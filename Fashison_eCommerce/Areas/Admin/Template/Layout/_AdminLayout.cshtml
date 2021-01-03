@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>Admin Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -18,14 +18,14 @@
     <!-- JQVMap -->
     <link rel="stylesheet" href="/Areas/Admin/Template/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/Areas/Admin/Template/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/Areas/Admin/Template/dist/css/adminlte.min.css"
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="/Areas/Admin/Template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="/Areas/Admin/Template/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="/Areas/Admin/Template/plugins/summernote/summernote-bs4.min.css">
-</head>
+</head>f
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
@@ -75,7 +75,7 @@
                         <img src="~/Areas/Admin/Template/img_test/91776319_1165038667162166_6128732874704158720_n.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Chung Thiên Nhi</a>
+                        <a href="#" class="d-block">@Session["Name"].ToString()</a>
                     </div>
                 </div>
 
@@ -83,7 +83,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
+                    with font-awesome or any other icon font library -->
                         <a href="/Admin/Home/index" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
@@ -142,13 +142,38 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#logoutModal">
+                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
         </aside>
-
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="/Admin/Home/Login">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         @RenderBody()
 
 

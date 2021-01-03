@@ -7362,6 +7362,15 @@
     <Content Include="Styles_css\User_styles\themes\united\bootstrap.min.css" />
     <Content Include="UserScripts\AddressSubmitCreate.js" />
     <Content Include="UserScripts\EditAddress.js" />
+    <Content Include="User_Images\14.jpg" />
+    <Content Include="User_Images\6a93f2840e2093c323938fa7c25c6a0b.jpg" />
+    <Content Include="User_Images\ava 2020.jpg" />
+    <Content Include="User_Images\Book 4. Harry Potter &amp; the Goblet of Fire [Book Cover].jpg" />
+    <Content Include="User_Images\dm.png" />
+    <Content Include="User_Images\IMG_20200727_192304.jpg" />
+    <Content Include="User_Images\null_Woman.png" />
+    <Content Include="User_Images\unnamed.png" />
+    <Content Include="User_Images\YANDERE-f8346e1b-8473-4b8c-a5f4-7a03544c9d41_ANIME_ILLUST.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -7474,7 +7483,6 @@
     <Folder Include="Data\" />
     <Folder Include="images\" />
     <Folder Include="Styles_css\User_styles\themes\less\oregional\" />
-    <Folder Include="User_Images\" />
     <Folder Include="Views\MainType\" />
   </ItemGroup>
   <ItemGroup>
