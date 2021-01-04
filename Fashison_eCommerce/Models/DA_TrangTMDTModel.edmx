@@ -5,6 +5,34 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DB_A6A231_DAQLTMDTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ImageLink" Type="varchar" MaxLength="400" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="DayOfBirth" Type="date" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="isAvailable" Type="bit" Nullable="false" />
+          <Property Name="coin" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.AccountRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AccountRole">
+          <Key>
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Role" />
+          </Key>
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="Address_ID" />
@@ -47,6 +75,22 @@
           <Property Name="ItemID" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" />
           <Property Name="Cart_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="ImagePath" Type="varchar" MaxLength="400" Nullable="false" />
+          <Property Name="DisplayOrder" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Main_Type">
           <Key>
@@ -124,6 +168,32 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MaintypeID" Type="int" />
         </EntityType>
+        <EntityType Name="PurchaseOrder">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountId" Type="int" />
+          <Property Name="SubTotal" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="Phone" Type="varchar(max)" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="CancelInvoice" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderDetail">
+          <Key>
+            <PropertyRef Name="PurchaseOrderDetailId" />
+          </Key>
+          <Property Name="PurchaseOrderDetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PurchaseOrderId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Subtotal" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
         <EntityType Name="Rating">
           <Key>
             <PropertyRef Name="ProductID" />
@@ -141,6 +211,14 @@
           <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Rolename" Type="nvarchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="Shipper">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="int" Nullable="false" />
+          <Property Name="ShipperId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Store">
           <Key>
             <PropertyRef Name="Store_ID" />
@@ -152,6 +230,14 @@
           <Property Name="Decription" Type="nvarchar" MaxLength="1000" />
           <Property Name="Pictures" Type="nvarchar" MaxLength="50" />
           <Property Name="Coverpics" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SubCategory">
+          <Key>
+            <PropertyRef Name="SubCategoryId" />
+          </Key>
+          <Property Name="SubCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -314,6 +400,92 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.Order_Receive' does not hav
           <Property Name="decription" Type="nvarchar" MaxLength="100" />
           <Property Name="address" Type="nvarchar" MaxLength="100" />
           <Property Name="Total_Order" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.OV_OrderView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OV_OrderView">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+            <PropertyRef Name="CreatedDate" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="SubTotal" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SubTotal" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="Phone" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.SV_initOrderList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SV_initOrderList">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="SubTotal" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SubTotal" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="Phone" Type="varchar(max)" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.SV_pickupList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SV_pickupList">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+            <PropertyRef Name="ShipperId" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="SubTotal" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="int" Nullable="false" />
+          <Property Name="ShipperId" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SubTotal" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="Phone" Type="varchar(max)" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.SV_shipperList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SV_shipperList">
+          <Key>
+            <PropertyRef Name="AccountId" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Gender" />
+          </Key>
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.SV_shippingList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SV_shippingList">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+            <PropertyRef Name="ShipperId" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="SubTotal" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="int" Nullable="false" />
+          <Property Name="ShipperId" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SubTotal" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="Phone" Type="varchar(max)" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Buyer_Order_Items' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -620,6 +792,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Shipper__Purchas__5CD6CB2B">
+          <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="1" />
+          <End Role="Shipper" Type="Self.Shipper" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrder">
+              <PropertyRef Name="PurchaseOrderId" />
+            </Principal>
+            <Dependent Role="Shipper">
+              <PropertyRef Name="PurchaseOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Store__UserID__29572725">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Store" Type="Self.Store" Multiplicity="*" />
@@ -644,6 +828,45 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_EMAIL_ACCOUNT' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_EMAIL_ACCOUNT" />-->
+        <Association Name="FK_PURCHASEORDER_ACCOUNT">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="PurchaseOrder">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PURCHASEORDERDETAIL_PURCHCASEORDER">
+          <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="1" />
+          <End Role="PurchaseOrderDetail" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrder">
+              <PropertyRef Name="PurchaseOrderId" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetail">
+              <PropertyRef Name="PurchaseOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUBCATEGORY_CATEGORY">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="SubCategory">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="ChangeStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="nchar" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
@@ -655,6 +878,15 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <CollectionType>
               <RowType>
                 <Property Name="RESULT" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="CountNV" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="soluongNV" Type="int" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -728,6 +960,10 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         <Function Name="getProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StoreID" Type="int" Mode="In" />
         </Function>
+        <Function Name="KienTraDangNhap" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="TaiKhoan" Type="varchar" Mode="In" />
+          <Parameter Name="MatKhau" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="ListOrderDetailUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="orderid" Type="nchar" Mode="In" />
         </Function>
@@ -754,8 +990,21 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
         <Function Name="MaHoaMD5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
           <Parameter Name="pass" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="OSP_CapNhanDonHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PurchaseOrderId" Type="int" Mode="In" />
+          <Parameter Name="Address" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Phone" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="OSP_CapNhatChiTiet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PurchaseOrderDetailId" Type="bigint" Mode="In" />
+          <Parameter Name="PurchaseOrderId" Type="int" Mode="In" />
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+          <Parameter Name="UnitPrice" Type="decimal" Mode="In" />
+          <Parameter Name="Subtotal" Type="decimal" Mode="In" />
+        </Function>
         <Function Name="proc_getShipper" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="ReportAdminIndex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ReportForAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ResetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -857,12 +1106,47 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <Parameter Name="store_id" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
         </Function>
+        <Function Name="UF_KiemTraTonTai" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="USP_CapNhatUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="Phone" Type="varchar" Mode="In" />
+          <Parameter Name="Address" Type="varchar" Mode="In" />
+          <Parameter Name="Gender" Type="varchar" Mode="In" />
+          <Parameter Name="DayOfBirth" Type="date" Mode="In" />
+        </Function>
+        <Function Name="USP_DangKy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Pass" Type="varchar" Mode="In" />
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="Phone" Type="varchar" Mode="In" />
+          <Parameter Name="Address" Type="varchar" Mode="In" />
+          <Parameter Name="Gender" Type="varchar" Mode="In" />
+          <Parameter Name="DayOfBirth" Type="date" Mode="In" />
+        </Function>
+        <Function Name="USP_TaoUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="Phone" Type="varchar" Mode="In" />
+          <Parameter Name="Address" Type="varchar" Mode="In" />
+          <Parameter Name="Gender" Type="varchar" Mode="In" />
+          <Parameter Name="DayOfBirth" Type="date" Mode="In" />
+          <Parameter Name="Role" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DB_A6A231_DAQLTMDTModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Authorize" EntityType="Self.Authorize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart_Item" EntityType="Self.Cart_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Main_Type" EntityType="Self.Main_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order_Items" EntityType="Self.Order_Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order_Tracking" EntityType="Self.Order_Tracking" Schema="dbo" store:Type="Tables" />
@@ -870,11 +1154,21 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product_Type" EntityType="Self.Product_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrder" EntityType="Self.PurchaseOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrderDetail" EntityType="Self.PurchaseOrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipper" EntityType="Self.Shipper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountRole" EntityType="Self.AccountRole" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AccountRole].[Email] AS [Email], 
+    [AccountRole].[Role] AS [Role]
+    FROM [dbo].[AccountRole] AS [AccountRole]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Buyer_LoadAllProduct" EntityType="Self.Buyer_LoadAllProduct" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Buyer_LoadAllProduct].[Product_ID] AS [Product_ID], 
@@ -972,6 +1266,59 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
     [Order_Receive].[address] AS [address], 
     [Order_Receive].[Total_Order] AS [Total_Order]
     FROM [dbo].[Order_Receive] AS [Order_Receive]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OV_OrderView" EntityType="Self.OV_OrderView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OV_OrderView].[PurchaseOrderId] AS [PurchaseOrderId], 
+    [OV_OrderView].[CreatedDate] AS [CreatedDate], 
+    [OV_OrderView].[Email] AS [Email], 
+    [OV_OrderView].[SubTotal] AS [SubTotal], 
+    [OV_OrderView].[Address] AS [Address], 
+    [OV_OrderView].[Phone] AS [Phone]
+    FROM [dbo].[OV_OrderView] AS [OV_OrderView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SV_initOrderList" EntityType="Self.SV_initOrderList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SV_initOrderList].[PurchaseOrderId] AS [PurchaseOrderId], 
+    [SV_initOrderList].[Email] AS [Email], 
+    [SV_initOrderList].[SubTotal] AS [SubTotal], 
+    [SV_initOrderList].[Address] AS [Address], 
+    [SV_initOrderList].[Phone] AS [Phone], 
+    [SV_initOrderList].[Status] AS [Status]
+    FROM [dbo].[SV_initOrderList] AS [SV_initOrderList]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SV_pickupList" EntityType="Self.SV_pickupList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SV_pickupList].[PurchaseOrderId] AS [PurchaseOrderId], 
+    [SV_pickupList].[ShipperId] AS [ShipperId], 
+    [SV_pickupList].[Email] AS [Email], 
+    [SV_pickupList].[SubTotal] AS [SubTotal], 
+    [SV_pickupList].[Address] AS [Address], 
+    [SV_pickupList].[Phone] AS [Phone], 
+    [SV_pickupList].[Status] AS [Status]
+    FROM [dbo].[SV_pickupList] AS [SV_pickupList]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SV_shipperList" EntityType="Self.SV_shipperList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SV_shipperList].[AccountId] AS [AccountId], 
+    [SV_shipperList].[Email] AS [Email], 
+    [SV_shipperList].[FirstName] AS [FirstName], 
+    [SV_shipperList].[Phone] AS [Phone], 
+    [SV_shipperList].[LastName] AS [LastName], 
+    [SV_shipperList].[Address] AS [Address], 
+    [SV_shipperList].[Gender] AS [Gender]
+    FROM [dbo].[SV_shipperList] AS [SV_shipperList]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SV_shippingList" EntityType="Self.SV_shippingList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SV_shippingList].[PurchaseOrderId] AS [PurchaseOrderId], 
+    [SV_shippingList].[ShipperId] AS [ShipperId], 
+    [SV_shippingList].[Email] AS [Email], 
+    [SV_shippingList].[SubTotal] AS [SubTotal], 
+    [SV_shippingList].[Address] AS [Address], 
+    [SV_shippingList].[Phone] AS [Phone], 
+    [SV_shippingList].[Status] AS [Status]
+    FROM [dbo].[SV_shippingList] AS [SV_shippingList]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_Buyer_Order_Items" EntityType="Self.view_Buyer_Order_Items" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1107,6 +1454,10 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <End Role="Product" EntitySet="Product" />
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
+          <AssociationSet Name="FK__Shipper__Purchas__5CD6CB2B" Association="Self.FK__Shipper__Purchas__5CD6CB2B">
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+            <End Role="Shipper" EntitySet="Shipper" />
+          </AssociationSet>
           <AssociationSet Name="FK__Store__UserID__29572725" Association="Self.FK__Store__UserID__29572725">
             <End Role="Users" EntitySet="Users" />
             <End Role="Store" EntitySet="Store" />
@@ -1114,6 +1465,18 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
           <AssociationSet Name="FK__Users__RoleID__52593CB8" Association="Self.FK__Users__RoleID__52593CB8">
             <End Role="Role" EntitySet="Role" />
             <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PURCHASEORDER_ACCOUNT" Association="Self.FK_PURCHASEORDER_ACCOUNT">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PURCHASEORDERDETAIL_PURCHCASEORDER" Association="Self.FK_PURCHASEORDERDETAIL_PURCHCASEORDER">
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+            <End Role="PurchaseOrderDetail" EntitySet="PurchaseOrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUBCATEGORY_CATEGORY" Association="Self.FK_SUBCATEGORY_CATEGORY">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="SubCategory" EntitySet="SubCategory" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1507,6 +1870,79 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             <End Role="Role" EntitySet="Roles" />
             <End Role="Authorize" EntitySet="Authorizes" />
           </AssociationSet>
+          <EntitySet Name="Accounts" EntityType="DB_A6A231_DAQLTMDTModel.Account" />
+          <EntitySet Name="Categories" EntityType="DB_A6A231_DAQLTMDTModel.Category" />
+          <EntitySet Name="Images" EntityType="DB_A6A231_DAQLTMDTModel.Image" />
+          <EntitySet Name="PurchaseOrders" EntityType="DB_A6A231_DAQLTMDTModel.PurchaseOrder" />
+          <EntitySet Name="PurchaseOrderDetails" EntityType="DB_A6A231_DAQLTMDTModel.PurchaseOrderDetail" />
+          <EntitySet Name="Shippers" EntityType="DB_A6A231_DAQLTMDTModel.Shipper" />
+          <EntitySet Name="SubCategories" EntityType="DB_A6A231_DAQLTMDTModel.SubCategory" />
+          <EntitySet Name="AccountRoles" EntityType="DB_A6A231_DAQLTMDTModel.AccountRole" />
+          <EntitySet Name="OV_OrderView" EntityType="DB_A6A231_DAQLTMDTModel.OV_OrderView" />
+          <EntitySet Name="SV_initOrderList" EntityType="DB_A6A231_DAQLTMDTModel.SV_initOrderList" />
+          <EntitySet Name="SV_pickupList" EntityType="DB_A6A231_DAQLTMDTModel.SV_pickupList" />
+          <EntitySet Name="SV_shipperList" EntityType="DB_A6A231_DAQLTMDTModel.SV_shipperList" />
+          <EntitySet Name="SV_shippingList" EntityType="DB_A6A231_DAQLTMDTModel.SV_shippingList" />
+          <AssociationSet Name="FK_PURCHASEORDER_ACCOUNT" Association="DB_A6A231_DAQLTMDTModel.FK_PURCHASEORDER_ACCOUNT">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUBCATEGORY_CATEGORY" Association="DB_A6A231_DAQLTMDTModel.FK_SUBCATEGORY_CATEGORY">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="SubCategory" EntitySet="SubCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Shipper__Purchas__5CD6CB2B" Association="DB_A6A231_DAQLTMDTModel.FK__Shipper__Purchas__5CD6CB2B">
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+            <End Role="Shipper" EntitySet="Shippers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PURCHASEORDERDETAIL_PURCHCASEORDER" Association="DB_A6A231_DAQLTMDTModel.FK_PURCHASEORDERDETAIL_PURCHCASEORDER">
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+            <End Role="PurchaseOrderDetail" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <FunctionImport Name="CountNV" IsComposable="true" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="OSP_CapNhanDonHang">
+            <Parameter Name="PurchaseOrderId" Mode="In" Type="Int32" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="OSP_CapNhatChiTiet">
+            <Parameter Name="PurchaseOrderDetailId" Mode="In" Type="Int64" />
+            <Parameter Name="PurchaseOrderId" Mode="In" Type="Int32" />
+            <Parameter Name="ProductId" Mode="In" Type="Int32" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+            <Parameter Name="UnitPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="Subtotal" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="USP_CapNhatUser">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="DayOfBirth" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="USP_DangKy">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Pass" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="DayOfBirth" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="USP_TaoUser">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="DayOfBirth" Mode="In" Type="DateTime" />
+            <Parameter Name="Role" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ReportForAdmin" ReturnType="Collection(DB_A6A231_DAQLTMDTModel.ReportForAdmin_Result)" />
           </EntityContainer>
         <Association Name="FK">
           <End Type="DB_A6A231_DAQLTMDTModel.Brand" Role="Brand" Multiplicity="0..1" />
@@ -2297,6 +2733,228 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ImageLink" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="DayOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="isAvailable" Type="Boolean" Nullable="false" />
+          <Property Name="coin" Type="Int32" />
+          <NavigationProperty Name="PurchaseOrders" Relationship="DB_A6A231_DAQLTMDTModel.FK_PURCHASEORDER_ACCOUNT" FromRole="Account" ToRole="PurchaseOrder" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SubCategories" Relationship="DB_A6A231_DAQLTMDTModel.FK_SUBCATEGORY_CATEGORY" FromRole="Category" ToRole="SubCategory" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="ImagePath" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseOrder">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int32" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CancelInvoice" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="DB_A6A231_DAQLTMDTModel.FK_PURCHASEORDER_ACCOUNT" FromRole="PurchaseOrder" ToRole="Account" />
+          <NavigationProperty Name="Shipper" Relationship="DB_A6A231_DAQLTMDTModel.FK__Shipper__Purchas__5CD6CB2B" FromRole="PurchaseOrder" ToRole="Shipper" />
+          <NavigationProperty Name="PurchaseOrderDetails" Relationship="DB_A6A231_DAQLTMDTModel.FK_PURCHASEORDERDETAIL_PURCHCASEORDER" FromRole="PurchaseOrder" ToRole="PurchaseOrderDetail" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderDetail">
+          <Key>
+            <PropertyRef Name="PurchaseOrderDetailId" />
+          </Key>
+          <Property Name="PurchaseOrderDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseOrderId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Subtotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="PurchaseOrder" Relationship="DB_A6A231_DAQLTMDTModel.FK_PURCHASEORDERDETAIL_PURCHCASEORDER" FromRole="PurchaseOrderDetail" ToRole="PurchaseOrder" />
+        </EntityType>
+        <EntityType Name="Shipper">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="Int32" Nullable="false" />
+          <Property Name="ShipperId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PurchaseOrder" Relationship="DB_A6A231_DAQLTMDTModel.FK__Shipper__Purchas__5CD6CB2B" FromRole="Shipper" ToRole="PurchaseOrder" />
+        </EntityType>
+        <EntityType Name="SubCategory">
+          <Key>
+            <PropertyRef Name="SubCategoryId" />
+          </Key>
+          <Property Name="SubCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Category" Relationship="DB_A6A231_DAQLTMDTModel.FK_SUBCATEGORY_CATEGORY" FromRole="SubCategory" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="AccountRole">
+          <Key>
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Role" />
+          </Key>
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="OV_OrderView">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+            <PropertyRef Name="CreatedDate" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="SubTotal" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SV_initOrderList">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="SubTotal" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SV_pickupList">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+            <PropertyRef Name="ShipperId" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="SubTotal" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="Int32" Nullable="false" />
+          <Property Name="ShipperId" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SV_shipperList">
+          <Key>
+            <PropertyRef Name="AccountId" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Gender" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SV_shippingList">
+          <Key>
+            <PropertyRef Name="PurchaseOrderId" />
+            <PropertyRef Name="ShipperId" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="SubTotal" />
+          </Key>
+          <Property Name="PurchaseOrderId" Type="Int32" Nullable="false" />
+          <Property Name="ShipperId" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_PURCHASEORDER_ACCOUNT">
+          <End Type="DB_A6A231_DAQLTMDTModel.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.PurchaseOrder" Role="PurchaseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="PurchaseOrder">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUBCATEGORY_CATEGORY">
+          <End Type="DB_A6A231_DAQLTMDTModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.SubCategory" Role="SubCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="SubCategory">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Shipper__Purchas__5CD6CB2B">
+          <End Type="DB_A6A231_DAQLTMDTModel.PurchaseOrder" Role="PurchaseOrder" Multiplicity="1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.Shipper" Role="Shipper" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrder">
+              <PropertyRef Name="PurchaseOrderId" />
+            </Principal>
+            <Dependent Role="Shipper">
+              <PropertyRef Name="PurchaseOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PURCHASEORDERDETAIL_PURCHCASEORDER">
+          <End Type="DB_A6A231_DAQLTMDTModel.PurchaseOrder" Role="PurchaseOrder" Multiplicity="1" />
+          <End Type="DB_A6A231_DAQLTMDTModel.PurchaseOrderDetail" Role="PurchaseOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrder">
+              <PropertyRef Name="PurchaseOrderId" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetail">
+              <PropertyRef Name="PurchaseOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="ReportForAdmin_Result">
+          <Property Type="Double" Name="Total" Nullable="true" />
+          <Property Type="Int32" Name="Orders" Nullable="true" />
+          <Property Type="Int32" Name="Users" Nullable="true" />
+          <Property Type="Int32" Name="Products" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2962,18 +3620,6 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ReportAdminIndex" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ReportAdminIndex">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ReportAdminIndex_Result">
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Orders" ColumnName="Orders" />
-                <ScalarProperty Name="Users" ColumnName="Users" />
-                <ScalarProperty Name="Ship" ColumnName="Ship" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Products" ColumnName="Products" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ResetPassword" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ResetPassword" />
           <FunctionImportMapping FunctionImportName="sp_ConfirmProduct_Admin" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_ConfirmProduct_Admin" />
           <FunctionImportMapping FunctionImportName="sp_getAddressByID" FunctionName="DB_A6A231_DAQLTMDTModel.Store.sp_getAddressByID">
@@ -3045,6 +3691,176 @@ warning 6002: The table/view 'DB_A6A231_DAQLTMDT.dbo.view_Shop' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="coin" ColumnName="coin" />
+                <ScalarProperty Name="isAvailable" ColumnName="isAvailable" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DayOfBirth" ColumnName="DayOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrders">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.PurchaseOrder">
+              <MappingFragment StoreEntitySet="PurchaseOrder">
+                <ScalarProperty Name="CancelInvoice" ColumnName="CancelInvoice" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="PurchaseOrderId" ColumnName="PurchaseOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrderDetails">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.PurchaseOrderDetail">
+              <MappingFragment StoreEntitySet="PurchaseOrderDetail">
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="PurchaseOrderId" ColumnName="PurchaseOrderId" />
+                <ScalarProperty Name="PurchaseOrderDetailId" ColumnName="PurchaseOrderDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shippers">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.Shipper">
+              <MappingFragment StoreEntitySet="Shipper">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ShipperId" ColumnName="ShipperId" />
+                <ScalarProperty Name="PurchaseOrderId" ColumnName="PurchaseOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubCategories">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.SubCategory">
+              <MappingFragment StoreEntitySet="SubCategory">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountRoles">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.AccountRole">
+              <MappingFragment StoreEntitySet="AccountRole">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OV_OrderView">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.OV_OrderView">
+              <MappingFragment StoreEntitySet="OV_OrderView">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PurchaseOrderId" ColumnName="PurchaseOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SV_initOrderList">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.SV_initOrderList">
+              <MappingFragment StoreEntitySet="SV_initOrderList">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PurchaseOrderId" ColumnName="PurchaseOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SV_pickupList">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.SV_pickupList">
+              <MappingFragment StoreEntitySet="SV_pickupList">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ShipperId" ColumnName="ShipperId" />
+                <ScalarProperty Name="PurchaseOrderId" ColumnName="PurchaseOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SV_shipperList">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.SV_shipperList">
+              <MappingFragment StoreEntitySet="SV_shipperList">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SV_shippingList">
+            <EntityTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.SV_shippingList">
+              <MappingFragment StoreEntitySet="SV_shippingList">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ShipperId" ColumnName="ShipperId" />
+                <ScalarProperty Name="PurchaseOrderId" ColumnName="PurchaseOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CountNV" FunctionName="DB_A6A231_DAQLTMDTModel.Store.CountNV" />
+          <FunctionImportMapping FunctionImportName="OSP_CapNhanDonHang" FunctionName="DB_A6A231_DAQLTMDTModel.Store.OSP_CapNhanDonHang" />
+          <FunctionImportMapping FunctionImportName="OSP_CapNhatChiTiet" FunctionName="DB_A6A231_DAQLTMDTModel.Store.OSP_CapNhatChiTiet" />
+          <FunctionImportMapping FunctionImportName="USP_CapNhatUser" FunctionName="DB_A6A231_DAQLTMDTModel.Store.USP_CapNhatUser" />
+          <FunctionImportMapping FunctionImportName="USP_DangKy" FunctionName="DB_A6A231_DAQLTMDTModel.Store.USP_DangKy" />
+          <FunctionImportMapping FunctionImportName="USP_TaoUser" FunctionName="DB_A6A231_DAQLTMDTModel.Store.USP_TaoUser" />
+          <FunctionImportMapping FunctionImportName="ReportForAdmin" FunctionName="DB_A6A231_DAQLTMDTModel.Store.ReportForAdmin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A6A231_DAQLTMDTModel.ReportForAdmin_Result">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Orders" ColumnName="Orders" />
+                <ScalarProperty Name="Users" ColumnName="Users" />
+                <ScalarProperty Name="Products" ColumnName="Products" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

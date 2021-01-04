@@ -44,10 +44,12 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
         {
             User user = new User();
             user = db.Users.Find(id);
+            Store store = new Store();
             ViewBag.user = user;
-            ViewBag.store = db.Stores.Where(x => x.UserID == id).FirstOrDefault();
+            store = db.Stores.Where(x => x.UserID == id).FirstOrDefault();
+            ViewBag.store = store;
             ViewBag.ShopProduct = db.sp_ListProductOfShop(id);
-            ViewBag.product = db.Products.Where(y => y.Store_ID == id).ToList();
+            ViewBag.product = db.Products.Where(y => y.Store_ID == store.Store_ID).ToList();
             return View(user);
         }
         
@@ -70,27 +72,34 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(FormCollection form)
         {
-            string username = form["Username"].ToString();
-            string email = form["Email"].ToString();
-            string password = form["Password"].ToString();
-            string name = form["Name"].ToString();
-            string address = form["Address"].ToString();
-            string gender = form["Gender"].ToString();
-            string phone = form["Phone"].ToString();
-            string picture = null;
-            var f = Request.Files["Picture"];
-            if (f!=null && f.ContentLength > 0)
+            try
             {
-                var path = Server.MapPath("~/User_Images/" +f.FileName);
-                picture = f.FileName.ToString();
-                f.SaveAs(path);
-            }    
-            DateTime birthday = Convert.ToDateTime(form["Birthday"]);
-            int role = Convert.ToInt32(form["RoleID"]);
-            User newUser = new User() { Username=username, Email=email, Password=password, Name=name, Address=address, Gender=gender, Phone=phone, Birthday=birthday, RoleID=role, Avatar=picture};
-            db.Users.Add(newUser);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+                string username = form["Username"].ToString();
+                string email = form["Email"].ToString();
+                string password = form["Password"].ToString();
+                string name = form["Name"].ToString();
+                string address = form["Address"].ToString();
+                string gender = form["Gender"].ToString();
+                string phone = form["Phone"].ToString();
+                string picture = null;
+                var f = Request.Files["Picture"];
+                if (f != null && f.ContentLength > 0)
+                {
+                    var path = Server.MapPath("~/User_Images/" + f.FileName);
+                    picture = f.FileName.ToString();
+                    f.SaveAs(path);
+                }
+                DateTime birthday = Convert.ToDateTime(form["Birthday"]);
+                int role = Convert.ToInt32(form["RoleID"]);
+                User newUser = new User() { Username = username, Email = email, Password = password, Name = name, Address = address, Gender = gender, Phone = phone, Birthday = birthday, RoleID = role, Avatar = picture };
+                db.Users.Add(newUser);
+                db.SaveChanges();
+                return Json(new { status = "success", message = "Successfull" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = "error", message = "Can't creating customer" });
+            }
         }
 
         // GET: Admin/Users/Edit/5
@@ -101,6 +110,7 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             DateTime birthday = new DateTime();
             birthday = Convert.ToDateTime(user.Birthday);
             ViewBag.birthday = birthday;
+            ViewBag.picture = ("~/User_Images/" + user.Avatar).ToString();
             return PartialView("_UserEdit");
         }
 
@@ -118,13 +128,6 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             DateTime birthday = Convert.ToDateTime(form["Birthday"]);
             int role = Convert.ToInt32(form["RoleID"]);
             string picture = null;
-            var f = Request.Files["Picture"];
-            if (f != null && f.ContentLength > 0)
-            {
-                var path = Server.MapPath("~/User_Images/" + f.FileName);
-                picture = f.FileName.ToString();
-                f.SaveAs(path);
-            }
             string password = form["Password"].ToString();
             User user = new User() { Id=id, Username = username, Email = email, Password = password, Name = name, Address = address, Gender = gender, Phone = phone, Birthday = birthday, RoleID = role, Avatar = picture};
             db.Entry(user).State = EntityState.Modified;
@@ -137,10 +140,17 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                User user = db.Users.Find(id);
+                db.Users.Remove(user);
+                db.SaveChanges();
+                return Json(new { status = "success", message = "Successfull" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = "error", message = "Can't Delete User" });
+            }
         }
 
         protected override void Dispose(bool disposing)

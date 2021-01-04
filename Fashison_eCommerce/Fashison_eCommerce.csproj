@@ -204,6 +204,12 @@
     <Compile Include="Controllers\UserAPIController.cs" />
     <Compile Include="helper\Configuration.cs" />
     <Compile Include="helper\Logger.cs" />
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountRole.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Address.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -230,6 +236,9 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart_ItemClient.cs" />
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DetailOrder_Result.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -250,6 +259,9 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_ProductByID_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Image.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ListOrdersUser_Result.cs">
@@ -293,6 +305,9 @@
     <Compile Include="Models\Order_Tracking.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OV_OrderView.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Permission.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
@@ -300,13 +315,25 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductsClient.cs" />
+    <Compile Include="Models\PurchaseOrder.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetail.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Rating.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ReportAdminIndex_Result.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportForAdmin_Result.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Role.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shipper.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_getAddressByID_Result.cs">
@@ -346,6 +373,21 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreClient.cs" />
+    <Compile Include="Models\SubCategory.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SV_initOrderList.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SV_pickupList.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SV_shipperList.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SV_shippingList.cs">
+      <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserCart.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -6942,23 +6984,13 @@
     <Content Include="Areas\Template\plugins\summernote\summernote.js.map" />
     <Content Include="Areas\Template\plugins\summernote\summernote.min.js.map" />
     <Content Include="Areas\Template\plugins\toastr\toastr.js.map" />
-    <Content Include="Areas\Admin\Views\Brands\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Brands\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Brands\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Brands\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Brands\_BrandEdit.cshtml" />
     <Content Include="Areas\Admin\Views\Home\index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
-    <Content Include="Areas\Admin\Views\Main_Type\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Main_Type\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Main_Type\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Main_Type\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Main_Type\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Main_Type\_TypeEdit.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\_ProductEdit.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Footer.cshtml" />
@@ -7365,6 +7397,7 @@
     <Content Include="UserScripts\EditAddress.js" />
     <Content Include="User_Images\14.jpg" />
     <Content Include="User_Images\6a93f2840e2093c323938fa7c25c6a0b.jpg" />
+    <Content Include="User_Images\91776319_1165038667162166_6128732874704158720_n.jpg" />
     <Content Include="User_Images\ava 2020.jpg" />
     <Content Include="User_Images\Book 4. Harry Potter &amp; the Goblet of Fire [Book Cover].jpg" />
     <Content Include="User_Images\dm.png" />
