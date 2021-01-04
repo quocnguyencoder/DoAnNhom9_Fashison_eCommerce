@@ -58,6 +58,23 @@
         <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Permission" Width="1.5" PointX="0.75" PointY="9.625" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Authorize__Permi__534D60F1" />
         <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Authorize__RoleI__5165187F" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Account" Width="1.5" PointX="17.75" PointY="17.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Category" Width="1.5" PointX="0.75" PointY="20" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Image" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.PurchaseOrder" Width="1.5" PointX="20" PointY="18" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.PurchaseOrderDetail" Width="1.5" PointX="22.25" PointY="17.125" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.Shipper" Width="1.5" PointX="22.25" PointY="20.375" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.SubCategory" Width="1.5" PointX="3" PointY="19.875" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.AccountRole" Width="1.5" PointX="2.75" PointY="13.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.OV_OrderView" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.SV_initOrderList" Width="1.5" PointX="2.75" PointY="16.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.SV_pickupList" Width="1.5" PointX="12.75" PointY="18.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.SV_shipperList" Width="1.5" PointX="14.75" PointY="18.75" />
+        <EntityTypeShape EntityType="DB_A6A231_DAQLTMDTModel.SV_shippingList" Width="1.5" PointX="19.75" PointY="5.75" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK_PURCHASEORDER_ACCOUNT" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK_SUBCATEGORY_CATEGORY" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK__Shipper__Purchas__5CD6CB2B" />
+        <AssociationConnector Association="DB_A6A231_DAQLTMDTModel.FK_PURCHASEORDERDETAIL_PURCHCASEORDER" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -49,11 +49,6 @@
                                     <form action="../Brands/Create" method="post">
                                         @Html.AntiForgeryToken()
                                         <div class="form-group">
-                                            <label asp-for="addID">ID :</label>
-                                            <input type="text" id="addID" class="form-control" name="id">
-                                            <span asp-validation-for="ID" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
                                             <label for="addName">Name :</label>
                                             <input type="text" id="addName" class="form-control" name="Name">
                                             <span asp-validation-for="Name" class="text-danger"></span>
@@ -93,9 +88,6 @@
                                             <button type="button" class="btn btn-primary" title="Edit"
                                                     onclick="EditUser(@item.BrandID)">
                                                 <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.BrandID)">
-                                                <i class="fa fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>

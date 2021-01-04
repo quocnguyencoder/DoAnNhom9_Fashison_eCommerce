@@ -48,10 +48,6 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             ViewBag.type = db.Main_Type;
             return PartialView("_TypeEdit");
         }
-
-        // POST: Admin/Main_Type/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(FormCollection form)
@@ -60,26 +56,6 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             string name = form["Name"].ToString();
             MainType type = new MainType() { ID = id, Name = name };
             db.Entry(type).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Admin/Main_Type/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            Main_Type type = db.Main_Type.Find(id);
-            db.Main_Type.Remove(type);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        // POST: Admin/Main_Type/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Main_Type type = db.Main_Type.Find(id);
-            db.Main_Type.Remove(type);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -44,7 +44,7 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
         {
             if (Session["Email"] != null)
             {
-                var report = db.ReportAdminIndex().FirstOrDefault();
+                var report = db.ReportForAdmin().FirstOrDefault();
                 ViewBag.report = report;
                 return View();
             }

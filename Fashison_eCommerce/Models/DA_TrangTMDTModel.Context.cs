@@ -58,6 +58,19 @@ namespace Fashison_eCommerce.Models
         public virtual DbSet<Order_Tracking> Order_Tracking { get; set; }
         public virtual DbSet<Authorize> Authorizes { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
+        public virtual DbSet<Shipper> Shippers { get; set; }
+        public virtual DbSet<SubCategory> SubCategories { get; set; }
+        public virtual DbSet<AccountRole> AccountRoles { get; set; }
+        public virtual DbSet<OV_OrderView> OV_OrderView { get; set; }
+        public virtual DbSet<SV_initOrderList> SV_initOrderList { get; set; }
+        public virtual DbSet<SV_pickupList> SV_pickupList { get; set; }
+        public virtual DbSet<SV_shipperList> SV_shipperList { get; set; }
+        public virtual DbSet<SV_shippingList> SV_shippingList { get; set; }
     
         public virtual int sp_AccountResgister(string username, string password, string email)
         {
@@ -559,6 +572,170 @@ namespace Fashison_eCommerce.Models
                 new ObjectParameter("status", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_View_Orders_Result>("sp_View_Orders", store_idParameter, statusParameter);
+        }
+    
+        [DbFunction("DB_A6A231_DAQLTMDTEntities", "CountNV")]
+        public virtual IQueryable<Nullable<int>> CountNV()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Nullable<int>>("[DB_A6A231_DAQLTMDTEntities].[CountNV]()");
+        }
+    
+        public virtual int OSP_CapNhanDonHang(Nullable<int> purchaseOrderId, string address, string phone)
+        {
+            var purchaseOrderIdParameter = purchaseOrderId.HasValue ?
+                new ObjectParameter("PurchaseOrderId", purchaseOrderId) :
+                new ObjectParameter("PurchaseOrderId", typeof(int));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("Phone", phone) :
+                new ObjectParameter("Phone", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OSP_CapNhanDonHang", purchaseOrderIdParameter, addressParameter, phoneParameter);
+        }
+    
+        public virtual int OSP_CapNhatChiTiet(Nullable<long> purchaseOrderDetailId, Nullable<int> purchaseOrderId, Nullable<int> productId, Nullable<int> quantity, Nullable<decimal> unitPrice, Nullable<decimal> subtotal)
+        {
+            var purchaseOrderDetailIdParameter = purchaseOrderDetailId.HasValue ?
+                new ObjectParameter("PurchaseOrderDetailId", purchaseOrderDetailId) :
+                new ObjectParameter("PurchaseOrderDetailId", typeof(long));
+    
+            var purchaseOrderIdParameter = purchaseOrderId.HasValue ?
+                new ObjectParameter("PurchaseOrderId", purchaseOrderId) :
+                new ObjectParameter("PurchaseOrderId", typeof(int));
+    
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("ProductId", productId) :
+                new ObjectParameter("ProductId", typeof(int));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("Quantity", quantity) :
+                new ObjectParameter("Quantity", typeof(int));
+    
+            var unitPriceParameter = unitPrice.HasValue ?
+                new ObjectParameter("UnitPrice", unitPrice) :
+                new ObjectParameter("UnitPrice", typeof(decimal));
+    
+            var subtotalParameter = subtotal.HasValue ?
+                new ObjectParameter("Subtotal", subtotal) :
+                new ObjectParameter("Subtotal", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OSP_CapNhatChiTiet", purchaseOrderDetailIdParameter, purchaseOrderIdParameter, productIdParameter, quantityParameter, unitPriceParameter, subtotalParameter);
+        }
+    
+        public virtual int USP_CapNhatUser(string email, string firstName, string lastName, string phone, string address, string gender, Nullable<System.DateTime> dayOfBirth)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("Phone", phone) :
+                new ObjectParameter("Phone", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var genderParameter = gender != null ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(string));
+    
+            var dayOfBirthParameter = dayOfBirth.HasValue ?
+                new ObjectParameter("DayOfBirth", dayOfBirth) :
+                new ObjectParameter("DayOfBirth", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_CapNhatUser", emailParameter, firstNameParameter, lastNameParameter, phoneParameter, addressParameter, genderParameter, dayOfBirthParameter);
+        }
+    
+        public virtual int USP_DangKy(string email, string pass, string firstName, string lastName, string phone, string address, string gender, Nullable<System.DateTime> dayOfBirth)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passParameter = pass != null ?
+                new ObjectParameter("Pass", pass) :
+                new ObjectParameter("Pass", typeof(string));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("Phone", phone) :
+                new ObjectParameter("Phone", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var genderParameter = gender != null ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(string));
+    
+            var dayOfBirthParameter = dayOfBirth.HasValue ?
+                new ObjectParameter("DayOfBirth", dayOfBirth) :
+                new ObjectParameter("DayOfBirth", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_DangKy", emailParameter, passParameter, firstNameParameter, lastNameParameter, phoneParameter, addressParameter, genderParameter, dayOfBirthParameter);
+        }
+    
+        public virtual int USP_TaoUser(string email, string firstName, string lastName, string phone, string address, string gender, Nullable<System.DateTime> dayOfBirth, string role)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("Phone", phone) :
+                new ObjectParameter("Phone", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var genderParameter = gender != null ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(string));
+    
+            var dayOfBirthParameter = dayOfBirth.HasValue ?
+                new ObjectParameter("DayOfBirth", dayOfBirth) :
+                new ObjectParameter("DayOfBirth", typeof(System.DateTime));
+    
+            var roleParameter = role != null ?
+                new ObjectParameter("Role", role) :
+                new ObjectParameter("Role", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_TaoUser", emailParameter, firstNameParameter, lastNameParameter, phoneParameter, addressParameter, genderParameter, dayOfBirthParameter, roleParameter);
+        }
+    
+        public virtual ObjectResult<ReportForAdmin_Result> ReportForAdmin()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReportForAdmin_Result>("ReportForAdmin");
         }
     }
 }

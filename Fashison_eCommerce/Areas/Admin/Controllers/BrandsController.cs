@@ -71,16 +71,6 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             return View(brand);
         }
 
-        // POST: Admin/Brands/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Brand brand = db.Brands.Find(id);
-            db.Brands.Remove(brand);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {
