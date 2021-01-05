@@ -9,6 +9,7 @@ using Fashison_eCommerce.ViewModel;
 
 namespace Fashison_eCommerce.Areas.Buyer.Controllers
 {
+    [AuthorizeController]
     public class CartCheckoutController : Controller
     {
         // GET: Buyer/CartCheckout

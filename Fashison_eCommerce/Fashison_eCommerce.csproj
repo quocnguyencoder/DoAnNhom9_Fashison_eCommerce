@@ -216,6 +216,7 @@
     <Compile Include="Models\Authorize.cs">
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthorizeController.cs" />
     <Compile Include="Models\BuyerAddress.cs" />
     <Compile Include="Models\BuyerAddressClient.cs" />
     <Compile Include="Models\BuyerOrderDetail.cs" />

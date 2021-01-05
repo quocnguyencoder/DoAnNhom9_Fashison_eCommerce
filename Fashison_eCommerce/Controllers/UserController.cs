@@ -114,8 +114,12 @@ namespace Fashison_eCommerce.Controllers
             BuyerAddressClient address = new BuyerAddressClient();
 
             add.User_ID = Convert.ToInt32(Session["userID"]);
+            if(add.default_address == 1)
+            {
+                 Session["Address_ID"] = add.Address_ID;
+            }    
      
-              address.Edit(add);
+            address.Edit(add);
             ViewBag.listAddresses = address.find(Convert.ToInt32(Session["userID"]));
             return PartialView("PartialAddress");
         }

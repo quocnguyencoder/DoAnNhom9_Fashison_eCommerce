@@ -324,7 +324,7 @@ namespace Fashison_eCommerce.Controllers
                     }
 
                 }
-                catch ( Exception e)
+                catch
                 {
                     Response.Write("<script>alert('Invalid Email or Password')</script>");
                     return View("Error");
