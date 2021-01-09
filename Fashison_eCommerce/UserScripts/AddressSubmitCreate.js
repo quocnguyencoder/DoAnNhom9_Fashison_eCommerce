@@ -39,7 +39,7 @@
 			
 		});
 		$("button#btnDelete").click(function () {
-			debugger
+			
 			var r = confirm("Do you want to delete?");
 			var addid = $(this).data('id');
 			if (r == true) {
