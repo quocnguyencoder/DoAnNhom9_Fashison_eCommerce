@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Template/Layout/_AdminLayout.cshtml";
+}
+
+<header>
+    <style>
+        .heading {
+            font-size: 19px;
+            font-weight: 300;
+            margin: 20px 0px 0px;
+            display: flex;
+        }
+
+        .created-date {
+            display: flex;
+            align-items: flex-end;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            margin: 20px;
+        }
+
+        .sub-content {
+            display: flex;
+            flex-direction: column;
+            height: 80%;
+            background-color: white;
+        }
+
+        tfoot {
+            vertical-align: middle;
+            border-color: inherit;
+        }
+
+        #Table-OrderDetail {
+            margin: 20px;
+            background-color: white;
+        }
+
+        .borderless td, .borderless th {
+            border: none;
+        }
+    </style>
+</header>
+
+@using Fashison_eCommerce.Areas.Admin.Controllers;
+@{ var detailinfo = (ViewBag.DetailList)[0];
+    var status = ((OrderController)this.ViewContext.Controller).ConvertToStatus(detailinfo.status);
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");}
+<div class="content-wrapper">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="heading">
+                <span>Chi tiết đơn hàng</span>
+                <span> #@detailinfo.Order_ID - <b>@status</b></span>
+            </div>
+            <div class="created-date">
+                <span>Ngày đặt hàng <i>@detailinfo.created_date</i></span>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card h-100">
+                        <div class="card-header">THÔNG TIN NGƯỜI NHẬN</div>
+                        <div class="card-body">
+                            @{ Html.RenderAction("_UserAddressByID", "Order", new { id = detailinfo.Address_ID });}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card h-100">
+                        <div class="card-header">GIAO HÀNG</div>
+                        <div class="card-body">
+                            <p class="font-weight-light">Ngày giao hàng 1/1/2021</p>
+                            @{
+                                if (detailinfo.delivery == 0)
+                                {
+                                    <p class="font-weight-lighter">Miễn phí vận chuyển</p>
+                                }
+                                else
+                                {
+                                    <p class="font-weight-lighter">Phí vận chuyển: @String.Format(info, "{0:C0}", detailinfo.delivery)</p>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card h-100">
+                        <div class="card-header">THANH TOÁN</div>
+                        <div class="card-body">
+                            <p class="font-weight-light">@detailinfo.payment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive-lg " id="Table-OrderDetail">
+                <table class="table" id="Table-Detail" style="width: 100%;">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Giảm giá</th>
+                            <th scope="col">Tạm tính</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var product in ViewBag.DetailList)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex justify-content-left">
+                                            <img src="~/Product_Images/@product.Pictures" style="width: 100px">
+                                            <div class="d-flex flex-column bd-highlight mb-3">
+                                                <div style="margin-top: 20px">
+                                                    @product.Name
+                                                </div>
+                                                <div>
+                                                    #@product.Item_ID
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td> @String.Format(info, "{0:C0}", product.price)</td>
+                                    <td>@product.quantity</td>
+                                    <td>@String.Format(info, "{0:C0}", product.discount)</td>
+                                    <td>@String.Format(info, "{0:C0}", product.total)</td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                    <tfoot class="footer borderless">
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>Tạm tính</td>
+                            <td>@String.Format(info, "{0:C0}", detailinfo.total)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>Phí vận chuyển</td>
+                            <td>@String.Format(info, "{0:C0}", detailinfo.delivery)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>Tổng cộng</td>
+                            <td style="color: red; font-size: larger;">@String.Format(info, "{0:C0}", detailinfo.Total_Order)</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div>
+                <a class="view-list-order" href="/Admin/Order">Quay lại danh sách đơn hàng</a>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+</div>
