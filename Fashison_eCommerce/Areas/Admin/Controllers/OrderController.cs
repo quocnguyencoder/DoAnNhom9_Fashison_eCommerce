@@ -14,7 +14,6 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
         // GET: Admin/Order
         public ActionResult Index()
         {
-           
             var all = db.Orders.ToList();
             ViewBag.listOrder_All = all;
             var confirm = (from o in db.Orders where o.status == 1 select o).ToList();
