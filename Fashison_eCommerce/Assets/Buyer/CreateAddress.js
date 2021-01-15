@@ -60,10 +60,11 @@
 
 	});
 	function submitcreateForm() {
+		
 		var add = {};
 		add.full_name = $('#name').val();
 		add.phone = $("#phone").val();
-		add.address1 = $("#Address").val();
+		add.address1 = $("#Address1").val();
 
 		$.ajax({
 			type: "POST",
