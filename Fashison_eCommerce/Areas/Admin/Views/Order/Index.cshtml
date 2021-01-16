@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Areas/Admin/Template/Layout/_AdminLayoutTable.cshtml";
+}
+
+<header>
+    <style>
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 10px 12px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    color: #AA3E27;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    font-weight: bold;
+                    color: #AA3E27;
+                    border-bottom: solid 1px #AA3E27;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            -webkit-animation: fadeEffect 1s;
+            animation: fadeEffect 1s;
+        }
+    </style>
+   
+</header>
+
+
+<div style="min-width: 1300px; max-width: 1400px; padding: 0 48px; margin: 42px auto; display: flex;">
+    <div class="content-wrapper">
+
+        <div class="tab">
+            <button class="tablinks" onclick="openTabcontrol(event, 'all')">Tất cả</button>
+            <button class="tablinks" onclick="openTabcontrol(event, 'confirm')">Chờ xác nhận</button>
+            <button class="tablinks" onclick="openTabcontrol(event, 'receive')">Chờ lấy hàng</button>
+            <button class="tablinks" onclick="openTabcontrol(event, 'deliver')">Đang giao</button>
+            <button class="tablinks" onclick="openTabcontrol(event, 'delivered')">Đã giao</button>
+            <button class="tablinks" onclick="openTabcontrol(event, 'cancel')">Đơn hủy</button>
+        </div>
+
+        <div id="all" class="tabcontent">
+            @RenderPage("TabAll.cshtml")
+        </div>
+        <div id="confirm" class="tabcontent">
+            @RenderPage("TabConfirm.cshtml")
+        </div>
+
+        <div id="receive" class="tabcontent">
+            @RenderPage("TabReceive.cshtml")
+        </div>
+
+        <div id="deliver" class="tabcontent">
+            @RenderPage("TabDeliver.cshtml")
+        </div>
+
+        <div id="delivered" class="tabcontent">
+            @RenderPage("TabDelivered.cshtml")
+        </div>
+
+        <div id="cancel" class="tabcontent">
+            @RenderPage("TabCancel.cshtml")
+        </div>
+
+
+        <script>
+            function openTabcontrol(evt, tabControl) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(tabControl).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+        </script>
+        <script>openTabcontrol(event, 'all')</script>
+    </div>
+</div>

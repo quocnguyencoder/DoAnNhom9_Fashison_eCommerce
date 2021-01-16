@@ -1,0 +1,37 @@
+﻿@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+<div class="card-body">
+    <div class="table-responsive bg-white">
+        <table class="table table-hover example3" width="100%" cellspacing="0">
+            <thead>
+                <tr id="list-header">
+                    <th scope="col">Khách hàng</th>
+                    <th scope="col">Mã hóa đơn</th>
+                    <th scope="col">Phí Ship</th>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Trạng thái đơn hàng</th>
+                    <th scope="col">Ghi chú</th>
+                    <th scope="col">Địa chỉ giao hàng</th>
+                    <th scope="col">Tổng giá trị đơn hàng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.listOrder_Delivering)
+                {
+                    <tr>
+                        <td>@item.User.Name</td>
+                        <td><a href="@Url.Action("Detail","Order", new { id = item.Order_ID })">@item.Order_ID</a></td>
+                        <td>@String.Format(info, "{0:C0}", item.delivery)</td>
+                        <td>@item.created_date</td>
+                        <td>Đang giao</td>
+                        <td>@item.decription</td>
+                        <td>@item.Address.address1</td>
+                        <td>@String.Format(info, "{0:C0}", item.Total_Order)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
