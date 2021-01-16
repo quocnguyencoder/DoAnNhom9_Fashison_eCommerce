@@ -91,6 +91,7 @@ namespace Fashison_eCommerce.Controllers
                       
                         Session["userID"] = obj.Id.ToString();
                         Session["username"] = obj.Username.ToString();
+                        Session["roleID"] = obj.RoleID.ToString();
 
                         //Lay mat khau người dùng
                         Session["pass"] = user.Password.ToString();

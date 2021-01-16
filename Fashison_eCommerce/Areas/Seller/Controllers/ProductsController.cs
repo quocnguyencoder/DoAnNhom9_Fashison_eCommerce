@@ -302,9 +302,8 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
                         Response.Write("<script>alert('Success');location='Index'</script>");
                       
                     }
-
-                   
-                    catch (Exception e)
+                
+                    catch
                     {
                         Response.Write("<script>alert('Error');location='Index'</script>");
                        

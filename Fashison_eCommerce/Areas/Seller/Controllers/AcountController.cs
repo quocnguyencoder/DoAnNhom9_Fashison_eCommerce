@@ -15,6 +15,15 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
         {
             if (Session["userID"] != null)
             {
+                // kiem tra co phai nhan viên cửa hàng
+                if(Convert.ToInt32(Session["roleID"]) != 4)
+                {
+                    return View("Login");
+                }    
+                else if(Convert.ToInt32(Session["roleID"]) == 4)
+                {
+                    Session["userID"] = 2;
+                }    
                 ProductsClient CC = new ProductsClient();
                 int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
 
@@ -69,7 +78,7 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
                         int roleID = obj.RoleID.Value;
                         if(roleID == 4)
                         {
-                            
+                            Session["roleID"] = 4;
                             Session["userID"] = 2;
                         }    
                         //string username = obj.Username.ToString();
