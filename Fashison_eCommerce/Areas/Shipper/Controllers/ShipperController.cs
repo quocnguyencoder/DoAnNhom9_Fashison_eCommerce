@@ -12,6 +12,7 @@ using System.Net.Http;
 
 namespace Fashison_eCommerce.Areas.Shipper.Controllers
 {
+    
     public class ShipperController : Controller
     {
         DB_A6A231_DAQLTMDTEntities db = new DB_A6A231_DAQLTMDTEntities();
@@ -77,7 +78,16 @@ namespace Fashison_eCommerce.Areas.Shipper.Controllers
                             Session["Avatar"] = "#.png";
                         }
                         //string username = obj.Username.ToString();
-                        return RedirectToAction("OrderList", "Shipper");
+                        if(obj.RoleID == 3)
+                        {
+                            return RedirectToAction("OrderList", "Shipper");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Invalid Email or Password')</script>");
+                            return RedirectToAction("Login", "Shipper");
+                        }    
+                        
                     }
                     else
                     {

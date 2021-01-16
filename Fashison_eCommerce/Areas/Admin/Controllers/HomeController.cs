@@ -46,6 +46,8 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
             {
                 var report = db.ReportForAdmin().FirstOrDefault();
                 ViewBag.report = report;
+                var empl = db.Users.Where(x => x.RoleID == 3 || x.RoleID == 4);
+                ViewBag.numEmp = empl.Count();
                 return View();
             }
             else

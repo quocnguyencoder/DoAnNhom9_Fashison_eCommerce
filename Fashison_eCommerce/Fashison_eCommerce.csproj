@@ -218,6 +218,7 @@
       <DependentUpon>DA_TrangTMDTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthorizeController.cs" />
+    <Compile Include="Models\AuthorizeShipper.cs" />
     <Compile Include="Models\BuyerAddress.cs" />
     <Compile Include="Models\BuyerAddressClient.cs" />
     <Compile Include="Models\BuyerOrderDetail.cs" />
@@ -7249,6 +7250,7 @@
     <Content Include="Areas\Admin\Template\plugins\summernote\summernote.min.js.map" />
     <Content Include="Areas\Admin\Template\plugins\toastr\toastr.js.map" />
     <Content Include="Areas\Admin\Views\Home\Contact.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ManageUser.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\TabAll.cshtml" />
     <Content Include="Areas\Admin\Views\Order\TabCancel.cshtml" />

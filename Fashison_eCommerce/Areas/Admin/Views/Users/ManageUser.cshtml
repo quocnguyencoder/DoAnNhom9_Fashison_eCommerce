@@ -23,7 +23,7 @@
                 <!-- Button to Open the Modal - Add User -->
                 <button type="button" class="btn btn-success" style="width: 15%; display:inline; float: right;" data-toggle="modal"
                         data-target="#addUser">
-                    <i class="fa fa-plus mr-2"></i> Add employee
+                    <i class="fa fa-plus mr-2"></i> Add User
                 </button>
             </div>
         </div><!-- /.container-fluid -->
@@ -83,7 +83,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="addPic">Avatar Picture :</label>
-                                            <input type="file" class="form-control" id="Pic" name="Picture" accept="image/png, image/jpeg"/>
+                                            <input type="file" class="form-control" id="Pic" name="Picture" accept="image/png, image/jpeg" />
                                         </div>
                                         <div class="form-group">
                                             <label for="addDOfB">DOB :</label>
@@ -140,53 +140,53 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Username)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Email)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Address)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Gender)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Phone)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Birthday)
-                                    </td>
-                                    <td>
-                                        @(item.RoleID == 1 ? "Admin" : 
-                                          item.RoleID == 3 ? "Shipper" : 
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Username)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Address)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Gender)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Phone)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Birthday)
+                                        </td>
+                                        <td>
+                                            @(item.RoleID == 1 ? "Admin" :
+                                          item.RoleID == 3 ? "Shipper" :
                                           item.RoleID == 4 ? "Employee" : "User")
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-info" title="Detail" onclick="location.href='@Url.Action("Details", "Users",new { id = item.Id})'">
-                                            <i class="fa fa-address-book"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-primary" title="Edit"
-                                                onclick="EditUser(@item.Id)">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.Id)">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        <button type="submit" title="Reset Password"
-                                                class="btn btn-warning" onclick="ResetPassword(@item.Id)">
-                                            <i class="fa fa-redo-alt"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info" title="Detail" onclick="location.href='@Url.Action("Details", "Users",new { id = item.Id})'">
+                                                <i class="fa fa-address-book"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-primary" title="Edit"
+                                                    onclick="EditUser(@item.Id)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" title="Delete" onclick="DeleteFunction(@item.Id)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <button type="submit" title="Reset Password"
+                                                    class="btn btn-warning" onclick="ResetPassword(@item.Id)">
+                                                <i class="fa fa-redo-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -231,7 +231,7 @@
                 },
                 error: function (msg) {
                     alert(msg);
-                } 
+                }
             });
             alert('Deleted');
             $(".example1").load();

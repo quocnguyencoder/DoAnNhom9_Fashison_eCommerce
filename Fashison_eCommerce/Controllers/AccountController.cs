@@ -159,8 +159,10 @@ namespace Fashison_eCommerce.Controllers
                                 new SqlParameter("@username", user.Username),
                                 new SqlParameter("@pass", user.Password),
                                 new SqlParameter("@email", user.Email),
+                                new SqlParameter("@roleId", 2)
                                 };
-                                _context.Database.ExecuteSqlCommand("dbo.sp_AccountResgister @username, @pass, @email", sqlParams);
+                                //_context.Database.ExecuteSqlCommand("dbo.sp_AccountResgister @username, @pass, @email", sqlParams);
+                                _context.Database.ExecuteSqlCommand("insert into Users(Username, Email, Password, RoleID) values (@username, @email, @pass, @roleId)", sqlParams);
                                 Response.Write("<script>alert('Registered!')</script>");
                                 return View("Login");
                             }
