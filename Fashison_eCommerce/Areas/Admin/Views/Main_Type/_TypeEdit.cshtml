@@ -18,7 +18,7 @@
         @Html.AntiForgeryToken()
         <div class="form-group">
             <label for="addEmail">ID :</label>
-            <input type="email" id="addEmail" class="form-control bg-gray-300" name="Email" value="@ViewBag.typeID.ID" readonly>
+            <input type="email" id="addEmail" class="form-control bg-gray-300" name="id" value="@ViewBag.typeID.ID" readonly>
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-group">

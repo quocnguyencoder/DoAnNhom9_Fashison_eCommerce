@@ -123,20 +123,41 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
         public ActionResult Edit(FormCollection form)
         {
             int id = Convert.ToInt32(form["Id"]);
-            string username = form["Username"].ToString();
-            string email = form["Email"].ToString();
-            string name = form["Name"].ToString();
-            string address = form["Address"].ToString();
-            string gender = form["Gender"].ToString();
-            string phone = form["Phone"].ToString();
-            DateTime birthday = Convert.ToDateTime(form["Birthday"]);
-            int role = Convert.ToInt32(form["RoleID"]);
-            string picture = null;
-            string password = form["Password"].ToString();
-            User user = new User() { Id=id, Username = username, Email = email, Password = password, Name = name, Address = address, Gender = gender, Phone = phone, Birthday = birthday, RoleID = role, Avatar = picture};
-            db.Entry(user).State = EntityState.Modified;
-            db.SaveChanges();
+            if (form["Username"] != null)
+            {
+                string username = form["Username"].ToString();
+                string email = form["Email"].ToString();
+                string name = form["Name"].ToString();
+                string address = form["Address"].ToString();
+                string gender = form["Gender"].ToString();
+                string phone = form["Phone"].ToString();
+                DateTime birthday = Convert.ToDateTime(form["Birthday"]);
+                int role = Convert.ToInt32(form["RoleID"]);
+                string picture = null;
+                string password = form["Password"].ToString();
+                User user = new User() { Id = id, Username = username, Email = email, Password = password, Name = name, Address = address, Gender = gender, Phone = phone, Birthday = birthday, RoleID = role, Avatar = picture };
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else if (form["idBrand"] != null)
+            {
+                id = Convert.ToInt32(form["idBrand"].ToString());
+                string name = form["Name"].ToString();
+                Brand brand = new Brand() { BrandID = id, BrandName = name };
+                try
+                {
+                    db.Entry(brand).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToRoute( new { action = "Index", controller = "Brands", area ="Admin"});
+                }
+                catch
+                {
+
+                }
+            }
             return RedirectToAction("Index");
+
         }
 
         // POST: Admin/Users/Delete/5
