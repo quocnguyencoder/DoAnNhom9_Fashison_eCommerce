@@ -1,0 +1,73 @@
+﻿@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="container-fluid">
+    <table class="table table-striped" id="orders" style="width: 100%;">
+        <thead>
+            <tr id="list-header">
+                <th scope="col">Khách hàng</th>
+                <th scope="col">Mã hóa đơn</th>
+                <th scope="col">Phí Ship</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Tổng tiền</th>
+                <th scope="col">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.listOrder_Confirm)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><a class="btn-show-detail" href="@Url.Action("Detail","Orders",new { id = @item.Order_ID})">@item.Order_ID</a></td>
+                    <td>@String.Format(info, "{0:C0}", item.delivery)</td>
+                    <td>@item.created_date</td>
+                    <td data-id="@item.status">
+                        @((item.status == 1) ? "Chờ xác nhận" :
+                          (item.status == 2) ? "Chờ lấy hàng" :
+                          (item.status == 3) ? "Đang giao" :
+                          (item.status == 4) ? "Đã giao" : "Đơn Hủy")
+                    </td>
+                    <td>
+                        @String.Format(info, "{0:C0}", item.Total_Order)
+                    </td>
+                    <td>
+                        <a href="#" class="btn-active" data-id="@item.Order_ID" data-status=2>@((item.status == 1) ? "Xác nhận" : "") </a>
+                        <a href="#" class="btn-active" data-id="@item.Order_ID" data-status=0>@((item.status == 1) ? "Huỷ" : "")</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" id="btnReloadData">Reload data</button>
+</div>
+<script>
+    var user = {
+        init: function () {
+            console.log("init");
+            user.registerEvents();
+        },
+        registerEvents: function () {
+            $('.btn-active').off('click').on('click', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id')
+                var status = $(this).data('status')
+                console.log(id);
+                $.ajax({
+                    url: "/Seller/Orders/ChangeStatus",
+                    data: {
+                        id: id,
+                        status: status
+                    },
+                    type: 'POST',
+                    async: true,
+                    success: function (msg) {
+                        location.reload();
+                    }
+                });
+            });
+        }
+    }
+    user.init();
+</script>

@@ -54,6 +54,7 @@
 
         <div class="tab">
             <button class="tablinks" onclick="openTabcontrol(event, 'all')">Tất cả</button>
+            <button class="tablinks" onclick="openTabcontrol(event, 'confirm')">Chờ xác nhận</button>
             <button class="tablinks" onclick="openTabcontrol(event, 'receive')">Chờ lấy hàng</button>
             <button class="tablinks" onclick="openTabcontrol(event, 'deliver')">Đang giao</button>
             <button class="tablinks" onclick="openTabcontrol(event, 'delivered')">Đã giao</button>
@@ -62,6 +63,10 @@
 
         <div id="all" class="tabcontent">
             @RenderPage("TabAll.cshtml")
+        </div>
+
+        <div id="confirm" class="tabcontent">
+            @RenderPage("TabConfirm.cshtml")
         </div>
 
         <div id="receive" class="tabcontent">

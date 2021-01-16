@@ -20,7 +20,7 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
         {
             if (Session["Email"] != null)
             {
-                var users = db.Users.Include(u => u.Role);
+                var users = db.Users.Include(u => u.Role).Where(x => x.RoleID == 4 || x.RoleID == 3);
                 return View(users.ToList());
             }
             else
@@ -91,15 +91,19 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
                 }
                 DateTime birthday = Convert.ToDateTime(form["Birthday"]);
                 int role = Convert.ToInt32(form["RoleID"]);
+                role = 4; //cập nhật role employee
                 User newUser = new User() { Username = username, Email = email, Password = password, Name = name, Address = address, Gender = gender, Phone = phone, Birthday = birthday, RoleID = role, Avatar = picture };
                 db.Users.Add(newUser);
                 db.SaveChanges();
-                return Json(new { status = "success", message = "Successfull" });
+                Response.Write("<script>alert('Insert successfull')</script>");
+                
             }
-            catch (Exception ex)
+            catch
             {
-                return Json(new { status = "error", message = "Can't creating customer" });
+                Response.Write("<script>alert('Something is wrong!')</script>");
+                
             }
+            return Redirect("/Admin/Users/Index");
         }
 
         // GET: Admin/Users/Edit/5
@@ -147,10 +151,24 @@ namespace Fashison_eCommerce.Areas.Admin.Controllers
                 db.SaveChanges();
                 return Json(new { status = "success", message = "Successfull" });
             }
-            catch (Exception ex)
+            catch
             {
                 return Json(new { status = "error", message = "Can't Delete User" });
             }
+        }
+
+        public ActionResult ManageUser()
+        {
+            if (Session["Email"] != null)
+            {
+                var users = db.Users.Include(u => u.Role).Where(x => x.RoleID == 2);
+                return View(users.ToList());
+            }
+            else
+            {
+                return Redirect("/Admin/Home/Login");
+            }
+
         }
 
         protected override void Dispose(bool disposing)

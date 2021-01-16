@@ -7248,6 +7248,8 @@
     <Content Include="Areas\Admin\Template\plugins\summernote\summernote.min.js.map" />
     <Content Include="Areas\Admin\Template\plugins\toastr\toastr.js.map" />
     <Content Include="Areas\Admin\Views\Home\Contact.cshtml" />
+    <Content Include="Areas\Seller\Views\Orders\TabConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ManageUser.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

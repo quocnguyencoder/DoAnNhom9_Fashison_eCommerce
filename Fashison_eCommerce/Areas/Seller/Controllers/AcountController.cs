@@ -17,6 +17,13 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
             {
                 ProductsClient CC = new ProductsClient();
                 int Storeid = CC.Storeid(Convert.ToInt32(Session["userID"]));
+
+                //kiem tra role nhan vien thi dang nhap trang shop cua admin
+                //if (Convert.ToInt32(Session["role"]) == 4)
+                //{
+                //    Storeid = CC.Storeid(Convert.ToInt32(Session["AdminShop"]));
+                //}     
+                
                 ViewBag.listProducts = CC.findAll(Storeid);
                 return View();
             }
@@ -49,7 +56,22 @@ namespace Fashison_eCommerce.Areas.Seller.Controllers
                     {
                         Session["userID"] = obj.Id.ToString();
                         Session["username"] = obj.Username.ToString();
-                        Session["avatar"] = obj.Avatar.ToString();
+                        if(obj.Avatar != null)
+                        {
+                            Session["avatar"] = obj.Avatar.ToString();
+                        }
+                        else 
+                        {
+                            Session["avatar"] = "ava.png";
+                        }
+                        
+                        //Kiem tra tai khoản có phải nhân viên
+                        int roleID = obj.RoleID.Value;
+                        if(roleID == 4)
+                        {
+                            
+                            Session["userID"] = 2;
+                        }    
                         //string username = obj.Username.ToString();
                         return RedirectToAction("Dashboard", "Acount");
                     }
